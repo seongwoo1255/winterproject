@@ -1,0 +1,72 @@
+\doxysection{Qformer.\+Bert\+Pooler Class Reference}
+\hypertarget{class_qformer_1_1_bert_pooler}{}\label{class_qformer_1_1_bert_pooler}\index{Qformer.BertPooler@{Qformer.BertPooler}}
+Inheritance diagram for Qformer.\+Bert\+Pooler\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_qformer_1_1_bert_pooler}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_pooler_aed76f1434e4b3f554f16f6b92b5cee42}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, config)
+\begin{DoxyCompactList}\small\item\em BERT 모델의 Pooling 모듈. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_pooler_a620b095af77e64e750d95cb782599ef5}{forward}} (self, hidden\+\_\+states)
+\begin{DoxyCompactList}\small\item\em 순전파 함수. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_qformer_1_1_bert_pooler_a725b4548926379978592e0c46e3fcf52}\label{class_qformer_1_1_bert_pooler_a725b4548926379978592e0c46e3fcf52} 
+{\bfseries dense} = nn.\+Linear(config.\+hidden\+\_\+size, config.\+hidden\+\_\+size)
+\item 
+\Hypertarget{class_qformer_1_1_bert_pooler_a55d4132b0734f68c78dd548c47435a16}\label{class_qformer_1_1_bert_pooler_a55d4132b0734f68c78dd548c47435a16} 
+{\bfseries activation} = nn.\+Tanh()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_qformer_1_1_bert_pooler_aed76f1434e4b3f554f16f6b92b5cee42}\index{Qformer.BertPooler@{Qformer.BertPooler}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Qformer.BertPooler@{Qformer.BertPooler}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_pooler_aed76f1434e4b3f554f16f6b92b5cee42} 
+Qformer.\+Bert\+Pooler.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{config}{}\end{DoxyParamCaption})}
+
+
+
+BERT 모델의 Pooling 모듈. 
+
+입력 히든 상태의 첫 번째 토큰(hidden state of \mbox{[}\+CLS\mbox{]})을 사용하여 풀링된 출력을 생성합니다.
+
+
+\begin{DoxyParams}{Parameters}
+{\em config} & BERT 구성 객체. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_qformer_1_1_bert_pooler_a620b095af77e64e750d95cb782599ef5}\index{Qformer.BertPooler@{Qformer.BertPooler}!forward@{forward}}
+\index{forward@{forward}!Qformer.BertPooler@{Qformer.BertPooler}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_pooler_a620b095af77e64e750d95cb782599ef5} 
+Qformer.\+Bert\+Pooler.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{hidden\+\_\+states}{}\end{DoxyParamCaption})}
+
+
+
+순전파 함수. 
+
+첫 번째 토큰(hidden state of \mbox{[}\+CLS\mbox{]})의 히든 상태를 선형 변환하고 활성화 함수를 적용합니다.
+
+
+\begin{DoxyParams}{Parameters}
+{\em hidden\+\_\+states} & 입력 히든 상태 (torch.\+Tensor). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+풀링된 출력 (torch.\+Tensor). 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Qformer.\+py\end{DoxyCompactItemize}
