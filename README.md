@@ -15,7 +15,7 @@ Doxygen을 사용해 문서를 생성하고 GitHub Pages로 배포합니다.
 
 ## 🔗 관련 링크
 - 프로젝트 코드: [LLaVA (LAVIS)](https://github.com/haotian-liu/LLaVA)
-- 문서 사이트: (https://github.com/seongwoo1255/winterproject/blob/LLaVA/docs/LLaVA/html/index.html)
+- 문서 사이트: [LLaVA (doxygen)](https://github.com/seongwoo1255/winterproject/blob/LLaVA/docs/LLaVA/html/index.html)
 
 ---
 
