@@ -1,0 +1,170 @@
+\doxysection{Qformer.\+Bert\+Layer Class Reference}
+\hypertarget{class_qformer_1_1_bert_layer}{}\label{class_qformer_1_1_bert_layer}\index{Qformer.BertLayer@{Qformer.BertLayer}}
+Inheritance diagram for Qformer.\+Bert\+Layer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_qformer_1_1_bert_layer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_layer_ab7f1c3b438549ec58da2981ff586c869}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, config, layer\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Transformer의 한 레이어를 정의하는 모듈. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_layer_a5acd8711e37ce97dada656e6c411d5cb}{forward}} (self, hidden\+\_\+states, attention\+\_\+mask=None, head\+\_\+mask=None, encoder\+\_\+hidden\+\_\+states=None, encoder\+\_\+attention\+\_\+mask=None, past\+\_\+key\+\_\+value=None, output\+\_\+attentions=False, query\+\_\+length=0)
+\begin{DoxyCompactList}\small\item\em 순전파 함수. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_layer_aa855794d95824a6b5ddcfcb10586c77f}{feed\+\_\+forward\+\_\+chunk}} (self, attention\+\_\+output)
+\begin{DoxyCompactList}\small\item\em 피드포워드 네트워크 수행 함수. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_layer_a7725860cc0fcfd8330ad4c2a6b3ee3f0}{feed\+\_\+forward\+\_\+chunk\+\_\+query}} (self, attention\+\_\+output)
+\begin{DoxyCompactList}\small\item\em Query 피드포워드 네트워크 수행 함수. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_qformer_1_1_bert_layer_a57f4adf0fbe4471358f64e6edb62edf9}\label{class_qformer_1_1_bert_layer_a57f4adf0fbe4471358f64e6edb62edf9} 
+{\bfseries config} = config
+\item 
+\Hypertarget{class_qformer_1_1_bert_layer_afb83c7e35b2f3a9d081e5742fa87d90d}\label{class_qformer_1_1_bert_layer_afb83c7e35b2f3a9d081e5742fa87d90d} 
+{\bfseries chunk\+\_\+size\+\_\+feed\+\_\+forward} = config.\+chunk\+\_\+size\+\_\+feed\+\_\+forward
+\item 
+\Hypertarget{class_qformer_1_1_bert_layer_abb72fd80577a3344ccba2f5d0515f26f}\label{class_qformer_1_1_bert_layer_abb72fd80577a3344ccba2f5d0515f26f} 
+int {\bfseries seq\+\_\+len\+\_\+dim} = 1
+\item 
+\Hypertarget{class_qformer_1_1_bert_layer_a64ef18fa51f46e6fead2136bee9ef8da}\label{class_qformer_1_1_bert_layer_a64ef18fa51f46e6fead2136bee9ef8da} 
+{\bfseries attention} = \mbox{\hyperlink{class_qformer_1_1_bert_attention}{Bert\+Attention}}(config)
+\item 
+\Hypertarget{class_qformer_1_1_bert_layer_a445f8449b17dfbc7b9f81dc76d3c2b9c}\label{class_qformer_1_1_bert_layer_a445f8449b17dfbc7b9f81dc76d3c2b9c} 
+{\bfseries layer\+\_\+num} = layer\+\_\+num
+\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_layer_a6ee349b90a1c5c8f976225000b76afbe}{crossattention}}
+\item 
+\Hypertarget{class_qformer_1_1_bert_layer_a0f190e02a5e33cd7a3b62ae11ae3d637}\label{class_qformer_1_1_bert_layer_a0f190e02a5e33cd7a3b62ae11ae3d637} 
+bool {\bfseries has\+\_\+cross\+\_\+attention} = True
+\item 
+\Hypertarget{class_qformer_1_1_bert_layer_ae6321ba92caeb17d73981e388ae55c0e}\label{class_qformer_1_1_bert_layer_ae6321ba92caeb17d73981e388ae55c0e} 
+{\bfseries intermediate} = \mbox{\hyperlink{class_qformer_1_1_bert_intermediate}{Bert\+Intermediate}}(config)
+\item 
+\Hypertarget{class_qformer_1_1_bert_layer_aadd7d5fedc26e4f743a92ac70e82e3c3}\label{class_qformer_1_1_bert_layer_aadd7d5fedc26e4f743a92ac70e82e3c3} 
+{\bfseries output} = \mbox{\hyperlink{class_qformer_1_1_bert_output}{Bert\+Output}}(config)
+\item 
+\Hypertarget{class_qformer_1_1_bert_layer_a9465e9f86339a824c28b62c15707ed8e}\label{class_qformer_1_1_bert_layer_a9465e9f86339a824c28b62c15707ed8e} 
+{\bfseries intermediate\+\_\+query} = \mbox{\hyperlink{class_qformer_1_1_bert_intermediate}{Bert\+Intermediate}}(config)
+\item 
+\Hypertarget{class_qformer_1_1_bert_layer_a95800f19bc6930c888f7c4beeb0f1fd2}\label{class_qformer_1_1_bert_layer_a95800f19bc6930c888f7c4beeb0f1fd2} 
+{\bfseries output\+\_\+query} = \mbox{\hyperlink{class_qformer_1_1_bert_output}{Bert\+Output}}(config)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_qformer_1_1_bert_layer_ab7f1c3b438549ec58da2981ff586c869}\index{Qformer.BertLayer@{Qformer.BertLayer}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Qformer.BertLayer@{Qformer.BertLayer}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_layer_ab7f1c3b438549ec58da2981ff586c869} 
+Qformer.\+Bert\+Layer.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{config}{, }\item[{}]{layer\+\_\+num}{}\end{DoxyParamCaption})}
+
+
+
+Transformer의 한 레이어를 정의하는 모듈. 
+
+Self-\/\+Attention, Cross-\/\+Attention(선택적), 그리고 피드포워드 네트워크를 포함합니다.
+
+
+\begin{DoxyParams}{Parameters}
+{\em config} & Transformer 구성 객체. \\
+\hline
+{\em layer\+\_\+num} & 레이어 번호. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_qformer_1_1_bert_layer_aa855794d95824a6b5ddcfcb10586c77f}\index{Qformer.BertLayer@{Qformer.BertLayer}!feed\_forward\_chunk@{feed\_forward\_chunk}}
+\index{feed\_forward\_chunk@{feed\_forward\_chunk}!Qformer.BertLayer@{Qformer.BertLayer}}
+\doxysubsubsection{\texorpdfstring{feed\_forward\_chunk()}{feed\_forward\_chunk()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_layer_aa855794d95824a6b5ddcfcb10586c77f} 
+Qformer.\+Bert\+Layer.\+feed\+\_\+forward\+\_\+chunk (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{attention\+\_\+output}{}\end{DoxyParamCaption})}
+
+
+
+피드포워드 네트워크 수행 함수. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em attention\+\_\+output} & Self-\/\+Attention의 출력 텐서. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+피드포워드 처리 결과. 
+\end{DoxyReturn}
+\Hypertarget{class_qformer_1_1_bert_layer_a7725860cc0fcfd8330ad4c2a6b3ee3f0}\index{Qformer.BertLayer@{Qformer.BertLayer}!feed\_forward\_chunk\_query@{feed\_forward\_chunk\_query}}
+\index{feed\_forward\_chunk\_query@{feed\_forward\_chunk\_query}!Qformer.BertLayer@{Qformer.BertLayer}}
+\doxysubsubsection{\texorpdfstring{feed\_forward\_chunk\_query()}{feed\_forward\_chunk\_query()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_layer_a7725860cc0fcfd8330ad4c2a6b3ee3f0} 
+Qformer.\+Bert\+Layer.\+feed\+\_\+forward\+\_\+chunk\+\_\+query (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{attention\+\_\+output}{}\end{DoxyParamCaption})}
+
+
+
+Query 피드포워드 네트워크 수행 함수. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em attention\+\_\+output} & Self-\/\+Attention의 출력 텐서. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Query 피드포워드 처리 결과. 
+\end{DoxyReturn}
+\Hypertarget{class_qformer_1_1_bert_layer_a5acd8711e37ce97dada656e6c411d5cb}\index{Qformer.BertLayer@{Qformer.BertLayer}!forward@{forward}}
+\index{forward@{forward}!Qformer.BertLayer@{Qformer.BertLayer}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_layer_a5acd8711e37ce97dada656e6c411d5cb} 
+Qformer.\+Bert\+Layer.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{hidden\+\_\+states}{, }\item[{}]{attention\+\_\+mask}{ = {\ttfamily None}, }\item[{}]{head\+\_\+mask}{ = {\ttfamily None}, }\item[{}]{encoder\+\_\+hidden\+\_\+states}{ = {\ttfamily None}, }\item[{}]{encoder\+\_\+attention\+\_\+mask}{ = {\ttfamily None}, }\item[{}]{past\+\_\+key\+\_\+value}{ = {\ttfamily None}, }\item[{}]{output\+\_\+attentions}{ = {\ttfamily False}, }\item[{}]{query\+\_\+length}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+순전파 함수. 
+
+Self-\/\+Attention, Cross-\/\+Attention(선택적), 피드포워드 네트워크를 수행하여 최종 출력을 반환합니다.
+
+
+\begin{DoxyParams}{Parameters}
+{\em hidden\+\_\+states} & 입력 텐서. \\
+\hline
+{\em attention\+\_\+mask} & 어텐션 마스크. \\
+\hline
+{\em head\+\_\+mask} & 어텐션 헤드 마스크. \\
+\hline
+{\em encoder\+\_\+hidden\+\_\+states} & 크로스 어텐션 시 인코더의 히든 상태. \\
+\hline
+{\em encoder\+\_\+attention\+\_\+mask} & 크로스 어텐션 시 인코더의 어텐션 마스크. \\
+\hline
+{\em past\+\_\+key\+\_\+value} & 이전 Key, Value 정보. \\
+\hline
+{\em output\+\_\+attentions} & 어텐션 맵 출력 여부. \\
+\hline
+{\em query\+\_\+length} & 질의 길이. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+최종 출력 텐서와 추가 정보. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_qformer_1_1_bert_layer_a6ee349b90a1c5c8f976225000b76afbe}\index{Qformer.BertLayer@{Qformer.BertLayer}!crossattention@{crossattention}}
+\index{crossattention@{crossattention}!Qformer.BertLayer@{Qformer.BertLayer}}
+\doxysubsubsection{\texorpdfstring{crossattention}{crossattention}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_layer_a6ee349b90a1c5c8f976225000b76afbe} 
+Qformer.\+Bert\+Layer.\+crossattention}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ BertAttention(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ config,\ is\_cross\_attention=self.config.add\_cross\_attention}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Qformer.\+py\end{DoxyCompactItemize}

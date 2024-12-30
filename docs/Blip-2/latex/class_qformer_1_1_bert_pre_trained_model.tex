@@ -1,0 +1,60 @@
+\doxysection{Qformer.\+Bert\+Pre\+Trained\+Model Class Reference}
+\hypertarget{class_qformer_1_1_bert_pre_trained_model}{}\label{class_qformer_1_1_bert_pre_trained_model}\index{Qformer.BertPreTrainedModel@{Qformer.BertPreTrainedModel}}
+Inheritance diagram for Qformer.\+Bert\+Pre\+Trained\+Model\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.916667cm]{class_qformer_1_1_bert_pre_trained_model}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_qformer_1_1_bert_pre_trained_model_ab916f490f6d6b3648eea02c45ed63292}\label{class_qformer_1_1_bert_pre_trained_model_ab916f490f6d6b3648eea02c45ed63292} 
+{\bfseries config\+\_\+class} = Bert\+Config
+\item 
+\Hypertarget{class_qformer_1_1_bert_pre_trained_model_a5952bcc23d940c72bbf27e665b0af407}\label{class_qformer_1_1_bert_pre_trained_model_a5952bcc23d940c72bbf27e665b0af407} 
+str {\bfseries base\+\_\+model\+\_\+prefix} = "{}bert"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_pre_trained_model_a70e79487d3ccebe83df524463c1ff0b9}{\+\_\+init\+\_\+weights}} (self, module)
+\begin{DoxyCompactList}\small\item\em 모듈의 가중치를 초기화합니다. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_qformer_1_1_bert_pre_trained_model_a9c71bde7ae0a9d8728bca20d562cd042}\label{class_qformer_1_1_bert_pre_trained_model_a9c71bde7ae0a9d8728bca20d562cd042} 
+list {\bfseries \+\_\+keys\+\_\+to\+\_\+ignore\+\_\+on\+\_\+load\+\_\+missing} = \mbox{[}r"{}position\+\_\+ids"{}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}An abstract class to handle weights initialization and a simple interface for downloading and loading pretrained
+models.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_qformer_1_1_bert_pre_trained_model_a70e79487d3ccebe83df524463c1ff0b9}\index{Qformer.BertPreTrainedModel@{Qformer.BertPreTrainedModel}!\_init\_weights@{\_init\_weights}}
+\index{\_init\_weights@{\_init\_weights}!Qformer.BertPreTrainedModel@{Qformer.BertPreTrainedModel}}
+\doxysubsubsection{\texorpdfstring{\_init\_weights()}{\_init\_weights()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_pre_trained_model_a70e79487d3ccebe83df524463c1ff0b9} 
+Qformer.\+Bert\+Pre\+Trained\+Model.\+\_\+init\+\_\+weights (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{module}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+모듈의 가중치를 초기화합니다. 
+
+선형 레이어와 임베딩의 가중치를 정규분포로 초기화하고, Layer\+Norm의 가중치를 초기화합니다.
+
+
+\begin{DoxyParams}{Parameters}
+{\em module} & 초기화할 모듈.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyVerb}Initialize the weights\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Qformer.\+py\end{DoxyCompactItemize}

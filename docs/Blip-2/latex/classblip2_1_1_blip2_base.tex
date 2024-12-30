@@ -1,0 +1,211 @@
+\doxysection{blip2.\+Blip2\+Base Class Reference}
+\hypertarget{classblip2_1_1_blip2_base}{}\label{classblip2_1_1_blip2_base}\index{blip2.Blip2Base@{blip2.Blip2Base}}
+Inheritance diagram for blip2.\+Blip2\+Base\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classblip2_1_1_blip2_base}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classblip2_1_1_blip2_base_a88d5f49e5372e7216a5e1b8ff10519ab}{init\+\_\+tokenizer}} (cls, truncation\+\_\+side="{}right"{})
+\begin{DoxyCompactList}\small\item\em 토크나이저를 초기화하고 특별 토큰을 추가합니다. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classblip2_1_1_blip2_base_a445e0114157bfedd7b97bac687cd561f}{maybe\+\_\+autocast}} (self, dtype=torch.\+float16)
+\begin{DoxyCompactList}\small\item\em GPU에서 자동 형변환(autocasting)을 사용하여 연산을 최적화합니다. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classblip2_1_1_blip2_base_a5f23eef9a1457b19aaf2a8d9cf86ac5d}{init\+\_\+\+Qformer}} (cls, num\+\_\+query\+\_\+token, vision\+\_\+width, cross\+\_\+attention\+\_\+freq=2)
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_qformer}{Qformer} 모델을 초기화합니다. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classblip2_1_1_blip2_base_a65c7352a95f7cc541c03a7522cbadd82}{init\+\_\+vision\+\_\+encoder}} (self, model\+\_\+name, img\+\_\+size, drop\+\_\+path\+\_\+rate, use\+\_\+grad\+\_\+checkpoint, precision)
+\begin{DoxyCompactList}\small\item\em 비전 인코더를 초기화합니다. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classblip2_1_1_blip2_base_a71b4480c0694d1ef7854103a0c11051b}{load\+\_\+from\+\_\+pretrained}} (self, url\+\_\+or\+\_\+filename)
+\begin{DoxyCompactList}\small\item\em 사전 훈련된 모델에서 가중치를 로드합니다. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classblip2_1_1_blip2_base_a35195e1a1b7427c766cf64baa419336d}{get\+\_\+optimizer\+\_\+params}} (self, weight\+\_\+decay, lr\+\_\+scale=1)
+\begin{DoxyCompactList}\small\item\em 최적화 파라미터 그룹을 구성합니다. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classblip2_1_1_blip2_base_ac9fd6266bf92191101be3f453a3bd7cd}{lemmatizer}} (self)
+\begin{DoxyCompactList}\small\item\em Spacy 라이브러리를 사용하여 표제어 분석기를 로드합니다. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classblip2_1_1_blip2_base_ac2f88d7b44f22523eb29abcb0c220319}{\+\_\+lemmatize}} (self, answers)
+\begin{DoxyCompactList}\small\item\em 주어진 답변들에 대해 표제어를 (명사와 동사 중심으로) 추출하여 데이터를 단순화 합니다. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classblip2_1_1_blip2_base_a2b22840db1a9bcd82e9a7f147fea7328}\label{classblip2_1_1_blip2_base_a2b22840db1a9bcd82e9a7f147fea7328} 
+{\bfseries \+\_\+lemmatizer} = spacy.\+load("{}en\+\_\+core\+\_\+web\+\_\+sm"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classblip2_1_1_blip2_base_ac2f88d7b44f22523eb29abcb0c220319}\index{blip2.Blip2Base@{blip2.Blip2Base}!\_lemmatize@{\_lemmatize}}
+\index{\_lemmatize@{\_lemmatize}!blip2.Blip2Base@{blip2.Blip2Base}}
+\doxysubsubsection{\texorpdfstring{\_lemmatize()}{\_lemmatize()}}
+{\footnotesize\ttfamily \label{classblip2_1_1_blip2_base_ac2f88d7b44f22523eb29abcb0c220319} 
+blip2.\+Blip2\+Base.\+\_\+lemmatize (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{answers}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+주어진 답변들에 대해 표제어를 (명사와 동사 중심으로) 추출하여 데이터를 단순화 합니다. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em answers} & 답변 리스트 (list\mbox{[}str\mbox{]}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+표제어 처리된 답변 리스트 (list\mbox{[}str\mbox{]}). 
+\end{DoxyReturn}
+\Hypertarget{classblip2_1_1_blip2_base_a35195e1a1b7427c766cf64baa419336d}\index{blip2.Blip2Base@{blip2.Blip2Base}!get\_optimizer\_params@{get\_optimizer\_params}}
+\index{get\_optimizer\_params@{get\_optimizer\_params}!blip2.Blip2Base@{blip2.Blip2Base}}
+\doxysubsubsection{\texorpdfstring{get\_optimizer\_params()}{get\_optimizer\_params()}}
+{\footnotesize\ttfamily \label{classblip2_1_1_blip2_base_a35195e1a1b7427c766cf64baa419336d} 
+blip2.\+Blip2\+Base.\+get\+\_\+optimizer\+\_\+params (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{weight\+\_\+decay}{, }\item[{}]{lr\+\_\+scale}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+
+
+최적화 파라미터 그룹을 구성합니다. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em weight\+\_\+decay} & 가중치 감소율. \\
+\hline
+{\em lr\+\_\+scale} & 학습률 스케일. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+최적화 파라미터 그룹 목록. 
+\end{DoxyReturn}
+\Hypertarget{classblip2_1_1_blip2_base_a5f23eef9a1457b19aaf2a8d9cf86ac5d}\index{blip2.Blip2Base@{blip2.Blip2Base}!init\_Qformer@{init\_Qformer}}
+\index{init\_Qformer@{init\_Qformer}!blip2.Blip2Base@{blip2.Blip2Base}}
+\doxysubsubsection{\texorpdfstring{init\_Qformer()}{init\_Qformer()}}
+{\footnotesize\ttfamily \label{classblip2_1_1_blip2_base_a5f23eef9a1457b19aaf2a8d9cf86ac5d} 
+blip2.\+Blip2\+Base.\+init\+\_\+\+Qformer (\begin{DoxyParamCaption}\item[{}]{cls}{, }\item[{}]{num\+\_\+query\+\_\+token}{, }\item[{}]{vision\+\_\+width}{, }\item[{}]{cross\+\_\+attention\+\_\+freq}{ = {\ttfamily 2}}\end{DoxyParamCaption})}
+
+
+
+\doxylink{namespace_qformer}{Qformer} 모델을 초기화합니다. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cls} & 클래스 자체를 참조하는 매개변수. \\
+\hline
+{\em num\+\_\+query\+\_\+token} & 쿼리 토큰의 수. \\
+\hline
+{\em vision\+\_\+width} & 비전 모델의 너비. \\
+\hline
+{\em cross\+\_\+attention\+\_\+freq} & 크로스 어텐션 적용 빈도. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+초기화된 \doxylink{namespace_qformer}{Qformer} 모델과 쿼리 토큰. 
+\end{DoxyReturn}
+\Hypertarget{classblip2_1_1_blip2_base_a88d5f49e5372e7216a5e1b8ff10519ab}\index{blip2.Blip2Base@{blip2.Blip2Base}!init\_tokenizer@{init\_tokenizer}}
+\index{init\_tokenizer@{init\_tokenizer}!blip2.Blip2Base@{blip2.Blip2Base}}
+\doxysubsubsection{\texorpdfstring{init\_tokenizer()}{init\_tokenizer()}}
+{\footnotesize\ttfamily \label{classblip2_1_1_blip2_base_a88d5f49e5372e7216a5e1b8ff10519ab} 
+blip2.\+Blip2\+Base.\+init\+\_\+tokenizer (\begin{DoxyParamCaption}\item[{}]{cls}{, }\item[{}]{truncation\+\_\+side}{ = {\ttfamily "{}right"{}}}\end{DoxyParamCaption})}
+
+
+
+토크나이저를 초기화하고 특별 토큰을 추가합니다. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cls} & 클래스 자체를 참조하는 매개변수. \\
+\hline
+{\em truncation\+\_\+side} & 토큰이 잘리는 방향을 설정 ("{}right"{} 기본값). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+초기화된 토크나이저 객체. 
+\end{DoxyReturn}
+\Hypertarget{classblip2_1_1_blip2_base_a65c7352a95f7cc541c03a7522cbadd82}\index{blip2.Blip2Base@{blip2.Blip2Base}!init\_vision\_encoder@{init\_vision\_encoder}}
+\index{init\_vision\_encoder@{init\_vision\_encoder}!blip2.Blip2Base@{blip2.Blip2Base}}
+\doxysubsubsection{\texorpdfstring{init\_vision\_encoder()}{init\_vision\_encoder()}}
+{\footnotesize\ttfamily \label{classblip2_1_1_blip2_base_a65c7352a95f7cc541c03a7522cbadd82} 
+blip2.\+Blip2\+Base.\+init\+\_\+vision\+\_\+encoder (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{model\+\_\+name}{, }\item[{}]{img\+\_\+size}{, }\item[{}]{drop\+\_\+path\+\_\+rate}{, }\item[{}]{use\+\_\+grad\+\_\+checkpoint}{, }\item[{}]{precision}{}\end{DoxyParamCaption})}
+
+
+
+비전 인코더를 초기화합니다. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model\+\_\+name} & 사용할 비전 인코더 모델 이름(예\+: clip\+\_\+L, eva\+\_\+clip\+\_\+g). \\
+\hline
+{\em img\+\_\+size} & 이미지 크기. \\
+\hline
+{\em drop\+\_\+path\+\_\+rate} & 드롭 패스 비율(오버피팅 방지). \\
+\hline
+{\em use\+\_\+grad\+\_\+checkpoint} & 그라디언트 체크포인트 사용 여부(메모리, 속도 관리). \\
+\hline
+{\em precision} & 계산 정밀도(예\+: float16, float32 등). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+초기화된 비전 인코더와 레이어 노름. 
+\end{DoxyReturn}
+\Hypertarget{classblip2_1_1_blip2_base_ac9fd6266bf92191101be3f453a3bd7cd}\index{blip2.Blip2Base@{blip2.Blip2Base}!lemmatizer@{lemmatizer}}
+\index{lemmatizer@{lemmatizer}!blip2.Blip2Base@{blip2.Blip2Base}}
+\doxysubsubsection{\texorpdfstring{lemmatizer()}{lemmatizer()}}
+{\footnotesize\ttfamily \label{classblip2_1_1_blip2_base_ac9fd6266bf92191101be3f453a3bd7cd} 
+blip2.\+Blip2\+Base.\+lemmatizer (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Spacy 라이브러리를 사용하여 표제어 분석기를 로드합니다. 
+
+\begin{DoxyReturn}{Returns}
+로드된 Spacy 표제어 분석기. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Import\+Error} & Spacy 라이브러리가 설치되어 있지 않은 경우 발생. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classblip2_1_1_blip2_base_a71b4480c0694d1ef7854103a0c11051b}\index{blip2.Blip2Base@{blip2.Blip2Base}!load\_from\_pretrained@{load\_from\_pretrained}}
+\index{load\_from\_pretrained@{load\_from\_pretrained}!blip2.Blip2Base@{blip2.Blip2Base}}
+\doxysubsubsection{\texorpdfstring{load\_from\_pretrained()}{load\_from\_pretrained()}}
+{\footnotesize\ttfamily \label{classblip2_1_1_blip2_base_a71b4480c0694d1ef7854103a0c11051b} 
+blip2.\+Blip2\+Base.\+load\+\_\+from\+\_\+pretrained (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{url\+\_\+or\+\_\+filename}{}\end{DoxyParamCaption})}
+
+
+
+사전 훈련된 모델에서 가중치를 로드합니다. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em url\+\_\+or\+\_\+filename} & 파일 URL 또는 경로. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+로드 상태 메시지. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Runtime\+Error} & 유효하지 않은 경로나 URL인 경우 발생. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classblip2_1_1_blip2_base_a445e0114157bfedd7b97bac687cd561f}\index{blip2.Blip2Base@{blip2.Blip2Base}!maybe\_autocast@{maybe\_autocast}}
+\index{maybe\_autocast@{maybe\_autocast}!blip2.Blip2Base@{blip2.Blip2Base}}
+\doxysubsubsection{\texorpdfstring{maybe\_autocast()}{maybe\_autocast()}}
+{\footnotesize\ttfamily \label{classblip2_1_1_blip2_base_a445e0114157bfedd7b97bac687cd561f} 
+blip2.\+Blip2\+Base.\+maybe\+\_\+autocast (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dtype}{ = {\ttfamily torch.float16}}\end{DoxyParamCaption})}
+
+
+
+GPU에서 자동 형변환(autocasting)을 사용하여 연산을 최적화합니다. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dtype} & 사용할 데이터 타입 (기본값 torch.\+float16). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+autocast 컨텍스트 매니저 또는 nullcontext. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+blip2.\+py\end{DoxyCompactItemize}

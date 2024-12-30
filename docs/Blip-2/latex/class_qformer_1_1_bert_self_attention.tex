@@ -1,0 +1,251 @@
+\doxysection{Qformer.\+Bert\+Self\+Attention Class Reference}
+\hypertarget{class_qformer_1_1_bert_self_attention}{}\label{class_qformer_1_1_bert_self_attention}\index{Qformer.BertSelfAttention@{Qformer.BertSelfAttention}}
+Inheritance diagram for Qformer.\+Bert\+Self\+Attention\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_qformer_1_1_bert_self_attention}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_self_attention_a75fd3330fe583b45126df9adfbd5c3d3}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, config, is\+\_\+cross\+\_\+attention)
+\begin{DoxyCompactList}\small\item\em 어텐션 레이어 초기화 함수. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_self_attention_a657d066bda61d300d00b086e24f5a62e}{save\+\_\+attn\+\_\+gradients}} (self, attn\+\_\+gradients)
+\begin{DoxyCompactList}\small\item\em 어텐션 그래디언트를 저장합니다. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_self_attention_a82ec23ad663b7d80b09da718d5304ee1}{get\+\_\+attn\+\_\+gradients}} (self)
+\begin{DoxyCompactList}\small\item\em 저장된 어텐션 그래디언트를 반환합니다. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_self_attention_a583a651b43220c8ed97f158cf07c789e}{save\+\_\+attention\+\_\+map}} (self, attention\+\_\+map)
+\begin{DoxyCompactList}\small\item\em 어텐션 맵을 저장합니다. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_self_attention_a6f65df232df5fcb3cb2c143561e25b76}{get\+\_\+attention\+\_\+map}} (self)
+\begin{DoxyCompactList}\small\item\em 저장된 어텐션 맵을 반환합니다. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_self_attention_a5e6c5dd31ea49b636d9dbe3b64108b49}{transpose\+\_\+for\+\_\+scores}} (self, x)
+\begin{DoxyCompactList}\small\item\em 입력 텐서를 어텐션 스코어 계산에 맞게 변환합니다. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_self_attention_a4aa6655236c19cc13cc0c0b1cd57f126}{forward}} (self, hidden\+\_\+states, attention\+\_\+mask=None, head\+\_\+mask=None, encoder\+\_\+hidden\+\_\+states=None, encoder\+\_\+attention\+\_\+mask=None, past\+\_\+key\+\_\+value=None, output\+\_\+attentions=False)
+\begin{DoxyCompactList}\small\item\em 어텐션 레이어의 순전파(forward) 계산. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_a98c5c21778c10e842c7a6a9e6c16908a}\label{class_qformer_1_1_bert_self_attention_a98c5c21778c10e842c7a6a9e6c16908a} 
+{\bfseries config} = config
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_ad5cc920271ec0e62debfba39dc237a52}\label{class_qformer_1_1_bert_self_attention_ad5cc920271ec0e62debfba39dc237a52} 
+{\bfseries num\+\_\+attention\+\_\+heads} = config.\+num\+\_\+attention\+\_\+heads
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_a6e1fc5bc79bb9b5b28d224f14907c191}\label{class_qformer_1_1_bert_self_attention_a6e1fc5bc79bb9b5b28d224f14907c191} 
+{\bfseries attention\+\_\+head\+\_\+size} = int(config.\+hidden\+\_\+size / config.\+num\+\_\+attention\+\_\+heads)
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_a69be15e51e6093298c4639174910295c}\label{class_qformer_1_1_bert_self_attention_a69be15e51e6093298c4639174910295c} 
+{\bfseries all\+\_\+head\+\_\+size} = self.\+num\+\_\+attention\+\_\+heads \texorpdfstring{$\ast$}{*} self.\+attention\+\_\+head\+\_\+size
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_a2294479cdfe1856f99767abbee47d026}\label{class_qformer_1_1_bert_self_attention_a2294479cdfe1856f99767abbee47d026} 
+{\bfseries query} = nn.\+Linear(config.\+hidden\+\_\+size, self.\+all\+\_\+head\+\_\+size)
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_a894629168c2abd5ac00c5ef6011aa8f8}\label{class_qformer_1_1_bert_self_attention_a894629168c2abd5ac00c5ef6011aa8f8} 
+{\bfseries key} = nn.\+Linear(config.\+encoder\+\_\+width, self.\+all\+\_\+head\+\_\+size)
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_af440373ec9d74d706387462af28c46d2}\label{class_qformer_1_1_bert_self_attention_af440373ec9d74d706387462af28c46d2} 
+{\bfseries value} = nn.\+Linear(config.\+encoder\+\_\+width, self.\+all\+\_\+head\+\_\+size)
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_ab1314747f97f0f03816b629ff183ba63}\label{class_qformer_1_1_bert_self_attention_ab1314747f97f0f03816b629ff183ba63} 
+{\bfseries dropout} = nn.\+Dropout(config.\+attention\+\_\+probs\+\_\+dropout\+\_\+prob)
+\item 
+str \mbox{\hyperlink{class_qformer_1_1_bert_self_attention_afec86a6c807bfe99e86714f51a4bf1c3}{position\+\_\+embedding\+\_\+type}}
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_aa18802fec778e2fc571b0845f1e9ee9f}\label{class_qformer_1_1_bert_self_attention_aa18802fec778e2fc571b0845f1e9ee9f} 
+{\bfseries max\+\_\+position\+\_\+embeddings} = config.\+max\+\_\+position\+\_\+embeddings
+\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_self_attention_afd8e9a755bc101883575abb654ed798d}{distance\+\_\+embedding}}
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_a82c95b1123a2fac41c8b539e4a44969d}\label{class_qformer_1_1_bert_self_attention_a82c95b1123a2fac41c8b539e4a44969d} 
+bool {\bfseries save\+\_\+attention} = False
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_ae1ac6787ceef69f5f3d42f23a2bc0f81}\label{class_qformer_1_1_bert_self_attention_ae1ac6787ceef69f5f3d42f23a2bc0f81} 
+{\bfseries attn\+\_\+gradients} = attn\+\_\+gradients
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_aa05cf9d73b9e1137179544156f5ac25d}\label{class_qformer_1_1_bert_self_attention_aa05cf9d73b9e1137179544156f5ac25d} 
+{\bfseries attention\+\_\+map} = attention\+\_\+map
+\item 
+\Hypertarget{class_qformer_1_1_bert_self_attention_ab90c873af3977ec2aa752f1c1479d7fb}\label{class_qformer_1_1_bert_self_attention_ab90c873af3977ec2aa752f1c1479d7fb} 
+{\bfseries save\+\_\+attn\+\_\+gradients} = nn.\+Softmax(dim=-\/1)(attention\+\_\+scores)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_qformer_1_1_bert_self_attention_a75fd3330fe583b45126df9adfbd5c3d3}\index{Qformer.BertSelfAttention@{Qformer.BertSelfAttention}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Qformer.BertSelfAttention@{Qformer.BertSelfAttention}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_self_attention_a75fd3330fe583b45126df9adfbd5c3d3} 
+Qformer.\+Bert\+Self\+Attention.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{config}{, }\item[{}]{is\+\_\+cross\+\_\+attention}{}\end{DoxyParamCaption})}
+
+
+
+어텐션 레이어 초기화 함수. 
+
+주어진 설정(config)에 따라 어텐션 레이어를 초기화합니다. 크로스 어텐션 여부에 따라 키(key)와 값(value) 레이어가 다르게 설정됩니다.
+
+
+\begin{DoxyParams}{Parameters}
+{\em config} & 모델 구성 객체로, 어텐션과 관련된 하이퍼파라미터를 포함합니다. \\
+\hline
+{\em is\+\_\+cross\+\_\+attention} & 크로스 어텐션 여부를 나타내는 Boolean 값. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_qformer_1_1_bert_self_attention_a4aa6655236c19cc13cc0c0b1cd57f126}\index{Qformer.BertSelfAttention@{Qformer.BertSelfAttention}!forward@{forward}}
+\index{forward@{forward}!Qformer.BertSelfAttention@{Qformer.BertSelfAttention}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_self_attention_a4aa6655236c19cc13cc0c0b1cd57f126} 
+Qformer.\+Bert\+Self\+Attention.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{hidden\+\_\+states}{, }\item[{}]{attention\+\_\+mask}{ = {\ttfamily None}, }\item[{}]{head\+\_\+mask}{ = {\ttfamily None}, }\item[{}]{encoder\+\_\+hidden\+\_\+states}{ = {\ttfamily None}, }\item[{}]{encoder\+\_\+attention\+\_\+mask}{ = {\ttfamily None}, }\item[{}]{past\+\_\+key\+\_\+value}{ = {\ttfamily None}, }\item[{}]{output\+\_\+attentions}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+
+
+어텐션 레이어의 순전파(forward) 계산. 
+
+Query, Key, Value를 기반으로 어텐션 스코어를 계산하고, 어텐션 확률과 문맥 벡터(context vector)를 생성합니다.
+
+
+\begin{DoxyParams}{Parameters}
+{\em hidden\+\_\+states} & 입력 숨겨진 상태 텐서 (batch\+\_\+size x seq\+\_\+length x hidden\+\_\+size). \\
+\hline
+{\em attention\+\_\+mask} & 어텐션 마스크 (batch\+\_\+size x seq\+\_\+length x seq\+\_\+length). 패딩 토큰에 대한 마스킹을 처리. \\
+\hline
+{\em head\+\_\+mask} & 특정 어텐션 헤드를 마스킹할 때 사용 (optional). \\
+\hline
+{\em encoder\+\_\+hidden\+\_\+states} & 크로스 어텐션일 경우 인코더의 출력 상태. \\
+\hline
+{\em encoder\+\_\+attention\+\_\+mask} & 크로스 어텐션일 경우 인코더 마스크. \\
+\hline
+{\em past\+\_\+key\+\_\+value} & 이전 단계에서 계산된 Key와 Value (optional). \\
+\hline
+{\em output\+\_\+attentions} & 어텐션 확률을 출력할지 여부 (default\+: False). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+문맥 벡터, 어텐션 확률 (optional), 그리고 past\+\_\+key\+\_\+value. 
+\end{DoxyReturn}
+\Hypertarget{class_qformer_1_1_bert_self_attention_a6f65df232df5fcb3cb2c143561e25b76}\index{Qformer.BertSelfAttention@{Qformer.BertSelfAttention}!get\_attention\_map@{get\_attention\_map}}
+\index{get\_attention\_map@{get\_attention\_map}!Qformer.BertSelfAttention@{Qformer.BertSelfAttention}}
+\doxysubsubsection{\texorpdfstring{get\_attention\_map()}{get\_attention\_map()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_self_attention_a6f65df232df5fcb3cb2c143561e25b76} 
+Qformer.\+Bert\+Self\+Attention.\+get\+\_\+attention\+\_\+map (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+저장된 어텐션 맵을 반환합니다. 
+
+\begin{DoxyReturn}{Returns}
+어텐션 맵 (Tensor). 
+\end{DoxyReturn}
+\Hypertarget{class_qformer_1_1_bert_self_attention_a82ec23ad663b7d80b09da718d5304ee1}\index{Qformer.BertSelfAttention@{Qformer.BertSelfAttention}!get\_attn\_gradients@{get\_attn\_gradients}}
+\index{get\_attn\_gradients@{get\_attn\_gradients}!Qformer.BertSelfAttention@{Qformer.BertSelfAttention}}
+\doxysubsubsection{\texorpdfstring{get\_attn\_gradients()}{get\_attn\_gradients()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_self_attention_a82ec23ad663b7d80b09da718d5304ee1} 
+Qformer.\+Bert\+Self\+Attention.\+get\+\_\+attn\+\_\+gradients (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+저장된 어텐션 그래디언트를 반환합니다. 
+
+\begin{DoxyReturn}{Returns}
+어텐션 그래디언트 (Tensor). 
+\end{DoxyReturn}
+\Hypertarget{class_qformer_1_1_bert_self_attention_a583a651b43220c8ed97f158cf07c789e}\index{Qformer.BertSelfAttention@{Qformer.BertSelfAttention}!save\_attention\_map@{save\_attention\_map}}
+\index{save\_attention\_map@{save\_attention\_map}!Qformer.BertSelfAttention@{Qformer.BertSelfAttention}}
+\doxysubsubsection{\texorpdfstring{save\_attention\_map()}{save\_attention\_map()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_self_attention_a583a651b43220c8ed97f158cf07c789e} 
+Qformer.\+Bert\+Self\+Attention.\+save\+\_\+attention\+\_\+map (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{attention\+\_\+map}{}\end{DoxyParamCaption})}
+
+
+
+어텐션 맵을 저장합니다. 
+
+어텐션 레이어에서 계산된 어텐션 맵을 저장합니다.
+
+
+\begin{DoxyParams}{Parameters}
+{\em attention\+\_\+map} & 어텐션 맵 (Tensor). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\Hypertarget{class_qformer_1_1_bert_self_attention_a657d066bda61d300d00b086e24f5a62e}\index{Qformer.BertSelfAttention@{Qformer.BertSelfAttention}!save\_attn\_gradients@{save\_attn\_gradients}}
+\index{save\_attn\_gradients@{save\_attn\_gradients}!Qformer.BertSelfAttention@{Qformer.BertSelfAttention}}
+\doxysubsubsection{\texorpdfstring{save\_attn\_gradients()}{save\_attn\_gradients()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_self_attention_a657d066bda61d300d00b086e24f5a62e} 
+Qformer.\+Bert\+Self\+Attention.\+save\+\_\+attn\+\_\+gradients (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{attn\+\_\+gradients}{}\end{DoxyParamCaption})}
+
+
+
+어텐션 그래디언트를 저장합니다. 
+
+학습 중 계산된 어텐션 가중치의 그래디언트를 저장합니다.
+
+
+\begin{DoxyParams}{Parameters}
+{\em attn\+\_\+gradients} & 어텐션 그래디언트 (Tensor). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\Hypertarget{class_qformer_1_1_bert_self_attention_a5e6c5dd31ea49b636d9dbe3b64108b49}\index{Qformer.BertSelfAttention@{Qformer.BertSelfAttention}!transpose\_for\_scores@{transpose\_for\_scores}}
+\index{transpose\_for\_scores@{transpose\_for\_scores}!Qformer.BertSelfAttention@{Qformer.BertSelfAttention}}
+\doxysubsubsection{\texorpdfstring{transpose\_for\_scores()}{transpose\_for\_scores()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_self_attention_a5e6c5dd31ea49b636d9dbe3b64108b49} 
+Qformer.\+Bert\+Self\+Attention.\+transpose\+\_\+for\+\_\+scores (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{x}{}\end{DoxyParamCaption})}
+
+
+
+입력 텐서를 어텐션 스코어 계산에 맞게 변환합니다. 
+
+입력 텐서를 어텐션 헤드 수와 각 헤드 크기 기준으로 변형하고, (batch\+\_\+size, seq\+\_\+length, hidden\+\_\+size) → (batch\+\_\+size, num\+\_\+heads, seq\+\_\+length, head\+\_\+size)로 변환합니다.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & 입력 텐서 (batch\+\_\+size x seq\+\_\+length x hidden\+\_\+size). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+변환된 텐서 (batch\+\_\+size x num\+\_\+heads x seq\+\_\+length x head\+\_\+size). 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_qformer_1_1_bert_self_attention_afd8e9a755bc101883575abb654ed798d}\index{Qformer.BertSelfAttention@{Qformer.BertSelfAttention}!distance\_embedding@{distance\_embedding}}
+\index{distance\_embedding@{distance\_embedding}!Qformer.BertSelfAttention@{Qformer.BertSelfAttention}}
+\doxysubsubsection{\texorpdfstring{distance\_embedding}{distance\_embedding}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_self_attention_afd8e9a755bc101883575abb654ed798d} 
+Qformer.\+Bert\+Self\+Attention.\+distance\+\_\+embedding}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ nn.Embedding(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\ *\ config.max\_position\_embeddings\ -\/\ 1,\ self.attention\_head\_size}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+\Hypertarget{class_qformer_1_1_bert_self_attention_afec86a6c807bfe99e86714f51a4bf1c3}\index{Qformer.BertSelfAttention@{Qformer.BertSelfAttention}!position\_embedding\_type@{position\_embedding\_type}}
+\index{position\_embedding\_type@{position\_embedding\_type}!Qformer.BertSelfAttention@{Qformer.BertSelfAttention}}
+\doxysubsubsection{\texorpdfstring{position\_embedding\_type}{position\_embedding\_type}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_self_attention_afec86a6c807bfe99e86714f51a4bf1c3} 
+str Qformer.\+Bert\+Self\+Attention.\+position\+\_\+embedding\+\_\+type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ getattr(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ config,\ \textcolor{stringliteral}{"{}position\_embedding\_type"{}},\ \textcolor{stringliteral}{"{}absolute"{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Qformer.\+py\end{DoxyCompactItemize}
