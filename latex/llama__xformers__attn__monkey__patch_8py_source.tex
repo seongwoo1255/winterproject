@@ -1,0 +1,135 @@
+\doxysection{llama\+\_\+xformers\+\_\+attn\+\_\+monkey\+\_\+patch.\+py}
+\hypertarget{llama__xformers__attn__monkey__patch_8py_source}{}\label{llama__xformers__attn__monkey__patch_8py_source}\index{llava/train/llama\_xformers\_attn\_monkey\_patch.py@{llava/train/llama\_xformers\_attn\_monkey\_patch.py}}
+\mbox{\hyperlink{llama__xformers__attn__monkey__patch_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00001}\mbox{\hyperlink{namespacellama__xformers__attn__monkey__patch}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00002}00002\ \textcolor{stringliteral}{Directly\ copied\ the\ code\ from\ https://raw.githubusercontent.com/oobabooga/text-\/generation-\/webui/main/modules/llama\_attn\_hijack.py\ and\ made\ some\ adjustments}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00003}00003\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00005}00005\ \textcolor{keyword}{import}\ logging}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00006}00006\ \textcolor{keyword}{import}\ math}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00007}00007\ \textcolor{keyword}{from}\ typing\ \textcolor{keyword}{import}\ Optional,\ Tuple}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00009}00009\ \textcolor{keyword}{import}\ torch}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00010}00010\ \textcolor{keyword}{import}\ transformers.models.llama.modeling\_llama}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00011}00011\ \textcolor{keyword}{from}\ torch\ \textcolor{keyword}{import}\ nn}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00013}00013\ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00014}00014\ \ \ \ \ \textcolor{keyword}{import}\ xformers.ops}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00015}00015\ \textcolor{keywordflow}{except}\ ImportError:}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00016}00016\ \ \ \ \ logging.error(\textcolor{stringliteral}{"{}xformers\ not\ found!\ Please\ install\ it\ before\ trying\ to\ use\ it."{}})}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00019}\mbox{\hyperlink{namespacellama__xformers__attn__monkey__patch_a72c90a68df785b460595c2686c81fb3e}{00019}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacellama__xformers__attn__monkey__patch_a72c90a68df785b460595c2686c81fb3e}{replace\_llama\_attn\_with\_xformers\_attn}}():}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00020}00020\ \ \ \ \ transformers.models.llama.modeling\_llama.LlamaAttention.forward\ =\ xformers\_forward}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00023}\mbox{\hyperlink{namespacellama__xformers__attn__monkey__patch_ada32148ddb6fe04e1f43893c3f7c9480}{00023}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacellama__xformers__attn__monkey__patch_ada32148ddb6fe04e1f43893c3f7c9480}{xformers\_forward}}(}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00024}00024\ \ \ \ \ self,}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00025}00025\ \ \ \ \ hidden\_states:\ torch.Tensor,}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00026}00026\ \ \ \ \ attention\_mask:\ Optional[torch.Tensor]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00027}00027\ \ \ \ \ position\_ids:\ Optional[torch.LongTensor]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00028}00028\ \ \ \ \ past\_key\_value:\ Optional[Tuple[torch.Tensor]]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00029}00029\ \ \ \ \ output\_attentions:\ bool\ =\ \textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00030}00030\ \ \ \ \ use\_cache:\ bool\ =\ \textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00031}00031\ )\ -\/>\ Tuple[torch.Tensor,\ Optional[torch.Tensor],\ Optional[Tuple[torch.Tensor]]]:}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00032}00032\ \ \ \ \ \textcolor{comment}{\#\ pylint:\ disable=duplicate-\/code}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00033}00033\ \ \ \ \ bsz,\ q\_len,\ \_\ =\ hidden\_states.size()}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00035}00035\ \ \ \ \ query\_states\ =\ (}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ self.q\_proj(hidden\_states)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ .view(bsz,\ q\_len,\ self.num\_heads,\ self.head\_dim)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ .transpose(1,\ 2)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00039}00039\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00040}00040\ \ \ \ \ key\_states\ =\ (}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ self.k\_proj(hidden\_states)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ .view(bsz,\ q\_len,\ self.num\_heads,\ self.head\_dim)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ .transpose(1,\ 2)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00044}00044\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00045}00045\ \ \ \ \ value\_states\ =\ (}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ self.v\_proj(hidden\_states)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ .view(bsz,\ q\_len,\ self.num\_heads,\ self.head\_dim)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ .transpose(1,\ 2)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00049}00049\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00051}00051\ \ \ \ \ kv\_seq\_len\ =\ key\_states.shape[-\/2]}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00052}00052\ \ \ \ \ \textcolor{keywordflow}{if}\ past\_key\_value\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ kv\_seq\_len\ +=\ past\_key\_value[0].shape[-\/2]}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00054}00054\ \ \ \ \ cos,\ sin\ =\ self.rotary\_emb(value\_states,\ seq\_len=kv\_seq\_len)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00055}00055\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ query\_states,}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ key\_states,}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00058}00058\ \ \ \ \ )\ =\ transformers.models.llama.modeling\_llama.apply\_rotary\_pos\_emb(}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ query\_states,\ key\_states,\ cos,\ sin,\ position\_ids}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00060}00060\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00061}00061\ \ \ \ \ \textcolor{comment}{\#\ [bsz,\ nh,\ t,\ hd]}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00063}00063\ \ \ \ \ \textcolor{keywordflow}{if}\ past\_key\_value\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ reuse\ k,\ v,\ self\_attention}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ key\_states\ =\ torch.cat([past\_key\_value[0],\ key\_states],\ dim=2)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ value\_states\ =\ torch.cat([past\_key\_value[1],\ value\_states],\ dim=2)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00068}00068\ \ \ \ \ past\_key\_value\ =\ (key\_states,\ value\_states)\ \textcolor{keywordflow}{if}\ use\_cache\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00070}00070\ \ \ \ \ \textcolor{comment}{\#\ We\ only\ apply\ xformers\ optimizations\ if\ we\ don't\ need\ to\ output\ the\ whole\ attention\ matrix}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00071}00071\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ output\_attentions:}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ query\_states\ =\ query\_states.transpose(1,\ 2)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ key\_states\ =\ key\_states.transpose(1,\ 2)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ value\_states\ =\ value\_states.transpose(1,\ 2)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ This\ is\ a\ nasty\ hack.\ We\ know\ attention\_mask\ in\ transformers\ is\ either\ LowerTriangular\ or\ all\ Zeros.}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ We\ therefore\ check\ if\ one\ element\ in\ the\ upper\ triangular\ portion\ is\ zero.\ If\ it\ is,\ then\ the\ mask\ is\ all\ zeros.}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attention\_mask\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ attention\_mask[0,\ 0,\ 0,\ 1]\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ input\ and\ output\ should\ be\ of\ form\ (bsz,\ q\_len,\ num\_heads,\ head\_dim)}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_output\ =\ xformers.ops.memory\_efficient\_attention(}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_states,\ key\_states,\ value\_states,\ attn\_bias=\textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ input\ and\ output\ should\ be\ of\ form\ (bsz,\ q\_len,\ num\_heads,\ head\_dim)}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_output\ =\ xformers.ops.memory\_efficient\_attention(}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_states,}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ key\_states,}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_states,}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attn\_bias=xformers.ops.LowerTriangularMask(),}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ attn\_weights\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ attn\_weights\ =\ torch.matmul(}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ query\_states,\ key\_states.transpose(2,\ 3)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ )\ /\ math.sqrt(self.head\_dim)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attn\_weights.size()\ !=\ (bsz,\ self.num\_heads,\ q\_len,\ kv\_seq\_len):}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}Attention\ weights\ should\ be\ of\ size\ \{(bsz\ *\ self.num\_heads,\ q\_len,\ kv\_seq\_len)\},\ but\ is"{}}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}\ \{attn\_weights.size()\}"{}}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attention\_mask\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attention\_mask.size()\ !=\ (bsz,\ 1,\ q\_len,\ kv\_seq\_len):}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}Attention\ mask\ should\ be\ of\ size\ \{(bsz,\ 1,\ q\_len,\ kv\_seq\_len)\},\ but\ is\ \{attention\_mask.size()\}"{}}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_weights\ =\ attn\_weights\ +\ attention\_mask}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_weights\ =\ torch.max(}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attn\_weights,\ torch.tensor(torch.finfo(attn\_weights.dtype).min)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ upcast\ attention\ to\ fp32}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ attn\_weights\ =\ nn.functional.softmax(}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_weights,\ dim=-\/1,\ dtype=torch.float32}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ ).to(query\_states.dtype)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ attn\_output\ =\ torch.matmul(attn\_weights,\ value\_states)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attn\_output.size()\ !=\ (bsz,\ self.num\_heads,\ q\_len,\ self.head\_dim):}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}\`{}attn\_output`\ should\ be\ of\ size\ \{(bsz,\ self.num\_heads,\ q\_len,\ self.head\_dim)\},\ but\ is"{}}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}\ \{attn\_output.size()\}"{}}}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ attn\_output\ =\ attn\_output.transpose(1,\ 2)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00127}00127\ \ \ \ \ attn\_output\ =\ attn\_output.reshape(bsz,\ q\_len,\ self.hidden\_size)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00128}00128\ \ \ \ \ attn\_output\ =\ self.o\_proj(attn\_output)}
+\DoxyCodeLine{\Hypertarget{llama__xformers__attn__monkey__patch_8py_source_l00129}00129\ \ \ \ \ \textcolor{keywordflow}{return}\ attn\_output,\ attn\_weights,\ past\_key\_value}
+
+\end{DoxyCode}

@@ -1,0 +1,271 @@
+\doxysection{llava\+\_\+trainer.\+LLa\+VATrainer Class Reference}
+\hypertarget{classllava__trainer_1_1_l_la_v_a_trainer}{}\label{classllava__trainer_1_1_l_la_v_a_trainer}\index{llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}}
+
+
+Inheritance diagram for llava\+\_\+trainer.\+LLa\+VATrainer\+:
+% FIG 0
+
+
+Collaboration diagram for llava\+\_\+trainer.\+LLa\+VATrainer\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classllava__trainer_1_1_l_la_v_a_trainer_aca046aa12c0567461a258cc65f564654}{create\+\_\+optimizer}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classllava__trainer_1_1_l_la_v_a_trainer_afd7053be634d4ca3b5630cc5942dd4f5}{train\+\_\+dataset}}
+\item 
+\mbox{\hyperlink{classllava__trainer_1_1_l_la_v_a_trainer_aedf8618cd78fff306d93fd647d7f10ef}{optimizer}} = optimizer\+\_\+cls(optimizer\+\_\+grouped\+\_\+parameters, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}optimizer\+\_\+kwargs)
+\item 
+\mbox{\hyperlink{classllava__trainer_1_1_l_la_v_a_trainer_a67e770febc25e09c000a09407a7d0aa6}{args}} = \mbox{[}\textquotesingle{}mm\+\_\+projector\textquotesingle{}, \textquotesingle{}vision\+\_\+resampler\textquotesingle{}\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Optional\mbox{[}torch.\+utils.\+data.\+Sampler\mbox{]} \mbox{\hyperlink{classllava__trainer_1_1_l_la_v_a_trainer_ab1aeccd4d1ae08e54268f26f17bde439}{\+\_\+get\+\_\+train\+\_\+sampler}} (self)
+\item 
+\mbox{\hyperlink{classllava__trainer_1_1_l_la_v_a_trainer_a067fd2c41d285cfef5a98c69917150c8}{\+\_\+save\+\_\+checkpoint}} (self, model, trial, metrics=None)
+\item 
+\mbox{\hyperlink{classllava__trainer_1_1_l_la_v_a_trainer_aa0f3f63c26e039d22cb8d545af0d4835}{\+\_\+save}} (self, Optional\mbox{[}str\mbox{]} output\+\_\+dir=None, state\+\_\+dict=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{llava__trainer_8py_source_l00133}{133}} of file \mbox{\hyperlink{llava__trainer_8py_source}{llava\+\_\+trainer.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classllava__trainer_1_1_l_la_v_a_trainer_ab1aeccd4d1ae08e54268f26f17bde439}\index{llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}!\_get\_train\_sampler@{\_get\_train\_sampler}}
+\index{\_get\_train\_sampler@{\_get\_train\_sampler}!llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}}
+\doxysubsubsection{\texorpdfstring{\_get\_train\_sampler()}{\_get\_train\_sampler()}}
+{\footnotesize\ttfamily \label{classllava__trainer_1_1_l_la_v_a_trainer_ab1aeccd4d1ae08e54268f26f17bde439} 
+ Optional\mbox{[}torch.\+utils.\+data.\+Sampler\mbox{]} llava\+\_\+trainer.\+LLa\+VATrainer.\+\_\+get\+\_\+train\+\_\+sampler (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{llava__trainer_8py_source_l00135}{135}} of file \mbox{\hyperlink{llava__trainer_8py_source}{llava\+\_\+trainer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{def\ }\_get\_train\_sampler(self)\ -\/>\ Optional[torch.utils.data.Sampler]:}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.train\_dataset\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ has\_length(self.train\_dataset):}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.args.group\_by\_modality\_length:}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ lengths\ =\ self.train\_dataset.modality\_lengths}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ LengthGroupedSampler(}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.args.train\_batch\_size,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ world\_size=self.args.world\_size\ *\ self.args.gradient\_accumulation\_steps,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lengths=lengths,}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ group\_by\_modality=\textcolor{keyword}{True},}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ super().\_get\_train\_sampler()}
+\DoxyCodeLine{00149\ }
+
+\end{DoxyCode}
+\Hypertarget{classllava__trainer_1_1_l_la_v_a_trainer_aa0f3f63c26e039d22cb8d545af0d4835}\index{llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}!\_save@{\_save}}
+\index{\_save@{\_save}!llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}}
+\doxysubsubsection{\texorpdfstring{\_save()}{\_save()}}
+{\footnotesize\ttfamily \label{classllava__trainer_1_1_l_la_v_a_trainer_aa0f3f63c26e039d22cb8d545af0d4835} 
+llava\+\_\+trainer.\+LLa\+VATrainer.\+\_\+save (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Optional\mbox{[}str\mbox{]} }]{output\+\_\+dir}{ = {\ttfamily None}, }\item[{}]{state\+\_\+dict}{ = {\ttfamily None}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{llava__trainer_8py_source_l00251}{251}} of file \mbox{\hyperlink{llava__trainer_8py_source}{llava\+\_\+trainer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keyword}{def\ }\_save(self,\ output\_dir:\ Optional[str]\ =\ \textcolor{keywordtype}{None},\ state\_dict=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ getattr(self.args,\ \textcolor{stringliteral}{'tune\_mm\_mlp\_adapter'},\ \textcolor{keyword}{False}):}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ super(LLaVATrainer,\ self).\_save(output\_dir,\ state\_dict)}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\Hypertarget{classllava__trainer_1_1_l_la_v_a_trainer_a067fd2c41d285cfef5a98c69917150c8}\index{llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}!\_save\_checkpoint@{\_save\_checkpoint}}
+\index{\_save\_checkpoint@{\_save\_checkpoint}!llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}}
+\doxysubsubsection{\texorpdfstring{\_save\_checkpoint()}{\_save\_checkpoint()}}
+{\footnotesize\ttfamily \label{classllava__trainer_1_1_l_la_v_a_trainer_a067fd2c41d285cfef5a98c69917150c8} 
+llava\+\_\+trainer.\+LLa\+VATrainer.\+\_\+save\+\_\+checkpoint (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{model}{, }\item[{}]{trial}{, }\item[{}]{metrics}{ = {\ttfamily None}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{llava__trainer_8py_source_l00230}{230}} of file \mbox{\hyperlink{llava__trainer_8py_source}{llava\+\_\+trainer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keyword}{def\ }\_save\_checkpoint(self,\ model,\ trial,\ metrics=None):}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ getattr(self.args,\ \textcolor{stringliteral}{'tune\_mm\_mlp\_adapter'},\ \textcolor{keyword}{False}):}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{from}\ transformers.trainer\_utils\ \textcolor{keyword}{import}\ PREFIX\_CHECKPOINT\_DIR}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ checkpoint\_folder\ =\ f\textcolor{stringliteral}{"{}\{PREFIX\_CHECKPOINT\_DIR\}-\/\{self.state.global\_step\}"{}}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ run\_dir\ =\ self.\_get\_output\_dir(trial=trial)}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ output\_dir\ =\ os.path.join(run\_dir,\ checkpoint\_folder)}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Only\ save\ Adapter}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ keys\_to\_match\ =\ [\textcolor{stringliteral}{'mm\_projector'},\ \textcolor{stringliteral}{'vision\_resampler'}]}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ getattr(self.args,\ \textcolor{stringliteral}{"{}use\_im\_start\_end"{}},\ \textcolor{keyword}{False}):}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keys\_to\_match.extend([\textcolor{stringliteral}{'embed\_tokens'},\ \textcolor{stringliteral}{'embed\_in'}])}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ weight\_to\_save\ =\ get\_mm\_adapter\_state\_maybe\_zero\_3(self.model.named\_parameters(),\ keys\_to\_match)}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.args.local\_rank\ ==\ 0\ \textcolor{keywordflow}{or}\ self.args.local\_rank\ ==\ -\/1:}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.model.config.save\_pretrained(output\_dir)}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ torch.save(weight\_to\_save,\ os.path.join(output\_dir,\ f\textcolor{stringliteral}{'mm\_projector.bin'}))}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ super(LLaVATrainer,\ self).\_save\_checkpoint(model,\ trial,\ metrics)}
+\DoxyCodeLine{00250\ }
+
+\end{DoxyCode}
+\Hypertarget{classllava__trainer_1_1_l_la_v_a_trainer_aca046aa12c0567461a258cc65f564654}\index{llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}!create\_optimizer@{create\_optimizer}}
+\index{create\_optimizer@{create\_optimizer}!llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}}
+\doxysubsubsection{\texorpdfstring{create\_optimizer()}{create\_optimizer()}}
+{\footnotesize\ttfamily \label{classllava__trainer_1_1_l_la_v_a_trainer_aca046aa12c0567461a258cc65f564654} 
+llava\+\_\+trainer.\+LLa\+VATrainer.\+create\+\_\+optimizer (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Setup the optimizer.
+
+We provide a reasonable default that works well. If you want to use something else, you can pass a tuple in the
+Trainer's init through `optimizers`, or subclass and override this method in a subclass.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{llava__trainer_8py_source_l00150}{150}} of file \mbox{\hyperlink{llava__trainer_8py_source}{llava\+\_\+trainer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{def\ }create\_optimizer(self):}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00152\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Setup\ the\ optimizer.}}
+\DoxyCodeLine{00153\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00154\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ We\ provide\ a\ reasonable\ default\ that\ works\ well.\ If\ you\ want\ to\ use\ something\ else,\ you\ can\ pass\ a\ tuple\ in\ the}}
+\DoxyCodeLine{00155\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Trainer's\ init\ through\ \`{}optimizers\`{},\ or\ subclass\ and\ override\ this\ method\ in\ a\ subclass.}}
+\DoxyCodeLine{00156\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ is\_sagemaker\_mp\_enabled():}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ super().create\_optimizer()}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ opt\_model\ =\ self.model}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.optimizer\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ decay\_parameters\ =\ get\_parameter\_names(opt\_model,\ ALL\_LAYERNORM\_LAYERS)}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ decay\_parameters\ =\ [name\ \textcolor{keywordflow}{for}\ name\ \textcolor{keywordflow}{in}\ decay\_parameters\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}bias"{}}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ name]}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.args.mm\_projector\_lr\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ projector\_parameters\ =\ [name\ \textcolor{keywordflow}{for}\ name,\ \_\ \textcolor{keywordflow}{in}\ opt\_model.named\_parameters()\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}mm\_projector"{}}\ \textcolor{keywordflow}{in}\ name]}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ optimizer\_grouped\_parameters\ =\ [}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}params"{}}:\ [}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\ \textcolor{keywordflow}{for}\ n,\ p\ \textcolor{keywordflow}{in}\ opt\_model.named\_parameters()\ \textcolor{keywordflow}{if}\ (n\ \textcolor{keywordflow}{in}\ decay\_parameters\ \textcolor{keywordflow}{and}\ n\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ projector\_parameters\ \textcolor{keywordflow}{and}\ p.requires\_grad)}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}weight\_decay"{}}:\ self.args.weight\_decay,}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}params"{}}:\ [}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\ \textcolor{keywordflow}{for}\ n,\ p\ \textcolor{keywordflow}{in}\ opt\_model.named\_parameters()\ \textcolor{keywordflow}{if}\ (n\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ decay\_parameters\ \textcolor{keywordflow}{and}\ n\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ projector\_parameters\ \textcolor{keywordflow}{and}\ p.requires\_grad)}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}weight\_decay"{}}:\ 0.0,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}params"{}}:\ [}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\ \textcolor{keywordflow}{for}\ n,\ p\ \textcolor{keywordflow}{in}\ opt\_model.named\_parameters()\ \textcolor{keywordflow}{if}\ (n\ \textcolor{keywordflow}{in}\ decay\_parameters\ \textcolor{keywordflow}{and}\ n\ \textcolor{keywordflow}{in}\ projector\_parameters\ \textcolor{keywordflow}{and}\ p.requires\_grad)}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}weight\_decay"{}}:\ self.args.weight\_decay,}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}lr"{}}:\ self.args.mm\_projector\_lr,}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}params"{}}:\ [}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\ \textcolor{keywordflow}{for}\ n,\ p\ \textcolor{keywordflow}{in}\ opt\_model.named\_parameters()\ \textcolor{keywordflow}{if}\ (n\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ decay\_parameters\ \textcolor{keywordflow}{and}\ n\ \textcolor{keywordflow}{in}\ projector\_parameters\ \textcolor{keywordflow}{and}\ p.requires\_grad)}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}weight\_decay"{}}:\ 0.0,}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}lr"{}}:\ self.args.mm\_projector\_lr,}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ optimizer\_grouped\_parameters\ =\ [}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}params"{}}:\ [}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\ \textcolor{keywordflow}{for}\ n,\ p\ \textcolor{keywordflow}{in}\ opt\_model.named\_parameters()\ \textcolor{keywordflow}{if}\ (n\ \textcolor{keywordflow}{in}\ decay\_parameters\ \textcolor{keywordflow}{and}\ p.requires\_grad)}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}weight\_decay"{}}:\ self.args.weight\_decay,}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}params"{}}:\ [}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\ \textcolor{keywordflow}{for}\ n,\ p\ \textcolor{keywordflow}{in}\ opt\_model.named\_parameters()\ \textcolor{keywordflow}{if}\ (n\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ decay\_parameters\ \textcolor{keywordflow}{and}\ p.requires\_grad)}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}weight\_decay"{}}:\ 0.0,}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ optimizer\_cls,\ optimizer\_kwargs\ =\ Trainer.get\_optimizer\_cls\_and\_kwargs(self.args)}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ self.optimizer\ =\ optimizer\_cls(optimizer\_grouped\_parameters,\ **optimizer\_kwargs)}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ optimizer\_cls.\_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}Adam8bit"{}}:}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{import}\ bitsandbytes}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ manager\ =\ bitsandbytes.optim.GlobalOptimManager.get\_instance()}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ skipped\ =\ 0}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ module\ \textcolor{keywordflow}{in}\ opt\_model.modules():}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(module,\ nn.Embedding):}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ skipped\ +=\ sum(\{p.data\_ptr():\ p.numel()\ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ module.parameters()\}.values())}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}skipped\ \{module\}:\ \{skipped/2**20\}M\ params"{}})}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ manager.register\_module\_override(module,\ \textcolor{stringliteral}{"{}weight"{}},\ \{\textcolor{stringliteral}{"{}optim\_bits"{}}:\ 32\})}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ logger.debug(f\textcolor{stringliteral}{"{}bitsandbytes:\ will\ optimize\ \{module\}\ in\ fp32"{}})}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}skipped:\ \{skipped/2**20\}M\ params"{}})}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.optimizer}
+\DoxyCodeLine{00229\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classllava__trainer_1_1_l_la_v_a_trainer_a67e770febc25e09c000a09407a7d0aa6}\index{llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}!args@{args}}
+\index{args@{args}!llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily \label{classllava__trainer_1_1_l_la_v_a_trainer_a67e770febc25e09c000a09407a7d0aa6} 
+llava\+\_\+trainer.\+LLa\+VATrainer.\+args = \mbox{[}\textquotesingle{}mm\+\_\+projector\textquotesingle{}, \textquotesingle{}vision\+\_\+resampler\textquotesingle{}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{llava__trainer_8py_source_l00231}{231}} of file \mbox{\hyperlink{llava__trainer_8py_source}{llava\+\_\+trainer.\+py}}.
+
+\Hypertarget{classllava__trainer_1_1_l_la_v_a_trainer_aedf8618cd78fff306d93fd647d7f10ef}\index{llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}!optimizer@{optimizer}}
+\index{optimizer@{optimizer}!llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}}
+\doxysubsubsection{\texorpdfstring{optimizer}{optimizer}}
+{\footnotesize\ttfamily \label{classllava__trainer_1_1_l_la_v_a_trainer_aedf8618cd78fff306d93fd647d7f10ef} 
+llava\+\_\+trainer.\+LLa\+VATrainer.\+optimizer = optimizer\+\_\+cls(optimizer\+\_\+grouped\+\_\+parameters, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}optimizer\+\_\+kwargs)}
+
+
+
+Definition at line \mbox{\hyperlink{llava__trainer_8py_source_l00213}{213}} of file \mbox{\hyperlink{llava__trainer_8py_source}{llava\+\_\+trainer.\+py}}.
+
+\Hypertarget{classllava__trainer_1_1_l_la_v_a_trainer_afd7053be634d4ca3b5630cc5942dd4f5}\index{llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}!train\_dataset@{train\_dataset}}
+\index{train\_dataset@{train\_dataset}!llava\_trainer.LLaVATrainer@{llava\_trainer.LLaVATrainer}}
+\doxysubsubsection{\texorpdfstring{train\_dataset}{train\_dataset}}
+{\footnotesize\ttfamily \label{classllava__trainer_1_1_l_la_v_a_trainer_afd7053be634d4ca3b5630cc5942dd4f5} 
+llava\+\_\+trainer.\+LLa\+VATrainer.\+train\+\_\+dataset}
+
+
+
+Definition at line \mbox{\hyperlink{llava__trainer_8py_source_l00136}{136}} of file \mbox{\hyperlink{llava__trainer_8py_source}{llava\+\_\+trainer.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+llava/train/\mbox{\hyperlink{llava__trainer_8py}{llava\+\_\+trainer.\+py}}\end{DoxyCompactItemize}

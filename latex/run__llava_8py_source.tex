@@ -1,0 +1,151 @@
+\doxysection{run\+\_\+llava.\+py}
+\hypertarget{run__llava_8py_source}{}\label{run__llava_8py_source}\index{llava/eval/run\_llava.py@{llava/eval/run\_llava.py}}
+\mbox{\hyperlink{run__llava_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00001}\mbox{\hyperlink{namespacerun__llava}{00001}}\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00002}00002\ \textcolor{keyword}{import}\ torch}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00004}00004\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1constants}{llava.constants}}\ \textcolor{keyword}{import}\ (}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00005}00005\ \ \ \ \ IMAGE\_TOKEN\_INDEX,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00006}00006\ \ \ \ \ DEFAULT\_IMAGE\_TOKEN,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00007}00007\ \ \ \ \ DEFAULT\_IM\_START\_TOKEN,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00008}00008\ \ \ \ \ DEFAULT\_IM\_END\_TOKEN,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00009}00009\ \ \ \ \ IMAGE\_PLACEHOLDER,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00010}00010\ )}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00011}00011\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1conversation}{llava.conversation}}\ \textcolor{keyword}{import}\ conv\_templates,\ SeparatorStyle}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00012}00012\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1model_1_1builder}{llava.model.builder}}\ \textcolor{keyword}{import}\ load\_pretrained\_model}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00013}00013\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1utils}{llava.utils}}\ \textcolor{keyword}{import}\ disable\_torch\_init}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00014}00014\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1mm__utils}{llava.mm\_utils}}\ \textcolor{keyword}{import}\ (}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00015}00015\ \ \ \ \ process\_images,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00016}00016\ \ \ \ \ tokenizer\_image\_token,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00017}00017\ \ \ \ \ get\_model\_name\_from\_path,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00018}00018\ )}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00020}00020\ \textcolor{keyword}{from}\ PIL\ \textcolor{keyword}{import}\ Image}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00022}00022\ \textcolor{keyword}{import}\ requests}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00023}00023\ \textcolor{keyword}{from}\ PIL\ \textcolor{keyword}{import}\ Image}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00024}00024\ \textcolor{keyword}{from}\ io\ \textcolor{keyword}{import}\ BytesIO}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00025}00025\ \textcolor{keyword}{import}\ re}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00028}\mbox{\hyperlink{namespacerun__llava_a1a9fa4d532f496e027c2fd41d4ea396a}{00028}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacerun__llava_a1a9fa4d532f496e027c2fd41d4ea396a}{image\_parser}}(args):}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00029}00029\ \ \ \ \ out\ =\ args.image\_file.split(args.sep)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00030}00030\ \ \ \ \ \textcolor{keywordflow}{return}\ out}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00033}\mbox{\hyperlink{namespacerun__llava_a4520023ea63a4c31df6ba02451d285d4}{00033}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacerun__llava_a4520023ea63a4c31df6ba02451d285d4}{load\_image}}(image\_file):}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00034}00034\ \ \ \ \ \textcolor{keywordflow}{if}\ image\_file.startswith(\textcolor{stringliteral}{"{}http"{}})\ \textcolor{keywordflow}{or}\ image\_file.startswith(\textcolor{stringliteral}{"{}https"{}}):}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ response\ =\ requests.get(image\_file)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ image\ =\ Image.open(BytesIO(response.content)).convert(\textcolor{stringliteral}{"{}RGB"{}})}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ image\ =\ Image.open(image\_file).convert(\textcolor{stringliteral}{"{}RGB"{}})}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00039}00039\ \ \ \ \ \textcolor{keywordflow}{return}\ image}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00042}\mbox{\hyperlink{namespacerun__llava_a9fe46554dac093cad50d5698fe44f00b}{00042}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacerun__llava_a9fe46554dac093cad50d5698fe44f00b}{load\_images}}(image\_files):}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00043}00043\ \ \ \ \ out\ =\ []}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{for}\ image\_file\ \textcolor{keywordflow}{in}\ image\_files:}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ image\ =\ \mbox{\hyperlink{namespacerun__llava_a4520023ea63a4c31df6ba02451d285d4}{load\_image}}(image\_file)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ out.append(image)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{return}\ out}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00050}\mbox{\hyperlink{namespacerun__llava_a28158121cca9af176b13b01b2ef290f4}{00050}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacerun__llava_a28158121cca9af176b13b01b2ef290f4}{eval\_model}}(args):}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00051}00051\ \ \ \ \ \textcolor{comment}{\#\ Model}}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00052}00052\ \ \ \ \ disable\_torch\_init()}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00054}00054\ \ \ \ \ model\_name\ =\ get\_model\_name\_from\_path(args.model\_path)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00055}00055\ \ \ \ \ tokenizer,\ model,\ image\_processor,\ context\_len\ =\ load\_pretrained\_model(}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ args.model\_path,\ args.model\_base,\ model\_name}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00057}00057\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00059}00059\ \ \ \ \ qs\ =\ args.query}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00060}00060\ \ \ \ \ image\_token\_se\ =\ DEFAULT\_IM\_START\_TOKEN\ +\ DEFAULT\_IMAGE\_TOKEN\ +\ DEFAULT\_IM\_END\_TOKEN}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{if}\ IMAGE\_PLACEHOLDER\ \textcolor{keywordflow}{in}\ qs:}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model.config.mm\_use\_im\_start\_end:}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ qs\ =\ re.sub(IMAGE\_PLACEHOLDER,\ image\_token\_se,\ qs)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ qs\ =\ re.sub(IMAGE\_PLACEHOLDER,\ DEFAULT\_IMAGE\_TOKEN,\ qs)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model.config.mm\_use\_im\_start\_end:}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ qs\ =\ image\_token\_se\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ +\ qs}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ qs\ =\ DEFAULT\_IMAGE\_TOKEN\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ +\ qs}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00072}00072\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}llama-\/2"{}}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ conv\_mode\ =\ \textcolor{stringliteral}{"{}llava\_llama\_2"{}}}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00074}00074\ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{"{}mistral"{}}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ conv\_mode\ =\ \textcolor{stringliteral}{"{}mistral\_instruct"{}}}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{"{}v1.6-\/34b"{}}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ conv\_mode\ =\ \textcolor{stringliteral}{"{}chatml\_direct"{}}}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00078}00078\ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{"{}v1"{}}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ conv\_mode\ =\ \textcolor{stringliteral}{"{}llava\_v1"{}}}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{"{}mpt"{}}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ conv\_mode\ =\ \textcolor{stringliteral}{"{}mpt"{}}}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00082}00082\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ conv\_mode\ =\ \textcolor{stringliteral}{"{}llava\_v0"{}}}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{if}\ args.conv\_mode\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ conv\_mode\ !=\ args.conv\_mode:}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ print(}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}[WARNING]\ the\ auto\ inferred\ conversation\ mode\ is\ \{\},\ while\ \`{}-\/-\/conv-\/mode`\ is\ \{\},\ using\ \{\}"{}}.format(}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ conv\_mode,\ args.conv\_mode,\ args.conv\_mode}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00091}00091\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ args.conv\_mode\ =\ conv\_mode}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00094}00094\ \ \ \ \ conv\ =\ conv\_templates[args.conv\_mode].copy()}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00095}00095\ \ \ \ \ conv.append\_message(conv.roles[0],\ qs)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00096}00096\ \ \ \ \ conv.append\_message(conv.roles[1],\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00097}00097\ \ \ \ \ prompt\ =\ conv.get\_prompt()}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00099}00099\ \ \ \ \ image\_files\ =\ \mbox{\hyperlink{namespacerun__llava_a1a9fa4d532f496e027c2fd41d4ea396a}{image\_parser}}(args)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00100}00100\ \ \ \ \ images\ =\ \mbox{\hyperlink{namespacerun__llava_a9fe46554dac093cad50d5698fe44f00b}{load\_images}}(image\_files)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00101}00101\ \ \ \ \ image\_sizes\ =\ [x.size\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ images]}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00102}00102\ \ \ \ \ images\_tensor\ =\ process\_images(}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ images,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ image\_processor,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ model.config}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00106}00106\ \ \ \ \ ).to(model.device,\ dtype=torch.float16)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00108}00108\ \ \ \ \ input\_ids\ =\ (}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ tokenizer\_image\_token(prompt,\ tokenizer,\ IMAGE\_TOKEN\_INDEX,\ return\_tensors=\textcolor{stringliteral}{"{}pt"{}})}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ .unsqueeze(0)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ .cuda()}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00112}00112\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00114}00114\ \ \ \ \ \textcolor{keyword}{with}\ torch.inference\_mode():}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ output\_ids\ =\ model.generate(}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ images=images\_tensor,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ image\_sizes=image\_sizes,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ do\_sample=\textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ args.temperature\ >\ 0\ \textcolor{keywordflow}{else}\ \textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ temperature=args.temperature,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ top\_p=args.top\_p,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ num\_beams=args.num\_beams,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ max\_new\_tokens=args.max\_new\_tokens,}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ use\_cache=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00127}00127\ \ \ \ \ outputs\ =\ tokenizer.batch\_decode(output\_ids,\ skip\_special\_tokens=\textcolor{keyword}{True})[0].strip()}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00128}00128\ \ \ \ \ print(outputs)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00131}00131\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00132}\mbox{\hyperlink{namespacerun__llava_ad5efc31b33e146ff3ec32ca0588c3a4c}{00132}}\ \ \ \ \ parser\ =\ argparse.ArgumentParser()}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00133}\mbox{\hyperlink{namespacerun__llava_a2783747959ed1f933391aec93ed911c4}{00133}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/model-\/path"{}},\ type=str,\ default=\textcolor{stringliteral}{"{}facebook/opt-\/350m"{}})}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00134}00134\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/model-\/base"{}},\ type=str,\ default=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00135}\mbox{\hyperlink{namespacerun__llava_a8a3293b3a19b9a3d3a3a44af088a715a}{00135}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/image-\/file"{}},\ type=str,\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00136}00136\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/query"{}},\ type=str,\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00137}00137\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/conv-\/mode"{}},\ type=str,\ default=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00138}00138\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/sep"{}},\ type=str,\ default=\textcolor{stringliteral}{"{},"{}})}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00139}\mbox{\hyperlink{namespacerun__llava_a52cbf3400c1d7134bf3982068c9c29bb}{00139}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/temperature"{}},\ type=float,\ default=0.2)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00140}00140\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/top\_p"{}},\ type=float,\ default=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00141}\mbox{\hyperlink{namespacerun__llava_afd578ba363d27ee17bfd484fafb406b6}{00141}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/num\_beams"{}},\ type=int,\ default=1)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00142}00142\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/max\_new\_tokens"{}},\ type=int,\ default=512)}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00143}\mbox{\hyperlink{namespacerun__llava_a97df31f2c8e43ce7535abe58edb02ed5}{00143}}\ \ \ \ \ args\ =\ parser.parse\_args()}
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{run__llava_8py_source_l00145}00145\ \ \ \ \ \mbox{\hyperlink{namespacerun__llava_a28158121cca9af176b13b01b2ef290f4}{eval\_model}}(args)}
+
+\end{DoxyCode}

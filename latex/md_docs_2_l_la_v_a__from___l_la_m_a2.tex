@@ -1,0 +1,25 @@
+\chapter{LLa\+VA (based on Llama 2 LLM, Preview)}
+\hypertarget{md_docs_2_l_la_v_a__from___l_la_m_a2}{}\label{md_docs_2_l_la_v_a__from___l_la_m_a2}\index{LLaVA (based on Llama 2 LLM, Preview)@{LLaVA (based on Llama 2 LLM, Preview)}}
+\label{md_docs_2_l_la_v_a__from___l_la_m_a2_autotoc_md31}%
+\Hypertarget{md_docs_2_l_la_v_a__from___l_la_m_a2_autotoc_md31}%
+
+
+{\itshape NOTE\+: This is a technical preview. We are still running hyperparameter search, and will release the final model soon. If you\textquotesingle{}d like to contribute to this, please contact us.}
+
+\+:llama\+: {\bfseries{-\/Introduction-\/}} \href{https://about.fb.com/news/2023/07/llama-2/}{\texttt{ Llama 2 is an open-\/source LLM released by Meta AI}} today (July 18, 2023). Compared with its early version \href{https://ai.meta.com/blog/large-language-model-llama-meta-ai/}{\texttt{ Llama 1}}, Llama 2 is more favored in {\itshape {\bfseries{stronger language performance}}}, {\itshape {\bfseries{longer context window}}}, and importantly {\itshape {\bfseries{commercially usable}}}! While Llama 2 is changing the LLM market landscape in the language space, its multimodal ability remains unknown. We quickly develop the LLa\+VA variant based on the latest Llama 2 checkpoints, and release it to the community for the public use.
+
+You need to apply for and download the latest Llama 2 checkpoints to start your own training (apply \href{https://ai.meta.com/resources/models-and-libraries/llama-downloads/}{\texttt{ here}})\hypertarget{md_docs_2_l_la_v_a__from___l_la_m_a2_autotoc_md32}{}\doxysection{\texorpdfstring{Training}{Training}}\label{md_docs_2_l_la_v_a__from___l_la_m_a2_autotoc_md32}
+Please checkout \href{https://github.com/haotian-liu/LLaVA/blob/main/scripts/pretrain.sh}{\texttt{ {\ttfamily pretrain.\+sh}}}, \href{https://github.com/haotian-liu/LLaVA/blob/main/scripts/finetune.sh}{\texttt{ {\ttfamily finetune.\+sh}}}, \href{https://github.com/haotian-liu/LLaVA/blob/main/scripts/finetune_lora.sh}{\texttt{ {\ttfamily finetune\+\_\+lora.\+sh}}}.\hypertarget{md_docs_2_l_la_v_a__from___l_la_m_a2_autotoc_md33}{}\doxysection{\texorpdfstring{LLa\+VA (based on Llama 2), What is different?}{LLa\+VA (based on Llama 2), What is different?}}\label{md_docs_2_l_la_v_a__from___l_la_m_a2_autotoc_md33}
+\+:volcano\+: How is the new LLa\+VA based on Llama 2 different from Llama 1? The comparisons of the training process are described\+:
+\begin{DoxyItemize}
+\item {\bfseries{Pre-\/training}}. The pre-\/trained base LLM is changed from Llama 1 to Llama 2
+\item {\bfseries{Language instruction-\/tuning}}. The previous LLa\+VA model starts with Vicuna, which is instruct tuned on Share\+GPT data from Llama 1; The new LLa\+VA model starts with Llama 2 Chat, which is an instruct tuned checkpoint on dialogue data from Llama 2.
+\item {\bfseries{Multimodal instruction-\/tuning}}. The same LLa\+VA-\/\+Lighting process is applied.
+\end{DoxyItemize}\hypertarget{md_docs_2_l_la_v_a__from___l_la_m_a2_autotoc_md34}{}\doxysubsection{\texorpdfstring{Results}{Results}}\label{md_docs_2_l_la_v_a__from___l_la_m_a2_autotoc_md34}
+
+\begin{DoxyItemize}
+\item Llama 2 is better at following the instructions of role playing; Llama 2 fails in following the instructions of translation
+\item The quantitative evaluation on \href{https://github.com/haotian-liu/LLaVA/blob/main/docs/LLaVA_Bench.md}{\texttt{ LLa\+VA-\/\+Bench}} demonstrates on-\/par performance between Llama 2 and Llama 1 in LLa\+VA\textquotesingle{}s multimodal chat ability.
+\end{DoxyItemize}
+
+ 

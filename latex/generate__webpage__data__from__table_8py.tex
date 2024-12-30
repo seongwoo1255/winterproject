@@ -1,0 +1,43 @@
+\doxysection{llava/eval/generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.py File Reference}
+\hypertarget{generate__webpage__data__from__table_8py}{}\label{generate__webpage__data__from__table_8py}\index{llava/eval/generate\_webpage\_data\_from\_table.py@{llava/eval/generate\_webpage\_data\_from\_table.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacegenerate__webpage__data__from__table}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+read\+\_\+jsonl}} (str path, str \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=None)
+\item 
+str \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a297fb8ecb0b21ab0e3299933c3a3b717}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+trim\+\_\+hanging\+\_\+lines}} (str s, int n)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+list \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_ab7d37e067a7cff9ed4ce3b39a94ef989}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+models}} = \mbox{[}\textquotesingle{}vicuna\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a98bacfb9c0529bd4ef29d2203720c3c4}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+questions}} = \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}}(\textquotesingle{}table/question.\+jsonl\textquotesingle{}, \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=\textquotesingle{}question\+\_\+id\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_aa18487dfbd0fa153dccef6e9340f5f41}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+vicuna\+\_\+answers}} = \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}}(\textquotesingle{}table/answer/answer\+\_\+vicuna-\/13b.\+jsonl\textquotesingle{}, \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=\textquotesingle{}question\+\_\+id\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_ac3584e96b807f592204627712b7f980c}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+ours\+\_\+answers}} = \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}}(\textquotesingle{}table/results/llama-\/13b-\/hf-\/alpaca.\+jsonl\textquotesingle{}, \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=\textquotesingle{}question\+\_\+id\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a580e2d0192e26fbe0817edaed6868436}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+review\+\_\+vicuna}} = \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}}(\textquotesingle{}table/review/review\+\_\+vicuna-\/13b\+\_\+llama-\/13b-\/hf-\/alpaca.\+jsonl\textquotesingle{}, \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=\textquotesingle{}question\+\_\+id\textquotesingle{})
+\item 
+list \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a413cb85e2f90dfb89d6bc8e558771963}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+records}} = \mbox{[}$\,$\mbox{]}
+\item 
+dict \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a2e23f4d065f70ba2f7001add512d37f4}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+r}}
+\item 
+dict \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_aee9ef6db2310ab7fb4e5a49cf91ccae4}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+cleaned\+\_\+evals}} = \{\}
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a51f553aab952729114296005a2b5e2ad}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+v}} = v.\+strip()
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a1eb50d7d3ad4bb06ca84667c83ce71e6}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+lines}} = v.\+split(\textquotesingle{}\textbackslash{}n\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+key}}
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_afacd6808fa433f8424ab4c37b205caef}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+f}}
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_aab8cbc11da15cbd0052a1290edc5b298}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+indent}}
+\end{DoxyCompactItemize}

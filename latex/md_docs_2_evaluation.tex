@@ -1,0 +1,204 @@
+\chapter{Evaluation}
+\hypertarget{md_docs_2_evaluation}{}\label{md_docs_2_evaluation}\index{Evaluation@{Evaluation}}
+\label{md_docs_2_evaluation_autotoc_md6}%
+\Hypertarget{md_docs_2_evaluation_autotoc_md6}%
+
+
+In LLa\+VA-\/1.\+5, we evaluate models on a diverse set of 12 benchmarks. To ensure the reproducibility, we evaluate the models with greedy decoding. We do not evaluate using beam search to make the inference process consistent with the chat demo of real-\/time outputs.
+
+Currently, we mostly utilize the official toolkit or server for the evaluation.\hypertarget{md_docs_2_evaluation_autotoc_md7}{}\doxysection{\texorpdfstring{Evaluate on Custom Datasets}{Evaluate on Custom Datasets}}\label{md_docs_2_evaluation_autotoc_md7}
+You can evaluate LLa\+VA on your custom datasets by converting your dataset to LLa\+VA\textquotesingle{}s jsonl format, and evaluate using \href{https://github.com/haotian-liu/LLaVA/blob/main/llava/eval/model_vqa.py}{\texttt{ {\ttfamily model\+\_\+vqa.\+py}}}.
+
+Below we provide a general guideline for evaluating datasets with some common formats.
+
+
+\begin{DoxyEnumerate}
+\item Short-\/answer (e.\+g. VQAv2, MME).
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<question>}
+\DoxyCodeLine{Answer\ the\ question\ using\ a\ single\ word\ or\ phrase.}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item Option-\/only for multiple-\/choice (e.\+g. MMBench, SEED-\/\+Bench).
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<question>}
+\DoxyCodeLine{A.\ <option\_1>}
+\DoxyCodeLine{B.\ <option\_2>}
+\DoxyCodeLine{C.\ <option\_3>}
+\DoxyCodeLine{D.\ <option\_4>}
+\DoxyCodeLine{Answer\ with\ the\ option's\ letter\ from\ the\ given\ choices\ directly.}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item Natural QA (e.\+g. LLa\+VA-\/\+Bench, MM-\/\+Vet).
+\end{DoxyEnumerate}
+
+No postprocessing is needed.\hypertarget{md_docs_2_evaluation_autotoc_md8}{}\doxysection{\texorpdfstring{Scripts}{Scripts}}\label{md_docs_2_evaluation_autotoc_md8}
+Before preparing task-\/specific data, {\bfseries{you MUST first download \href{https://drive.google.com/file/d/1atZSBBrAX54yYpxtVVW33zFvcnaHeFPy/view?usp=sharing}{\texttt{ eval.\+zip}}}}. It contains custom annotations, scripts, and the prediction files with LLa\+VA v1.\+5. Extract to {\ttfamily ./playground/data/eval}. This also provides a general structure for all datasets.\hypertarget{md_docs_2_evaluation_autotoc_md9}{}\doxysubsection{\texorpdfstring{VQAv2}{VQAv2}}\label{md_docs_2_evaluation_autotoc_md9}
+
+\begin{DoxyEnumerate}
+\item Download \href{http://images.cocodataset.org/zips/test2015.zip}{\texttt{ {\ttfamily test2015}}} and put it under {\ttfamily ./playground/data/eval/vqav2}.
+\item Multi-\/\+GPU inference. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0,1,2,3,4,5,6,7\ bash\ scripts/v1\_5/eval/vqav2.sh}
+
+\end{DoxyCode}
+
+\item Submit the results to the \href{https://eval.ai/web/challenges/challenge-page/830/my-submission}{\texttt{ evaluation server}}\+: {\ttfamily ./playground/data/eval/vqav2/answers\+\_\+upload}.
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md10}{}\doxysubsection{\texorpdfstring{GQA}{GQA}}\label{md_docs_2_evaluation_autotoc_md10}
+
+\begin{DoxyEnumerate}
+\item Download the \href{https://cs.stanford.edu/people/dorarad/gqa/download.html}{\texttt{ data}} and \href{https://cs.stanford.edu/people/dorarad/gqa/evaluate.html}{\texttt{ evaluation scripts}} following the official instructions and put under {\ttfamily ./playground/data/eval/gqa/data}. You may need to modify {\ttfamily eval.\+py} as \href{https://gist.github.com/haotian-liu/db6eddc2a984b4cbcc8a7f26fd523187}{\texttt{ this}} due to the missing assets in the GQA v1.\+2 release.
+\item Multi-\/\+GPU inference. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0,1,2,3,4,5,6,7\ bash\ scripts/v1\_5/eval/gqa.sh}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md11}{}\doxysubsection{\texorpdfstring{Vis\+Wiz}{Vis\+Wiz}}\label{md_docs_2_evaluation_autotoc_md11}
+
+\begin{DoxyEnumerate}
+\item Download \href{https://vizwiz.cs.colorado.edu/VizWiz_final/vqa_data/Annotations.zip}{\texttt{ {\ttfamily test.\+json}}} and extract \href{https://vizwiz.cs.colorado.edu/VizWiz_final/images/test.zip}{\texttt{ {\ttfamily test.\+zip}}} to {\ttfamily test}. Put them under {\ttfamily ./playground/data/eval/vizwiz}.
+\item Single-\/\+GPU inference. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0\ bash\ scripts/v1\_5/eval/vizwiz.sh}
+
+\end{DoxyCode}
+
+\item Submit the results to the \href{https://eval.ai/web/challenges/challenge-page/2185/my-submission}{\texttt{ evaluation server}}\+: {\ttfamily ./playground/data/eval/vizwiz/answers\+\_\+upload}.
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md12}{}\doxysubsection{\texorpdfstring{Science\+QA}{Science\+QA}}\label{md_docs_2_evaluation_autotoc_md12}
+
+\begin{DoxyEnumerate}
+\item Under {\ttfamily ./playground/data/eval/scienceqa}, download {\ttfamily images}, {\ttfamily pid\+\_\+splits.\+json}, {\ttfamily problems.\+json} from the {\ttfamily data/scienceqa} folder of the Science\+QA \href{https://github.com/lupantech/ScienceQA}{\texttt{ repo}}.
+\item Single-\/\+GPU inference and evaluate. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0\ bash\ scripts/v1\_5/eval/sqa.sh}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md13}{}\doxysubsection{\texorpdfstring{Text\+VQA}{Text\+VQA}}\label{md_docs_2_evaluation_autotoc_md13}
+
+\begin{DoxyEnumerate}
+\item Download \href{https://dl.fbaipublicfiles.com/textvqa/data/TextVQA_0.5.1_val.json}{\texttt{ {\ttfamily Text\+VQA\+\_\+0.\+5.\+1\+\_\+val.\+json}}} and \href{https://dl.fbaipublicfiles.com/textvqa/images/train_val_images.zip}{\texttt{ images}} and extract to {\ttfamily ./playground/data/eval/textvqa}.
+\item Single-\/\+GPU inference and evaluate. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0\ bash\ scripts/v1\_5/eval/textvqa.sh}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md14}{}\doxysubsection{\texorpdfstring{POPE}{POPE}}\label{md_docs_2_evaluation_autotoc_md14}
+
+\begin{DoxyEnumerate}
+\item Download {\ttfamily coco} from \href{https://github.com/AoiDragon/POPE/tree/e3e39262c85a6a83f26cf5094022a782cb0df58d/output/coco}{\texttt{ POPE}} and put under {\ttfamily ./playground/data/eval/pope}.
+\item Single-\/\+GPU inference and evaluate. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0\ bash\ scripts/v1\_5/eval/pope.sh}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md15}{}\doxysubsection{\texorpdfstring{MME}{MME}}\label{md_docs_2_evaluation_autotoc_md15}
+
+\begin{DoxyEnumerate}
+\item Download the data following the official instructions \href{https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models/tree/Evaluation}{\texttt{ here}}.
+\item Downloaded images to {\ttfamily MME\+\_\+\+Benchmark\+\_\+release\+\_\+version}.
+\item put the official {\ttfamily eval\+\_\+tool} and {\ttfamily MME\+\_\+\+Benchmark\+\_\+release\+\_\+version} under {\ttfamily ./playground/data/eval/\+MME}.
+\item Single-\/\+GPU inference and evaluate. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0\ bash\ scripts/v1\_5/eval/mme.sh}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md16}{}\doxysubsection{\texorpdfstring{MMBench}{MMBench}}\label{md_docs_2_evaluation_autotoc_md16}
+
+\begin{DoxyEnumerate}
+\item Download \href{https://download.openmmlab.com/mmclassification/datasets/mmbench/mmbench_dev_20230712.tsv}{\texttt{ {\ttfamily mmbench\+\_\+dev\+\_\+20230712.\+tsv}}} and put under {\ttfamily ./playground/data/eval/mmbench}.
+\item Single-\/\+GPU inference. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0\ bash\ scripts/v1\_5/eval/mmbench.sh}
+
+\end{DoxyCode}
+
+\item Submit the results to the \href{https://opencompass.org.cn/leaderboard-multimodal}{\texttt{ evaluation server}}\+: {\ttfamily ./playground/data/eval/mmbench/answers\+\_\+upload/mmbench\+\_\+dev\+\_\+20230712}.
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md17}{}\doxysubsection{\texorpdfstring{MMBench-\/\+CN}{MMBench-\/\+CN}}\label{md_docs_2_evaluation_autotoc_md17}
+
+\begin{DoxyEnumerate}
+\item Download \href{https://download.openmmlab.com/mmclassification/datasets/mmbench/mmbench_dev_cn_20231003.tsv}{\texttt{ {\ttfamily mmbench\+\_\+dev\+\_\+cn\+\_\+20231003.\+tsv}}} and put under {\ttfamily ./playground/data/eval/mmbench}.
+\item Single-\/\+GPU inference. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0\ bash\ scripts/v1\_5/eval/mmbench\_cn.sh}
+
+\end{DoxyCode}
+
+\item Submit the results to the evaluation server\+: {\ttfamily ./playground/data/eval/mmbench/answers\+\_\+upload/mmbench\+\_\+dev\+\_\+cn\+\_\+20231003}.
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md18}{}\doxysubsection{\texorpdfstring{SEED-\/\+Bench}{SEED-\/\+Bench}}\label{md_docs_2_evaluation_autotoc_md18}
+
+\begin{DoxyEnumerate}
+\item Following the official \href{https://github.com/AILab-CVC/SEED-Bench/blob/main/DATASET.md}{\texttt{ instructions}} to download the images and the videos. Put images under {\ttfamily ./playground/data/eval/seed\+\_\+bench/\+SEED-\/\+Bench-\/image}.
+\item Extract the video frame in the middle from the downloaded videos, and put them under {\ttfamily ./playground/data/eval/seed\+\_\+bench/\+SEED-\/\+Bench-\/video-\/image}. We provide our script {\ttfamily extract\+\_\+video\+\_\+frames.\+py} modified from the official one.
+\item Multiple-\/\+GPU inference and evaluate. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0,1,2,3,4,5,6,7\ bash\ scripts/v1\_5/eval/seed.sh}
+
+\end{DoxyCode}
+
+\item Optionally, submit the results to the leaderboard\+: {\ttfamily ./playground/data/eval/seed\+\_\+bench/answers\+\_\+upload} using the official jupyter notebook.
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md19}{}\doxysubsection{\texorpdfstring{LLa\+VA-\/\+Bench-\/in-\/the-\/\+Wild}{LLa\+VA-\/\+Bench-\/in-\/the-\/\+Wild}}\label{md_docs_2_evaluation_autotoc_md19}
+
+\begin{DoxyEnumerate}
+\item Extract contents of \href{https://huggingface.co/datasets/liuhaotian/llava-bench-in-the-wild}{\texttt{ {\ttfamily llava-\/bench-\/in-\/the-\/wild}}} to {\ttfamily ./playground/data/eval/llava-\/bench-\/in-\/the-\/wild}.
+\item Single-\/\+GPU inference and evaluate. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0\ bash\ scripts/v1\_5/eval/llavabench.sh}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md20}{}\doxysubsection{\texorpdfstring{MM-\/\+Vet}{MM-\/\+Vet}}\label{md_docs_2_evaluation_autotoc_md20}
+
+\begin{DoxyEnumerate}
+\item Extract \href{https://github.com/yuweihao/MM-Vet/releases/download/v1/mm-vet.zip}{\texttt{ {\ttfamily mm-\/vet.\+zip}}} to {\ttfamily ./playground/data/eval/mmvet}.
+\item Single-\/\+GPU inference. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0\ bash\ scripts/v1\_5/eval/mmvet.sh}
+
+\end{DoxyCode}
+
+\item Evaluate the predictions in {\ttfamily ./playground/data/eval/mmvet/results} using the official jupyter notebook.
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md21}{}\doxysection{\texorpdfstring{More Benchmarks}{More Benchmarks}}\label{md_docs_2_evaluation_autotoc_md21}
+Below are awesome benchmarks for multimodal understanding from the research community, that are not initially included in the LLa\+VA-\/1.\+5 release.\hypertarget{md_docs_2_evaluation_autotoc_md22}{}\doxysubsection{\texorpdfstring{Q-\/\+Bench}{Q-\/\+Bench}}\label{md_docs_2_evaluation_autotoc_md22}
+
+\begin{DoxyEnumerate}
+\item Download \href{https://huggingface.co/datasets/nanyangtu/LLVisionQA-QBench/resolve/main/llvisionqa_dev.json}{\texttt{ {\ttfamily llvisionqa\+\_\+dev.\+json}}} (for {\ttfamily dev}-\/subset) and \href{https://huggingface.co/datasets/nanyangtu/LLVisionQA-QBench/resolve/main/llvisionqa_test.json}{\texttt{ {\ttfamily llvisionqa\+\_\+test.\+json}}} (for {\ttfamily test}-\/subset). Put them under {\ttfamily ./playground/data/eval/qbench}.
+\item Download and extract \href{https://huggingface.co/datasets/nanyangtu/LLVisionQA-QBench/resolve/main/images_llvisionqa.tar}{\texttt{ images}} and put all the images directly under {\ttfamily ./playground/data/eval/qbench/images\+\_\+llviqionqa}.
+\item Single-\/\+GPU inference (change {\ttfamily dev} to {\ttfamily test} for evaluation on test set). 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0\ bash\ scripts/v1\_5/eval/qbench.sh\ dev}
+
+\end{DoxyCode}
+
+\item Submit the results by instruction \href{https://github.com/VQAssessment/Q-Bench\#option-1-submit-results}{\texttt{ here}}\+: {\ttfamily ./playground/data/eval/qbench/llvisionqa\+\_\+dev\+\_\+answers.jsonl}.
+\end{DoxyEnumerate}\hypertarget{md_docs_2_evaluation_autotoc_md23}{}\doxysubsection{\texorpdfstring{Chinese-\/\+Q-\/\+Bench}{Chinese-\/\+Q-\/\+Bench}}\label{md_docs_2_evaluation_autotoc_md23}
+
+\begin{DoxyEnumerate}
+\item Download \href{https://huggingface.co/datasets/nanyangtu/LLVisionQA-QBench/resolve/main/\%E8\%B4\%A8\%E8\%A1\%A1-\%E9\%97\%AE\%E7\%AD\%94-\%E9\%AA\%8C\%E8\%AF\%81\%E9\%9B\%86.json}{\texttt{ {\ttfamily 质衡-\/问答-\/验证集.json}}} (for {\ttfamily dev}-\/subset) and \href{https://huggingface.co/datasets/nanyangtu/LLVisionQA-QBench/resolve/main/\%E8\%B4\%A8\%E8\%A1\%A1-\%E9\%97\%AE\%E7\%AD\%94-\%E6\%B5\%8B\%E8\%AF\%95\%E9\%9B\%86.json}{\texttt{ {\ttfamily 质衡-\/问答-\/测试集.json}}} (for {\ttfamily test}-\/subset). Put them under {\ttfamily ./playground/data/eval/qbench}.
+\item Download and extract \href{https://huggingface.co/datasets/nanyangtu/LLVisionQA-QBench/resolve/main/images_llvisionqa.tar}{\texttt{ images}} and put all the images directly under {\ttfamily ./playground/data/eval/qbench/images\+\_\+llviqionqa}.
+\item Single-\/\+GPU inference (change {\ttfamily dev} to {\ttfamily test} for evaluation on test set). 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{CUDA\_VISIBLE\_DEVICES=0\ bash\ scripts/v1\_5/eval/qbench\_zh.sh\ dev}
+
+\end{DoxyCode}
+
+\item Submit the results by instruction \href{https://github.com/VQAssessment/Q-Bench\#option-1-submit-results}{\texttt{ here}}\+: {\ttfamily ./playground/data/eval/qbench/llvisionqa\+\_\+zh\+\_\+dev\+\_\+answers.jsonl}. 
+\end{DoxyEnumerate}

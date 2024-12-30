@@ -1,0 +1,66 @@
+\doxysection{llava/serve/sglang\+\_\+worker.py File Reference}
+\hypertarget{sglang__worker_8py}{}\label{sglang__worker_8py}\index{llava/serve/sglang\_worker.py@{llava/serve/sglang\_worker.py}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker}{llava.\+serve.\+sglang\+\_\+worker.\+Model\+Worker}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacellava}{llava}}
+\item 
+namespace \mbox{\hyperlink{namespacellava_1_1serve}{llava.\+serve}}
+\item 
+namespace \mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker}{llava.\+serve.\+sglang\+\_\+worker}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a2a8cb0b4e4650435b03cc6449e69279a}{llava.\+serve.\+sglang\+\_\+worker.\+heart\+\_\+beat\+\_\+worker}} (controller)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a6e2b27fff066e4c773b86300b506739a}{llava.\+serve.\+sglang\+\_\+worker.\+pipeline}} (s, prompt, max\+\_\+tokens)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_ab1d6b637f1ab5472a634427619ebb0b6}{llava.\+serve.\+sglang\+\_\+worker.\+release\+\_\+model\+\_\+semaphore}} (fn=None)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a01aa47ac33944cd8b7f2198f3a780a9d}{llava.\+serve.\+sglang\+\_\+worker.\+generate\+\_\+stream}} (Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a10016831c5bda4af1071a9f868a40e70}{llava.\+serve.\+sglang\+\_\+worker.\+get\+\_\+status}} (Request request)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a851a452d708f25257ca22bc7ab7bc408}{int}} \mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_aea4c05ce91aba079994236a1d97f46c6}{llava.\+serve.\+sglang\+\_\+worker.\+GB}} = 1 $<$$<$ 30
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a2b0f08a42fd4e9c1a4398636606afc0b}{llava.\+serve.\+sglang\+\_\+worker.\+worker\+\_\+id}} = \mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a006a1e20da180b43fa889b1bfd3b50eb}{str}}(uuid.\+uuid4())\mbox{[}\+:6\mbox{]}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_aa968e0c82053c4d4aad659e8cdc8662f}{llava.\+serve.\+sglang\+\_\+worker.\+logger}} = build\+\_\+logger("{}model\+\_\+worker"{}, f"{}model\+\_\+worker\+\_\+\{\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a2b0f08a42fd4e9c1a4398636606afc0b}{worker\+\_\+id}}\}.log"{})
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a851a452d708f25257ca22bc7ab7bc408}{int}} \mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a8335c4a237ebd5758d1e1059dab8f886}{llava.\+serve.\+sglang\+\_\+worker.\+global\+\_\+counter}} = 0
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a9298f62e6a5df4acc1e12af3f58d8a47}{llava.\+serve.\+sglang\+\_\+worker.\+model\+\_\+semaphore}} = None
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a8b8327edf3d74abc9f7474bf3a431eba}{llava.\+serve.\+sglang\+\_\+worker.\+app}} = Fast\+API()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_aa3e3f950b8a86cf0acf30777d9c83a50}{llava.\+serve.\+sglang\+\_\+worker.\+parser}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a3bbac648c3eca3496616310843ec6ce7}{llava.\+serve.\+sglang\+\_\+worker.\+type}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a006a1e20da180b43fa889b1bfd3b50eb}{llava.\+serve.\+sglang\+\_\+worker.\+str}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a2a2042d753d90aa3ffd52fc9b43a7cb1}{llava.\+serve.\+sglang\+\_\+worker.\+default}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a851a452d708f25257ca22bc7ab7bc408}{llava.\+serve.\+sglang\+\_\+worker.\+int}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a78fd062d24435e4c381655af0aa616a3}{llava.\+serve.\+sglang\+\_\+worker.\+action}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_af4777bfa8a8e6b8a301b74e598345269}{llava.\+serve.\+sglang\+\_\+worker.\+args}} = parser.\+parse\+\_\+args()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_acef790765b811f030119800717dde124}{llava.\+serve.\+sglang\+\_\+worker.\+worker}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a6c70be0c426cb0cef23ff27c04dc78a3}{llava.\+serve.\+sglang\+\_\+worker.\+host}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_aa266e114bba7d649f0231898be80c7c0}{llava.\+serve.\+sglang\+\_\+worker.\+port}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a863452d34d6847c75da444232d458613}{llava.\+serve.\+sglang\+\_\+worker.\+log\+\_\+level}}
+\end{DoxyCompactItemize}

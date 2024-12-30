@@ -1,0 +1,160 @@
+\doxysection{predict.\+py}
+\hypertarget{predict_8py_source}{}\label{predict_8py_source}\mbox{\hyperlink{predict_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00001}\mbox{\hyperlink{namespacepredict}{00001}}\ \textcolor{keyword}{import}\ torch}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00003}00003\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1constants}{llava.constants}}\ \textcolor{keyword}{import}\ IMAGE\_TOKEN\_INDEX,\ DEFAULT\_IMAGE\_TOKEN}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00004}00004\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1conversation}{llava.conversation}}\ \textcolor{keyword}{import}\ conv\_templates,\ SeparatorStyle}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00005}00005\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1model_1_1builder}{llava.model.builder}}\ \textcolor{keyword}{import}\ load\_pretrained\_model}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00006}00006\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1utils}{llava.utils}}\ \textcolor{keyword}{import}\ disable\_torch\_init}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00007}00007\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1mm__utils}{llava.mm\_utils}}\ \textcolor{keyword}{import}\ tokenizer\_image\_token}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00008}00008\ \textcolor{keyword}{from}\ transformers.generation.streamers\ \textcolor{keyword}{import}\ TextIteratorStreamer}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00010}00010\ \textcolor{keyword}{from}\ PIL\ \textcolor{keyword}{import}\ Image}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00012}00012\ \textcolor{keyword}{import}\ requests}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00013}00013\ \textcolor{keyword}{from}\ io\ \textcolor{keyword}{import}\ BytesIO}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00015}00015\ \textcolor{keyword}{from}\ cog\ \textcolor{keyword}{import}\ BasePredictor,\ Input,\ Path,\ ConcatenateIterator}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00016}00016\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00017}00017\ \textcolor{keyword}{import}\ subprocess}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00018}00018\ \textcolor{keyword}{from}\ threading\ \textcolor{keyword}{import}\ Thread}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00020}00020\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00021}00021\ os.environ[\textcolor{stringliteral}{"{}HUGGINGFACE\_HUB\_CACHE"{}}]\ =\ os.getcwd()\ +\ \textcolor{stringliteral}{"{}/weights"{}}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00023}00023\ \textcolor{comment}{\#\ url\ for\ the\ weights\ mirror}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00024}\mbox{\hyperlink{namespacepredict_af1e26735f4e2c52329c193081a033c1a}{00024}}\ REPLICATE\_WEIGHTS\_URL\ =\ \textcolor{stringliteral}{"{}https://weights.replicate.delivery/default"{}}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00025}00025\ \textcolor{comment}{\#\ files\ to\ download\ from\ the\ weights\ mirrors}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00026}\mbox{\hyperlink{namespacepredict_aea5eccb38f35ff85765998bfc637ad3d}{00026}}\ weights\ =\ [}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00027}00027\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}dest"{}}:\ \textcolor{stringliteral}{"{}liuhaotian/llava-\/v1.5-\/13b"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ git\ commit\ hash\ from\ huggingface}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}src"{}}:\ \textcolor{stringliteral}{"{}llava-\/v1.5-\/13b/006818fc465ebda4c003c0998674d9141d8d95f8"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}files"{}}:\ [}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}config.json"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}generation\_config.json"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}pytorch\_model-\/00001-\/of-\/00003.bin"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}pytorch\_model-\/00002-\/of-\/00003.bin"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}pytorch\_model-\/00003-\/of-\/00003.bin"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}pytorch\_model.bin.index.json"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}special\_tokens\_map.json"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tokenizer.model"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tokenizer\_config.json"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00042}00042\ \ \ \ \ \},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00043}00043\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}dest"{}}:\ \textcolor{stringliteral}{"{}openai/clip-\/vit-\/large-\/patch14-\/336"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}src"{}}:\ \textcolor{stringliteral}{"{}clip-\/vit-\/large-\/patch14-\/336/ce19dc912ca5cd21c8a653c79e251e808ccabcd1"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}files"{}}:\ [}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}config.json"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}preprocessor\_config.json"{}},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}pytorch\_model.bin"{}}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00052}00052\ ]}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00054}\mbox{\hyperlink{namespacepredict_a7f845495a7bf6f303ef0b1a61327c049}{00054}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacepredict_a7f845495a7bf6f303ef0b1a61327c049}{download\_json}}(url:\ str,\ dest:\ Path):}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00055}00055\ \ \ \ \ res\ =\ requests.get(url,\ allow\_redirects=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00056}00056\ \ \ \ \ \textcolor{keywordflow}{if}\ res.status\_code\ ==\ 200\ \textcolor{keywordflow}{and}\ res.content:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ dest.open(\textcolor{stringliteral}{"{}wb"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ f.write(res.content)}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Failed\ to\ download\ \{url\}.\ Status\ code:\ \{res.status\_code\}"{}})}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00062}\mbox{\hyperlink{namespacepredict_a0556aa8aab8e03d5419d76d6da52c03d}{00062}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacepredict_a0556aa8aab8e03d5419d76d6da52c03d}{download\_weights}}(baseurl:\ str,\ basedest:\ str,\ files:\ list[str]):}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00063}00063\ \ \ \ \ basedest\ =\ Path(basedest)}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00064}00064\ \ \ \ \ start\ =\ time.time()}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00065}00065\ \ \ \ \ print(\textcolor{stringliteral}{"{}downloading\ to:\ "{}},\ basedest)}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00066}00066\ \ \ \ \ basedest.mkdir(parents=\textcolor{keyword}{True},\ exist\_ok=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00067}00067\ \ \ \ \ \textcolor{keywordflow}{for}\ f\ \textcolor{keywordflow}{in}\ files:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ dest\ =\ basedest\ /\ f}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ url\ =\ os.path.join(REPLICATE\_WEIGHTS\_URL,\ baseurl,\ f)}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ dest.exists():}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}downloading\ url:\ "{}},\ url)}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ dest.suffix\ ==\ \textcolor{stringliteral}{"{}.json"{}}:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacepredict_a7f845495a7bf6f303ef0b1a61327c049}{download\_json}}(url,\ dest)}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ subprocess.check\_call([\textcolor{stringliteral}{"{}pget"{}},\ url,\ str(dest)],\ close\_fds=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00076}00076\ \ \ \ \ print(\textcolor{stringliteral}{"{}downloading\ took:\ "{}},\ time.time()\ -\/\ start)}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00078}\mbox{\hyperlink{classpredict_1_1_predictor}{00078}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classpredict_1_1_predictor}{Predictor}}(BasePredictor):}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00079}\mbox{\hyperlink{classpredict_1_1_predictor_a18f2f3059716a784b8013347b88eb06c}{00079}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classpredict_1_1_predictor_a18f2f3059716a784b8013347b88eb06c}{setup}}(self)\ -\/>\ None:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Load\ the\ model\ into\ memory\ to\ make\ running\ multiple\ predictions\ efficient"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ weight\ \textcolor{keywordflow}{in}\ weights:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacepredict_a0556aa8aab8e03d5419d76d6da52c03d}{download\_weights}}(weight[\textcolor{stringliteral}{"{}src"{}}],\ weight[\textcolor{stringliteral}{"{}dest"{}}],\ weight[\textcolor{stringliteral}{"{}files"{}}])}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ disable\_torch\_init()}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00084}00084\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00085}\mbox{\hyperlink{classpredict_1_1_predictor_a2883fb06d91e1914ccc6e995a63caaac}{00085}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpredict_1_1_predictor_a4b54f002f57ce380993e2ec959468477}{tokenizer}},\ self.\mbox{\hyperlink{classpredict_1_1_predictor_aac7b71571fe6c6cfcbf20682668c8ea7}{model}},\ self.\mbox{\hyperlink{classpredict_1_1_predictor_a10184f05ea3e05f5097f0752d9d1a600}{image\_processor}},\ self.\mbox{\hyperlink{classpredict_1_1_predictor_a2883fb06d91e1914ccc6e995a63caaac}{context\_len}}\ =\ load\_pretrained\_model(\textcolor{stringliteral}{"{}liuhaotian/llava-\/v1.5-\/13b"{}},\ model\_name=\textcolor{stringliteral}{"{}llava-\/v1.5-\/13b"{}},\ model\_base=\textcolor{keywordtype}{None},\ load\_8bit=\textcolor{keyword}{False},\ load\_4bit=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00087}\mbox{\hyperlink{classpredict_1_1_predictor_afee23391898a50e155a267ec60d9a2db}{00087}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacepredict}{predict}}(}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ self,}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ image:\ Path\ =\ Input(description=\textcolor{stringliteral}{"{}Input\ image"{}}),}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ prompt:\ str\ =\ Input(description=\textcolor{stringliteral}{"{}Prompt\ to\ use\ for\ text\ generation"{}}),}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ top\_p:\ float\ =\ Input(description=\textcolor{stringliteral}{"{}When\ decoding\ text,\ samples\ from\ the\ top\ p\ percentage\ of\ most\ likely\ tokens;\ lower\ to\ ignore\ less\ likely\ tokens"{}},\ ge=0.0,\ le=1.0,\ default=1.0),}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ temperature:\ float\ =\ Input(description=\textcolor{stringliteral}{"{}Adjusts\ randomness\ of\ outputs,\ greater\ than\ 1\ is\ random\ and\ 0\ is\ deterministic"{}},\ default=0.2,\ ge=0.0),}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ max\_tokens:\ int\ =\ Input(description=\textcolor{stringliteral}{"{}Maximum\ number\ of\ tokens\ to\ generate.\ A\ word\ is\ generally\ 2-\/3\ tokens"{}},\ default=1024,\ ge=0),}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00094}00094\ \ \ \ \ )\ -\/>\ ConcatenateIterator[str]:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Run\ a\ single\ prediction\ on\ the\ model"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00096}00096\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ conv\_mode\ =\ \textcolor{stringliteral}{"{}llava\_v1"{}}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ conv\ =\ conv\_templates[conv\_mode].copy()}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00099}00099\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ image\_data\ =\ \mbox{\hyperlink{namespacepredict_a34553b8aa02e0fc2b642a08bf6c7d746}{load\_image}}(str(image))}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ image\_tensor\ =\ self.\mbox{\hyperlink{classpredict_1_1_predictor_a10184f05ea3e05f5097f0752d9d1a600}{image\_processor}}.preprocess(image\_data,\ return\_tensors=\textcolor{stringliteral}{'pt'})[\textcolor{stringliteral}{'pixel\_values'}].half().cuda()}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00102}00102\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ loop\ start}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00104}00104\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ just\ one\ turn,\ always\ prepend\ image\ token}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ inp\ =\ DEFAULT\_IMAGE\_TOKEN\ +\ \textcolor{stringliteral}{'\(\backslash\)n'}\ +\ prompt}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ conv.append\_message(conv.roles[0],\ inp)}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ conv.append\_message(conv.roles[1],\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ prompt\ =\ conv.get\_prompt()}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00111}00111\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ input\_ids\ =\ tokenizer\_image\_token(prompt,\ self.\mbox{\hyperlink{classpredict_1_1_predictor_a4b54f002f57ce380993e2ec959468477}{tokenizer}},\ IMAGE\_TOKEN\_INDEX,\ return\_tensors=\textcolor{stringliteral}{'pt'}).unsqueeze(0).cuda()}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ stop\_str\ =\ conv.sep\ \textcolor{keywordflow}{if}\ conv.sep\_style\ !=\ SeparatorStyle.TWO\ \textcolor{keywordflow}{else}\ conv.sep2}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ keywords\ =\ [stop\_str]}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ streamer\ =\ TextIteratorStreamer(self.\mbox{\hyperlink{classpredict_1_1_predictor_a4b54f002f57ce380993e2ec959468477}{tokenizer}},\ skip\_prompt=\textcolor{keyword}{True},\ timeout=20.0)}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00116}00116\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ torch.inference\_mode():}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ thread\ =\ Thread(target=self.\mbox{\hyperlink{classpredict_1_1_predictor_aac7b71571fe6c6cfcbf20682668c8ea7}{model}}.generate,\ kwargs=dict(}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs=input\_ids,}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ images=image\_tensor,}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ do\_sample=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temperature=temperature,}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ top\_p=top\_p,}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_new\_tokens=max\_tokens,}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ streamer=streamer,}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_cache=\textcolor{keyword}{True}))}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ thread.start()}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ workaround:\ second-\/to-\/last\ token\ is\ always\ "{}\ "{}}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ but\ we\ want\ to\ keep\ it\ if\ it's\ not\ the\ second-\/to-\/last\ token}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ prepend\_space\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ new\_text\ \textcolor{keywordflow}{in}\ streamer:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ new\_text\ ==\ \textcolor{stringliteral}{"{}\ "{}}:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prepend\_space\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ new\_text.endswith(stop\_str):}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_text\ =\ new\_text[:-\/len(stop\_str)].strip()}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prepend\_space\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ prepend\_space:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_text\ =\ \textcolor{stringliteral}{"{}\ "{}}\ +\ new\_text}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prepend\_space\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(new\_text):}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ new\_text}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ prepend\_space:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ thread.join()}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00146}00146\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00148}\mbox{\hyperlink{namespacepredict_a34553b8aa02e0fc2b642a08bf6c7d746}{00148}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacepredict_a34553b8aa02e0fc2b642a08bf6c7d746}{load\_image}}(image\_file):}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00149}00149\ \ \ \ \ \textcolor{keywordflow}{if}\ image\_file.startswith(\textcolor{stringliteral}{'http'})\ \textcolor{keywordflow}{or}\ image\_file.startswith(\textcolor{stringliteral}{'https'}):}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ response\ =\ requests.get(image\_file)}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ image\ =\ Image.open(BytesIO(response.content)).convert(\textcolor{stringliteral}{'RGB'})}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00152}00152\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ image\ =\ Image.open(image\_file).convert(\textcolor{stringliteral}{'RGB'})}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00154}00154\ \ \ \ \ \textcolor{keywordflow}{return}\ image}
+\DoxyCodeLine{\Hypertarget{predict_8py_source_l00155}00155\ }
+
+\end{DoxyCode}

@@ -1,0 +1,88 @@
+\doxysection{m4c\+\_\+evaluator.\+STVQAAccuracy\+Evaluator Class Reference}
+\hypertarget{classm4c__evaluator_1_1_s_t_v_q_a_accuracy_evaluator}{}\label{classm4c__evaluator_1_1_s_t_v_q_a_accuracy_evaluator}\index{m4c\_evaluator.STVQAAccuracyEvaluator@{m4c\_evaluator.STVQAAccuracyEvaluator}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classm4c__evaluator_1_1_s_t_v_q_a_accuracy_evaluator_a18ef5f22d508a6a950ffdfde250b02fc}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\item 
+\mbox{\hyperlink{classm4c__evaluator_1_1_s_t_v_q_a_accuracy_evaluator_a6f6414e28bf4982a926fc2c4e8262cc7}{eval\+\_\+pred\+\_\+list}} (self, pred\+\_\+list)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classm4c__evaluator_1_1_s_t_v_q_a_accuracy_evaluator_a2d6c607764edfb775e58ef9ded366fc1}{answer\+\_\+processor}} = \mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor}{Eval\+AIAnswer\+Processor}}()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00260}{260}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classm4c__evaluator_1_1_s_t_v_q_a_accuracy_evaluator_a18ef5f22d508a6a950ffdfde250b02fc}\index{m4c\_evaluator.STVQAAccuracyEvaluator@{m4c\_evaluator.STVQAAccuracyEvaluator}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!m4c\_evaluator.STVQAAccuracyEvaluator@{m4c\_evaluator.STVQAAccuracyEvaluator}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_s_t_v_q_a_accuracy_evaluator_a18ef5f22d508a6a950ffdfde250b02fc} 
+m4c\+\_\+evaluator.\+STVQAAccuracy\+Evaluator.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00261}{261}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self):}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ self.answer\_processor\ =\ EvalAIAnswerProcessor()}
+\DoxyCodeLine{00263\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classm4c__evaluator_1_1_s_t_v_q_a_accuracy_evaluator_a6f6414e28bf4982a926fc2c4e8262cc7}\index{m4c\_evaluator.STVQAAccuracyEvaluator@{m4c\_evaluator.STVQAAccuracyEvaluator}!eval\_pred\_list@{eval\_pred\_list}}
+\index{eval\_pred\_list@{eval\_pred\_list}!m4c\_evaluator.STVQAAccuracyEvaluator@{m4c\_evaluator.STVQAAccuracyEvaluator}}
+\doxysubsubsection{\texorpdfstring{eval\_pred\_list()}{eval\_pred\_list()}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_s_t_v_q_a_accuracy_evaluator_a6f6414e28bf4982a926fc2c4e8262cc7} 
+m4c\+\_\+evaluator.\+STVQAAccuracy\+Evaluator.\+eval\+\_\+pred\+\_\+list (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{pred\+\_\+list}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00264}{264}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keyword}{def\ }eval\_pred\_list(self,\ pred\_list):}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ pred\_scores\ =\ []}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ entry\ \textcolor{keywordflow}{in}\ pred\_list:}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ pred\_answer\ =\ self.answer\_processor(entry[\textcolor{stringliteral}{"{}pred\_answer"{}}])}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ gts\ =\ [self.answer\_processor(a)\ \textcolor{keywordflow}{for}\ a\ \textcolor{keywordflow}{in}\ entry[\textcolor{stringliteral}{"{}gt\_answers"{}}]]}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ score\ =\ 1.0\ \textcolor{keywordflow}{if}\ pred\_answer\ \textcolor{keywordflow}{in}\ gts\ \textcolor{keywordflow}{else}\ 0.0}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ pred\_scores.append(score)}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ accuracy\ =\ sum(pred\_scores)\ /\ len(pred\_scores)}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ accuracy}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classm4c__evaluator_1_1_s_t_v_q_a_accuracy_evaluator_a2d6c607764edfb775e58ef9ded366fc1}\index{m4c\_evaluator.STVQAAccuracyEvaluator@{m4c\_evaluator.STVQAAccuracyEvaluator}!answer\_processor@{answer\_processor}}
+\index{answer\_processor@{answer\_processor}!m4c\_evaluator.STVQAAccuracyEvaluator@{m4c\_evaluator.STVQAAccuracyEvaluator}}
+\doxysubsubsection{\texorpdfstring{answer\_processor}{answer\_processor}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_s_t_v_q_a_accuracy_evaluator_a2d6c607764edfb775e58ef9ded366fc1} 
+m4c\+\_\+evaluator.\+STVQAAccuracy\+Evaluator.\+answer\+\_\+processor = \mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor}{Eval\+AIAnswer\+Processor}}()}
+
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00262}{262}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+llava/eval/\mbox{\hyperlink{m4c__evaluator_8py}{m4c\+\_\+evaluator.\+py}}\end{DoxyCompactItemize}

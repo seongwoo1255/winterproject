@@ -1,0 +1,257 @@
+\doxysection{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table Namespace Reference}
+\hypertarget{namespacegenerate__webpage__data__from__table}{}\label{namespacegenerate__webpage__data__from__table}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}} (str path, str \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=None)
+\item 
+str \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a297fb8ecb0b21ab0e3299933c3a3b717}{trim\+\_\+hanging\+\_\+lines}} (str s, int n)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+list \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_ab7d37e067a7cff9ed4ce3b39a94ef989}{models}} = \mbox{[}\textquotesingle{}vicuna\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a98bacfb9c0529bd4ef29d2203720c3c4}{questions}} = \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}}(\textquotesingle{}table/question.\+jsonl\textquotesingle{}, \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=\textquotesingle{}question\+\_\+id\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_aa18487dfbd0fa153dccef6e9340f5f41}{vicuna\+\_\+answers}} = \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}}(\textquotesingle{}table/answer/answer\+\_\+vicuna-\/13b.\+jsonl\textquotesingle{}, \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=\textquotesingle{}question\+\_\+id\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_ac3584e96b807f592204627712b7f980c}{ours\+\_\+answers}} = \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}}(\textquotesingle{}table/results/llama-\/13b-\/hf-\/alpaca.\+jsonl\textquotesingle{}, \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=\textquotesingle{}question\+\_\+id\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a580e2d0192e26fbe0817edaed6868436}{review\+\_\+vicuna}} = \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}}(\textquotesingle{}table/review/review\+\_\+vicuna-\/13b\+\_\+llama-\/13b-\/hf-\/alpaca.\+jsonl\textquotesingle{}, \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=\textquotesingle{}question\+\_\+id\textquotesingle{})
+\item 
+list \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a413cb85e2f90dfb89d6bc8e558771963}{records}} = \mbox{[}$\,$\mbox{]}
+\item 
+dict \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a2e23f4d065f70ba2f7001add512d37f4}{r}}
+\item 
+dict \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_aee9ef6db2310ab7fb4e5a49cf91ccae4}{cleaned\+\_\+evals}} = \{\}
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a51f553aab952729114296005a2b5e2ad}{v}} = v.\+strip()
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a1eb50d7d3ad4bb06ca84667c83ce71e6}{lines}} = v.\+split(\textquotesingle{}\textbackslash{}n\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_afacd6808fa433f8424ab4c37b205caef}{f}}
+\item 
+\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_aab8cbc11da15cbd0052a1290edc5b298}{indent}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Generate json file for webpage.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!read\_jsonl@{read\_jsonl}}
+\index{read\_jsonl@{read\_jsonl}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{read\_jsonl()}{read\_jsonl()}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49} 
+generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+read\+\_\+jsonl (\begin{DoxyParamCaption}\item[{str}]{path}{, }\item[{str}]{key}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00010}{10}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00010\ \textcolor{keyword}{def\ }read\_jsonl(path:\ str,\ key:\ str=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00011\ \ \ \ \ data\ =\ []}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{with}\ open(os.path.expanduser(path))\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ f:}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ line:}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ data.append(json.loads(line))}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ data.sort(key=\textcolor{keyword}{lambda}\ x:\ x[key])}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ data\ =\ \{item[key]:\ item\ \textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ data\}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{return}\ data}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacegenerate__webpage__data__from__table_a297fb8ecb0b21ab0e3299933c3a3b717}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!trim\_hanging\_lines@{trim\_hanging\_lines}}
+\index{trim\_hanging\_lines@{trim\_hanging\_lines}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{trim\_hanging\_lines()}{trim\_hanging\_lines()}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_a297fb8ecb0b21ab0e3299933c3a3b717} 
+ str generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+trim\+\_\+hanging\+\_\+lines (\begin{DoxyParamCaption}\item[{str}]{s}{, }\item[{int}]{n}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00023}{23}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00023\ \textcolor{keyword}{def\ }trim\_hanging\_lines(s:\ str,\ n:\ int)\ -\/>\ str:}
+\DoxyCodeLine{00024\ \ \ \ \ s\ =\ s.strip()}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(n):}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ s\ =\ s.split(\textcolor{stringliteral}{'\(\backslash\)n'},\ 1)[1].strip()}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{return}\ s}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacegenerate__webpage__data__from__table_aee9ef6db2310ab7fb4e5a49cf91ccae4}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!cleaned\_evals@{cleaned\_evals}}
+\index{cleaned\_evals@{cleaned\_evals}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{cleaned\_evals}{cleaned\_evals}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_aee9ef6db2310ab7fb4e5a49cf91ccae4} 
+dict generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+cleaned\+\_\+evals = \{\}}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00077}{77}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+\Hypertarget{namespacegenerate__webpage__data__from__table_afacd6808fa433f8424ab4c37b205caef}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!f@{f}}
+\index{f@{f}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{f}{f}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_afacd6808fa433f8424ab4c37b205caef} 
+generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+f}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00111}{111}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+\Hypertarget{namespacegenerate__webpage__data__from__table_aab8cbc11da15cbd0052a1290edc5b298}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!indent@{indent}}
+\index{indent@{indent}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{indent}{indent}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_aab8cbc11da15cbd0052a1290edc5b298} 
+generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+indent}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00111}{111}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+\Hypertarget{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!key@{key}}
+\index{key@{key}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3} 
+generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+key}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00107}{107}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+\Hypertarget{namespacegenerate__webpage__data__from__table_a1eb50d7d3ad4bb06ca84667c83ce71e6}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!lines@{lines}}
+\index{lines@{lines}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{lines}{lines}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_a1eb50d7d3ad4bb06ca84667c83ce71e6} 
+generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+lines = v.\+split(\textquotesingle{}\textbackslash{}n\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00080}{80}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+\Hypertarget{namespacegenerate__webpage__data__from__table_ab7d37e067a7cff9ed4ce3b39a94ef989}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!models@{models}}
+\index{models@{models}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{models}{models}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_ab7d37e067a7cff9ed4ce3b39a94ef989} 
+list generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+models = \mbox{[}\textquotesingle{}vicuna\textquotesingle{}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00007}{7}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+\Hypertarget{namespacegenerate__webpage__data__from__table_ac3584e96b807f592204627712b7f980c}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!ours\_answers@{ours\_answers}}
+\index{ours\_answers@{ours\_answers}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{ours\_answers}{ours\_answers}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_ac3584e96b807f592204627712b7f980c} 
+generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+ours\+\_\+answers = \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}}(\textquotesingle{}table/results/llama-\/13b-\/hf-\/alpaca.\+jsonl\textquotesingle{}, \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=\textquotesingle{}question\+\_\+id\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00038}{38}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+\Hypertarget{namespacegenerate__webpage__data__from__table_a98bacfb9c0529bd4ef29d2203720c3c4}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!questions@{questions}}
+\index{questions@{questions}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{questions}{questions}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_a98bacfb9c0529bd4ef29d2203720c3c4} 
+generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+questions = \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}}(\textquotesingle{}table/question.\+jsonl\textquotesingle{}, \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=\textquotesingle{}question\+\_\+id\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00031}{31}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+\Hypertarget{namespacegenerate__webpage__data__from__table_a2e23f4d065f70ba2f7001add512d37f4}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!r@{r}}
+\index{r@{r}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{r}{r}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_a2e23f4d065f70ba2f7001add512d37f4} 
+dict generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+r}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ qid,}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'category'}:\ questions[qid][\textcolor{stringliteral}{'category'}],}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'question'}:\ questions[qid][\textcolor{stringliteral}{'text'}],}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'answers'}:\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'alpaca':\ alpaca\_answers[qid]['text'],}}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'llama':\ llama\_answers[qid]['text'],}}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'bard':\ bard\_answers[qid]['text'],}}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'gpt35':\ gpt35\_answers[qid]['text'],}}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'vicuna'}:\ vicuna\_answers[qid][\textcolor{stringliteral}{'text'}],}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'ours'}:\ ours\_answers[qid][\textcolor{stringliteral}{'text'}],}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'evaluations'}:\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'alpaca':\ review\_alpaca[qid]['text'],}}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'llama':\ review\_llama[qid]['text'],}}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'bard':\ review\_bard[qid]['text'],}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'vicuna'}:\ review\_vicuna[qid][\textcolor{stringliteral}{'content'}],}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'gpt35':\ review\_gpt35[qid]['text'],}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'scores'}:\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'vicuna'}:\ review\_vicuna[qid][\textcolor{stringliteral}{'tuple'}],}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'alpaca':\ review\_alpaca[qid]['score'],}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'llama':\ review\_llama[qid]['score'],}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'bard':\ review\_bard[qid]['score'],}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'gpt35':\ review\_gpt35[qid]['score'],}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00048}{48}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+\Hypertarget{namespacegenerate__webpage__data__from__table_a413cb85e2f90dfb89d6bc8e558771963}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!records@{records}}
+\index{records@{records}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{records}{records}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_a413cb85e2f90dfb89d6bc8e558771963} 
+list generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+records = \mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00046}{46}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+\Hypertarget{namespacegenerate__webpage__data__from__table_a580e2d0192e26fbe0817edaed6868436}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!review\_vicuna@{review\_vicuna}}
+\index{review\_vicuna@{review\_vicuna}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{review\_vicuna}{review\_vicuna}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_a580e2d0192e26fbe0817edaed6868436} 
+generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+review\+\_\+vicuna = \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}}(\textquotesingle{}table/review/review\+\_\+vicuna-\/13b\+\_\+llama-\/13b-\/hf-\/alpaca.\+jsonl\textquotesingle{}, \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=\textquotesingle{}question\+\_\+id\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00040}{40}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+\Hypertarget{namespacegenerate__webpage__data__from__table_a51f553aab952729114296005a2b5e2ad}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!v@{v}}
+\index{v@{v}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{v}{v}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_a51f553aab952729114296005a2b5e2ad} 
+str generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+v = v.\+strip()}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00079}{79}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+
+\Hypertarget{namespacegenerate__webpage__data__from__table_aa18487dfbd0fa153dccef6e9340f5f41}\index{generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}!vicuna\_answers@{vicuna\_answers}}
+\index{vicuna\_answers@{vicuna\_answers}!generate\_webpage\_data\_from\_table@{generate\_webpage\_data\_from\_table}}
+\doxysubsubsection{\texorpdfstring{vicuna\_answers}{vicuna\_answers}}
+{\footnotesize\ttfamily \label{namespacegenerate__webpage__data__from__table_aa18487dfbd0fa153dccef6e9340f5f41} 
+generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+vicuna\+\_\+answers = \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\+\_\+jsonl}}(\textquotesingle{}table/answer/answer\+\_\+vicuna-\/13b.\+jsonl\textquotesingle{}, \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{key}}=\textquotesingle{}question\+\_\+id\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{generate__webpage__data__from__table_8py_source_l00037}{37}} of file \mbox{\hyperlink{generate__webpage__data__from__table_8py_source}{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}}.
+

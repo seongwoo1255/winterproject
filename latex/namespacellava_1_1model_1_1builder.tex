@@ -1,0 +1,199 @@
+\doxysection{llava.\+model.\+builder Namespace Reference}
+\hypertarget{namespacellava_1_1model_1_1builder}{}\label{namespacellava_1_1model_1_1builder}\index{llava.model.builder@{llava.model.builder}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacellava_1_1model_1_1builder_a017ac83406bb503ad6d09d2a895f013b}{load\+\_\+pretrained\+\_\+model}} (model\+\_\+path, model\+\_\+base, model\+\_\+name, load\+\_\+8bit=False, load\+\_\+4bit=False, device\+\_\+map="{}auto"{}, device="{}cuda"{}, use\+\_\+flash\+\_\+attn=False, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\begin{DoxyCompactList}\small\item\em 사전 학습된 모델을 로드하고 초기화하는 함수. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacellava_1_1model_1_1builder_a017ac83406bb503ad6d09d2a895f013b}\index{llava.model.builder@{llava.model.builder}!load\_pretrained\_model@{load\_pretrained\_model}}
+\index{load\_pretrained\_model@{load\_pretrained\_model}!llava.model.builder@{llava.model.builder}}
+\doxysubsubsection{\texorpdfstring{load\_pretrained\_model()}{load\_pretrained\_model()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1model_1_1builder_a017ac83406bb503ad6d09d2a895f013b} 
+llava.\+model.\+builder.\+load\+\_\+pretrained\+\_\+model (\begin{DoxyParamCaption}\item[{}]{model\+\_\+path}{, }\item[{}]{model\+\_\+base}{, }\item[{}]{model\+\_\+name}{, }\item[{}]{load\+\_\+8bit}{ = {\ttfamily False}, }\item[{}]{load\+\_\+4bit}{ = {\ttfamily False}, }\item[{}]{device\+\_\+map}{ = {\ttfamily "{}auto"{}}, }\item[{}]{device}{ = {\ttfamily "{}cuda"{}}, }\item[{}]{use\+\_\+flash\+\_\+attn}{ = {\ttfamily False}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+
+
+사전 학습된 모델을 로드하고 초기화하는 함수. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model\+\_\+path} & 모델 경로. \\
+\hline
+{\em model\+\_\+base} & Base 모델 경로. \\
+\hline
+{\em model\+\_\+name} & 모델 이름. \\
+\hline
+{\em load\+\_\+8bit} & 8-\/bit 양자화를 사용할지 여부. \\
+\hline
+{\em load\+\_\+4bit} & 4-\/bit 양자화를 사용할지 여부. \\
+\hline
+{\em device\+\_\+map} & 디바이스 매핑 방식. \\
+\hline
+{\em device} & 사용할 디바이스 (기본값\+: "{}cuda"{}). \\
+\hline
+{\em use\+\_\+flash\+\_\+attn} & Flash Attention 사용 여부. \\
+\hline
+{\em kwargs} & 추가 인자. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+tokenizer, model, image\+\_\+processor, context\+\_\+len 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Value\+Error} & Lo\+RA 모델의 Base 경로가 제공되지 않았을 때 경고. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line \mbox{\hyperlink{builder_8py_source_l00043}{43}} of file \mbox{\hyperlink{builder_8py_source}{builder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00043\ \textcolor{keyword}{def\ }load\_pretrained\_model(model\_path,\ model\_base,\ model\_name,\ load\_8bit=False,\ load\_4bit=False,\ device\_map="{}auto"{},\ device="{}cuda"{},\ use\_flash\_attn=False,\ **kwargs):}
+\DoxyCodeLine{00044\ \ \ \ \ kwargs\ =\ \{\textcolor{stringliteral}{"{}device\_map"{}}:\ device\_map,\ **kwargs\}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{if}\ device\ !=\ \textcolor{stringliteral}{"{}cuda"{}}:}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ kwargs[\textcolor{stringliteral}{'device\_map'}]\ =\ \{\textcolor{stringliteral}{"{}"{}}:\ device\}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{if}\ load\_8bit:}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ kwargs[\textcolor{stringliteral}{'load\_in\_8bit'}]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{elif}\ load\_4bit:}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ kwargs[\textcolor{stringliteral}{'load\_in\_4bit'}]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ kwargs[\textcolor{stringliteral}{'quantization\_config'}]\ =\ BitsAndBytesConfig(}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ load\_in\_4bit=\textcolor{keyword}{True},}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ bnb\_4bit\_compute\_dtype=torch.float16,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ bnb\_4bit\_use\_double\_quant=\textcolor{keyword}{True},}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ bnb\_4bit\_quant\_type=\textcolor{stringliteral}{'nf4'}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ kwargs[\textcolor{stringliteral}{'torch\_dtype'}]\ =\ torch.float16}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{if}\ use\_flash\_attn:}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ kwargs[\textcolor{stringliteral}{'attn\_implementation'}]\ =\ \textcolor{stringliteral}{'flash\_attention\_2'}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'llava'}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Load\ LLaVA\ model}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'lora'}\ \textcolor{keywordflow}{in}\ model\_name.lower()\ \textcolor{keywordflow}{and}\ model\_base\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ warnings.warn(\textcolor{stringliteral}{'There\ is\ \`{}lora`\ in\ model\ name\ but\ no\ \`{}model\_base`\ is\ provided.\ If\ you\ are\ loading\ a\ LoRA\ model,\ please\ provide\ the\ \`{}model\_base`\ argument.\ Detailed\ instruction:\ https://github.com/haotian-\/liu/LLaVA\#launch-\/a-\/model-\/worker-\/lora-\/weights-\/unmerged.'})}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'lora'}\ \textcolor{keywordflow}{in}\ model\_name.lower()\ \textcolor{keywordflow}{and}\ model\_base\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{from}\ llava.model.language\_model.llava\_llama\ \textcolor{keyword}{import}\ LlavaConfig}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ lora\_cfg\_pretrained\ =\ LlavaConfig.from\_pretrained(model\_path)}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer\ =\ AutoTokenizer.from\_pretrained(model\_base,\ use\_fast=\textcolor{keyword}{False})}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'Loading\ LLaVA\ from\ base\ model...'})}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ LlavaLlamaForCausalLM.from\_pretrained(model\_base,\ low\_cpu\_mem\_usage=\textcolor{keyword}{True},\ config=lora\_cfg\_pretrained,\ **kwargs)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ token\_num,\ tokem\_dim\ =\ model.lm\_head.out\_features,\ model.lm\_head.in\_features}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model.lm\_head.weight.shape[0]\ !=\ token\_num:}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model.lm\_head.weight\ =\ torch.nn.Parameter(torch.empty(token\_num,\ tokem\_dim,\ device=model.device,\ dtype=model.dtype))}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model.model.embed\_tokens.weight\ =\ torch.nn.Parameter(torch.empty(token\_num,\ tokem\_dim,\ device=model.device,\ dtype=model.dtype))}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'Loading\ additional\ LLaVA\ weights...'})}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ os.path.exists(os.path.join(model\_path,\ \textcolor{stringliteral}{'non\_lora\_trainables.bin'})):}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ non\_lora\_trainables\ =\ torch.load(os.path.join(model\_path,\ \textcolor{stringliteral}{'non\_lora\_trainables.bin'}),\ map\_location=\textcolor{stringliteral}{'cpu'})}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ this\ is\ probably\ from\ HF\ Hub}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{from}\ huggingface\_hub\ \textcolor{keyword}{import}\ hf\_hub\_download}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{def\ }load\_from\_hf(repo\_id,\ filename,\ subfolder=None):}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cache\_file\ =\ hf\_hub\_download(}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ repo\_id=repo\_id,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ filename=filename,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ subfolder=subfolder)}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ torch.load(cache\_file,\ map\_location=\textcolor{stringliteral}{'cpu'})}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ non\_lora\_trainables\ =\ load\_from\_hf(model\_path,\ \textcolor{stringliteral}{'non\_lora\_trainables.bin'})}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ non\_lora\_trainables\ =\ \{(k[11:]\ \textcolor{keywordflow}{if}\ k.startswith(\textcolor{stringliteral}{'base\_model.'})\ \textcolor{keywordflow}{else}\ k):\ v\ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ non\_lora\_trainables.items()\}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ any(k.startswith(\textcolor{stringliteral}{'model.model.'})\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ non\_lora\_trainables):}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ non\_lora\_trainables\ =\ \{(k[6:]\ \textcolor{keywordflow}{if}\ k.startswith(\textcolor{stringliteral}{'model.'})\ \textcolor{keywordflow}{else}\ k):\ v\ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ non\_lora\_trainables.items()\}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ model.load\_state\_dict(non\_lora\_trainables,\ strict=\textcolor{keyword}{False})}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{from}\ peft\ \textcolor{keyword}{import}\ PeftModel}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'Loading\ LoRA\ weights...'})}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ PeftModel.from\_pretrained(model,\ model\_path)}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'Merging\ LoRA\ weights...'})}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ model.merge\_and\_unload()}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'Model\ is\ loaded...'})}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ model\_base\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ this\ may\ be\ mm\ projector\ only}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'Loading\ LLaVA\ from\ base\ model...'})}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'mpt'}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ os.path.isfile(os.path.join(model\_path,\ \textcolor{stringliteral}{'configuration\_mpt.py'})):}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shutil.copyfile(os.path.join(model\_base,\ \textcolor{stringliteral}{'configuration\_mpt.py'}),\ os.path.join(model\_path,\ \textcolor{stringliteral}{'configuration\_mpt.py'}))}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer\ =\ AutoTokenizer.from\_pretrained(model\_base,\ use\_fast=\textcolor{keyword}{True})}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cfg\_pretrained\ =\ AutoConfig.from\_pretrained(model\_path,\ trust\_remote\_code=\textcolor{keyword}{True})}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ LlavaMptForCausalLM.from\_pretrained(model\_base,\ low\_cpu\_mem\_usage=\textcolor{keyword}{True},\ config=cfg\_pretrained,\ **kwargs)}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer\ =\ AutoTokenizer.from\_pretrained(model\_base,\ use\_fast=\textcolor{keyword}{False})}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cfg\_pretrained\ =\ AutoConfig.from\_pretrained(model\_path)}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ LlavaLlamaForCausalLM.from\_pretrained(model\_base,\ low\_cpu\_mem\_usage=\textcolor{keyword}{True},\ config=cfg\_pretrained,\ **kwargs)}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ mm\_projector\_weights\ =\ torch.load(os.path.join(model\_path,\ \textcolor{stringliteral}{'mm\_projector.bin'}),\ map\_location=\textcolor{stringliteral}{'cpu'})}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ mm\_projector\_weights\ =\ \{k:\ v.to(torch.float16)\ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ mm\_projector\_weights.items()\}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ model.load\_state\_dict(mm\_projector\_weights,\ strict=\textcolor{keyword}{False})}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'mpt'}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer\ =\ AutoTokenizer.from\_pretrained(model\_path,\ use\_fast=\textcolor{keyword}{True})}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ LlavaMptForCausalLM.from\_pretrained(model\_path,\ low\_cpu\_mem\_usage=\textcolor{keyword}{True},\ **kwargs)}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{'mistral'}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer\ =\ AutoTokenizer.from\_pretrained(model\_path)}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ LlavaMistralForCausalLM.from\_pretrained(}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\_path,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ low\_cpu\_mem\_usage=\textcolor{keyword}{True},}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **kwargs}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer\ =\ AutoTokenizer.from\_pretrained(model\_path,\ use\_fast=\textcolor{keyword}{False})}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ LlavaLlamaForCausalLM.from\_pretrained(}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\_path,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ low\_cpu\_mem\_usage=\textcolor{keyword}{True},}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **kwargs}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Load\ language\ model}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_base\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ PEFT\ model}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{from}\ peft\ \textcolor{keyword}{import}\ PeftModel}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer\ =\ AutoTokenizer.from\_pretrained(model\_base,\ use\_fast=\textcolor{keyword}{False})}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ AutoModelForCausalLM.from\_pretrained(model\_base,\ low\_cpu\_mem\_usage=\textcolor{keyword}{True},\ **kwargs)}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Loading\ LoRA\ weights\ from\ \{model\_path\}"{}})}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ PeftModel.from\_pretrained(model,\ model\_path)}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Merging\ weights"{}})}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ model.merge\_and\_unload()}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'Convert\ to\ FP16...'})}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ model.to(torch.float16)}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ use\_fast\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'mpt'}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer\ =\ AutoTokenizer.from\_pretrained(model\_path,\ use\_fast=\textcolor{keyword}{True})}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ AutoModelForCausalLM.from\_pretrained(model\_path,\ low\_cpu\_mem\_usage=\textcolor{keyword}{True},\ trust\_remote\_code=\textcolor{keyword}{True},\ **kwargs)}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer\ =\ AutoTokenizer.from\_pretrained(model\_path,\ use\_fast=\textcolor{keyword}{False})}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ AutoModelForCausalLM.from\_pretrained(model\_path,\ low\_cpu\_mem\_usage=\textcolor{keyword}{True},\ **kwargs)}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ image\_processor\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'llava'}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ mm\_use\_im\_start\_end\ =\ getattr(model.config,\ \textcolor{stringliteral}{"{}mm\_use\_im\_start\_end"{}},\ \textcolor{keyword}{False})}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ mm\_use\_im\_patch\_token\ =\ getattr(model.config,\ \textcolor{stringliteral}{"{}mm\_use\_im\_patch\_token"{}},\ \textcolor{keyword}{True})}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ mm\_use\_im\_patch\_token:}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer.add\_tokens([DEFAULT\_IMAGE\_PATCH\_TOKEN],\ special\_tokens=\textcolor{keyword}{True})}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ mm\_use\_im\_start\_end:}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer.add\_tokens([DEFAULT\_IM\_START\_TOKEN,\ DEFAULT\_IM\_END\_TOKEN],\ special\_tokens=\textcolor{keyword}{True})}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ model.resize\_token\_embeddings(len(tokenizer))}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ vision\_tower\ =\ model.get\_vision\_tower()}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ vision\_tower.is\_loaded:}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ vision\_tower.load\_model(device\_map=device\_map)}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ device\_map\ !=\ \textcolor{stringliteral}{'auto'}:}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ vision\_tower.to(device=device\_map,\ dtype=torch.float16)}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ image\_processor\ =\ vision\_tower.image\_processor}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(model.config,\ \textcolor{stringliteral}{"{}max\_sequence\_length"{}}):}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ context\_len\ =\ model.config.max\_sequence\_length}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ context\_len\ =\ 2048}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordflow}{return}\ tokenizer,\ model,\ image\_processor,\ context\_len}
+
+\end{DoxyCode}

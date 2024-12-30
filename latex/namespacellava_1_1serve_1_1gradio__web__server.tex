@@ -1,0 +1,957 @@
+\doxysection{llava.\+serve.\+gradio\+\_\+web\+\_\+server Namespace Reference}
+\hypertarget{namespacellava_1_1serve_1_1gradio__web__server}{}\label{namespacellava_1_1serve_1_1gradio__web__server}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a051e70056bbe57dbbbf2f75acd022f04}{get\+\_\+conv\+\_\+log\+\_\+filename}} ()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a5e04990393402eb7011f171ecb0bb724}{get\+\_\+model\+\_\+list}} ()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a93c1f6a8ca63fcaa4d2dfc938685c0b8}{load\+\_\+demo}} (url\+\_\+params, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a0b4fa2eb00a29ebf4180b262469a30ee}{load\+\_\+demo\+\_\+refresh\+\_\+model\+\_\+list}} (gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a859a9f172b39a6097a21be093e3d5550}{vote\+\_\+last\+\_\+response}} (state, vote\+\_\+type, model\+\_\+selector, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_af60d4ac622856c2a745cafcebfa0c958}{upvote\+\_\+last\+\_\+response}} (state, model\+\_\+selector, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a120e078ca589adb9f75d5c72418547df}{downvote\+\_\+last\+\_\+response}} (state, model\+\_\+selector, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_ae96933ad11b1e741cb77700cefbf35ce}{flag\+\_\+last\+\_\+response}} (state, model\+\_\+selector, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a9a95c3ad99d8e4971a5a424f02ada04e}{regenerate}} (state, image\+\_\+process\+\_\+mode, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a3fd7c3becaa3399ca6a0d236b483e30f}{clear\+\_\+history}} (gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_aeaad5c2bd719b4550756bbe7255e4a7f}{add\+\_\+text}} (state, text, image, image\+\_\+process\+\_\+mode, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a1307d1516461919ebc5484d362f5d1af}{http\+\_\+bot}} (state, model\+\_\+selector, temperature, top\+\_\+p, max\+\_\+new\+\_\+tokens, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a79fc5afb330fad6a1ab146ab4f0f49a8}{build\+\_\+demo}} (embed\+\_\+mode, cur\+\_\+dir=None, concurrency\+\_\+count=10)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_af31b75562f23477c6c980c12623c474d}{logger}} = build\+\_\+logger("{}gradio\+\_\+web\+\_\+server"{}, "{}gradio\+\_\+web\+\_\+server.\+log"{})
+\item 
+dict \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_ab716f16be1a211ec76f589925510da65}{headers}} = \{"{}User-\/Agent"{}\+: "{}LLa\+VA Client"{}\}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a87eaffb357945265286b11af0f1b90de}{no\+\_\+change\+\_\+btn}} = gr.\+Button()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_afe7fd8d42f54aeacf5777334776a1c94}{enable\+\_\+btn}} = gr.\+Button(interactive=True)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_ab18d901f12f99cc3edfd52f99bb90923}{disable\+\_\+btn}} = gr.\+Button(interactive=False)
+\item 
+dict \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a961deb3d57ee7711f2d697f8c4f23834}{priority}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a9f192e4649eb182c4d65ab1f661446a8}{str}} \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a1159aa4489f298ab5a5ce6828727968b}{get\+\_\+window\+\_\+url\+\_\+params}}
+\item 
+tuple \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_aa36484a74530d106a5263373898b8f05}{title\+\_\+markdown}} = ()
+\item 
+tuple \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_aa572665932e372d830a39599f368c78d}{tos\+\_\+markdown}} = ()
+\item 
+tuple \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_ad7b0a5e7c540efa14afb6455efc8f802}{learn\+\_\+more\+\_\+markdown}} = ()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a9f192e4649eb182c4d65ab1f661446a8}{str}} \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_af5d2d67d98d6574d28b052d5e505dab5}{block\+\_\+css}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a9c91c1422c26a5245d253aa0d8edc56a}{parser}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a52ce837216d8fab7c8979ec3851a5a8d}{type}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a9f192e4649eb182c4d65ab1f661446a8}{str}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a0f7a2fec5a700b4aad72f9141a499fd7}{default}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_adde3614dee937bc94d6b638414bceba0}{int}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_abbcd2eda18b93926f2c0e38c02876ea3}{choices}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a588fed3fe7932e1e382027de6e9cdd5d}{action}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a265d702a87d43f95259de3334227a58a}{args}} = parser.\+parse\+\_\+args()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a470ecbce5e7dbf9fc1c4826d347f9b3d}{models}} = \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a5e04990393402eb7011f171ecb0bb724}{get\+\_\+model\+\_\+list}}()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a4e82d3c5944dad0646403ad184e7af4c}{demo}} = \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a79fc5afb330fad6a1ab146ab4f0f49a8}{build\+\_\+demo}}(args.\+embed, concurrency\+\_\+count=args.\+concurrency\+\_\+count)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a5eda9791b947aae9179d672da69fcdd9}{api\+\_\+open}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_ad86e203e3c17743e8c79110b733190fb}{server\+\_\+name}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a195508182f18d54d86316c2609c7b435}{server\+\_\+port}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_abe2f7521c420f275c15fd46b09c05633}{share}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_aeaad5c2bd719b4550756bbe7255e4a7f}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!add\_text@{add\_text}}
+\index{add\_text@{add\_text}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{add\_text()}{add\_text()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_aeaad5c2bd719b4550756bbe7255e4a7f} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+add\+\_\+text (\begin{DoxyParamCaption}\item[{}]{state}{, }\item[{}]{text}{, }\item[{}]{image}{, }\item[{}]{image\+\_\+process\+\_\+mode}{, }\item[{gr.\+Request}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00128}{128}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00128\ \textcolor{keyword}{def\ }add\_text(state,\ text,\ image,\ image\_process\_mode,\ request:\ gr.Request):}
+\DoxyCodeLine{00129\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}add\_text.\ ip:\ \{request.client.host\}.\ len:\ \{len(text)\}"{}})}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{if}\ len(text)\ <=\ 0\ \textcolor{keywordflow}{and}\ image\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ state.skip\_next\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (state,\ state.to\_gradio\_chatbot(),\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{keywordtype}{None})\ +\ (no\_change\_btn,)\ *\ 5}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{if}\ args.moderate:}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ flagged\ =\ violates\_moderation(text)}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ flagged:}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ state.skip\_next\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (state,\ state.to\_gradio\_chatbot(),\ moderation\_msg,\ \textcolor{keywordtype}{None})\ +\ (}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ no\_change\_btn,)\ *\ 5}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ text\ =\ text[:1536]\ \ \textcolor{comment}{\#\ Hard\ cut-\/off}}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{if}\ image\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ text\ =\ text[:1200]\ \ \textcolor{comment}{\#\ Hard\ cut-\/off\ for\ images}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'<image>'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ text:}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ text\ =\ '<Image><image></Image>'\ +\ text}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ text\ =\ text\ +\ \textcolor{stringliteral}{'\(\backslash\)n<image>'}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ text\ =\ (text,\ image,\ image\_process\_mode)}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ state\ =\ default\_conversation.copy()}
+\DoxyCodeLine{00148\ \ \ \ \ state.append\_message(state.roles[0],\ text)}
+\DoxyCodeLine{00149\ \ \ \ \ state.append\_message(state.roles[1],\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{00150\ \ \ \ \ state.skip\_next\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{return}\ (state,\ state.to\_gradio\_chatbot(),\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{keywordtype}{None})\ +\ (disable\_btn,)\ *\ 5}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a79fc5afb330fad6a1ab146ab4f0f49a8}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!build\_demo@{build\_demo}}
+\index{build\_demo@{build\_demo}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{build\_demo()}{build\_demo()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a79fc5afb330fad6a1ab146ab4f0f49a8} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+build\+\_\+demo (\begin{DoxyParamCaption}\item[{}]{embed\+\_\+mode}{, }\item[{}]{cur\+\_\+dir}{ = {\ttfamily None}, }\item[{}]{concurrency\+\_\+count}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00315}{315}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00315\ \textcolor{keyword}{def\ }build\_demo(embed\_mode,\ cur\_dir=None,\ concurrency\_count=10):}
+\DoxyCodeLine{00316\ \ \ \ \ textbox\ =\ gr.Textbox(show\_label=\textcolor{keyword}{False},\ placeholder=\textcolor{stringliteral}{"{}Enter\ text\ and\ press\ ENTER"{}},\ container=\textcolor{keyword}{False})}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keyword}{with}\ gr.Blocks(title=\textcolor{stringliteral}{"{}LLaVA"{}},\ theme=gr.themes.Default(),\ css=block\_css)\ \textcolor{keyword}{as}\ demo:}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ state\ =\ gr.State()}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ embed\_mode:}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ gr.Markdown(title\_markdown)}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ gr.Row():}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ gr.Column(scale=3):}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ gr.Row(elem\_id=\textcolor{stringliteral}{"{}model\_selector\_row"{}}):}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\_selector\ =\ gr.Dropdown(}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ choices=models,}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value=models[0]\ \textcolor{keywordflow}{if}\ len(models)\ >\ 0\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ interactive=\textcolor{keyword}{True},}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ show\_label=\textcolor{keyword}{False},}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ container=\textcolor{keyword}{False})}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ imagebox\ =\ gr.Image(type=\textcolor{stringliteral}{"{}pil"{}})}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_process\_mode\ =\ gr.Radio(}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{stringliteral}{"{}Crop"{}},\ \textcolor{stringliteral}{"{}Resize"{}},\ \textcolor{stringliteral}{"{}Pad"{}},\ \textcolor{stringliteral}{"{}Default"{}}],}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value=\textcolor{stringliteral}{"{}Default"{}},}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ label=\textcolor{stringliteral}{"{}Preprocess\ for\ non-\/square\ image"{}},\ visible=\textcolor{keyword}{False})}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cur\_dir\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_dir\ =\ os.path.dirname(os.path.abspath(\_\_file\_\_))}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gr.Examples(examples=[}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [f\textcolor{stringliteral}{"{}\{cur\_dir\}/examples/extreme\_ironing.jpg"{}},\ \textcolor{stringliteral}{"{}What\ is\ unusual\ about\ this\ image?"{}}],}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [f\textcolor{stringliteral}{"{}\{cur\_dir\}/examples/waterview.jpg"{}},\ \textcolor{stringliteral}{"{}What\ are\ the\ things\ I\ should\ be\ cautious\ about\ when\ I\ visit\ here?"{}}],}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],\ inputs=[imagebox,\ textbox])}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ gr.Accordion(\textcolor{stringliteral}{"{}Parameters"{}},\ open=\textcolor{keyword}{False})\ \textcolor{keyword}{as}\ parameter\_row:}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temperature\ =\ gr.Slider(minimum=0.0,\ maximum=1.0,\ value=0.2,\ step=0.1,\ interactive=\textcolor{keyword}{True},\ label=\textcolor{stringliteral}{"{}Temperature"{}},)}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ top\_p\ =\ gr.Slider(minimum=0.0,\ maximum=1.0,\ value=0.7,\ step=0.1,\ interactive=\textcolor{keyword}{True},\ label=\textcolor{stringliteral}{"{}Top\ P"{}},)}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_output\_tokens\ =\ gr.Slider(minimum=0,\ maximum=1024,\ value=512,\ step=64,\ interactive=\textcolor{keyword}{True},\ label=\textcolor{stringliteral}{"{}Max\ output\ tokens"{}},)}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ gr.Column(scale=8):}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ chatbot\ =\ gr.Chatbot(}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elem\_id=\textcolor{stringliteral}{"{}chatbot"{}},}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ label=\textcolor{stringliteral}{"{}LLaVA\ Chatbot"{}},}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ height=650,}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layout=\textcolor{stringliteral}{"{}panel"{}},}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ gr.Row():}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ gr.Column(scale=8):}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ textbox.render()}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ gr.Column(scale=1,\ min\_width=50):}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ submit\_btn\ =\ gr.Button(value=\textcolor{stringliteral}{"{}Send"{}},\ variant=\textcolor{stringliteral}{"{}primary"{}})}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ gr.Row(elem\_id=\textcolor{stringliteral}{"{}buttons"{}})\ \textcolor{keyword}{as}\ button\_row:}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ upvote\_btn\ =\ gr.Button(value=\textcolor{stringliteral}{"{}👍\ \ Upvote"{}},\ interactive=\textcolor{keyword}{False})}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ downvote\_btn\ =\ gr.Button(value=\textcolor{stringliteral}{"{}👎\ \ Downvote"{}},\ interactive=\textcolor{keyword}{False})}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flag\_btn\ =\ gr.Button(value=\textcolor{stringliteral}{"{}⚠️\ \ Flag"{}},\ interactive=\textcolor{keyword}{False})}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#stop\_btn\ =\ gr.Button(value="{}⏹️\ \ Stop\ Generation"{},\ interactive=False)}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ regenerate\_btn\ =\ gr.Button(value=\textcolor{stringliteral}{"{}🔄\ \ Regenerate"{}},\ interactive=\textcolor{keyword}{False})}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ clear\_btn\ =\ gr.Button(value=\textcolor{stringliteral}{"{}🗑️\ \ Clear"{}},\ interactive=\textcolor{keyword}{False})}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ embed\_mode:}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ gr.Markdown(tos\_markdown)}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ gr.Markdown(learn\_more\_markdown)}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ url\_params\ =\ gr.JSON(visible=\textcolor{keyword}{False})}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Register\ listeners}}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ btn\_list\ =\ [upvote\_btn,\ downvote\_btn,\ flag\_btn,\ regenerate\_btn,\ clear\_btn]}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ upvote\_btn.click(}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ upvote\_last\_response,}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ model\_selector],}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ [textbox,\ upvote\_btn,\ downvote\_btn,\ flag\_btn]}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ downvote\_btn.click(}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ downvote\_last\_response,}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ model\_selector],}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ [textbox,\ upvote\_btn,\ downvote\_btn,\ flag\_btn]}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ flag\_btn.click(}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ flag\_last\_response,}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ model\_selector],}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ [textbox,\ upvote\_btn,\ downvote\_btn,\ flag\_btn]}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ regenerate\_btn.click(}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ regenerate,}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ image\_process\_mode],}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ chatbot,\ textbox,\ imagebox]\ +\ btn\_list}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ ).then(}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ http\_bot,}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ model\_selector,\ temperature,\ top\_p,\ max\_output\_tokens],}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ chatbot]\ +\ btn\_list,}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ concurrency\_limit=concurrency\_count}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ clear\_btn.click(}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ clear\_history,}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ chatbot,\ textbox,\ imagebox]\ +\ btn\_list,}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ queue=\textcolor{keyword}{False}}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ textbox.submit(}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ add\_text,}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ textbox,\ imagebox,\ image\_process\_mode],}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ chatbot,\ textbox,\ imagebox]\ +\ btn\_list,}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ queue=\textcolor{keyword}{False}}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ ).then(}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ http\_bot,}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ model\_selector,\ temperature,\ top\_p,\ max\_output\_tokens],}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ chatbot]\ +\ btn\_list,}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ concurrency\_limit=concurrency\_count}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ submit\_btn.click(}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ add\_text,}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ textbox,\ imagebox,\ image\_process\_mode],}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ chatbot,\ textbox,\ imagebox]\ +\ btn\_list}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ ).then(}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ http\_bot,}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ model\_selector,\ temperature,\ top\_p,\ max\_output\_tokens],}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ chatbot]\ +\ btn\_list,}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ concurrency\_limit=concurrency\_count}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ args.model\_list\_mode\ ==\ \textcolor{stringliteral}{"{}once"{}}:}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ demo.load(}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ load\_demo,}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [url\_params],}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ model\_selector],}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ js=get\_window\_url\_params}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ args.model\_list\_mode\ ==\ \textcolor{stringliteral}{"{}reload"{}}:}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ demo.load(}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ load\_demo\_refresh\_model\_list,}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [state,\ model\_selector],}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ queue=\textcolor{keyword}{False}}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Unknown\ model\ list\ mode:\ \{args.model\_list\_mode\}"{}})}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ \ \ \textcolor{keywordflow}{return}\ demo}
+\DoxyCodeLine{00453\ }
+\DoxyCodeLine{00454\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a3fd7c3becaa3399ca6a0d236b483e30f}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!clear\_history@{clear\_history}}
+\index{clear\_history@{clear\_history}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{clear\_history()}{clear\_history()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a3fd7c3becaa3399ca6a0d236b483e30f} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+clear\+\_\+history (\begin{DoxyParamCaption}\item[{gr.\+Request}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00122}{122}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00122\ \textcolor{keyword}{def\ }clear\_history(request:\ gr.Request):}
+\DoxyCodeLine{00123\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}clear\_history.\ ip:\ \{request.client.host\}"{}})}
+\DoxyCodeLine{00124\ \ \ \ \ state\ =\ default\_conversation.copy()}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{return}\ (state,\ state.to\_gradio\_chatbot(),\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{keywordtype}{None})\ +\ (disable\_btn,)\ *\ 5}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a120e078ca589adb9f75d5c72418547df}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!downvote\_last\_response@{downvote\_last\_response}}
+\index{downvote\_last\_response@{downvote\_last\_response}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{downvote\_last\_response()}{downvote\_last\_response()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a120e078ca589adb9f75d5c72418547df} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+downvote\+\_\+last\+\_\+response (\begin{DoxyParamCaption}\item[{}]{state}{, }\item[{}]{model\+\_\+selector}{, }\item[{gr.\+Request}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00100}{100}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00100\ \textcolor{keyword}{def\ }downvote\_last\_response(state,\ model\_selector,\ request:\ gr.Request):}
+\DoxyCodeLine{00101\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}downvote.\ ip:\ \{request.client.host\}"{}})}
+\DoxyCodeLine{00102\ \ \ \ \ vote\_last\_response(state,\ \textcolor{stringliteral}{"{}downvote"{}},\ model\_selector,\ request)}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{stringliteral}{"{}"{}},)\ +\ (disable\_btn,)\ *\ 3}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 0
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_ae96933ad11b1e741cb77700cefbf35ce}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!flag\_last\_response@{flag\_last\_response}}
+\index{flag\_last\_response@{flag\_last\_response}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{flag\_last\_response()}{flag\_last\_response()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_ae96933ad11b1e741cb77700cefbf35ce} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+flag\+\_\+last\+\_\+response (\begin{DoxyParamCaption}\item[{}]{state}{, }\item[{}]{model\+\_\+selector}{, }\item[{gr.\+Request}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00106}{106}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00106\ \textcolor{keyword}{def\ }flag\_last\_response(state,\ model\_selector,\ request:\ gr.Request):}
+\DoxyCodeLine{00107\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}flag.\ ip:\ \{request.client.host\}"{}})}
+\DoxyCodeLine{00108\ \ \ \ \ vote\_last\_response(state,\ \textcolor{stringliteral}{"{}flag"{}},\ model\_selector,\ request)}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{stringliteral}{"{}"{}},)\ +\ (disable\_btn,)\ *\ 3}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 1
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a051e70056bbe57dbbbf2f75acd022f04}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!get\_conv\_log\_filename@{get\_conv\_log\_filename}}
+\index{get\_conv\_log\_filename@{get\_conv\_log\_filename}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{get\_conv\_log\_filename()}{get\_conv\_log\_filename()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a051e70056bbe57dbbbf2f75acd022f04} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+get\+\_\+conv\+\_\+log\+\_\+filename (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00032}{32}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00032\ \textcolor{keyword}{def\ }get\_conv\_log\_filename():}
+\DoxyCodeLine{00033\ \ \ \ \ t\ =\ datetime.datetime.now()}
+\DoxyCodeLine{00034\ \ \ \ \ name\ =\ os.path.join(LOGDIR,\ f\textcolor{stringliteral}{"{}\{t.year\}-\/\{t.month:02d\}-\/\{t.day:02d\}-\/conv.json"{}})}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{return}\ name}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 2
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a5e04990393402eb7011f171ecb0bb724}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!get\_model\_list@{get\_model\_list}}
+\index{get\_model\_list@{get\_model\_list}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{get\_model\_list()}{get\_model\_list()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a5e04990393402eb7011f171ecb0bb724} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+get\+\_\+model\+\_\+list (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00038}{38}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00038\ \textcolor{keyword}{def\ }get\_model\_list():}
+\DoxyCodeLine{00039\ \ \ \ \ ret\ =\ requests.post(args.controller\_url\ +\ \textcolor{stringliteral}{"{}/refresh\_all\_workers"{}})}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{assert}\ ret.status\_code\ ==\ 200}
+\DoxyCodeLine{00041\ \ \ \ \ ret\ =\ requests.post(args.controller\_url\ +\ \textcolor{stringliteral}{"{}/list\_models"{}})}
+\DoxyCodeLine{00042\ \ \ \ \ models\ =\ ret.json()[\textcolor{stringliteral}{"{}models"{}}]}
+\DoxyCodeLine{00043\ \ \ \ \ models.sort(key=\textcolor{keyword}{lambda}\ x:\ priority.get(x,\ x))}
+\DoxyCodeLine{00044\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}Models:\ \{models\}"{}})}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ models}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 3
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a1307d1516461919ebc5484d362f5d1af}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!http\_bot@{http\_bot}}
+\index{http\_bot@{http\_bot}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{http\_bot()}{http\_bot()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a1307d1516461919ebc5484d362f5d1af} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+http\+\_\+bot (\begin{DoxyParamCaption}\item[{}]{state}{, }\item[{}]{model\+\_\+selector}{, }\item[{}]{temperature}{, }\item[{}]{top\+\_\+p}{, }\item[{}]{max\+\_\+new\+\_\+tokens}{, }\item[{gr.\+Request}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00154}{154}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00154\ \textcolor{keyword}{def\ }http\_bot(state,\ model\_selector,\ temperature,\ top\_p,\ max\_new\_tokens,\ request:\ gr.Request):}
+\DoxyCodeLine{00155\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}http\_bot.\ ip:\ \{request.client.host\}"{}})}
+\DoxyCodeLine{00156\ \ \ \ \ start\_tstamp\ =\ time.time()}
+\DoxyCodeLine{00157\ \ \ \ \ model\_name\ =\ model\_selector}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{if}\ state.skip\_next:}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ This\ generate\ call\ is\ skipped\ due\ to\ invalid\ inputs}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ (state,\ state.to\_gradio\_chatbot())\ +\ (no\_change\_btn,)\ *\ 5}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{if}\ len(state.messages)\ ==\ state.offset\ +\ 2:}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ First\ round\ of\ conversation}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}llava"{}}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'llama-\/2'}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}llava\_llama\_2"{}}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{"{}mistral"{}}\ \textcolor{keywordflow}{in}\ model\_name.lower()\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{"{}mixtral"{}}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'orca'}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}mistral\_orca"{}}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{'hermes'}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}chatml\_direct"{}}}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}mistral\_instruct"{}}}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{'llava-\/v1.6-\/34b'}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}chatml\_direct"{}}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{"{}v1"{}}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'mmtag'}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}v1\_mmtag"{}}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{'plain'}\ \textcolor{keywordflow}{in}\ model\_name.lower()\ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'finetune'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}v1\_mmtag"{}}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}llava\_v1"{}}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{"{}mpt"{}}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}mpt"{}}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'mmtag'}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}v0\_mmtag"{}}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{'plain'}\ \textcolor{keywordflow}{in}\ model\_name.lower()\ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'finetune'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ model\_name.lower():}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}v0\_mmtag"{}}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}llava\_v0"{}}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{"{}mpt"{}}\ \textcolor{keywordflow}{in}\ model\_name:}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}mpt\_text"{}}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{"{}llama-\/2"{}}\ \textcolor{keywordflow}{in}\ model\_name:}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}llama\_2"{}}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ template\_name\ =\ \textcolor{stringliteral}{"{}vicuna\_v1"{}}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ new\_state\ =\ conv\_templates[template\_name].copy()}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ new\_state.append\_message(new\_state.roles[0],\ state.messages[-\/2][1])}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ new\_state.append\_message(new\_state.roles[1],\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ state\ =\ new\_state}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{comment}{\#\ Query\ worker\ address}}
+\DoxyCodeLine{00206\ \ \ \ \ controller\_url\ =\ args.controller\_url}
+\DoxyCodeLine{00207\ \ \ \ \ ret\ =\ requests.post(controller\_url\ +\ \textcolor{stringliteral}{"{}/get\_worker\_address"{}},}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ json=\{\textcolor{stringliteral}{"{}model"{}}:\ model\_name\})}
+\DoxyCodeLine{00209\ \ \ \ \ worker\_addr\ =\ ret.json()[\textcolor{stringliteral}{"{}address"{}}]}
+\DoxyCodeLine{00210\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}model\_name:\ \{model\_name\},\ worker\_addr:\ \{worker\_addr\}"{}})}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{comment}{\#\ No\ available\ worker}}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordflow}{if}\ worker\_addr\ ==\ \textcolor{stringliteral}{"{}"{}}:}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ state.messages[-\/1][-\/1]\ =\ server\_error\_msg}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ (state,\ state.to\_gradio\_chatbot(),\ disable\_btn,\ disable\_btn,\ disable\_btn,\ enable\_btn,\ enable\_btn)}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{comment}{\#\ Construct\ prompt}}
+\DoxyCodeLine{00219\ \ \ \ \ prompt\ =\ state.get\_prompt()}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ all\_images\ =\ state.get\_images(return\_pil=\textcolor{keyword}{True})}
+\DoxyCodeLine{00222\ \ \ \ \ all\_image\_hash\ =\ [hashlib.md5(image.tobytes()).hexdigest()\ \textcolor{keywordflow}{for}\ image\ \textcolor{keywordflow}{in}\ all\_images]}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{for}\ image,\ hash\ \textcolor{keywordflow}{in}\ zip(all\_images,\ all\_image\_hash):}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ t\ =\ datetime.datetime.now()}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ filename\ =\ os.path.join(LOGDIR,\ \textcolor{stringliteral}{"{}serve\_images"{}},\ f\textcolor{stringliteral}{"{}\{t.year\}-\/\{t.month:02d\}-\/\{t.day:02d\}"{}},\ f\textcolor{stringliteral}{"{}\{hash\}.jpg"{}})}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ os.path.isfile(filename):}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ os.makedirs(os.path.dirname(filename),\ exist\_ok=\textcolor{keyword}{True})}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ image.save(filename)}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{comment}{\#\ Make\ requests}}
+\DoxyCodeLine{00231\ \ \ \ \ pload\ =\ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}model"{}}:\ model\_name,}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}prompt"{}}:\ prompt,}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}temperature"{}}:\ float(temperature),}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}top\_p"{}}:\ float(top\_p),}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}max\_new\_tokens"{}}:\ min(int(max\_new\_tokens),\ 1536),}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}stop"{}}:\ state.sep\ \textcolor{keywordflow}{if}\ state.sep\_style\ \textcolor{keywordflow}{in}\ [SeparatorStyle.SINGLE,\ SeparatorStyle.MPT]\ \textcolor{keywordflow}{else}\ state.sep2,}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}images"{}}:\ f\textcolor{stringliteral}{'List\ of\ \{len(state.get\_images())\}\ images:\ \{all\_image\_hash\}'},}
+\DoxyCodeLine{00239\ \ \ \ \ \}}
+\DoxyCodeLine{00240\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}====\ request\ ====\(\backslash\)n\{pload\}"{}})}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ pload[\textcolor{stringliteral}{'images'}]\ =\ state.get\_images()}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ state.messages[-\/1][-\/1]\ =\ \textcolor{stringliteral}{"{}▌"{}}}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordflow}{yield}\ (state,\ state.to\_gradio\_chatbot())\ +\ (disable\_btn,)\ *\ 5}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Stream\ output}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ response\ =\ requests.post(worker\_addr\ +\ \textcolor{stringliteral}{"{}/worker\_generate\_stream"{}},}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ headers=headers,\ json=pload,\ stream=\textcolor{keyword}{True},\ timeout=10)}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ chunk\ \textcolor{keywordflow}{in}\ response.iter\_lines(decode\_unicode=\textcolor{keyword}{False},\ delimiter=b\textcolor{stringliteral}{"{}\(\backslash\)0"{}}):}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ chunk:}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\ =\ json.loads(chunk.decode())}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ data[\textcolor{stringliteral}{"{}error\_code"{}}]\ ==\ 0:}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\ =\ data[\textcolor{stringliteral}{"{}text"{}}][len(prompt):].strip()}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state.messages[-\/1][-\/1]\ =\ output\ +\ \textcolor{stringliteral}{"{}▌"{}}}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ (state,\ state.to\_gradio\_chatbot())\ +\ (disable\_btn,)\ *\ 5}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\ =\ data[\textcolor{stringliteral}{"{}text"{}}]\ +\ f\textcolor{stringliteral}{"{}\ (error\_code:\ \{data['error\_code']\})"{}}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state.messages[-\/1][-\/1]\ =\ output}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ (state,\ state.to\_gradio\_chatbot())\ +\ (disable\_btn,\ disable\_btn,\ disable\_btn,\ enable\_btn,\ enable\_btn)}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ time.sleep(0.03)}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordflow}{except}\ requests.exceptions.RequestException\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ state.messages[-\/1][-\/1]\ =\ server\_error\_msg}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ (state,\ state.to\_gradio\_chatbot())\ +\ (disable\_btn,\ disable\_btn,\ disable\_btn,\ enable\_btn,\ enable\_btn)}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ state.messages[-\/1][-\/1]\ =\ state.messages[-\/1][-\/1][:-\/1]}
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keywordflow}{yield}\ (state,\ state.to\_gradio\_chatbot())\ +\ (enable\_btn,)\ *\ 5}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ finish\_tstamp\ =\ time.time()}
+\DoxyCodeLine{00273\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}\{output\}"{}})}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keyword}{with}\ open(get\_conv\_log\_filename(),\ \textcolor{stringliteral}{"{}a"{}})\ \textcolor{keyword}{as}\ fout:}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ data\ =\ \{}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tstamp"{}}:\ round(finish\_tstamp,\ 4),}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}type"{}}:\ \textcolor{stringliteral}{"{}chat"{}},}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}model"{}}:\ model\_name,}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}start"{}}:\ round(start\_tstamp,\ 4),}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}finish"{}}:\ round(finish\_tstamp,\ 4),}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}state"{}}:\ state.dict(),}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}images"{}}:\ all\_image\_hash,}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ip"{}}:\ request.client.host,}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ fout.write(json.dumps(data)\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{00287\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 4
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a93c1f6a8ca63fcaa4d2dfc938685c0b8}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!load\_demo@{load\_demo}}
+\index{load\_demo@{load\_demo}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{load\_demo()}{load\_demo()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a93c1f6a8ca63fcaa4d2dfc938685c0b8} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+load\+\_\+demo (\begin{DoxyParamCaption}\item[{}]{url\+\_\+params}{, }\item[{gr.\+Request}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00058}{58}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00058\ \textcolor{keyword}{def\ }load\_demo(url\_params,\ request:\ gr.Request):}
+\DoxyCodeLine{00059\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}load\_demo.\ ip:\ \{request.client.host\}.\ params:\ \{url\_params\}"{}})}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ dropdown\_update\ =\ gr.Dropdown(visible=\textcolor{keyword}{True})}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}model"{}}\ \textcolor{keywordflow}{in}\ url\_params:}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ model\ =\ url\_params[\textcolor{stringliteral}{"{}model"{}}]}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\ \textcolor{keywordflow}{in}\ models:}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ dropdown\_update\ =\ gr.Dropdown(value=model,\ visible=\textcolor{keyword}{True})}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ state\ =\ default\_conversation.copy()}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{return}\ state,\ dropdown\_update}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a0b4fa2eb00a29ebf4180b262469a30ee}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!load\_demo\_refresh\_model\_list@{load\_demo\_refresh\_model\_list}}
+\index{load\_demo\_refresh\_model\_list@{load\_demo\_refresh\_model\_list}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{load\_demo\_refresh\_model\_list()}{load\_demo\_refresh\_model\_list()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a0b4fa2eb00a29ebf4180b262469a30ee} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+load\+\_\+demo\+\_\+refresh\+\_\+model\+\_\+list (\begin{DoxyParamCaption}\item[{gr.\+Request}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00071}{71}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00071\ \textcolor{keyword}{def\ }load\_demo\_refresh\_model\_list(request:\ gr.Request):}
+\DoxyCodeLine{00072\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}load\_demo.\ ip:\ \{request.client.host\}"{}})}
+\DoxyCodeLine{00073\ \ \ \ \ models\ =\ get\_model\_list()}
+\DoxyCodeLine{00074\ \ \ \ \ state\ =\ default\_conversation.copy()}
+\DoxyCodeLine{00075\ \ \ \ \ dropdown\_update\ =\ gr.Dropdown(}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ choices=models,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ value=models[0]\ \textcolor{keywordflow}{if}\ len(models)\ >\ 0\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{00078\ \ \ \ \ )}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ state,\ dropdown\_update}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 5
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a9a95c3ad99d8e4971a5a424f02ada04e}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!regenerate@{regenerate}}
+\index{regenerate@{regenerate}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{regenerate()}{regenerate()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a9a95c3ad99d8e4971a5a424f02ada04e} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+regenerate (\begin{DoxyParamCaption}\item[{}]{state}{, }\item[{}]{image\+\_\+process\+\_\+mode}{, }\item[{gr.\+Request}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00112}{112}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00112\ \textcolor{keyword}{def\ }regenerate(state,\ image\_process\_mode,\ request:\ gr.Request):}
+\DoxyCodeLine{00113\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}regenerate.\ ip:\ \{request.client.host\}"{}})}
+\DoxyCodeLine{00114\ \ \ \ \ state.messages[-\/1][-\/1]\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00115\ \ \ \ \ prev\_human\_msg\ =\ state.messages[-\/2]}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{if}\ type(prev\_human\_msg[1])\ \textcolor{keywordflow}{in}\ (tuple,\ list):}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ prev\_human\_msg[1]\ =\ (*prev\_human\_msg[1][:2],\ image\_process\_mode)}
+\DoxyCodeLine{00118\ \ \ \ \ state.skip\_next\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{return}\ (state,\ state.to\_gradio\_chatbot(),\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{keywordtype}{None})\ +\ (disable\_btn,)\ *\ 5}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_af60d4ac622856c2a745cafcebfa0c958}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!upvote\_last\_response@{upvote\_last\_response}}
+\index{upvote\_last\_response@{upvote\_last\_response}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{upvote\_last\_response()}{upvote\_last\_response()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_af60d4ac622856c2a745cafcebfa0c958} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+upvote\+\_\+last\+\_\+response (\begin{DoxyParamCaption}\item[{}]{state}{, }\item[{}]{model\+\_\+selector}{, }\item[{gr.\+Request}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00094}{94}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00094\ \textcolor{keyword}{def\ }upvote\_last\_response(state,\ model\_selector,\ request:\ gr.Request):}
+\DoxyCodeLine{00095\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}upvote.\ ip:\ \{request.client.host\}"{}})}
+\DoxyCodeLine{00096\ \ \ \ \ vote\_last\_response(state,\ \textcolor{stringliteral}{"{}upvote"{}},\ model\_selector,\ request)}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{stringliteral}{"{}"{}},)\ +\ (disable\_btn,)\ *\ 3}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 6
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a859a9f172b39a6097a21be093e3d5550}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!vote\_last\_response@{vote\_last\_response}}
+\index{vote\_last\_response@{vote\_last\_response}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{vote\_last\_response()}{vote\_last\_response()}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a859a9f172b39a6097a21be093e3d5550} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+vote\+\_\+last\+\_\+response (\begin{DoxyParamCaption}\item[{}]{state}{, }\item[{}]{vote\+\_\+type}{, }\item[{}]{model\+\_\+selector}{, }\item[{gr.\+Request}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00082}{82}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00082\ \textcolor{keyword}{def\ }vote\_last\_response(state,\ vote\_type,\ model\_selector,\ request:\ gr.Request):}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{with}\ open(get\_conv\_log\_filename(),\ \textcolor{stringliteral}{"{}a"{}})\ \textcolor{keyword}{as}\ fout:}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ data\ =\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tstamp"{}}:\ round(time.time(),\ 4),}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}type"{}}:\ vote\_type,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}model"{}}:\ model\_selector,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}state"{}}:\ state.dict(),}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ip"{}}:\ request.client.host,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ fout.write(json.dumps(data)\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 7
+Here is the caller graph for this function\+:
+% FIG 8
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a588fed3fe7932e1e382027de6e9cdd5d}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!action@{action}}
+\index{action@{action}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{action}{action}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a588fed3fe7932e1e382027de6e9cdd5d} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+action}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00463}{463}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a5eda9791b947aae9179d672da69fcdd9}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!api\_open@{api\_open}}
+\index{api\_open@{api\_open}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{api\_open}{api\_open}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a5eda9791b947aae9179d672da69fcdd9} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+api\+\_\+open}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00474}{474}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a265d702a87d43f95259de3334227a58a}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!args@{args}}
+\index{args@{args}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a265d702a87d43f95259de3334227a58a} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+args = parser.\+parse\+\_\+args()}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00466}{466}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_af5d2d67d98d6574d28b052d5e505dab5}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!block\_css@{block\_css}}
+\index{block\_css@{block\_css}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{block\_css}{block\_css}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_af5d2d67d98d6574d28b052d5e505dab5} 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a9f192e4649eb182c4d65ab1f661446a8}{str}} llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+block\+\_\+css}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00002\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00003\ \textcolor{stringliteral}{\#buttons\ button\ \{}}
+\DoxyCodeLine{00004\ \textcolor{stringliteral}{\ \ \ \ min-\/width:\ min(120px,100\%);}}
+\DoxyCodeLine{00005\ \textcolor{stringliteral}{\}}}
+\DoxyCodeLine{00006\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00007\ \textcolor{stringliteral}{"{}"{}"{}}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00307}{307}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_abbcd2eda18b93926f2c0e38c02876ea3}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!choices@{choices}}
+\index{choices@{choices}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{choices}{choices}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_abbcd2eda18b93926f2c0e38c02876ea3} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+choices}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00462}{462}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a0f7a2fec5a700b4aad72f9141a499fd7}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!default@{default}}
+\index{default@{default}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{default}{default}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a0f7a2fec5a700b4aad72f9141a499fd7} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+default}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00457}{457}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a4e82d3c5944dad0646403ad184e7af4c}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!demo@{demo}}
+\index{demo@{demo}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{demo}{demo}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a4e82d3c5944dad0646403ad184e7af4c} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+demo = \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a79fc5afb330fad6a1ab146ab4f0f49a8}{build\+\_\+demo}}(args.\+embed, concurrency\+\_\+count=args.\+concurrency\+\_\+count)}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00472}{472}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_ab18d901f12f99cc3edfd52f99bb90923}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!disable\_btn@{disable\_btn}}
+\index{disable\_btn@{disable\_btn}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{disable\_btn}{disable\_btn}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_ab18d901f12f99cc3edfd52f99bb90923} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+disable\+\_\+btn = gr.\+Button(interactive=False)}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00024}{24}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_afe7fd8d42f54aeacf5777334776a1c94}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!enable\_btn@{enable\_btn}}
+\index{enable\_btn@{enable\_btn}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{enable\_btn}{enable\_btn}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_afe7fd8d42f54aeacf5777334776a1c94} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+enable\+\_\+btn = gr.\+Button(interactive=True)}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00023}{23}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a1159aa4489f298ab5a5ce6828727968b}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!get\_window\_url\_params@{get\_window\_url\_params}}
+\index{get\_window\_url\_params@{get\_window\_url\_params}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{get\_window\_url\_params}{get\_window\_url\_params}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a1159aa4489f298ab5a5ce6828727968b} 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a9f192e4649eb182c4d65ab1f661446a8}{str}} llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+get\+\_\+window\+\_\+url\+\_\+params}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00002\ \textcolor{stringliteral}{function()\ \{}}
+\DoxyCodeLine{00003\ \textcolor{stringliteral}{\ \ \ \ const\ params\ =\ new\ URLSearchParams(window.location.search);}}
+\DoxyCodeLine{00004\ \textcolor{stringliteral}{\ \ \ \ url\_params\ =\ Object.fromEntries(params);}}
+\DoxyCodeLine{00005\ \textcolor{stringliteral}{\ \ \ \ console.log(url\_params);}}
+\DoxyCodeLine{00006\ \textcolor{stringliteral}{\ \ \ \ return\ url\_params;}}
+\DoxyCodeLine{00007\ \textcolor{stringliteral}{\ \ \ \ \}}}
+\DoxyCodeLine{00008\ \textcolor{stringliteral}{"{}"{}"{}}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00048}{48}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_ab716f16be1a211ec76f589925510da65}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!headers@{headers}}
+\index{headers@{headers}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{headers}{headers}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_ab716f16be1a211ec76f589925510da65} 
+dict llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+headers = \{"{}User-\/Agent"{}\+: "{}LLa\+VA Client"{}\}}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00020}{20}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_adde3614dee937bc94d6b638414bceba0}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!int@{int}}
+\index{int@{int}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{int}{int}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_adde3614dee937bc94d6b638414bceba0} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+int}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00460}{460}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_ad7b0a5e7c540efa14afb6455efc8f802}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!learn\_more\_markdown@{learn\_more\_markdown}}
+\index{learn\_more\_markdown@{learn\_more\_markdown}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{learn\_more\_markdown}{learn\_more\_markdown}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_ad7b0a5e7c540efa14afb6455efc8f802} 
+tuple llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+learn\+\_\+more\+\_\+markdown = ()}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00302}{302}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_af31b75562f23477c6c980c12623c474d}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!logger@{logger}}
+\index{logger@{logger}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{logger}{logger}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_af31b75562f23477c6c980c12623c474d} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+logger = build\+\_\+logger("{}gradio\+\_\+web\+\_\+server"{}, "{}gradio\+\_\+web\+\_\+server.\+log"{})}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00018}{18}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a470ecbce5e7dbf9fc1c4826d347f9b3d}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!models@{models}}
+\index{models@{models}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{models}{models}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a470ecbce5e7dbf9fc1c4826d347f9b3d} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+models = \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a5e04990393402eb7011f171ecb0bb724}{get\+\_\+model\+\_\+list}}()}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00469}{469}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a87eaffb357945265286b11af0f1b90de}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!no\_change\_btn@{no\_change\_btn}}
+\index{no\_change\_btn@{no\_change\_btn}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{no\_change\_btn}{no\_change\_btn}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a87eaffb357945265286b11af0f1b90de} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+no\+\_\+change\+\_\+btn = gr.\+Button()}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00022}{22}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a9c91c1422c26a5245d253aa0d8edc56a}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!parser@{parser}}
+\index{parser@{parser}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{parser}{parser}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a9c91c1422c26a5245d253aa0d8edc56a} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+parser = argparse.\+Argument\+Parser()}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00456}{456}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a961deb3d57ee7711f2d697f8c4f23834}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!priority@{priority}}
+\index{priority@{priority}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{priority}{priority}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a961deb3d57ee7711f2d697f8c4f23834} 
+dict llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+priority}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}vicuna-\/13b"{}}:\ \textcolor{stringliteral}{"{}aaaaaaa"{}},}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}koala-\/13b"{}}:\ \textcolor{stringliteral}{"{}aaaaaab"{}},}
+\DoxyCodeLine{00004\ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00026}{26}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_ad86e203e3c17743e8c79110b733190fb}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!server\_name@{server\_name}}
+\index{server\_name@{server\_name}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{server\_name}{server\_name}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_ad86e203e3c17743e8c79110b733190fb} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+server\+\_\+name}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00476}{476}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a195508182f18d54d86316c2609c7b435}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!server\_port@{server\_port}}
+\index{server\_port@{server\_port}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{server\_port}{server\_port}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a195508182f18d54d86316c2609c7b435} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+server\+\_\+port}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00477}{477}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_abe2f7521c420f275c15fd46b09c05633}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!share@{share}}
+\index{share@{share}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{share}{share}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_abe2f7521c420f275c15fd46b09c05633} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+share}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00478}{478}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a9f192e4649eb182c4d65ab1f661446a8}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!str@{str}}
+\index{str@{str}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{str}{str}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a9f192e4649eb182c4d65ab1f661446a8} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+str}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00457}{457}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_aa36484a74530d106a5263373898b8f05}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!title\_markdown@{title\_markdown}}
+\index{title\_markdown@{title\_markdown}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{title\_markdown}{title\_markdown}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_aa36484a74530d106a5263373898b8f05} 
+tuple llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+title\+\_\+markdown = ()}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00288}{288}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_aa572665932e372d830a39599f368c78d}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!tos\_markdown@{tos\_markdown}}
+\index{tos\_markdown@{tos\_markdown}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{tos\_markdown}{tos\_markdown}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_aa572665932e372d830a39599f368c78d} 
+tuple llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+tos\+\_\+markdown = ()}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00293}{293}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1gradio__web__server_a52ce837216d8fab7c8979ec3851a5a8d}\index{llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}!type@{type}}
+\index{type@{type}!llava.serve.gradio\_web\_server@{llava.serve.gradio\_web\_server}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1gradio__web__server_a52ce837216d8fab7c8979ec3851a5a8d} 
+llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+type}
+
+
+
+Definition at line \mbox{\hyperlink{gradio__web__server_8py_source_l00457}{457}} of file \mbox{\hyperlink{gradio__web__server_8py_source}{gradio\+\_\+web\+\_\+server.\+py}}.
+

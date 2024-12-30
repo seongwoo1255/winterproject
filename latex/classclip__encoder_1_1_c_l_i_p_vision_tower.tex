@@ -1,0 +1,544 @@
+\doxysection{clip\+\_\+encoder.\+CLIPVision\+Tower Class Reference}
+\hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower}{}\label{classclip__encoder_1_1_c_l_i_p_vision_tower}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+
+
+CLIP Vision Tower의 기본 구현 클래스  
+
+
+
+
+Inheritance diagram for clip\+\_\+encoder.\+CLIPVision\+Tower\+:
+% FIG 0
+
+
+Collaboration diagram for clip\+\_\+encoder.\+CLIPVision\+Tower\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_ab417172fe5f55c98266ef38e2e129813}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a8e0a71756050c45971d046aff2583058}{vision\+\_\+tower}}, args, delay\+\_\+load=False)
+\begin{DoxyCompactList}\small\item\em CLIPVision\+Tower의 생성자 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a2502311ae705712e6ef9e5e65e2807d2}{load\+\_\+model}} (self, device\+\_\+map=None)
+\begin{DoxyCompactList}\small\item\em 모델을 로드하는 메서드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a3672100ff3fd44b7af9b637303e76fda}{feature\+\_\+select}} (self, image\+\_\+forward\+\_\+outs)
+\begin{DoxyCompactList}\small\item\em 이미지 특징을 선택하는 메서드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_aa0f75e890e0d55b944ef3ebbdca0c38f}{forward}} (self, images)
+\begin{DoxyCompactList}\small\item\em Vision Tower의 forward 메서드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_ad6c762fb7b2ffaa2e6704149cad6a1c8}{dummy\+\_\+feature}} (self)
+\begin{DoxyCompactList}\small\item\em Vision Tower의 더미 특징 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_ad3388b41fc866537e34a9ce0e1af7ff6}{dtype}} (self)
+\begin{DoxyCompactList}\small\item\em Vision Tower의 데이터 타입 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_aefaf4fcc31ecfd8506965a211863592e}{device}} (self)
+\begin{DoxyCompactList}\small\item\em Vision Tower의 디바이스 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a401fce0c87d7c7afbb159f20fe143a99}{config}} (self)
+\begin{DoxyCompactList}\small\item\em Vision Tower의 설정 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a8dfc65569f9763a83d404bf7facd7bad}{hidden\+\_\+size}} (self)
+\begin{DoxyCompactList}\small\item\em Vision Tower의 히든 크기 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a402bf44cae8f7b4e1684400721360ad9}{num\+\_\+patches\+\_\+per\+\_\+side}} (self)
+\begin{DoxyCompactList}\small\item\em 한 변의 패치 개수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a898624ea5895559a8fe5a17b160a680d}{num\+\_\+patches}} (self)
+\begin{DoxyCompactList}\small\item\em 총 패치 개수 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a552d4feb8810234513afe88accf44ae6}{is\+\_\+loaded}} = False
+\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a3562cdd2057289eb65db9ae09da0cdf4}{vision\+\_\+tower\+\_\+name}} = \mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a8e0a71756050c45971d046aff2583058}{vision\+\_\+tower}}
+\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_adacaade876d2fdee8347d37d566f59d8}{select\+\_\+layer}} = args.\+mm\+\_\+vision\+\_\+select\+\_\+layer
+\item 
+str \mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a074db3e083df3ae421a3d5451cd99122}{select\+\_\+feature}} = getattr(args, \textquotesingle{}mm\+\_\+vision\+\_\+select\+\_\+feature\textquotesingle{}, \textquotesingle{}patch\textquotesingle{})
+\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a650801f1129e77946e5ed4141c0dd9b9}{cfg\+\_\+only}} = CLIPVision\+Config.\+from\+\_\+pretrained(self.\+vision\+\_\+tower\+\_\+name)
+\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a6df8fbee4825155dff2ceeaeb32234c0}{image\+\_\+processor}} = CLIPImage\+Processor.\+from\+\_\+pretrained(self.\+vision\+\_\+tower\+\_\+name)
+\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a8e0a71756050c45971d046aff2583058}{vision\+\_\+tower}} = CLIPVision\+Model.\+from\+\_\+pretrained(self.\+vision\+\_\+tower\+\_\+name, device\+\_\+map=device\+\_\+map)
+\item 
+\mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a5be645d60211eb595c126d5069fdba14}{hidden\+\_\+size}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+CLIP Vision Tower의 기본 구현 클래스 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406) 
+\end{DoxyAuthor}
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00016}{16}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_ab417172fe5f55c98266ef38e2e129813}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_ab417172fe5f55c98266ef38e2e129813} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{vision\+\_\+tower}{, }\item[{}]{args}{, }\item[{}]{delay\+\_\+load}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+
+
+CLIPVision\+Tower의 생성자 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em vision\+\_\+tower} & Vision Tower 이름 \\
+\hline
+{\em args} & 추가 인자 \\
+\hline
+{\em delay\+\_\+load} & 모델 로드를 지연할지 여부 \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00024}{24}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ vision\_tower,\ args,\ delay\_load=False):}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ super().\_\_init\_\_()}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ self.is\_loaded\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ self.vision\_tower\_name\ =\ vision\_tower}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ self.select\_layer\ =\ args.mm\_vision\_select\_layer}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ self.select\_feature\ =\ getattr(args,\ \textcolor{stringliteral}{'mm\_vision\_select\_feature'},\ \textcolor{stringliteral}{'patch'})}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ delay\_load:}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ self.load\_model()}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ getattr(args,\ \textcolor{stringliteral}{'unfreeze\_mm\_vision\_tower'},\ \textcolor{keyword}{False}):}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ self.load\_model()}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ self.cfg\_only\ =\ CLIPVisionConfig.from\_pretrained(self.vision\_tower\_name)}
+\DoxyCodeLine{00036\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a401fce0c87d7c7afbb159f20fe143a99}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!config@{config}}
+\index{config@{config}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{config()}{config()}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a401fce0c87d7c7afbb159f20fe143a99} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+config (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Vision Tower의 설정 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+\begin{DoxyReturn}{Returns}
+Vision Tower의 설정 객체 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00124}{124}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{def\ }config(self):}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.is\_loaded:}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.vision\_tower.config}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.cfg\_only}
+\DoxyCodeLine{00129\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 4
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_aefaf4fcc31ecfd8506965a211863592e}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!device@{device}}
+\index{device@{device}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{device()}{device()}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_aefaf4fcc31ecfd8506965a211863592e} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+device (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Vision Tower의 디바이스 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+\begin{DoxyReturn}{Returns}
+Vision Tower가 실행되는 디바이스 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00114}{114}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{def\ }device(self):}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.vision\_tower.device}
+\DoxyCodeLine{00116\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 5
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_ad3388b41fc866537e34a9ce0e1af7ff6}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!dtype@{dtype}}
+\index{dtype@{dtype}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{dtype()}{dtype()}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_ad3388b41fc866537e34a9ce0e1af7ff6} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+dtype (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Vision Tower의 데이터 타입 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+\begin{DoxyReturn}{Returns}
+Vision Tower의 데이터 타입 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00104}{104}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{def\ }dtype(self):}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.vision\_tower.dtype}
+\DoxyCodeLine{00106\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 6
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_ad6c762fb7b2ffaa2e6704149cad6a1c8}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!dummy\_feature@{dummy\_feature}}
+\index{dummy\_feature@{dummy\_feature}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{dummy\_feature()}{dummy\_feature()}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_ad6c762fb7b2ffaa2e6704149cad6a1c8} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+dummy\+\_\+feature (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Vision Tower의 더미 특징 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+\begin{DoxyReturn}{Returns}
+더미 특징 텐서 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00094}{94}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{def\ }dummy\_feature(self):}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ torch.zeros(1,\ self.hidden\_size,\ device=self.device,\ dtype=self.dtype)}
+\DoxyCodeLine{00096\ }
+
+\end{DoxyCode}
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a3672100ff3fd44b7af9b637303e76fda}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!feature\_select@{feature\_select}}
+\index{feature\_select@{feature\_select}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{feature\_select()}{feature\_select()}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a3672100ff3fd44b7af9b637303e76fda} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+feature\+\_\+select (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{image\+\_\+forward\+\_\+outs}{}\end{DoxyParamCaption})}
+
+
+
+이미지 특징을 선택하는 메서드 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em image\+\_\+forward\+\_\+outs} & 이미지의 forward 결과 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+선택된 이미지 특징 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00057}{57}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{def\ }feature\_select(self,\ image\_forward\_outs):}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ image\_features\ =\ image\_forward\_outs.hidden\_states[self.select\_layer]}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.select\_feature\ ==\ \textcolor{stringliteral}{'patch'}:}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ image\_features\ =\ image\_features[:,\ 1:]}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.select\_feature\ ==\ \textcolor{stringliteral}{'cls\_patch'}:}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ image\_features\ =\ image\_features}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{'Unexpected\ select\ feature:\ \{self.select\_feature\}'})}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ image\_features}
+\DoxyCodeLine{00066\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 7
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_aa0f75e890e0d55b944ef3ebbdca0c38f}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!forward@{forward}}
+\index{forward@{forward}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_aa0f75e890e0d55b944ef3ebbdca0c38f} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{images}{}\end{DoxyParamCaption})}
+
+
+
+Vision Tower의 forward 메서드 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em images} & 입력 이미지 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+이미지 특징 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_s2_aae0bd25ee16d25a6b88e3d2a179d39f9}{clip\+\_\+encoder.\+CLIPVision\+Tower\+S2}}.
+
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00074}{74}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{def\ }forward(self,\ images):}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ type(images)\ \textcolor{keywordflow}{is}\ list:}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ image\_features\ =\ []}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ image\ \textcolor{keywordflow}{in}\ images:}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_forward\_out\ =\ self.vision\_tower(image.to(device=self.device,\ dtype=self.dtype).unsqueeze(0),\ output\_hidden\_states=\textcolor{keyword}{True})}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ self.feature\_select(image\_forward\_out).to(image.dtype)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_features.append(image\_feature)}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ image\_forward\_outs\ =\ self.vision\_tower(images.to(device=self.device,\ dtype=self.dtype),\ output\_hidden\_states=\textcolor{keyword}{True})}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ image\_features\ =\ self.feature\_select(image\_forward\_outs).to(images.dtype)}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ image\_features}
+\DoxyCodeLine{00086\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 8
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a8dfc65569f9763a83d404bf7facd7bad}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!hidden\_size@{hidden\_size}}
+\index{hidden\_size@{hidden\_size}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{hidden\_size()}{hidden\_size()}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a8dfc65569f9763a83d404bf7facd7bad} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+hidden\+\_\+size (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Vision Tower의 히든 크기 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+\begin{DoxyReturn}{Returns}
+Vision Tower의 히든 크기 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00137}{137}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{def\ }hidden\_size(self):}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.config.hidden\_size}
+\DoxyCodeLine{00139\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 9
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a2502311ae705712e6ef9e5e65e2807d2}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!load\_model@{load\_model}}
+\index{load\_model@{load\_model}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{load\_model()}{load\_model()}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a2502311ae705712e6ef9e5e65e2807d2} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+load\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{device\+\_\+map}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+모델을 로드하는 메서드 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em device\+\_\+map} & 디바이스 매핑 정보 \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_s2_af1e5272133bb33d214e96a471fd3a9f4}{clip\+\_\+encoder.\+CLIPVision\+Tower\+S2}}.
+
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00042}{42}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{def\ }load\_model(self,\ device\_map=None):}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.is\_loaded:}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'\{\}\ is\ already\ loaded,\ \`{}load\_model`\ called\ again,\ skipping.'}.format(self.vision\_tower\_name))}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ self.image\_processor\ =\ CLIPImageProcessor.from\_pretrained(self.vision\_tower\_name)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ self.vision\_tower\ =\ CLIPVisionModel.from\_pretrained(self.vision\_tower\_name,\ device\_map=device\_map)}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ self.vision\_tower.requires\_grad\_(\textcolor{keyword}{False})}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ self.is\_loaded\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00050\ }
+
+\end{DoxyCode}
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a898624ea5895559a8fe5a17b160a680d}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!num\_patches@{num\_patches}}
+\index{num\_patches@{num\_patches}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{num\_patches()}{num\_patches()}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a898624ea5895559a8fe5a17b160a680d} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+num\+\_\+patches (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+총 패치 개수 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+\begin{DoxyReturn}{Returns}
+총 패치 개수 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00157}{157}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{def\ }num\_patches(self):}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (self.config.image\_size\ //\ self.config.patch\_size)\ **\ 2}
+\DoxyCodeLine{00159\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 10
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a402bf44cae8f7b4e1684400721360ad9}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!num\_patches\_per\_side@{num\_patches\_per\_side}}
+\index{num\_patches\_per\_side@{num\_patches\_per\_side}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{num\_patches\_per\_side()}{num\_patches\_per\_side()}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a402bf44cae8f7b4e1684400721360ad9} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+num\+\_\+patches\+\_\+per\+\_\+side (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+한 변의 패치 개수 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+\begin{DoxyReturn}{Returns}
+한 변의 패치 개수 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00147}{147}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{def\ }num\_patches\_per\_side(self):}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.config.image\_size\ //\ self.config.patch\_size}
+\DoxyCodeLine{00149\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 11
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a650801f1129e77946e5ed4141c0dd9b9}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!cfg\_only@{cfg\_only}}
+\index{cfg\_only@{cfg\_only}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{cfg\_only}{cfg\_only}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a650801f1129e77946e5ed4141c0dd9b9} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+cfg\+\_\+only = CLIPVision\+Config.\+from\+\_\+pretrained(self.\+vision\+\_\+tower\+\_\+name)}
+
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00035}{35}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a5be645d60211eb595c126d5069fdba14}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!hidden\_size@{hidden\_size}}
+\index{hidden\_size@{hidden\_size}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{hidden\_size}{hidden\_size}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a5be645d60211eb595c126d5069fdba14} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+hidden\+\_\+size}
+
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00095}{95}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a6df8fbee4825155dff2ceeaeb32234c0}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!image\_processor@{image\_processor}}
+\index{image\_processor@{image\_processor}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{image\_processor}{image\_processor}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a6df8fbee4825155dff2ceeaeb32234c0} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+image\+\_\+processor = CLIPImage\+Processor.\+from\+\_\+pretrained(self.\+vision\+\_\+tower\+\_\+name)}
+
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00046}{46}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a552d4feb8810234513afe88accf44ae6}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!is\_loaded@{is\_loaded}}
+\index{is\_loaded@{is\_loaded}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{is\_loaded}{is\_loaded}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a552d4feb8810234513afe88accf44ae6} 
+bool clip\+\_\+encoder.\+CLIPVision\+Tower.\+is\+\_\+loaded = False}
+
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00026}{26}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a074db3e083df3ae421a3d5451cd99122}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!select\_feature@{select\_feature}}
+\index{select\_feature@{select\_feature}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{select\_feature}{select\_feature}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a074db3e083df3ae421a3d5451cd99122} 
+str clip\+\_\+encoder.\+CLIPVision\+Tower.\+select\+\_\+feature = getattr(args, \textquotesingle{}mm\+\_\+vision\+\_\+select\+\_\+feature\textquotesingle{}, \textquotesingle{}patch\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00029}{29}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_adacaade876d2fdee8347d37d566f59d8}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!select\_layer@{select\_layer}}
+\index{select\_layer@{select\_layer}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{select\_layer}{select\_layer}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_adacaade876d2fdee8347d37d566f59d8} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+select\+\_\+layer = args.\+mm\+\_\+vision\+\_\+select\+\_\+layer}
+
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00028}{28}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a8e0a71756050c45971d046aff2583058}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!vision\_tower@{vision\_tower}}
+\index{vision\_tower@{vision\_tower}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{vision\_tower}{vision\_tower}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a8e0a71756050c45971d046aff2583058} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+vision\+\_\+tower = CLIPVision\+Model.\+from\+\_\+pretrained(self.\+vision\+\_\+tower\+\_\+name, device\+\_\+map=device\+\_\+map)}
+
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00047}{47}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+\Hypertarget{classclip__encoder_1_1_c_l_i_p_vision_tower_a3562cdd2057289eb65db9ae09da0cdf4}\index{clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}!vision\_tower\_name@{vision\_tower\_name}}
+\index{vision\_tower\_name@{vision\_tower\_name}!clip\_encoder.CLIPVisionTower@{clip\_encoder.CLIPVisionTower}}
+\doxysubsubsection{\texorpdfstring{vision\_tower\_name}{vision\_tower\_name}}
+{\footnotesize\ttfamily \label{classclip__encoder_1_1_c_l_i_p_vision_tower_a3562cdd2057289eb65db9ae09da0cdf4} 
+clip\+\_\+encoder.\+CLIPVision\+Tower.\+vision\+\_\+tower\+\_\+name = \mbox{\hyperlink{classclip__encoder_1_1_c_l_i_p_vision_tower_a8e0a71756050c45971d046aff2583058}{vision\+\_\+tower}}}
+
+
+
+Definition at line \mbox{\hyperlink{clip__encoder_8py_source_l00027}{27}} of file \mbox{\hyperlink{clip__encoder_8py_source}{clip\+\_\+encoder.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+multimodal\+\_\+encoder/\mbox{\hyperlink{clip__encoder_8py}{clip\+\_\+encoder.\+py}}\end{DoxyCompactItemize}

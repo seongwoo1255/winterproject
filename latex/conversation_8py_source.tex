@@ -1,0 +1,402 @@
+\doxysection{conversation.\+py}
+\hypertarget{conversation_8py_source}{}\label{conversation_8py_source}\index{llava/conversation.py@{llava/conversation.py}}
+\mbox{\hyperlink{conversation_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00001}\mbox{\hyperlink{namespacellava_1_1conversation}{00001}}\ \textcolor{keyword}{import}\ dataclasses}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00002}00002\ \textcolor{keyword}{from}\ enum\ \textcolor{keyword}{import}\ auto,\ Enum}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00003}00003\ \textcolor{keyword}{from}\ typing\ \textcolor{keyword}{import}\ List,\ Tuple}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00004}00004\ \textcolor{keyword}{import}\ base64}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00005}00005\ \textcolor{keyword}{from}\ io\ \textcolor{keyword}{import}\ BytesIO}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00006}00006\ \textcolor{keyword}{from}\ PIL\ \textcolor{keyword}{import}\ Image}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00009}\mbox{\hyperlink{classllava_1_1conversation_1_1_separator_style}{00009}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classllava_1_1conversation_1_1_separator_style}{SeparatorStyle}}(Enum):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00010}00010\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Different\ separator\ style."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00011}\mbox{\hyperlink{classllava_1_1conversation_1_1_separator_style_ac0cbb2d2865d68de042f9cc90feb2597}{00011}}\ \ \ \ \ SINGLE\ =\ auto()}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00012}\mbox{\hyperlink{classllava_1_1conversation_1_1_separator_style_a913eb74d985f3cf326cddfb045bbf9cc}{00012}}\ \ \ \ \ TWO\ =\ auto()}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00013}\mbox{\hyperlink{classllava_1_1conversation_1_1_separator_style_afb154f5b529439539acf86465baed722}{00013}}\ \ \ \ \ MPT\ =\ auto()}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00014}\mbox{\hyperlink{classllava_1_1conversation_1_1_separator_style_ab7a7e891598675264f7157538523510f}{00014}}\ \ \ \ \ PLAIN\ =\ auto()}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00015}\mbox{\hyperlink{classllava_1_1conversation_1_1_separator_style_a32e595198fb71446c75e3f8cb9c03119}{00015}}\ \ \ \ \ LLAMA\_2\ =\ auto()}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00018}00018\ \textcolor{preprocessor}{@dataclasses.dataclass}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00019}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{00019}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00020}00020\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}A\ class\ that\ keeps\ all\ conversation\ history."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00021}00021\ \ \ \ \ system:\ str}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00022}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_aa85e8b8e6c6921a4ff32e619683dc8ad}{00022}}\ \ \ \ \ roles:\ List[str]}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00023}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ae3a5c57f049e96e6f225434bb9406bcf}{00023}}\ \ \ \ \ messages:\ List[List[str]]}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00024}00024\ \ \ \ \ offset:\ int}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00025}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ab9968dbbe5f135e7bbad503aadcf822b}{00025}}\ \ \ \ \ sep\_style:\ SeparatorStyle\ =\ SeparatorStyle.SINGLE}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00026}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ad226cecbaf3967b428df96dd6cdc7838}{00026}}\ \ \ \ \ sep:\ str\ =\ \textcolor{stringliteral}{"{}\#\#\#"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00027}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a488eab928bb2bb10cb31d81bcdeec79f}{00027}}\ \ \ \ \ sep2:\ str\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00028}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a867869994113a0c5cbb01e713ed860d1}{00028}}\ \ \ \ \ version:\ str\ =\ \textcolor{stringliteral}{"{}Unknown"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00030}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ab9005b8aab961f9facc88115a8aebabb}{00030}}\ \ \ \ \ skip\_next:\ bool\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00032}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_aa23fe0d270adbdfe0bd8fed0a5cc5e20}{00032}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_aa23fe0d270adbdfe0bd8fed0a5cc5e20}{get\_prompt}}(self):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ messages\ =\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ae3a5c57f049e96e6f225434bb9406bcf}{messages}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(messages)\ >\ 0\ \textcolor{keywordflow}{and}\ type(messages[0][1])\ \textcolor{keywordflow}{is}\ tuple:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ messages\ =\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ae3a5c57f049e96e6f225434bb9406bcf}{messages}}.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a38d8efc1a45190d1efce9d318c533cbc}{copy}}()}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ init\_role,\ init\_msg\ =\ messages[0].\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a38d8efc1a45190d1efce9d318c533cbc}{copy}}()}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ init\_msg\ =\ init\_msg[0].replace(\textcolor{stringliteral}{"{}<image>"{}},\ \textcolor{stringliteral}{"{}"{}}).strip()}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'mmtag'}\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a867869994113a0c5cbb01e713ed860d1}{version}}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ messages[0]\ =\ (init\_role,\ init\_msg)}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ messages.insert(0,\ (self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_aa85e8b8e6c6921a4ff32e619683dc8ad}{roles}}[0],\ \textcolor{stringliteral}{"{}<Image><image></Image>"{}}))}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ messages.insert(1,\ (self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_aa85e8b8e6c6921a4ff32e619683dc8ad}{roles}}[1],\ \textcolor{stringliteral}{"{}Received."{}}))}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ messages[0]\ =\ (init\_role,\ \textcolor{stringliteral}{"{}<image>\(\backslash\)n"{}}\ +\ init\_msg)}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ab9968dbbe5f135e7bbad503aadcf822b}{sep\_style}}\ ==\ SeparatorStyle.SINGLE:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_af781ad32d8cfa3eb46854935efdadf6e}{system}}\ +\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ad226cecbaf3967b428df96dd6cdc7838}{sep}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ role,\ message\ \textcolor{keywordflow}{in}\ messages:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ message:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ type(message)\ \textcolor{keywordflow}{is}\ tuple:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ message,\ \_,\ \_\ =\ message}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ +=\ role\ +\ \textcolor{stringliteral}{"{}:\ "{}}\ +\ message\ +\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ad226cecbaf3967b428df96dd6cdc7838}{sep}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ +=\ role\ +\ \textcolor{stringliteral}{"{}:"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ab9968dbbe5f135e7bbad503aadcf822b}{sep\_style}}\ ==\ SeparatorStyle.TWO:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ seps\ =\ [self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ad226cecbaf3967b428df96dd6cdc7838}{sep}},\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a488eab928bb2bb10cb31d81bcdeec79f}{sep2}}]}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_af781ad32d8cfa3eb46854935efdadf6e}{system}}\ +\ seps[0]}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ (role,\ message)\ \textcolor{keywordflow}{in}\ enumerate(messages):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ message:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ type(message)\ \textcolor{keywordflow}{is}\ tuple:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ message,\ \_,\ \_\ =\ message}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ +=\ role\ +\ \textcolor{stringliteral}{"{}:\ "{}}\ +\ message\ +\ seps[i\ \%\ 2]}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ +=\ role\ +\ \textcolor{stringliteral}{"{}:"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ab9968dbbe5f135e7bbad503aadcf822b}{sep\_style}}\ ==\ SeparatorStyle.MPT:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_af781ad32d8cfa3eb46854935efdadf6e}{system}}\ +\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ad226cecbaf3967b428df96dd6cdc7838}{sep}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ role,\ message\ \textcolor{keywordflow}{in}\ messages:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ message:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ type(message)\ \textcolor{keywordflow}{is}\ tuple:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ message,\ \_,\ \_\ =\ message}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ +=\ role\ +\ message\ +\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ad226cecbaf3967b428df96dd6cdc7838}{sep}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ +=\ role}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ab9968dbbe5f135e7bbad503aadcf822b}{sep\_style}}\ ==\ SeparatorStyle.LLAMA\_2:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ wrap\_sys\ =\ \textcolor{keyword}{lambda}\ msg:\ f\textcolor{stringliteral}{"{}<<SYS>>\(\backslash\)n\{msg\}\(\backslash\)n<</SYS>>\(\backslash\)n\(\backslash\)n"{}}\ \textcolor{keywordflow}{if}\ len(msg)\ >\ 0\ \textcolor{keywordflow}{else}\ msg}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ wrap\_inst\ =\ \textcolor{keyword}{lambda}\ msg:\ f\textcolor{stringliteral}{"{}[INST]\ \{msg\}\ [/INST]"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ \textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ (role,\ message)\ \textcolor{keywordflow}{in}\ enumerate(messages):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ i\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ message,\ \textcolor{stringliteral}{"{}first\ message\ should\ not\ be\ none"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ role\ ==\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_aa85e8b8e6c6921a4ff32e619683dc8ad}{roles}}[0],\ \textcolor{stringliteral}{"{}first\ message\ should\ come\ from\ user"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ message:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ type(message)\ \textcolor{keywordflow}{is}\ tuple:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ message,\ \_,\ \_\ =\ message}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ i\ ==\ 0:\ message\ =\ wrap\_sys(self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_af781ad32d8cfa3eb46854935efdadf6e}{system}})\ +\ message}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ i\ \%\ 2\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ message\ =\ wrap\_inst(message)}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ +=\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ad226cecbaf3967b428df96dd6cdc7838}{sep}}\ +\ message}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ +=\ \textcolor{stringliteral}{"{}\ "{}}\ +\ message\ +\ \textcolor{stringliteral}{"{}\ "{}}\ +\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a488eab928bb2bb10cb31d81bcdeec79f}{sep2}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ +=\ \textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ ret.lstrip(self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ad226cecbaf3967b428df96dd6cdc7838}{sep}})}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ab9968dbbe5f135e7bbad503aadcf822b}{sep\_style}}\ ==\ SeparatorStyle.PLAIN:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ seps\ =\ [self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ad226cecbaf3967b428df96dd6cdc7838}{sep}},\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a488eab928bb2bb10cb31d81bcdeec79f}{sep2}}]}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_af781ad32d8cfa3eb46854935efdadf6e}{system}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ (role,\ message)\ \textcolor{keywordflow}{in}\ enumerate(messages):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ message:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ type(message)\ \textcolor{keywordflow}{is}\ tuple:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ message,\ \_,\ \_\ =\ message}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ +=\ message\ +\ seps[i\ \%\ 2]}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ +=\ \textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Invalid\ style:\ \{self.sep\_style\}"{}})}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00109}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a447ccd08d32f4bc78a30bd84690f1607}{00109}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a447ccd08d32f4bc78a30bd84690f1607}{append\_message}}(self,\ role,\ message):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ae3a5c57f049e96e6f225434bb9406bcf}{messages}}.append([role,\ message])}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00112}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_abfeb3e1f9ead0751b57d2159b62e1f22}{00112}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_abfeb3e1f9ead0751b57d2159b62e1f22}{process\_image}}(self,\ image,\ image\_process\_mode,\ return\_pil=False,\ image\_format='PNG',\ max\_len=1344,\ min\_len=672):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ image\_process\_mode\ ==\ \textcolor{stringliteral}{"{}Pad"{}}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{def\ }expand2square(pil\_img,\ background\_color=(122,\ 116,\ 104)):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width,\ height\ =\ pil\_img.size}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ width\ ==\ height:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pil\_img}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ width\ >\ height:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ Image.new(pil\_img.mode,\ (width,\ width),\ background\_color)}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result.paste(pil\_img,\ (0,\ (width\ -\/\ height)\ //\ 2))}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ Image.new(pil\_img.mode,\ (height,\ height),\ background\_color)}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result.paste(pil\_img,\ ((height\ -\/\ width)\ //\ 2,\ 0))}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ image\ =\ expand2square(image)}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ image\_process\_mode\ \textcolor{keywordflow}{in}\ [\textcolor{stringliteral}{"{}Default"{}},\ \textcolor{stringliteral}{"{}Crop"{}}]:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ image\_process\_mode\ ==\ \textcolor{stringliteral}{"{}Resize"{}}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ image\ =\ image.resize((336,\ 336))}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Invalid\ image\_process\_mode:\ \{image\_process\_mode\}"{}})}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ max(image.size)\ >\ max\_len:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ max\_hw,\ min\_hw\ =\ max(image.size),\ min(image.size)}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ aspect\_ratio\ =\ max\_hw\ /\ min\_hw}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ shortest\_edge\ =\ int(min(max\_len\ /\ aspect\_ratio,\ min\_len,\ min\_hw))}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ longest\_edge\ =\ int(shortest\_edge\ *\ aspect\_ratio)}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ W,\ H\ =\ image.size}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ H\ >\ W:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ H,\ W\ =\ longest\_edge,\ shortest\_edge}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ H,\ W\ =\ shortest\_edge,\ longest\_edge}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ image\ =\ image.resize((W,\ H))}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ return\_pil:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ image}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ buffered\ =\ BytesIO()}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ image.save(buffered,\ format=image\_format)}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ img\_b64\_str\ =\ base64.b64encode(buffered.getvalue()).decode()}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ img\_b64\_str}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00152}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a9d03a129645a872cd36cda6308919996}{00152}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a9d03a129645a872cd36cda6308919996}{get\_images}}(self,\ return\_pil=False):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ images\ =\ []}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00154}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_adef03d35edfdc1d163abc906bffeb955}{00154}}\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ (role,\ msg)\ \textcolor{keywordflow}{in}\ enumerate(self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ae3a5c57f049e96e6f225434bb9406bcf}{messages}}[self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_adef03d35edfdc1d163abc906bffeb955}{offset}}:]):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ i\ \%\ 2\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ type(msg)\ \textcolor{keywordflow}{is}\ tuple:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ msg,\ image,\ image\_process\_mode\ =\ msg}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\ =\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_abfeb3e1f9ead0751b57d2159b62e1f22}{process\_image}}(image,\ image\_process\_mode,\ return\_pil=return\_pil)}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ images.append(image)}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ images}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00162}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_acb46b7e2ce1ecd9be3892042d6676199}{00162}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_acb46b7e2ce1ecd9be3892042d6676199}{to\_gradio\_chatbot}}(self):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ ret\ =\ []}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ (role,\ msg)\ \textcolor{keywordflow}{in}\ enumerate(self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ae3a5c57f049e96e6f225434bb9406bcf}{messages}}[self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_adef03d35edfdc1d163abc906bffeb955}{offset}}:]):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ i\ \%\ 2\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ type(msg)\ \textcolor{keywordflow}{is}\ tuple:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ msg,\ image,\ image\_process\_mode\ =\ msg}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ img\_b64\_str\ =\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_abfeb3e1f9ead0751b57d2159b62e1f22}{process\_image}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image,\ \textcolor{stringliteral}{"{}Default"{}},\ return\_pil=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_format=\textcolor{stringliteral}{'JPEG'})}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ img\_str\ =\ f\textcolor{stringliteral}{'<img\ src="{}data:image/jpeg;base64,\{img\_b64\_str\}"{}\ alt="{}user\ upload\ image"{}\ />'}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ img\_str\ +\ msg.replace(\textcolor{stringliteral}{'<image>'},\ \textcolor{stringliteral}{''}).strip()}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret.append([msg,\ \textcolor{keywordtype}{None}])}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret.append([msg,\ \textcolor{keywordtype}{None}])}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret[-\/1][-\/1]\ =\ msg}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00180}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a38d8efc1a45190d1efce9d318c533cbc}{00180}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a38d8efc1a45190d1efce9d318c533cbc}{copy}}(self):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ system=self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_af781ad32d8cfa3eb46854935efdadf6e}{system}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ roles=self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_aa85e8b8e6c6921a4ff32e619683dc8ad}{roles}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ messages=[[x,\ y]\ \textcolor{keywordflow}{for}\ x,\ y\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ae3a5c57f049e96e6f225434bb9406bcf}{messages}}],}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ offset=self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_adef03d35edfdc1d163abc906bffeb955}{offset}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ sep\_style=self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ab9968dbbe5f135e7bbad503aadcf822b}{sep\_style}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ sep=self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ad226cecbaf3967b428df96dd6cdc7838}{sep}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ sep2=self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a488eab928bb2bb10cb31d81bcdeec79f}{sep2}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ version=self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a867869994113a0c5cbb01e713ed860d1}{version}})}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00191}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_aba2a2ea7d075a9091f858685ce10f06f}{00191}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_aba2a2ea7d075a9091f858685ce10f06f}{dict}}(self):}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a9d03a129645a872cd36cda6308919996}{get\_images}}())\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00194}\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_af781ad32d8cfa3eb46854935efdadf6e}{00194}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}system"{}}:\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_af781ad32d8cfa3eb46854935efdadf6e}{system}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}roles"{}}:\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_aa85e8b8e6c6921a4ff32e619683dc8ad}{roles}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}messages"{}}:\ [[x,\ y[0]\ \textcolor{keywordflow}{if}\ type(y)\ \textcolor{keywordflow}{is}\ tuple\ \textcolor{keywordflow}{else}\ y]\ \textcolor{keywordflow}{for}\ x,\ y\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ae3a5c57f049e96e6f225434bb9406bcf}{messages}}],}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}offset"{}}:\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_adef03d35edfdc1d163abc906bffeb955}{offset}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sep"{}}:\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ad226cecbaf3967b428df96dd6cdc7838}{sep}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sep2"{}}:\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a488eab928bb2bb10cb31d81bcdeec79f}{sep2}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}system"{}}:\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_af781ad32d8cfa3eb46854935efdadf6e}{system}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}roles"{}}:\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_aa85e8b8e6c6921a4ff32e619683dc8ad}{roles}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}messages"{}}:\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ae3a5c57f049e96e6f225434bb9406bcf}{messages}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}offset"{}}:\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_adef03d35edfdc1d163abc906bffeb955}{offset}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sep"{}}:\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_ad226cecbaf3967b428df96dd6cdc7838}{sep}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sep2"{}}:\ self.\mbox{\hyperlink{classllava_1_1conversation_1_1_conversation_a488eab928bb2bb10cb31d81bcdeec79f}{sep2}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00211}\mbox{\hyperlink{namespacellava_1_1conversation_a0ea7e88b34ff4170dcc15bda3c16a08d}{00211}}\ conv\_vicuna\_v0\ =\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00212}00212\ \ \ \ \ system=\textcolor{stringliteral}{"{}A\ chat\ between\ a\ curious\ human\ and\ an\ artificial\ intelligence\ assistant.\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ assistant\ gives\ helpful,\ detailed,\ and\ polite\ answers\ to\ the\ human's\ questions."{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00214}00214\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}Human"{}},\ \textcolor{stringliteral}{"{}Assistant"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00215}00215\ \ \ \ \ messages=(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}Human"{}},\ \textcolor{stringliteral}{"{}What\ are\ the\ key\ differences\ between\ renewable\ and\ non-\/renewable\ energy\ sources?"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}Assistant"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Renewable\ energy\ sources\ are\ those\ that\ can\ be\ replenished\ naturally\ in\ a\ relatively\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}short\ amount\ of\ time,\ such\ as\ solar,\ wind,\ hydro,\ geothermal,\ and\ biomass.\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Non-\/renewable\ energy\ sources,\ on\ the\ other\ hand,\ are\ finite\ and\ will\ eventually\ be\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}depleted,\ such\ as\ coal,\ oil,\ and\ natural\ gas.\ Here\ are\ some\ key\ differences\ between\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}renewable\ and\ non-\/renewable\ energy\ sources:\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}1.\ Availability:\ Renewable\ energy\ sources\ are\ virtually\ inexhaustible,\ while\ non-\/renewable\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}energy\ sources\ are\ finite\ and\ will\ eventually\ run\ out.\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}2.\ Environmental\ impact:\ Renewable\ energy\ sources\ have\ a\ much\ lower\ environmental\ impact\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}than\ non-\/renewable\ sources,\ which\ can\ lead\ to\ air\ and\ water\ pollution,\ greenhouse\ gas\ emissions,\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}and\ other\ negative\ effects.\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}3.\ Cost:\ Renewable\ energy\ sources\ can\ be\ more\ expensive\ to\ initially\ set\ up,\ but\ they\ typically\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}have\ lower\ operational\ costs\ than\ non-\/renewable\ sources.\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}4.\ Reliability:\ Renewable\ energy\ sources\ are\ often\ more\ reliable\ and\ can\ be\ used\ in\ more\ remote\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}locations\ than\ non-\/renewable\ sources.\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}5.\ Flexibility:\ Renewable\ energy\ sources\ are\ often\ more\ flexible\ and\ can\ be\ adapted\ to\ different\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}situations\ and\ needs,\ while\ non-\/renewable\ sources\ are\ more\ rigid\ and\ inflexible.\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}6.\ Sustainability:\ Renewable\ energy\ sources\ are\ more\ sustainable\ over\ the\ long\ term,\ while\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}non-\/renewable\ sources\ are\ not,\ and\ their\ depletion\ can\ lead\ to\ economic\ and\ social\ instability.\(\backslash\)n"{}})}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00236}00236\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00237}00237\ \ \ \ \ offset=2,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00238}00238\ \ \ \ \ sep\_style=SeparatorStyle.SINGLE,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00239}00239\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\#\#\#"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00240}00240\ )}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00242}\mbox{\hyperlink{namespacellava_1_1conversation_a8bc33fc17d5ec73e58df6d8d68e1cdb6}{00242}}\ conv\_vicuna\_v1\ =\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00243}00243\ \ \ \ \ system=\textcolor{stringliteral}{"{}A\ chat\ between\ a\ curious\ user\ and\ an\ artificial\ intelligence\ assistant.\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00244}00244\ \ \ \ \ \textcolor{stringliteral}{"{}The\ assistant\ gives\ helpful,\ detailed,\ and\ polite\ answers\ to\ the\ user's\ questions."{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00245}00245\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}USER"{}},\ \textcolor{stringliteral}{"{}ASSISTANT"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00246}00246\ \ \ \ \ version=\textcolor{stringliteral}{"{}v1"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00247}00247\ \ \ \ \ messages=(),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00248}00248\ \ \ \ \ offset=0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00249}00249\ \ \ \ \ sep\_style=SeparatorStyle.TWO,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00250}00250\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\ "{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00251}00251\ \ \ \ \ sep2=\textcolor{stringliteral}{"{}</s>"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00252}00252\ )}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00254}\mbox{\hyperlink{namespacellava_1_1conversation_ab81d01c1151226c6f4c05e96d70ea904}{00254}}\ conv\_llama\_2\ =\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00255}00255\ \ \ \ \ system=\textcolor{stringliteral}{"{}"{}"{}You\ are\ a\ helpful,\ respectful\ and\ honest\ assistant.\ Always\ answer\ as\ helpfully\ as\ possible,\ while\ being\ safe.\ \ Your\ answers\ should\ not\ include\ any\ harmful,\ unethical,\ racist,\ sexist,\ toxic,\ dangerous,\ or\ illegal\ content.\ Please\ ensure\ that\ your\ responses\ are\ socially\ unbiased\ and\ positive\ in\ nature.}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00256}00256\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00257}00257\ \textcolor{stringliteral}{If\ a\ question\ does\ not\ make\ any\ sense,\ or\ is\ not\ factually\ coherent,\ explain\ why\ instead\ of\ answering\ something\ not\ correct.\ If\ you\ don't\ know\ the\ answer\ to\ a\ question,\ please\ don't\ share\ false\ information."{}"{}"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00258}00258\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}USER"{}},\ \textcolor{stringliteral}{"{}ASSISTANT"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00259}00259\ \ \ \ \ version=\textcolor{stringliteral}{"{}llama\_v2"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00260}00260\ \ \ \ \ messages=(),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00261}00261\ \ \ \ \ offset=0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00262}00262\ \ \ \ \ sep\_style=SeparatorStyle.LLAMA\_2,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00263}00263\ \ \ \ \ sep=\textcolor{stringliteral}{"{}<s>"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00264}00264\ \ \ \ \ sep2=\textcolor{stringliteral}{"{}</s>"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00265}00265\ )}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00266}00266\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00267}\mbox{\hyperlink{namespacellava_1_1conversation_aee4891707f40527c86c0483aed04dec7}{00267}}\ conv\_llava\_llama\_2\ =\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00268}00268\ \ \ \ \ system=\textcolor{stringliteral}{"{}You\ are\ a\ helpful\ language\ and\ vision\ assistant.\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}You\ are\ able\ to\ understand\ the\ visual\ content\ that\ the\ user\ provides,\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}and\ assist\ the\ user\ with\ a\ variety\ of\ tasks\ using\ natural\ language."{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00271}00271\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}USER"{}},\ \textcolor{stringliteral}{"{}ASSISTANT"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00272}00272\ \ \ \ \ version=\textcolor{stringliteral}{"{}llama\_v2"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00273}00273\ \ \ \ \ messages=(),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00274}00274\ \ \ \ \ offset=0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00275}00275\ \ \ \ \ sep\_style=SeparatorStyle.LLAMA\_2,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00276}00276\ \ \ \ \ sep=\textcolor{stringliteral}{"{}<s>"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00277}00277\ \ \ \ \ sep2=\textcolor{stringliteral}{"{}</s>"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00278}00278\ )}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00279}00279\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00280}\mbox{\hyperlink{namespacellava_1_1conversation_a1bfa9feb395cdbf2877280180b20afeb}{00280}}\ conv\_mpt\ =\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00281}00281\ \ \ \ \ system=\textcolor{stringliteral}{"{}"{}"{}<|im\_start|>system}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00282}00282\ \textcolor{stringliteral}{A\ conversation\ between\ a\ user\ and\ an\ LLM-\/based\ AI\ assistant.\ The\ assistant\ gives\ helpful\ and\ honest\ answers."{}"{}"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00283}00283\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}<|im\_start|>user\(\backslash\)n"{}},\ \textcolor{stringliteral}{"{}<|im\_start|>assistant\(\backslash\)n"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00284}00284\ \ \ \ \ version=\textcolor{stringliteral}{"{}mpt"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00285}00285\ \ \ \ \ messages=(),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00286}00286\ \ \ \ \ offset=0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00287}00287\ \ \ \ \ sep\_style=SeparatorStyle.MPT,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00288}00288\ \ \ \ \ sep=\textcolor{stringliteral}{"{}<|im\_end|>"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00289}00289\ )}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00291}\mbox{\hyperlink{namespacellava_1_1conversation_a13d74de68160e56b91eefeda821aea34}{00291}}\ conv\_llava\_plain\ =\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00292}00292\ \ \ \ \ system=\textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00293}00293\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}"{}},\ \textcolor{stringliteral}{"{}"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00294}00294\ \ \ \ \ messages=(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00295}00295\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00296}00296\ \ \ \ \ offset=0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00297}00297\ \ \ \ \ sep\_style=SeparatorStyle.PLAIN,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00298}00298\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00299}00299\ )}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00300}00300\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00301}\mbox{\hyperlink{namespacellava_1_1conversation_a5193c5b29e23374ccc3994d186962609}{00301}}\ conv\_llava\_v0\ =\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00302}00302\ \ \ \ \ system=\textcolor{stringliteral}{"{}A\ chat\ between\ a\ curious\ human\ and\ an\ artificial\ intelligence\ assistant.\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ assistant\ gives\ helpful,\ detailed,\ and\ polite\ answers\ to\ the\ human's\ questions."{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00304}00304\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}Human"{}},\ \textcolor{stringliteral}{"{}Assistant"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00305}00305\ \ \ \ \ messages=(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00306}00306\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00307}00307\ \ \ \ \ offset=0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00308}00308\ \ \ \ \ sep\_style=SeparatorStyle.SINGLE,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00309}00309\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\#\#\#"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00310}00310\ )}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00312}\mbox{\hyperlink{namespacellava_1_1conversation_ac62bbf7722871c6913873056481dfce4}{00312}}\ conv\_llava\_v0\_mmtag\ =\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00313}00313\ \ \ \ \ system=\textcolor{stringliteral}{"{}A\ chat\ between\ a\ curious\ user\ and\ an\ artificial\ intelligence\ assistant.\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00314}00314\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ assistant\ is\ able\ to\ understand\ the\ visual\ content\ that\ the\ user\ provides,\ and\ assist\ the\ user\ with\ a\ variety\ of\ tasks\ using\ natural\ language."{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ visual\ content\ will\ be\ provided\ with\ the\ following\ format:\ <Image>visual\ content</Image>."{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00316}00316\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}Human"{}},\ \textcolor{stringliteral}{"{}Assistant"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00317}00317\ \ \ \ \ messages=(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00318}00318\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00319}00319\ \ \ \ \ offset=0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00320}00320\ \ \ \ \ sep\_style=SeparatorStyle.SINGLE,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00321}00321\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\#\#\#"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00322}00322\ \ \ \ \ version=\textcolor{stringliteral}{"{}v0\_mmtag"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00323}00323\ )}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00324}00324\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00325}\mbox{\hyperlink{namespacellava_1_1conversation_ab96947de3105fb8ead71d55a055fec06}{00325}}\ conv\_llava\_v1\ =\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00326}00326\ \ \ \ \ system=\textcolor{stringliteral}{"{}A\ chat\ between\ a\ curious\ human\ and\ an\ artificial\ intelligence\ assistant.\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ assistant\ gives\ helpful,\ detailed,\ and\ polite\ answers\ to\ the\ human's\ questions."{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00328}00328\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}USER"{}},\ \textcolor{stringliteral}{"{}ASSISTANT"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00329}00329\ \ \ \ \ version=\textcolor{stringliteral}{"{}v1"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00330}00330\ \ \ \ \ messages=(),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00331}00331\ \ \ \ \ offset=0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00332}00332\ \ \ \ \ sep\_style=SeparatorStyle.TWO,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00333}00333\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\ "{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00334}00334\ \ \ \ \ sep2=\textcolor{stringliteral}{"{}</s>"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00335}00335\ )}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00336}00336\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00337}\mbox{\hyperlink{namespacellava_1_1conversation_a58a7c20021b9a112b108f907b4b1b290}{00337}}\ conv\_llava\_v1\_mmtag\ =\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00338}00338\ \ \ \ \ system=\textcolor{stringliteral}{"{}A\ chat\ between\ a\ curious\ user\ and\ an\ artificial\ intelligence\ assistant.\ "{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ assistant\ is\ able\ to\ understand\ the\ visual\ content\ that\ the\ user\ provides,\ and\ assist\ the\ user\ with\ a\ variety\ of\ tasks\ using\ natural\ language."{}}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ visual\ content\ will\ be\ provided\ with\ the\ following\ format:\ <Image>visual\ content</Image>."{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00341}00341\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}USER"{}},\ \textcolor{stringliteral}{"{}ASSISTANT"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00342}00342\ \ \ \ \ messages=(),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00343}00343\ \ \ \ \ offset=0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00344}00344\ \ \ \ \ sep\_style=SeparatorStyle.TWO,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00345}00345\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\ "{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00346}00346\ \ \ \ \ sep2=\textcolor{stringliteral}{"{}</s>"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00347}00347\ \ \ \ \ version=\textcolor{stringliteral}{"{}v1\_mmtag"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00348}00348\ )}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00349}00349\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00350}\mbox{\hyperlink{namespacellava_1_1conversation_a4a7ea6a07c18c32b74f6aaab78cd7484}{00350}}\ conv\_mistral\_instruct\ =\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00351}00351\ \ \ \ \ system=\textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00352}00352\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}USER"{}},\ \textcolor{stringliteral}{"{}ASSISTANT"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00353}00353\ \ \ \ \ version=\textcolor{stringliteral}{"{}llama\_v2"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00354}00354\ \ \ \ \ messages=(),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00355}00355\ \ \ \ \ offset=0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00356}00356\ \ \ \ \ sep\_style=SeparatorStyle.LLAMA\_2,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00357}00357\ \ \ \ \ sep=\textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00358}00358\ \ \ \ \ sep2=\textcolor{stringliteral}{"{}</s>"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00359}00359\ )}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00360}00360\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00361}\mbox{\hyperlink{namespacellava_1_1conversation_aaed194350e5e5982ccfe886cdfacef92}{00361}}\ conv\_chatml\_direct\ =\ \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}(}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00362}00362\ \ \ \ \ system=\textcolor{stringliteral}{"{}"{}"{}<|im\_start|>system}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00363}00363\ \textcolor{stringliteral}{Answer\ the\ questions."{}"{}"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00364}00364\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}<|im\_start|>user\(\backslash\)n"{}},\ \textcolor{stringliteral}{"{}<|im\_start|>assistant\(\backslash\)n"{}}),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00365}00365\ \ \ \ \ version=\textcolor{stringliteral}{"{}mpt"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00366}00366\ \ \ \ \ messages=(),}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00367}00367\ \ \ \ \ offset=0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00368}00368\ \ \ \ \ sep\_style=SeparatorStyle.MPT,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00369}00369\ \ \ \ \ sep=\textcolor{stringliteral}{"{}<|im\_end|>"{}},}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00370}00370\ )}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00371}00371\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00372}\mbox{\hyperlink{namespacellava_1_1conversation_ab81a5d5030ea37093c29f5026d602d86}{00372}}\ default\_conversation\ =\ conv\_vicuna\_v1}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00373}\mbox{\hyperlink{namespacellava_1_1conversation_a738d06459c92a97d57206c98c314ceec}{00373}}\ conv\_templates\ =\ \{}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00374}00374\ \ \ \ \ \textcolor{stringliteral}{"{}default"{}}:\ conv\_vicuna\_v0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00375}00375\ \ \ \ \ \textcolor{stringliteral}{"{}v0"{}}:\ conv\_vicuna\_v0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00376}00376\ \ \ \ \ \textcolor{stringliteral}{"{}v1"{}}:\ conv\_vicuna\_v1,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00377}00377\ \ \ \ \ \textcolor{stringliteral}{"{}vicuna\_v1"{}}:\ conv\_vicuna\_v1,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00378}00378\ \ \ \ \ \textcolor{stringliteral}{"{}llama\_2"{}}:\ conv\_llama\_2,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00379}00379\ \ \ \ \ \textcolor{stringliteral}{"{}mistral\_instruct"{}}:\ conv\_mistral\_instruct,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00380}00380\ \ \ \ \ \textcolor{stringliteral}{"{}chatml\_direct"{}}:\ conv\_chatml\_direct,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00381}00381\ \ \ \ \ \textcolor{stringliteral}{"{}mistral\_direct"{}}:\ conv\_chatml\_direct,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00383}00383\ \ \ \ \ \textcolor{stringliteral}{"{}plain"{}}:\ conv\_llava\_plain,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00384}00384\ \ \ \ \ \textcolor{stringliteral}{"{}v0\_plain"{}}:\ conv\_llava\_plain,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00385}00385\ \ \ \ \ \textcolor{stringliteral}{"{}llava\_v0"{}}:\ conv\_llava\_v0,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00386}00386\ \ \ \ \ \textcolor{stringliteral}{"{}v0\_mmtag"{}}:\ conv\_llava\_v0\_mmtag,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00387}00387\ \ \ \ \ \textcolor{stringliteral}{"{}llava\_v1"{}}:\ conv\_llava\_v1,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00388}00388\ \ \ \ \ \textcolor{stringliteral}{"{}v1\_mmtag"{}}:\ conv\_llava\_v1\_mmtag,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00389}00389\ \ \ \ \ \textcolor{stringliteral}{"{}llava\_llama\_2"{}}:\ conv\_llava\_llama\_2,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00390}00390\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00391}00391\ \ \ \ \ \textcolor{stringliteral}{"{}mpt"{}}:\ conv\_mpt,}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00392}00392\ \}}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00393}00393\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00394}00394\ }
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00395}00395\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
+\DoxyCodeLine{\Hypertarget{conversation_8py_source_l00396}00396\ \ \ \ \ print(default\_conversation.get\_prompt())}
+
+\end{DoxyCode}

@@ -1,0 +1,28 @@
+var eval__science__qa_8py =
+[
+    [ "eval_science_qa.convert_caps", "namespaceeval__science__qa.html#a18f9d9e163ec1f01332ed0481b634883", null ],
+    [ "eval_science_qa.get_args", "namespaceeval__science__qa.html#a338f040d97805ab7d17760cbed0c877c", null ],
+    [ "eval_science_qa.get_pred_idx", "namespaceeval__science__qa.html#ad595084a870f1872e06b1b81e553d56e", null ],
+    [ "eval_science_qa.analysis", "namespaceeval__science__qa.html#a3e1663e78375d7b17c8ae47598334470", null ],
+    [ "eval_science_qa.answer", "namespaceeval__science__qa.html#a8cc4b4c3dd1e8eb61f098ae68bea954e", null ],
+    [ "eval_science_qa.args", "namespaceeval__science__qa.html#a98606b88fa74df5cc8cbdf148532eed1", null ],
+    [ "eval_science_qa.base_dir", "namespaceeval__science__qa.html#aa6d19df3b263d5d12c6dd5076f382dc9", null ],
+    [ "eval_science_qa.correct", "namespaceeval__science__qa.html#af983ad080b7c972d6bd0d619c38a1811", null ],
+    [ "eval_science_qa.f", "namespaceeval__science__qa.html#af735416e59b405b1155de5e40e093efb", null ],
+    [ "eval_science_qa.indent", "namespaceeval__science__qa.html#aa4dd2f3e737d9c05fadc05e15069a753", null ],
+    [ "eval_science_qa.multimodal_correct", "namespaceeval__science__qa.html#a85a84518d967b565d957717855aff3ad", null ],
+    [ "eval_science_qa.multimodal_incorrect", "namespaceeval__science__qa.html#a7bb59d4da31b98c0c6c67365221b58d6", null ],
+    [ "eval_science_qa.multimodal_total", "namespaceeval__science__qa.html#a8e2e10abbc802e76b3b49430ec73aeca", null ],
+    [ "eval_science_qa.pattern", "namespaceeval__science__qa.html#a2ed4f6e7aa7f866672cab13bfa148366", null ],
+    [ "eval_science_qa.pred", "namespaceeval__science__qa.html#a1281b2085d0d414c918126dfe4806466", null ],
+    [ "eval_science_qa.pred_idx", "namespaceeval__science__qa.html#adf9c1ad133dd1c7206b29dc4fbeb988d", null ],
+    [ "eval_science_qa.pred_text", "namespaceeval__science__qa.html#a9c8c299e5e79d3d82809778750123b9e", null ],
+    [ "eval_science_qa.predictions", "namespaceeval__science__qa.html#ab686ebb9cb66d916a6bba8e180e18248", null ],
+    [ "eval_science_qa.problems", "namespaceeval__science__qa.html#aed3634b320b248a2040aeb7536f40174", null ],
+    [ "eval_science_qa.res", "namespaceeval__science__qa.html#a668b66a8f11caf3a8d69c6a201b739cf", null ],
+    [ "eval_science_qa.results", "namespaceeval__science__qa.html#af6912d3bb0b74f630b39d587f02348a1", null ],
+    [ "eval_science_qa.split_indices", "namespaceeval__science__qa.html#af6b62d0625f35421a91c5008ee7c258e", null ],
+    [ "eval_science_qa.split_problems", "namespaceeval__science__qa.html#aa0328d2fe84c654dba7c9e50109295e9", null ],
+    [ "eval_science_qa.sqa_results", "namespaceeval__science__qa.html#affa5cc0c383b188cb083990cbb2172f8", null ],
+    [ "eval_science_qa.total", "namespaceeval__science__qa.html#a5b5ba9b229edcfaa4b33f77b64950e90", null ]
+];

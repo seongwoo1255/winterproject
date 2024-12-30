@@ -1,0 +1,223 @@
+\doxysection{model\+\_\+vqa Namespace Reference}
+\hypertarget{namespacemodel__vqa}{}\label{namespacemodel__vqa}\index{model\_vqa@{model\_vqa}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacemodel__vqa_a914c6d77d2013c6f813922102ad1cf87}{split\+\_\+list}} (lst, n)
+\item 
+\mbox{\hyperlink{namespacemodel__vqa_a2247fe70b637ca27e00372dd10c712b5}{get\+\_\+chunk}} (lst, n, k)
+\item 
+\mbox{\hyperlink{namespacemodel__vqa_ac321c52adaad69422eadbef554d52f9e}{eval\+\_\+model}} (\mbox{\hyperlink{namespacemodel__vqa_a92a24721b4692dc40c50b3ae3b786c65}{args}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacemodel__vqa_ab24d50c81598f38123a417a776a9e271}{parser}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespacemodel__vqa_a1e8f3a9c3480d0505b73634645a0e69a}{type}}
+\item 
+\mbox{\hyperlink{namespacemodel__vqa_adb3157ae426a5d66f48ae348ccbbc613}{str}}
+\item 
+\mbox{\hyperlink{namespacemodel__vqa_ab53f1286f7f92af2f3840ed566598a50}{default}}
+\item 
+\mbox{\hyperlink{namespacemodel__vqa_ab7434eec775db27efd756ae81ed14db1}{int}}
+\item 
+\mbox{\hyperlink{namespacemodel__vqa_a8c89b35e276af042835100e40dcd3a01}{float}}
+\item 
+\mbox{\hyperlink{namespacemodel__vqa_a92a24721b4692dc40c50b3ae3b786c65}{args}} = parser.\+parse\+\_\+args()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacemodel__vqa_ac321c52adaad69422eadbef554d52f9e}\index{model\_vqa@{model\_vqa}!eval\_model@{eval\_model}}
+\index{eval\_model@{eval\_model}!model\_vqa@{model\_vqa}}
+\doxysubsubsection{\texorpdfstring{eval\_model()}{eval\_model()}}
+{\footnotesize\ttfamily \label{namespacemodel__vqa_ac321c52adaad69422eadbef554d52f9e} 
+model\+\_\+vqa.\+eval\+\_\+model (\begin{DoxyParamCaption}\item[{}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{model__vqa_8py_source_l00029}{29}} of file \mbox{\hyperlink{model__vqa_8py_source}{model\+\_\+vqa.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \textcolor{keyword}{def\ }eval\_model(args):}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{\#\ Model}}
+\DoxyCodeLine{00031\ \ \ \ \ disable\_torch\_init()}
+\DoxyCodeLine{00032\ \ \ \ \ model\_path\ =\ os.path.expanduser(args.model\_path)}
+\DoxyCodeLine{00033\ \ \ \ \ model\_name\ =\ get\_model\_name\_from\_path(model\_path)}
+\DoxyCodeLine{00034\ \ \ \ \ tokenizer,\ model,\ image\_processor,\ context\_len\ =\ load\_pretrained\_model(model\_path,\ args.model\_base,\ model\_name)}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ questions\ =\ [json.loads(q)\ \textcolor{keywordflow}{for}\ q\ \textcolor{keywordflow}{in}\ open(os.path.expanduser(args.question\_file),\ \textcolor{stringliteral}{"{}r"{}})]}
+\DoxyCodeLine{00037\ \ \ \ \ questions\ =\ get\_chunk(questions,\ args.num\_chunks,\ args.chunk\_idx)}
+\DoxyCodeLine{00038\ \ \ \ \ answers\_file\ =\ os.path.expanduser(args.answers\_file)}
+\DoxyCodeLine{00039\ \ \ \ \ os.makedirs(os.path.dirname(answers\_file),\ exist\_ok=\textcolor{keyword}{True})}
+\DoxyCodeLine{00040\ \ \ \ \ ans\_file\ =\ open(answers\_file,\ \textcolor{stringliteral}{"{}w"{}})}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ tqdm(questions):}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ idx\ =\ line[\textcolor{stringliteral}{"{}question\_id"{}}]}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ image\_file\ =\ line[\textcolor{stringliteral}{"{}image"{}}]}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ qs\ =\ line[\textcolor{stringliteral}{"{}text"{}}]}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ cur\_prompt\ =\ qs}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model.config.mm\_use\_im\_start\_end:}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ qs\ =\ DEFAULT\_IM\_START\_TOKEN\ +\ DEFAULT\_IMAGE\_TOKEN\ +\ DEFAULT\_IM\_END\_TOKEN\ +\ \textcolor{stringliteral}{'\(\backslash\)n'}\ +\ qs}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ qs\ =\ DEFAULT\_IMAGE\_TOKEN\ +\ \textcolor{stringliteral}{'\(\backslash\)n'}\ +\ qs}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ conv\ =\ conv\_templates[args.conv\_mode].copy()}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ conv.append\_message(conv.roles[0],\ qs)}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ conv.append\_message(conv.roles[1],\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ prompt\ =\ conv.get\_prompt()}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ input\_ids\ =\ tokenizer\_image\_token(prompt,\ tokenizer,\ IMAGE\_TOKEN\_INDEX,\ return\_tensors=\textcolor{stringliteral}{'pt'}).unsqueeze(0).cuda()}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ image\ =\ Image.open(os.path.join(args.image\_folder,\ image\_file)).convert(\textcolor{stringliteral}{'RGB'})}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ image\_tensor\ =\ process\_images([image],\ image\_processor,\ model.config)[0]}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ torch.inference\_mode():}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ output\_ids\ =\ model.generate(}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ images=image\_tensor.unsqueeze(0).half().cuda(),}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_sizes=[image.size],}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ do\_sample=\textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ args.temperature\ >\ 0\ \textcolor{keywordflow}{else}\ \textcolor{keyword}{False},}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temperature=args.temperature,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ top\_p=args.top\_p,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_beams=args.num\_beams,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ no\_repeat\_ngram\_size=3,}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_new\_tokens=1024,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_cache=\textcolor{keyword}{True})}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ outputs\ =\ tokenizer.batch\_decode(output\_ids,\ skip\_special\_tokens=\textcolor{keyword}{True})[0].strip()}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ ans\_id\ =\ shortuuid.uuid()}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ ans\_file.write(json.dumps(\{\textcolor{stringliteral}{"{}question\_id"{}}:\ idx,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}prompt"{}}:\ cur\_prompt,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}text"{}}:\ outputs,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}answer\_id"{}}:\ ans\_id,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}model\_id"{}}:\ model\_name,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}metadata"{}}:\ \{\}\})\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ ans\_file.flush()}
+\DoxyCodeLine{00084\ \ \ \ \ ans\_file.close()}
+\DoxyCodeLine{00085\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 0
+\Hypertarget{namespacemodel__vqa_a2247fe70b637ca27e00372dd10c712b5}\index{model\_vqa@{model\_vqa}!get\_chunk@{get\_chunk}}
+\index{get\_chunk@{get\_chunk}!model\_vqa@{model\_vqa}}
+\doxysubsubsection{\texorpdfstring{get\_chunk()}{get\_chunk()}}
+{\footnotesize\ttfamily \label{namespacemodel__vqa_a2247fe70b637ca27e00372dd10c712b5} 
+model\+\_\+vqa.\+get\+\_\+chunk (\begin{DoxyParamCaption}\item[{}]{lst}{, }\item[{}]{n}{, }\item[{}]{k}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{model__vqa_8py_source_l00024}{24}} of file \mbox{\hyperlink{model__vqa_8py_source}{model\+\_\+vqa.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \textcolor{keyword}{def\ }get\_chunk(lst,\ n,\ k):}
+\DoxyCodeLine{00025\ \ \ \ \ chunks\ =\ split\_list(lst,\ n)}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{return}\ chunks[k]}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 1
+Here is the caller graph for this function\+:
+% FIG 2
+\Hypertarget{namespacemodel__vqa_a914c6d77d2013c6f813922102ad1cf87}\index{model\_vqa@{model\_vqa}!split\_list@{split\_list}}
+\index{split\_list@{split\_list}!model\_vqa@{model\_vqa}}
+\doxysubsubsection{\texorpdfstring{split\_list()}{split\_list()}}
+{\footnotesize\ttfamily \label{namespacemodel__vqa_a914c6d77d2013c6f813922102ad1cf87} 
+model\+\_\+vqa.\+split\+\_\+list (\begin{DoxyParamCaption}\item[{}]{lst}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Split a list into n (roughly) equal-sized chunks\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model__vqa_8py_source_l00018}{18}} of file \mbox{\hyperlink{model__vqa_8py_source}{model\+\_\+vqa.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00018\ \textcolor{keyword}{def\ }split\_list(lst,\ n):}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Split\ a\ list\ into\ n\ (roughly)\ equal-\/sized\ chunks"{}"{}"{}}}
+\DoxyCodeLine{00020\ \ \ \ \ chunk\_size\ =\ math.ceil(len(lst)\ /\ n)\ \ \textcolor{comment}{\#\ integer\ division}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{return}\ [lst[i:i+chunk\_size]\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ len(lst),\ chunk\_size)]}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacemodel__vqa_a92a24721b4692dc40c50b3ae3b786c65}\index{model\_vqa@{model\_vqa}!args@{args}}
+\index{args@{args}!model\_vqa@{model\_vqa}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily \label{namespacemodel__vqa_a92a24721b4692dc40c50b3ae3b786c65} 
+model\+\_\+vqa.\+args = parser.\+parse\+\_\+args()}
+
+
+
+Definition at line \mbox{\hyperlink{model__vqa_8py_source_l00099}{99}} of file \mbox{\hyperlink{model__vqa_8py_source}{model\+\_\+vqa.\+py}}.
+
+\Hypertarget{namespacemodel__vqa_ab53f1286f7f92af2f3840ed566598a50}\index{model\_vqa@{model\_vqa}!default@{default}}
+\index{default@{default}!model\_vqa@{model\_vqa}}
+\doxysubsubsection{\texorpdfstring{default}{default}}
+{\footnotesize\ttfamily \label{namespacemodel__vqa_ab53f1286f7f92af2f3840ed566598a50} 
+model\+\_\+vqa.\+default}
+
+
+
+Definition at line \mbox{\hyperlink{model__vqa_8py_source_l00088}{88}} of file \mbox{\hyperlink{model__vqa_8py_source}{model\+\_\+vqa.\+py}}.
+
+\Hypertarget{namespacemodel__vqa_a8c89b35e276af042835100e40dcd3a01}\index{model\_vqa@{model\_vqa}!float@{float}}
+\index{float@{float}!model\_vqa@{model\_vqa}}
+\doxysubsubsection{\texorpdfstring{float}{float}}
+{\footnotesize\ttfamily \label{namespacemodel__vqa_a8c89b35e276af042835100e40dcd3a01} 
+model\+\_\+vqa.\+float}
+
+
+
+Definition at line \mbox{\hyperlink{model__vqa_8py_source_l00096}{96}} of file \mbox{\hyperlink{model__vqa_8py_source}{model\+\_\+vqa.\+py}}.
+
+\Hypertarget{namespacemodel__vqa_ab7434eec775db27efd756ae81ed14db1}\index{model\_vqa@{model\_vqa}!int@{int}}
+\index{int@{int}!model\_vqa@{model\_vqa}}
+\doxysubsubsection{\texorpdfstring{int}{int}}
+{\footnotesize\ttfamily \label{namespacemodel__vqa_ab7434eec775db27efd756ae81ed14db1} 
+model\+\_\+vqa.\+int}
+
+
+
+Definition at line \mbox{\hyperlink{model__vqa_8py_source_l00094}{94}} of file \mbox{\hyperlink{model__vqa_8py_source}{model\+\_\+vqa.\+py}}.
+
+\Hypertarget{namespacemodel__vqa_ab24d50c81598f38123a417a776a9e271}\index{model\_vqa@{model\_vqa}!parser@{parser}}
+\index{parser@{parser}!model\_vqa@{model\_vqa}}
+\doxysubsubsection{\texorpdfstring{parser}{parser}}
+{\footnotesize\ttfamily \label{namespacemodel__vqa_ab24d50c81598f38123a417a776a9e271} 
+model\+\_\+vqa.\+parser = argparse.\+Argument\+Parser()}
+
+
+
+Definition at line \mbox{\hyperlink{model__vqa_8py_source_l00087}{87}} of file \mbox{\hyperlink{model__vqa_8py_source}{model\+\_\+vqa.\+py}}.
+
+\Hypertarget{namespacemodel__vqa_adb3157ae426a5d66f48ae348ccbbc613}\index{model\_vqa@{model\_vqa}!str@{str}}
+\index{str@{str}!model\_vqa@{model\_vqa}}
+\doxysubsubsection{\texorpdfstring{str}{str}}
+{\footnotesize\ttfamily \label{namespacemodel__vqa_adb3157ae426a5d66f48ae348ccbbc613} 
+model\+\_\+vqa.\+str}
+
+
+
+Definition at line \mbox{\hyperlink{model__vqa_8py_source_l00088}{88}} of file \mbox{\hyperlink{model__vqa_8py_source}{model\+\_\+vqa.\+py}}.
+
+\Hypertarget{namespacemodel__vqa_a1e8f3a9c3480d0505b73634645a0e69a}\index{model\_vqa@{model\_vqa}!type@{type}}
+\index{type@{type}!model\_vqa@{model\_vqa}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \label{namespacemodel__vqa_a1e8f3a9c3480d0505b73634645a0e69a} 
+model\+\_\+vqa.\+type}
+
+
+
+Definition at line \mbox{\hyperlink{model__vqa_8py_source_l00088}{88}} of file \mbox{\hyperlink{model__vqa_8py_source}{model\+\_\+vqa.\+py}}.
+

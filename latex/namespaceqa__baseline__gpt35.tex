@@ -1,0 +1,266 @@
+\doxysection{qa\+\_\+baseline\+\_\+gpt35 Namespace Reference}
+\hypertarget{namespaceqa__baseline__gpt35}{}\label{namespaceqa__baseline__gpt35}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqa__baseline__gpt35_a512f7f5bc1f7199f780bdf800d199ed3}{get\+\_\+answer}} (\mbox{\hyperlink{namespaceqa__baseline__gpt35_a6a5383cc844d67a37b135fd7bf65f75e}{int}} question\+\_\+id, str question, \mbox{\hyperlink{namespaceqa__baseline__gpt35_a6a5383cc844d67a37b135fd7bf65f75e}{int}} max\+\_\+tokens)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespaceqa__baseline__gpt35_a54cc19c2324523b80522a65df6fdfa00}{MODEL}} = \textquotesingle{}gpt-\/3.\+5-\/turbo\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespaceqa__baseline__gpt35_a59dc87c707351e9adf915a0f6944efd2}{MODEL\+\_\+\+ID}} = \textquotesingle{}gpt-\/3.\+5-\/turbo\+:20230327\textquotesingle{}
+\item 
+\mbox{\hyperlink{namespaceqa__baseline__gpt35_ab5b8b2282790b5e2d59e8340fcf43cbd}{parser}} = argparse.\+Argument\+Parser(description=\textquotesingle{}Chat\+GPT answer generation.\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespaceqa__baseline__gpt35_a46a898c3895589a81ccebaed2c0f1a98}{type}}
+\item 
+\mbox{\hyperlink{namespaceqa__baseline__gpt35_a6a5383cc844d67a37b135fd7bf65f75e}{int}}
+\item 
+\mbox{\hyperlink{namespaceqa__baseline__gpt35_ab3a561b24dc4683d34354b3314d7ead5}{default}}
+\item 
+\mbox{\hyperlink{namespaceqa__baseline__gpt35_ae86f41b48057305317c6b665838f9a06}{help}}
+\item 
+\mbox{\hyperlink{namespaceqa__baseline__gpt35_a437167292db6b049d0fc6fde71558674}{args}} = parser.\+parse\+\_\+args()
+\item 
+dict \mbox{\hyperlink{namespaceqa__baseline__gpt35_ac6df1642525ef63633e57720d9a8c987}{questions\+\_\+dict}} = \{\}
+\item 
+\mbox{\hyperlink{namespaceqa__baseline__gpt35_af997e4c78e93bd9079418f1aa9b8a408}{q}} = json.\+loads(line)
+\item 
+list \mbox{\hyperlink{namespaceqa__baseline__gpt35_af53cc01343f62afaad31e1b0ed57c8f4}{answers}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceqa__baseline__gpt35_a9e6f9119c9b48f54c00430ad2bfe1665}{max\+\_\+workers}}
+\item 
+list \mbox{\hyperlink{namespaceqa__baseline__gpt35_ab703276bcca6cc0c7ea71d665fe240b6}{futures}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceqa__baseline__gpt35_a505fa4cb3118121ed72828e680ef9c71}{future}} = executor.\+submit(\mbox{\hyperlink{namespaceqa__baseline__gpt35_a512f7f5bc1f7199f780bdf800d199ed3}{get\+\_\+answer}}, qid, question, args.\+max\+\_\+tokens)
+\item 
+\mbox{\hyperlink{namespaceqa__baseline__gpt35_af60d8217361c77e98630d87fc2942a51}{total}}
+\item 
+\mbox{\hyperlink{namespaceqa__baseline__gpt35_ab5b8a4fe205c2085d8bef3964d0d9e9f}{key}}
+\item 
+list \mbox{\hyperlink{namespaceqa__baseline__gpt35_ac18e71dd030f3a1e2c8c8f83f2a8ece2}{table}} = \mbox{[}json.\+dumps(ans) for ans in \mbox{\hyperlink{namespaceqa__baseline__gpt35_af53cc01343f62afaad31e1b0ed57c8f4}{answers}}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Generate answers with GPT-3.5\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqa__baseline__gpt35_a512f7f5bc1f7199f780bdf800d199ed3}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!get\_answer@{get\_answer}}
+\index{get\_answer@{get\_answer}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{get\_answer()}{get\_answer()}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_a512f7f5bc1f7199f780bdf800d199ed3} 
+qa\+\_\+baseline\+\_\+gpt35.\+get\+\_\+answer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceqa__baseline__gpt35_a6a5383cc844d67a37b135fd7bf65f75e}{int}}}]{question\+\_\+id}{, }\item[{str}]{question}{, }\item[{\mbox{\hyperlink{namespaceqa__baseline__gpt35_a6a5383cc844d67a37b135fd7bf65f75e}{int}}}]{max\+\_\+tokens}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00016}{16}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00016\ \textcolor{keyword}{def\ }get\_answer(question\_id:\ int,\ question:\ str,\ max\_tokens:\ int):}
+\DoxyCodeLine{00017\ \ \ \ \ ans\ =\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'answer\_id'}:\ shortuuid.uuid(),}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'question\_id'}:\ question\_id,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'model\_id'}:\ MODEL\_ID,}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(3):}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ response\ =\ openai.ChatCompletion.create(}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model=MODEL,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ messages=[\{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}:\ \textcolor{stringliteral}{'system'},}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'content'}:\ \textcolor{stringliteral}{'You\ are\ a\ helpful\ assistant.'}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}:\ \textcolor{stringliteral}{'user'},}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'content'}:\ question,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}],}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_tokens=max\_tokens,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ ans[\textcolor{stringliteral}{'text'}]\ =\ response[\textcolor{stringliteral}{'choices'}][0][\textcolor{stringliteral}{'message'}][\textcolor{stringliteral}{'content'}]}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ans}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'[ERROR]'},\ e)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ ans[\textcolor{stringliteral}{'text'}]\ =\ \textcolor{stringliteral}{'\#ERROR\#'}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ time.sleep(1)}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{return}\ ans}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceqa__baseline__gpt35_af53cc01343f62afaad31e1b0ed57c8f4}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!answers@{answers}}
+\index{answers@{answers}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{answers}{answers}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_af53cc01343f62afaad31e1b0ed57c8f4} 
+list qa\+\_\+baseline\+\_\+gpt35.\+answers = \mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00059}{59}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_a437167292db6b049d0fc6fde71558674}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!args@{args}}
+\index{args@{args}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_a437167292db6b049d0fc6fde71558674} 
+qa\+\_\+baseline\+\_\+gpt35.\+args = parser.\+parse\+\_\+args()}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00049}{49}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_ab3a561b24dc4683d34354b3314d7ead5}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!default@{default}}
+\index{default@{default}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{default}{default}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_ab3a561b24dc4683d34354b3314d7ead5} 
+qa\+\_\+baseline\+\_\+gpt35.\+default}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00048}{48}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_a505fa4cb3118121ed72828e680ef9c71}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!future@{future}}
+\index{future@{future}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{future}{future}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_a505fa4cb3118121ed72828e680ef9c71} 
+qa\+\_\+baseline\+\_\+gpt35.\+future = executor.\+submit(\mbox{\hyperlink{namespaceqa__baseline__gpt35_a512f7f5bc1f7199f780bdf800d199ed3}{get\+\_\+answer}}, qid, question, args.\+max\+\_\+tokens)}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00064}{64}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_ab703276bcca6cc0c7ea71d665fe240b6}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!futures@{futures}}
+\index{futures@{futures}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{futures}{futures}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_ab703276bcca6cc0c7ea71d665fe240b6} 
+list qa\+\_\+baseline\+\_\+gpt35.\+futures = \mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00062}{62}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_ae86f41b48057305317c6b665838f9a06}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!help@{help}}
+\index{help@{help}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{help}{help}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_ae86f41b48057305317c6b665838f9a06} 
+qa\+\_\+baseline\+\_\+gpt35.\+help}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00048}{48}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_a6a5383cc844d67a37b135fd7bf65f75e}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!int@{int}}
+\index{int@{int}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{int}{int}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_a6a5383cc844d67a37b135fd7bf65f75e} 
+qa\+\_\+baseline\+\_\+gpt35.\+int}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00048}{48}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_ab5b8a4fe205c2085d8bef3964d0d9e9f}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!key@{key}}
+\index{key@{key}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_ab5b8a4fe205c2085d8bef3964d0d9e9f} 
+qa\+\_\+baseline\+\_\+gpt35.\+key}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00070}{70}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_a9e6f9119c9b48f54c00430ad2bfe1665}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!max\_workers@{max\_workers}}
+\index{max\_workers@{max\_workers}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{max\_workers}{max\_workers}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_a9e6f9119c9b48f54c00430ad2bfe1665} 
+qa\+\_\+baseline\+\_\+gpt35.\+max\+\_\+workers}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00061}{61}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_a54cc19c2324523b80522a65df6fdfa00}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!MODEL@{MODEL}}
+\index{MODEL@{MODEL}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{MODEL}{MODEL}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_a54cc19c2324523b80522a65df6fdfa00} 
+str qa\+\_\+baseline\+\_\+gpt35.\+MODEL = \textquotesingle{}gpt-\/3.\+5-\/turbo\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00013}{13}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_a59dc87c707351e9adf915a0f6944efd2}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!MODEL\_ID@{MODEL\_ID}}
+\index{MODEL\_ID@{MODEL\_ID}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{MODEL\_ID}{MODEL\_ID}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_a59dc87c707351e9adf915a0f6944efd2} 
+str qa\+\_\+baseline\+\_\+gpt35.\+MODEL\+\_\+\+ID = \textquotesingle{}gpt-\/3.\+5-\/turbo\+:20230327\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00014}{14}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_ab5b8b2282790b5e2d59e8340fcf43cbd}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!parser@{parser}}
+\index{parser@{parser}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{parser}{parser}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_ab5b8b2282790b5e2d59e8340fcf43cbd} 
+qa\+\_\+baseline\+\_\+gpt35.\+parser = argparse.\+Argument\+Parser(description=\textquotesingle{}Chat\+GPT answer generation.\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00045}{45}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_af997e4c78e93bd9079418f1aa9b8a408}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!q@{q}}
+\index{q@{q}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{q}{q}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_af997e4c78e93bd9079418f1aa9b8a408} 
+qa\+\_\+baseline\+\_\+gpt35.\+q = json.\+loads(line)}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00056}{56}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_ac6df1642525ef63633e57720d9a8c987}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!questions\_dict@{questions\_dict}}
+\index{questions\_dict@{questions\_dict}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{questions\_dict}{questions\_dict}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_ac6df1642525ef63633e57720d9a8c987} 
+dict qa\+\_\+baseline\+\_\+gpt35.\+questions\+\_\+dict = \{\}}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00051}{51}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_ac18e71dd030f3a1e2c8c8f83f2a8ece2}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!table@{table}}
+\index{table@{table}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{table}{table}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_ac18e71dd030f3a1e2c8c8f83f2a8ece2} 
+list qa\+\_\+baseline\+\_\+gpt35.\+table = \mbox{[}json.\+dumps(ans) for ans in \mbox{\hyperlink{namespaceqa__baseline__gpt35_af53cc01343f62afaad31e1b0ed57c8f4}{answers}}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00073}{73}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_af60d8217361c77e98630d87fc2942a51}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!total@{total}}
+\index{total@{total}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{total}{total}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_af60d8217361c77e98630d87fc2942a51} 
+qa\+\_\+baseline\+\_\+gpt35.\+total}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00067}{67}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+
+\Hypertarget{namespaceqa__baseline__gpt35_a46a898c3895589a81ccebaed2c0f1a98}\index{qa\_baseline\_gpt35@{qa\_baseline\_gpt35}!type@{type}}
+\index{type@{type}!qa\_baseline\_gpt35@{qa\_baseline\_gpt35}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \label{namespaceqa__baseline__gpt35_a46a898c3895589a81ccebaed2c0f1a98} 
+qa\+\_\+baseline\+\_\+gpt35.\+type}
+
+
+
+Definition at line \mbox{\hyperlink{qa__baseline__gpt35_8py_source_l00048}{48}} of file \mbox{\hyperlink{qa__baseline__gpt35_8py_source}{qa\+\_\+baseline\+\_\+gpt35.\+py}}.
+

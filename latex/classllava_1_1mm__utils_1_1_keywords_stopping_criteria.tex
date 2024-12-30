@@ -1,0 +1,181 @@
+\doxysection{llava.\+mm\+\_\+utils.\+Keywords\+Stopping\+Criteria Class Reference}
+\hypertarget{classllava_1_1mm__utils_1_1_keywords_stopping_criteria}{}\label{classllava_1_1mm__utils_1_1_keywords_stopping_criteria}\index{llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}}
+
+
+Inheritance diagram for llava.\+mm\+\_\+utils.\+Keywords\+Stopping\+Criteria\+:
+% FIG 0
+
+
+Collaboration diagram for llava.\+mm\+\_\+utils.\+Keywords\+Stopping\+Criteria\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_adfcd9e507e6e3a289aac2a7f15cd30e0}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a5ad2b72382047b426b5ec2aaad4bcf24}{keywords}}, \mbox{\hyperlink{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a77b250cb3ea2dd48bf7c70e713e75a50}{tokenizer}}, input\+\_\+ids)
+\item 
+bool \mbox{\hyperlink{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a0a7272927918a9a84371ddec56661557}{call\+\_\+for\+\_\+batch}} (self, torch.\+Long\+Tensor output\+\_\+ids, torch.\+Float\+Tensor scores, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+bool \mbox{\hyperlink{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a867b9f5c74d8b6ff947cdef1e44c3500}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self, torch.\+Long\+Tensor output\+\_\+ids, torch.\+Float\+Tensor scores, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a5ad2b72382047b426b5ec2aaad4bcf24}{keywords}} = keywords
+\item 
+list \mbox{\hyperlink{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a63257121d81b383ae84db4657f433ea5}{keyword\+\_\+ids}} = \mbox{[}$\,$\mbox{]}
+\item 
+int \mbox{\hyperlink{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a3c328363eb4fbd38a51ab07523f772a4}{max\+\_\+keyword\+\_\+len}} = 0
+\item 
+\mbox{\hyperlink{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a77b250cb3ea2dd48bf7c70e713e75a50}{tokenizer}} = tokenizer
+\item 
+\mbox{\hyperlink{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_acf2d62db24cac1f8eed20b8506522610}{start\+\_\+len}} = input\+\_\+ids.\+shape\mbox{[}1\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{mm__utils_8py_source_l00215}{215}} of file \mbox{\hyperlink{mm__utils_8py_source}{mm\+\_\+utils.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_adfcd9e507e6e3a289aac2a7f15cd30e0}\index{llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_adfcd9e507e6e3a289aac2a7f15cd30e0} 
+llava.\+mm\+\_\+utils.\+Keywords\+Stopping\+Criteria.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{keywords}{, }\item[{}]{tokenizer}{, }\item[{}]{input\+\_\+ids}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{mm__utils_8py_source_l00216}{216}} of file \mbox{\hyperlink{mm__utils_8py_source}{mm\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ keywords,\ tokenizer,\ input\_ids):}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ self.keywords\ =\ keywords}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ self.keyword\_ids\ =\ []}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ self.max\_keyword\_len\ =\ 0}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ keyword\ \textcolor{keywordflow}{in}\ keywords:}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_keyword\_ids\ =\ tokenizer(keyword).input\_ids}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(cur\_keyword\_ids)\ >\ 1\ \textcolor{keywordflow}{and}\ cur\_keyword\_ids[0]\ ==\ tokenizer.bos\_token\_id:}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_keyword\_ids\ =\ cur\_keyword\_ids[1:]}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(cur\_keyword\_ids)\ >\ self.max\_keyword\_len:}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.max\_keyword\_len\ =\ len(cur\_keyword\_ids)}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ self.keyword\_ids.append(torch.tensor(cur\_keyword\_ids))}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ self.tokenizer\ =\ tokenizer}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ self.start\_len\ =\ input\_ids.shape[1]}
+\DoxyCodeLine{00229\ \ \ \ \ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a867b9f5c74d8b6ff947cdef1e44c3500}\index{llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}!\_\_call\_\_@{\_\_call\_\_}}
+\index{\_\_call\_\_@{\_\_call\_\_}!llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}}
+\doxysubsubsection{\texorpdfstring{\_\_call\_\_()}{\_\_call\_\_()}}
+{\footnotesize\ttfamily \label{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a867b9f5c74d8b6ff947cdef1e44c3500} 
+ bool llava.\+mm\+\_\+utils.\+Keywords\+Stopping\+Criteria.\+\_\+\+\_\+call\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{torch.\+Long\+Tensor}]{output\+\_\+ids}{, }\item[{torch.\+Float\+Tensor}]{scores}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{mm__utils_8py_source_l00243}{243}} of file \mbox{\hyperlink{mm__utils_8py_source}{mm\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keyword}{def\ }\_\_call\_\_(self,\ output\_ids:\ torch.LongTensor,\ scores:\ torch.FloatTensor,\ **kwargs)\ -\/>\ bool:}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ outputs\ =\ []}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(output\_ids.shape[0]):}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ outputs.append(self.call\_for\_batch(output\_ids[i].unsqueeze(0),\ scores))}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ all(outputs)}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a0a7272927918a9a84371ddec56661557}\index{llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}!call\_for\_batch@{call\_for\_batch}}
+\index{call\_for\_batch@{call\_for\_batch}!llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}}
+\doxysubsubsection{\texorpdfstring{call\_for\_batch()}{call\_for\_batch()}}
+{\footnotesize\ttfamily \label{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a0a7272927918a9a84371ddec56661557} 
+ bool llava.\+mm\+\_\+utils.\+Keywords\+Stopping\+Criteria.\+call\+\_\+for\+\_\+batch (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{torch.\+Long\+Tensor}]{output\+\_\+ids}{, }\item[{torch.\+Float\+Tensor}]{scores}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{mm__utils_8py_source_l00230}{230}} of file \mbox{\hyperlink{mm__utils_8py_source}{mm\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keyword}{def\ }call\_for\_batch(self,\ output\_ids:\ torch.LongTensor,\ scores:\ torch.FloatTensor,\ **kwargs)\ -\/>\ bool:}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ offset\ =\ min(output\_ids.shape[1]\ -\/\ self.start\_len,\ self.max\_keyword\_len)}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ self.keyword\_ids\ =\ [keyword\_id.to(output\_ids.device)\ \textcolor{keywordflow}{for}\ keyword\_id\ \textcolor{keywordflow}{in}\ self.keyword\_ids]}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ keyword\_id\ \textcolor{keywordflow}{in}\ self.keyword\_ids:}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ truncated\_output\_ids\ =\ output\_ids[0,\ -\/keyword\_id.shape[0]:]}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ torch.equal(truncated\_output\_ids,\ keyword\_id):}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ outputs\ =\ self.tokenizer.batch\_decode(output\_ids[:,\ -\/offset:],\ skip\_special\_tokens=\textcolor{keyword}{True})[0]}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ keyword\ \textcolor{keywordflow}{in}\ self.keywords:}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ keyword\ \textcolor{keywordflow}{in}\ outputs:}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00242\ \ \ \ \ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a63257121d81b383ae84db4657f433ea5}\index{llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}!keyword\_ids@{keyword\_ids}}
+\index{keyword\_ids@{keyword\_ids}!llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}}
+\doxysubsubsection{\texorpdfstring{keyword\_ids}{keyword\_ids}}
+{\footnotesize\ttfamily \label{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a63257121d81b383ae84db4657f433ea5} 
+list llava.\+mm\+\_\+utils.\+Keywords\+Stopping\+Criteria.\+keyword\+\_\+ids = \mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{mm__utils_8py_source_l00218}{218}} of file \mbox{\hyperlink{mm__utils_8py_source}{mm\+\_\+utils.\+py}}.
+
+\Hypertarget{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a5ad2b72382047b426b5ec2aaad4bcf24}\index{llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}!keywords@{keywords}}
+\index{keywords@{keywords}!llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}}
+\doxysubsubsection{\texorpdfstring{keywords}{keywords}}
+{\footnotesize\ttfamily \label{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a5ad2b72382047b426b5ec2aaad4bcf24} 
+llava.\+mm\+\_\+utils.\+Keywords\+Stopping\+Criteria.\+keywords = keywords}
+
+
+
+Definition at line \mbox{\hyperlink{mm__utils_8py_source_l00217}{217}} of file \mbox{\hyperlink{mm__utils_8py_source}{mm\+\_\+utils.\+py}}.
+
+\Hypertarget{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a3c328363eb4fbd38a51ab07523f772a4}\index{llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}!max\_keyword\_len@{max\_keyword\_len}}
+\index{max\_keyword\_len@{max\_keyword\_len}!llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}}
+\doxysubsubsection{\texorpdfstring{max\_keyword\_len}{max\_keyword\_len}}
+{\footnotesize\ttfamily \label{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a3c328363eb4fbd38a51ab07523f772a4} 
+int llava.\+mm\+\_\+utils.\+Keywords\+Stopping\+Criteria.\+max\+\_\+keyword\+\_\+len = 0}
+
+
+
+Definition at line \mbox{\hyperlink{mm__utils_8py_source_l00219}{219}} of file \mbox{\hyperlink{mm__utils_8py_source}{mm\+\_\+utils.\+py}}.
+
+\Hypertarget{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_acf2d62db24cac1f8eed20b8506522610}\index{llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}!start\_len@{start\_len}}
+\index{start\_len@{start\_len}!llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}}
+\doxysubsubsection{\texorpdfstring{start\_len}{start\_len}}
+{\footnotesize\ttfamily \label{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_acf2d62db24cac1f8eed20b8506522610} 
+llava.\+mm\+\_\+utils.\+Keywords\+Stopping\+Criteria.\+start\+\_\+len = input\+\_\+ids.\+shape\mbox{[}1\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{mm__utils_8py_source_l00228}{228}} of file \mbox{\hyperlink{mm__utils_8py_source}{mm\+\_\+utils.\+py}}.
+
+\Hypertarget{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a77b250cb3ea2dd48bf7c70e713e75a50}\index{llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}!tokenizer@{tokenizer}}
+\index{tokenizer@{tokenizer}!llava.mm\_utils.KeywordsStoppingCriteria@{llava.mm\_utils.KeywordsStoppingCriteria}}
+\doxysubsubsection{\texorpdfstring{tokenizer}{tokenizer}}
+{\footnotesize\ttfamily \label{classllava_1_1mm__utils_1_1_keywords_stopping_criteria_a77b250cb3ea2dd48bf7c70e713e75a50} 
+llava.\+mm\+\_\+utils.\+Keywords\+Stopping\+Criteria.\+tokenizer = tokenizer}
+
+
+
+Definition at line \mbox{\hyperlink{mm__utils_8py_source_l00227}{227}} of file \mbox{\hyperlink{mm__utils_8py_source}{mm\+\_\+utils.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+llava/\mbox{\hyperlink{mm__utils_8py}{mm\+\_\+utils.\+py}}\end{DoxyCompactItemize}

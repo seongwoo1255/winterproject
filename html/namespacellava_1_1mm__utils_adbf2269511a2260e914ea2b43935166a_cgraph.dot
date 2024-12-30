@@ -1,0 +1,15 @@
+digraph "llava.mm_utils.process_anyres_image"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="llava.mm_utils.process\l_anyres_image",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="llava.mm_utils.divide\l_to_patches",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$namespacellava_1_1mm__utils.html#ae4ccc6abdd03caf02e2ac9ca1bb2af04",tooltip=" "];
+  Node1 -> Node3 [id="edge2_Node000001_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="llava.mm_utils.resize\l_and_pad_image",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$namespacellava_1_1mm__utils.html#a40cefe125ab588aa0efee388f7b7108f",tooltip=" "];
+  Node1 -> Node4 [id="edge3_Node000001_Node000004",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="llava.mm_utils.select\l_best_resolution",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$namespacellava_1_1mm__utils.html#a4ca4286048f7be2f9e5f0b93e30b7672",tooltip=" "];
+}

@@ -1,0 +1,28 @@
+\doxysection{llava/serve/register\+\_\+worker.py File Reference}
+\hypertarget{register__worker_8py}{}\label{register__worker_8py}\index{llava/serve/register\_worker.py@{llava/serve/register\_worker.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacellava}{llava}}
+\item 
+namespace \mbox{\hyperlink{namespacellava_1_1serve}{llava.\+serve}}
+\item 
+namespace \mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker}{llava.\+serve.\+register\+\_\+worker}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_aef12fd1a2df9a5a5e1104fff5430d0bd}{llava.\+serve.\+register\+\_\+worker.\+parser}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a503ddb83e9858aebafafaa723516f5a9}{llava.\+serve.\+register\+\_\+worker.\+type}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a026f8657a531b8f68da1fd576f77f0d5}{llava.\+serve.\+register\+\_\+worker.\+action}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_afa2e32c51cebb69669733fdb737a1e2e}{llava.\+serve.\+register\+\_\+worker.\+args}} = parser.\+parse\+\_\+args()
+\item 
+str \mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a09c0bd7a2dbb6d70c37479c6424a6284}{llava.\+serve.\+register\+\_\+worker.\+url}} = args.\+controller\+\_\+address + "{}/register\+\_\+worker"{}
+\item 
+dict \mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a090752409e43f8b9fe2824a482d7f9b8}{llava.\+serve.\+register\+\_\+worker.\+data}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a220f8b0e65bd128e54318c810b3b36cf}{llava.\+serve.\+register\+\_\+worker.\+r}} = requests.\+post(\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a09c0bd7a2dbb6d70c37479c6424a6284}{url}}, json=\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a090752409e43f8b9fe2824a482d7f9b8}{data}})
+\end{DoxyCompactItemize}

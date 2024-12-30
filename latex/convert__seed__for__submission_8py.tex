@@ -1,0 +1,33 @@
+\doxysection{scripts/convert\+\_\+seed\+\_\+for\+\_\+submission.py File Reference}
+\hypertarget{convert__seed__for__submission_8py}{}\label{convert__seed__for__submission_8py}\index{scripts/convert\_seed\_for\_submission.py@{scripts/convert\_seed\_for\_submission.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceconvert__seed__for__submission}{convert\+\_\+seed\+\_\+for\+\_\+submission}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_a8c1f79fa1f7413c2bb874d6fe3946c67}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+get\+\_\+args}} ()
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_a74e0b3a9ff4244319fce97dc114b4e94}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+eval\+\_\+single}} (\mbox{\hyperlink{namespaceconvert__seed__for__submission_a1298c759bd6c4a49a08405a1ee5e2748}{result\+\_\+file}}, \mbox{\hyperlink{namespaceconvert__seed__for__submission_a8e491fb79e0e23d39fb8983e3de4d98d}{eval\+\_\+only\+\_\+type}}=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_a79cee289b24af44351d18021ae10425a}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+args}} = \mbox{\hyperlink{namespaceconvert__seed__for__submission_a8c1f79fa1f7413c2bb874d6fe3946c67}{get\+\_\+args}}()
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_adba6f300aeafa133ef87bf2f02448954}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+data}} = json.\+load(open(args.\+annotation\+\_\+file))
+\item 
+dict \mbox{\hyperlink{namespaceconvert__seed__for__submission_a0c9e5a70cc21c846c75d04e16f94cd92}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+ques\+\_\+type\+\_\+id\+\_\+to\+\_\+name}} = \{id\+:n for n,id in \mbox{\hyperlink{namespaceconvert__seed__for__submission_adba6f300aeafa133ef87bf2f02448954}{data}}\mbox{[}\textquotesingle{}question\+\_\+type\textquotesingle{}\mbox{]}.items()\}
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_adf54001b7213b277619faa21c28654d3}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+results}} = \mbox{\hyperlink{namespaceconvert__seed__for__submission_a74e0b3a9ff4244319fce97dc114b4e94}{eval\+\_\+single}}(args.\+result\+\_\+file)
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_a1298c759bd6c4a49a08405a1ee5e2748}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+result\+\_\+file}}
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_a8e491fb79e0e23d39fb8983e3de4d98d}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+eval\+\_\+only\+\_\+type}}
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_aab94ac698d419cded175a73e013d6d82}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+qid}} = question\mbox{[}\textquotesingle{}question\+\_\+id\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_a40af681d0ef8dca49a137eb7d08e18b8}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+result}} = \mbox{\hyperlink{namespaceconvert__seed__for__submission_adf54001b7213b277619faa21c28654d3}{results}}\mbox{[}\mbox{\hyperlink{namespaceconvert__seed__for__submission_aab94ac698d419cded175a73e013d6d82}{qid}}\mbox{]}
+\end{DoxyCompactItemize}

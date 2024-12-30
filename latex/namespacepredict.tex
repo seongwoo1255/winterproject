@@ -1,0 +1,162 @@
+\doxysection{predict Namespace Reference}
+\hypertarget{namespacepredict}{}\label{namespacepredict}\index{predict@{predict}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classpredict_1_1_predictor}{Predictor}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacepredict_a7f845495a7bf6f303ef0b1a61327c049}{download\+\_\+json}} (str url, Path dest)
+\item 
+\mbox{\hyperlink{namespacepredict_a0556aa8aab8e03d5419d76d6da52c03d}{download\+\_\+weights}} (str baseurl, str basedest, list\mbox{[}str\mbox{]} files)
+\item 
+\mbox{\hyperlink{namespacepredict_a34553b8aa02e0fc2b642a08bf6c7d746}{load\+\_\+image}} (image\+\_\+file)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespacepredict_af1e26735f4e2c52329c193081a033c1a}{REPLICATE\+\_\+\+WEIGHTS\+\_\+\+URL}} = "{}https\+://weights.\+replicate.\+delivery/default"{}
+\item 
+list \mbox{\hyperlink{namespacepredict_aea5eccb38f35ff85765998bfc637ad3d}{weights}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacepredict_a7f845495a7bf6f303ef0b1a61327c049}\index{predict@{predict}!download\_json@{download\_json}}
+\index{download\_json@{download\_json}!predict@{predict}}
+\doxysubsubsection{\texorpdfstring{download\_json()}{download\_json()}}
+{\footnotesize\ttfamily \label{namespacepredict_a7f845495a7bf6f303ef0b1a61327c049} 
+predict.\+download\+\_\+json (\begin{DoxyParamCaption}\item[{str}]{url}{, }\item[{Path}]{dest}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{predict_8py_source_l00054}{54}} of file \mbox{\hyperlink{predict_8py_source}{predict.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00054\ \textcolor{keyword}{def\ }download\_json(url:\ str,\ dest:\ Path):}
+\DoxyCodeLine{00055\ \ \ \ \ res\ =\ requests.get(url,\ allow\_redirects=\textcolor{keyword}{True})}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{if}\ res.status\_code\ ==\ 200\ \textcolor{keywordflow}{and}\ res.content:}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ dest.open(\textcolor{stringliteral}{"{}wb"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ f.write(res.content)}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Failed\ to\ download\ \{url\}.\ Status\ code:\ \{res.status\_code\}"{}})}
+\DoxyCodeLine{00061\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 0
+\Hypertarget{namespacepredict_a0556aa8aab8e03d5419d76d6da52c03d}\index{predict@{predict}!download\_weights@{download\_weights}}
+\index{download\_weights@{download\_weights}!predict@{predict}}
+\doxysubsubsection{\texorpdfstring{download\_weights()}{download\_weights()}}
+{\footnotesize\ttfamily \label{namespacepredict_a0556aa8aab8e03d5419d76d6da52c03d} 
+predict.\+download\+\_\+weights (\begin{DoxyParamCaption}\item[{str}]{baseurl}{, }\item[{str}]{basedest}{, }\item[{list\mbox{[}str\mbox{]}}]{files}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{predict_8py_source_l00062}{62}} of file \mbox{\hyperlink{predict_8py_source}{predict.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00062\ \textcolor{keyword}{def\ }download\_weights(baseurl:\ str,\ basedest:\ str,\ files:\ list[str]):}
+\DoxyCodeLine{00063\ \ \ \ \ basedest\ =\ Path(basedest)}
+\DoxyCodeLine{00064\ \ \ \ \ start\ =\ time.time()}
+\DoxyCodeLine{00065\ \ \ \ \ print(\textcolor{stringliteral}{"{}downloading\ to:\ "{}},\ basedest)}
+\DoxyCodeLine{00066\ \ \ \ \ basedest.mkdir(parents=\textcolor{keyword}{True},\ exist\_ok=\textcolor{keyword}{True})}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordflow}{for}\ f\ \textcolor{keywordflow}{in}\ files:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ dest\ =\ basedest\ /\ f}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ url\ =\ os.path.join(REPLICATE\_WEIGHTS\_URL,\ baseurl,\ f)}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ dest.exists():}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}downloading\ url:\ "{}},\ url)}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ dest.suffix\ ==\ \textcolor{stringliteral}{"{}.json"{}}:}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ download\_json(url,\ dest)}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ subprocess.check\_call([\textcolor{stringliteral}{"{}pget"{}},\ url,\ str(dest)],\ close\_fds=\textcolor{keyword}{False})}
+\DoxyCodeLine{00076\ \ \ \ \ print(\textcolor{stringliteral}{"{}downloading\ took:\ "{}},\ time.time()\ -\/\ start)}
+\DoxyCodeLine{00077\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 1
+Here is the caller graph for this function\+:
+% FIG 2
+\Hypertarget{namespacepredict_a34553b8aa02e0fc2b642a08bf6c7d746}\index{predict@{predict}!load\_image@{load\_image}}
+\index{load\_image@{load\_image}!predict@{predict}}
+\doxysubsubsection{\texorpdfstring{load\_image()}{load\_image()}}
+{\footnotesize\ttfamily \label{namespacepredict_a34553b8aa02e0fc2b642a08bf6c7d746} 
+predict.\+load\+\_\+image (\begin{DoxyParamCaption}\item[{}]{image\+\_\+file}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{predict_8py_source_l00148}{148}} of file \mbox{\hyperlink{predict_8py_source}{predict.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00148\ \textcolor{keyword}{def\ }load\_image(image\_file):}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{if}\ image\_file.startswith(\textcolor{stringliteral}{'http'})\ \textcolor{keywordflow}{or}\ image\_file.startswith(\textcolor{stringliteral}{'https'}):}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ response\ =\ requests.get(image\_file)}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ image\ =\ Image.open(BytesIO(response.content)).convert(\textcolor{stringliteral}{'RGB'})}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ image\ =\ Image.open(image\_file).convert(\textcolor{stringliteral}{'RGB'})}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{return}\ image}
+\DoxyCodeLine{00155\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacepredict_af1e26735f4e2c52329c193081a033c1a}\index{predict@{predict}!REPLICATE\_WEIGHTS\_URL@{REPLICATE\_WEIGHTS\_URL}}
+\index{REPLICATE\_WEIGHTS\_URL@{REPLICATE\_WEIGHTS\_URL}!predict@{predict}}
+\doxysubsubsection{\texorpdfstring{REPLICATE\_WEIGHTS\_URL}{REPLICATE\_WEIGHTS\_URL}}
+{\footnotesize\ttfamily \label{namespacepredict_af1e26735f4e2c52329c193081a033c1a} 
+str predict.\+REPLICATE\+\_\+\+WEIGHTS\+\_\+\+URL = "{}https\+://weights.\+replicate.\+delivery/default"{}}
+
+
+
+Definition at line \mbox{\hyperlink{predict_8py_source_l00024}{24}} of file \mbox{\hyperlink{predict_8py_source}{predict.\+py}}.
+
+\Hypertarget{namespacepredict_aea5eccb38f35ff85765998bfc637ad3d}\index{predict@{predict}!weights@{weights}}
+\index{weights@{weights}!predict@{predict}}
+\doxysubsubsection{\texorpdfstring{weights}{weights}}
+{\footnotesize\ttfamily \label{namespacepredict_aea5eccb38f35ff85765998bfc637ad3d} 
+list predict.\+weights}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ [}
+\DoxyCodeLine{00002\ \ \ \ \ \{}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}dest"{}}:\ \textcolor{stringliteral}{"{}liuhaotian/llava-\/v1.5-\/13b"{}},}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ git\ commit\ hash\ from\ huggingface}}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}src"{}}:\ \textcolor{stringliteral}{"{}llava-\/v1.5-\/13b/006818fc465ebda4c003c0998674d9141d8d95f8"{}},}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}files"{}}:\ [}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}config.json"{}},}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}generation\_config.json"{}},}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}pytorch\_model-\/00001-\/of-\/00003.bin"{}},}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}pytorch\_model-\/00002-\/of-\/00003.bin"{}},}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}pytorch\_model-\/00003-\/of-\/00003.bin"{}},}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}pytorch\_model.bin.index.json"{}},}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}special\_tokens\_map.json"{}},}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tokenizer.model"{}},}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tokenizer\_config.json"{}},}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{00017\ \ \ \ \ \},}
+\DoxyCodeLine{00018\ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}dest"{}}:\ \textcolor{stringliteral}{"{}openai/clip-\/vit-\/large-\/patch14-\/336"{}},}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}src"{}}:\ \textcolor{stringliteral}{"{}clip-\/vit-\/large-\/patch14-\/336/ce19dc912ca5cd21c8a653c79e251e808ccabcd1"{}},}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}files"{}}:\ [}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}config.json"{}},}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}preprocessor\_config.json"{}},}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}pytorch\_model.bin"{}}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ ]}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{predict_8py_source_l00026}{26}} of file \mbox{\hyperlink{predict_8py_source}{predict.\+py}}.
+

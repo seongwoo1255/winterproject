@@ -1,0 +1,109 @@
+\doxysection{llava.\+serve.\+register\+\_\+worker Namespace Reference}
+\hypertarget{namespacellava_1_1serve_1_1register__worker}{}\label{namespacellava_1_1serve_1_1register__worker}\index{llava.serve.register\_worker@{llava.serve.register\_worker}}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_aef12fd1a2df9a5a5e1104fff5430d0bd}{parser}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a503ddb83e9858aebafafaa723516f5a9}{type}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a026f8657a531b8f68da1fd576f77f0d5}{action}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_afa2e32c51cebb69669733fdb737a1e2e}{args}} = parser.\+parse\+\_\+args()
+\item 
+str \mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a09c0bd7a2dbb6d70c37479c6424a6284}{url}} = args.\+controller\+\_\+address + "{}/register\+\_\+worker"{}
+\item 
+dict \mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a090752409e43f8b9fe2824a482d7f9b8}{data}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a220f8b0e65bd128e54318c810b3b36cf}{r}} = requests.\+post(\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a09c0bd7a2dbb6d70c37479c6424a6284}{url}}, json=\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a090752409e43f8b9fe2824a482d7f9b8}{data}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Manually register workers.
+
+Usage:
+python3 -m fastchat.serve.register_worker --controller http://localhost:21001 --worker-name http://localhost:21002
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacellava_1_1serve_1_1register__worker_a026f8657a531b8f68da1fd576f77f0d5}\index{llava.serve.register\_worker@{llava.serve.register\_worker}!action@{action}}
+\index{action@{action}!llava.serve.register\_worker@{llava.serve.register\_worker}}
+\doxysubsubsection{\texorpdfstring{action}{action}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1register__worker_a026f8657a531b8f68da1fd576f77f0d5} 
+llava.\+serve.\+register\+\_\+worker.\+action}
+
+
+
+Definition at line \mbox{\hyperlink{register__worker_8py_source_l00016}{16}} of file \mbox{\hyperlink{register__worker_8py_source}{register\+\_\+worker.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1register__worker_afa2e32c51cebb69669733fdb737a1e2e}\index{llava.serve.register\_worker@{llava.serve.register\_worker}!args@{args}}
+\index{args@{args}!llava.serve.register\_worker@{llava.serve.register\_worker}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1register__worker_afa2e32c51cebb69669733fdb737a1e2e} 
+llava.\+serve.\+register\+\_\+worker.\+args = parser.\+parse\+\_\+args()}
+
+
+
+Definition at line \mbox{\hyperlink{register__worker_8py_source_l00017}{17}} of file \mbox{\hyperlink{register__worker_8py_source}{register\+\_\+worker.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1register__worker_a090752409e43f8b9fe2824a482d7f9b8}\index{llava.serve.register\_worker@{llava.serve.register\_worker}!data@{data}}
+\index{data@{data}!llava.serve.register\_worker@{llava.serve.register\_worker}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1register__worker_a090752409e43f8b9fe2824a482d7f9b8} 
+dict llava.\+serve.\+register\+\_\+worker.\+data}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}worker\_name"{}}:\ args.worker\_name,}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}check\_heart\_beat"{}}:\ args.check\_heart\_beat,}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}worker\_status"{}}:\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{00005\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{register__worker_8py_source_l00020}{20}} of file \mbox{\hyperlink{register__worker_8py_source}{register\+\_\+worker.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1register__worker_aef12fd1a2df9a5a5e1104fff5430d0bd}\index{llava.serve.register\_worker@{llava.serve.register\_worker}!parser@{parser}}
+\index{parser@{parser}!llava.serve.register\_worker@{llava.serve.register\_worker}}
+\doxysubsubsection{\texorpdfstring{parser}{parser}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1register__worker_aef12fd1a2df9a5a5e1104fff5430d0bd} 
+llava.\+serve.\+register\+\_\+worker.\+parser = argparse.\+Argument\+Parser()}
+
+
+
+Definition at line \mbox{\hyperlink{register__worker_8py_source_l00013}{13}} of file \mbox{\hyperlink{register__worker_8py_source}{register\+\_\+worker.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1register__worker_a220f8b0e65bd128e54318c810b3b36cf}\index{llava.serve.register\_worker@{llava.serve.register\_worker}!r@{r}}
+\index{r@{r}!llava.serve.register\_worker@{llava.serve.register\_worker}}
+\doxysubsubsection{\texorpdfstring{r}{r}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1register__worker_a220f8b0e65bd128e54318c810b3b36cf} 
+llava.\+serve.\+register\+\_\+worker.\+r = requests.\+post(\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a09c0bd7a2dbb6d70c37479c6424a6284}{url}}, json=\mbox{\hyperlink{namespacellava_1_1serve_1_1register__worker_a090752409e43f8b9fe2824a482d7f9b8}{data}})}
+
+
+
+Definition at line \mbox{\hyperlink{register__worker_8py_source_l00025}{25}} of file \mbox{\hyperlink{register__worker_8py_source}{register\+\_\+worker.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1register__worker_a503ddb83e9858aebafafaa723516f5a9}\index{llava.serve.register\_worker@{llava.serve.register\_worker}!type@{type}}
+\index{type@{type}!llava.serve.register\_worker@{llava.serve.register\_worker}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1register__worker_a503ddb83e9858aebafafaa723516f5a9} 
+llava.\+serve.\+register\+\_\+worker.\+type}
+
+
+
+Definition at line \mbox{\hyperlink{register__worker_8py_source_l00014}{14}} of file \mbox{\hyperlink{register__worker_8py_source}{register\+\_\+worker.\+py}}.
+
+\Hypertarget{namespacellava_1_1serve_1_1register__worker_a09c0bd7a2dbb6d70c37479c6424a6284}\index{llava.serve.register\_worker@{llava.serve.register\_worker}!url@{url}}
+\index{url@{url}!llava.serve.register\_worker@{llava.serve.register\_worker}}
+\doxysubsubsection{\texorpdfstring{url}{url}}
+{\footnotesize\ttfamily \label{namespacellava_1_1serve_1_1register__worker_a09c0bd7a2dbb6d70c37479c6424a6284} 
+str llava.\+serve.\+register\+\_\+worker.\+url = args.\+controller\+\_\+address + "{}/register\+\_\+worker"{}}
+
+
+
+Definition at line \mbox{\hyperlink{register__worker_8py_source_l00019}{19}} of file \mbox{\hyperlink{register__worker_8py_source}{register\+\_\+worker.\+py}}.
+

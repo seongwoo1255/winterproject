@@ -1,0 +1,93 @@
+\doxysection{llava/serve/gradio\+\_\+web\+\_\+server.py File Reference}
+\hypertarget{gradio__web__server_8py}{}\label{gradio__web__server_8py}\index{llava/serve/gradio\_web\_server.py@{llava/serve/gradio\_web\_server.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacellava}{llava}}
+\item 
+namespace \mbox{\hyperlink{namespacellava_1_1serve}{llava.\+serve}}
+\item 
+namespace \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server}{llava.\+serve.\+gradio\+\_\+web\+\_\+server}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a051e70056bbe57dbbbf2f75acd022f04}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+get\+\_\+conv\+\_\+log\+\_\+filename}} ()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a5e04990393402eb7011f171ecb0bb724}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+get\+\_\+model\+\_\+list}} ()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a93c1f6a8ca63fcaa4d2dfc938685c0b8}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+load\+\_\+demo}} (url\+\_\+params, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a0b4fa2eb00a29ebf4180b262469a30ee}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+load\+\_\+demo\+\_\+refresh\+\_\+model\+\_\+list}} (gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a859a9f172b39a6097a21be093e3d5550}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+vote\+\_\+last\+\_\+response}} (state, vote\+\_\+type, model\+\_\+selector, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_af60d4ac622856c2a745cafcebfa0c958}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+upvote\+\_\+last\+\_\+response}} (state, model\+\_\+selector, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a120e078ca589adb9f75d5c72418547df}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+downvote\+\_\+last\+\_\+response}} (state, model\+\_\+selector, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_ae96933ad11b1e741cb77700cefbf35ce}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+flag\+\_\+last\+\_\+response}} (state, model\+\_\+selector, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a9a95c3ad99d8e4971a5a424f02ada04e}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+regenerate}} (state, image\+\_\+process\+\_\+mode, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a3fd7c3becaa3399ca6a0d236b483e30f}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+clear\+\_\+history}} (gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_aeaad5c2bd719b4550756bbe7255e4a7f}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+add\+\_\+text}} (state, text, image, image\+\_\+process\+\_\+mode, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a1307d1516461919ebc5484d362f5d1af}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+http\+\_\+bot}} (state, model\+\_\+selector, temperature, top\+\_\+p, max\+\_\+new\+\_\+tokens, gr.\+Request request)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a79fc5afb330fad6a1ab146ab4f0f49a8}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+build\+\_\+demo}} (embed\+\_\+mode, cur\+\_\+dir=None, concurrency\+\_\+count=10)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_af31b75562f23477c6c980c12623c474d}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+logger}} = build\+\_\+logger("{}gradio\+\_\+web\+\_\+server"{}, "{}gradio\+\_\+web\+\_\+server.\+log"{})
+\item 
+dict \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_ab716f16be1a211ec76f589925510da65}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+headers}} = \{"{}User-\/Agent"{}\+: "{}LLa\+VA Client"{}\}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a87eaffb357945265286b11af0f1b90de}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+no\+\_\+change\+\_\+btn}} = gr.\+Button()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_afe7fd8d42f54aeacf5777334776a1c94}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+enable\+\_\+btn}} = gr.\+Button(interactive=True)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_ab18d901f12f99cc3edfd52f99bb90923}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+disable\+\_\+btn}} = gr.\+Button(interactive=False)
+\item 
+dict \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a961deb3d57ee7711f2d697f8c4f23834}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+priority}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a9f192e4649eb182c4d65ab1f661446a8}{str}} \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a1159aa4489f298ab5a5ce6828727968b}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+get\+\_\+window\+\_\+url\+\_\+params}}
+\item 
+tuple \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_aa36484a74530d106a5263373898b8f05}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+title\+\_\+markdown}} = ()
+\item 
+tuple \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_aa572665932e372d830a39599f368c78d}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+tos\+\_\+markdown}} = ()
+\item 
+tuple \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_ad7b0a5e7c540efa14afb6455efc8f802}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+learn\+\_\+more\+\_\+markdown}} = ()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a9f192e4649eb182c4d65ab1f661446a8}{str}} \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_af5d2d67d98d6574d28b052d5e505dab5}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+block\+\_\+css}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a9c91c1422c26a5245d253aa0d8edc56a}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+parser}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a52ce837216d8fab7c8979ec3851a5a8d}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+type}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a9f192e4649eb182c4d65ab1f661446a8}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+str}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a0f7a2fec5a700b4aad72f9141a499fd7}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+default}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_adde3614dee937bc94d6b638414bceba0}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+int}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_abbcd2eda18b93926f2c0e38c02876ea3}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+choices}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a588fed3fe7932e1e382027de6e9cdd5d}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+action}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a265d702a87d43f95259de3334227a58a}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+args}} = parser.\+parse\+\_\+args()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a470ecbce5e7dbf9fc1c4826d347f9b3d}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+models}} = \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a5e04990393402eb7011f171ecb0bb724}{get\+\_\+model\+\_\+list}}()
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a4e82d3c5944dad0646403ad184e7af4c}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+demo}} = \mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a79fc5afb330fad6a1ab146ab4f0f49a8}{build\+\_\+demo}}(args.\+embed, concurrency\+\_\+count=args.\+concurrency\+\_\+count)
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a5eda9791b947aae9179d672da69fcdd9}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+api\+\_\+open}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_ad86e203e3c17743e8c79110b733190fb}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+server\+\_\+name}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_a195508182f18d54d86316c2609c7b435}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+server\+\_\+port}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1serve_1_1gradio__web__server_abe2f7521c420f275c15fd46b09c05633}{llava.\+serve.\+gradio\+\_\+web\+\_\+server.\+share}}
+\end{DoxyCompactItemize}

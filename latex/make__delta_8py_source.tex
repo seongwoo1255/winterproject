@@ -1,0 +1,57 @@
+\doxysection{make\+\_\+delta.\+py}
+\hypertarget{make__delta_8py_source}{}\label{make__delta_8py_source}\mbox{\hyperlink{make__delta_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00001}\mbox{\hyperlink{namespacellava_1_1model_1_1make__delta}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00002}00002\ \textcolor{stringliteral}{Usage:}}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00003}00003\ \textcolor{stringliteral}{python3\ -\/m\ llava.model.make\_delta\ -\/-\/base\ \string~/model\_weights/llama-\/7b\ -\/-\/target\ \string~/model\_weights/llava-\/7b\ -\/-\/delta\ \string~/model\_weights/llava-\/7b-\/delta\ -\/-\/hub-\/repo-\/id\ liuhaotian/llava-\/7b-\/delta}}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00004}00004\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00014}00014\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00015}00015\ \textcolor{keyword}{import}\ torch}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00016}00016\ \textcolor{keyword}{from}\ tqdm\ \textcolor{keyword}{import}\ tqdm}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00017}00017\ \textcolor{keyword}{from}\ transformers\ \textcolor{keyword}{import}\ AutoTokenizer,\ AutoModelForCausalLM}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1model_1_1utils}{llava.model.utils}}\ \textcolor{keyword}{import}\ auto\_upgrade}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00030}\mbox{\hyperlink{namespacellava_1_1model_1_1make__delta_a257b05185469d9b41d32e297c96e81d6}{00030}}\ \textcolor{keyword}{def\ }make\_delta(base\_model\_path,\ target\_model\_path,\ delta\_path,\ hub\_repo\_id):}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00031}00031\ \ \ \ \ print(\textcolor{stringliteral}{"{}Loading\ base\ model"{}})}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00032}00032\ \ \ \ \ base\ =\ AutoModelForCausalLM.from\_pretrained(}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ base\_model\_path,\ torch\_dtype=torch.float16,\ low\_cpu\_mem\_usage=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00035}00035\ \ \ \ \ print(\textcolor{stringliteral}{"{}Loading\ target\ model"{}})}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00036}00036\ \ \ \ \ auto\_upgrade(target\_model\_path)}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00037}00037\ \ \ \ \ target\ =\ AutoModelForCausalLM.from\_pretrained(target\_model\_path,\ torch\_dtype=torch.float16,\ low\_cpu\_mem\_usage=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00039}00039\ \ \ \ \ print(\textcolor{stringliteral}{"{}Calculating\ delta"{}})}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00040}00040\ \ \ \ \ \textcolor{keywordflow}{for}\ name,\ param\ \textcolor{keywordflow}{in}\ tqdm(target.state\_dict().items(),\ desc=\textcolor{stringliteral}{"{}Calculating\ delta"{}}):}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ name\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ base.state\_dict():}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ name\ \textcolor{keywordflow}{in}\ [\textcolor{stringliteral}{'model.mm\_projector.weight'},\ \textcolor{stringliteral}{'model.mm\_projector.bias'}],\ f\textcolor{stringliteral}{'\{name\}\ not\ in\ base\ model'}}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ param.data.shape\ ==\ base.state\_dict()[name].shape:}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ param.data\ -\/=\ base.state\_dict()[name]}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ name\ \textcolor{keywordflow}{in}\ [\textcolor{stringliteral}{'model.embed\_tokens.weight'},\ \textcolor{stringliteral}{'lm\_head.weight'}],\ f\textcolor{stringliteral}{'\{name\}\ dimension\ mismatch:\ \{param.data.shape\}\ vs\ \{base.state\_dict()[name].shape\}'}}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ bparam\ =\ base.state\_dict()[name]}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ param.data[:bparam.shape[0],\ :bparam.shape[1]]\ -\/=\ bparam}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00051}00051\ \ \ \ \ print(\textcolor{stringliteral}{"{}Saving\ delta"{}})}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00052}00052\ \ \ \ \ \textcolor{keywordflow}{if}\ hub\_repo\_id:}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ kwargs\ =\ \{\textcolor{stringliteral}{"{}push\_to\_hub"{}}:\ \textcolor{keyword}{True},\ \textcolor{stringliteral}{"{}repo\_id"{}}:\ hub\_repo\_id\}}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ kwargs\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00056}00056\ \ \ \ \ target.save\_pretrained(delta\_path,\ **kwargs)}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00057}00057\ \ \ \ \ target\_tokenizer\ =\ AutoTokenizer.from\_pretrained(target\_model\_path)}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00058}00058\ \ \ \ \ target\_tokenizer.save\_pretrained(delta\_path,\ **kwargs)}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00061}00061\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00062}\mbox{\hyperlink{namespacellava_1_1model_1_1make__delta_a978c8cb6fc7a4eca29851804497b88a8}{00062}}\ \ \ \ \ parser\ =\ argparse.ArgumentParser()}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00063}\mbox{\hyperlink{namespacellava_1_1model_1_1make__delta_af93ae2295a5f8733fec43d7c7abe3555}{00063}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/base-\/model-\/path"{}},\ type=str,\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00064}00064\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/target-\/model-\/path"{}},\ type=str,\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00065}00065\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/delta-\/path"{}},\ type=str,\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00066}\mbox{\hyperlink{namespacellava_1_1model_1_1make__delta_a3611351ab02e9ef8cf492e355dad0bd6}{00066}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/hub-\/repo-\/id"{}},\ type=str,\ default=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00067}\mbox{\hyperlink{namespacellava_1_1model_1_1make__delta_a8be36c78f84c40fa7c2720772fb96581}{00067}}\ \ \ \ \ args\ =\ parser.parse\_args()}
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{make__delta_8py_source_l00069}00069\ \ \ \ \ make\_delta(args.base\_model\_path,\ args.target\_model\_path,\ args.delta\_path,\ args.hub\_repo\_id)}
+
+\end{DoxyCode}

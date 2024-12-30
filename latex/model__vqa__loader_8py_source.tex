@@ -1,0 +1,150 @@
+\doxysection{model\+\_\+vqa\+\_\+loader.\+py}
+\hypertarget{model__vqa__loader_8py_source}{}\label{model__vqa__loader_8py_source}\index{llava/eval/model\_vqa\_loader.py@{llava/eval/model\_vqa\_loader.py}}
+\mbox{\hyperlink{model__vqa__loader_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00001}\mbox{\hyperlink{namespacemodel__vqa__loader}{00001}}\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00002}00002\ \textcolor{keyword}{import}\ torch}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00003}00003\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00004}00004\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00005}00005\ \textcolor{keyword}{from}\ tqdm\ \textcolor{keyword}{import}\ tqdm}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00006}00006\ \textcolor{keyword}{import}\ shortuuid}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00008}00008\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1constants}{llava.constants}}\ \textcolor{keyword}{import}\ IMAGE\_TOKEN\_INDEX,\ DEFAULT\_IMAGE\_TOKEN,\ DEFAULT\_IM\_START\_TOKEN,\ DEFAULT\_IM\_END\_TOKEN}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00009}00009\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1conversation}{llava.conversation}}\ \textcolor{keyword}{import}\ conv\_templates,\ SeparatorStyle}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00010}00010\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1model_1_1builder}{llava.model.builder}}\ \textcolor{keyword}{import}\ load\_pretrained\_model}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00011}00011\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1utils}{llava.utils}}\ \textcolor{keyword}{import}\ disable\_torch\_init}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00012}00012\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1mm__utils}{llava.mm\_utils}}\ \textcolor{keyword}{import}\ tokenizer\_image\_token,\ process\_images,\ get\_model\_name\_from\_path}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00013}00013\ \textcolor{keyword}{from}\ torch.utils.data\ \textcolor{keyword}{import}\ Dataset,\ DataLoader}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00015}00015\ \textcolor{keyword}{from}\ PIL\ \textcolor{keyword}{import}\ Image}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00016}00016\ \textcolor{keyword}{import}\ math}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00019}\mbox{\hyperlink{namespacemodel__vqa__loader_af588f841f5f3834caa9757ea276650b3}{00019}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemodel__vqa__loader_af588f841f5f3834caa9757ea276650b3}{split\_list}}(lst,\ n):}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00020}00020\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Split\ a\ list\ into\ n\ (roughly)\ equal-\/sized\ chunks"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00021}00021\ \ \ \ \ chunk\_size\ =\ math.ceil(len(lst)\ /\ n)\ \ \textcolor{comment}{\#\ integer\ division}}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{return}\ [lst[i:i+chunk\_size]\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(0,\ len(lst),\ chunk\_size)]}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00025}\mbox{\hyperlink{namespacemodel__vqa__loader_a4818936487c94fb131774132c4c333f4}{00025}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemodel__vqa__loader_a4818936487c94fb131774132c4c333f4}{get\_chunk}}(lst,\ n,\ k):}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00026}00026\ \ \ \ \ chunks\ =\ \mbox{\hyperlink{namespacemodel__vqa__loader_af588f841f5f3834caa9757ea276650b3}{split\_list}}(lst,\ n)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00027}00027\ \ \ \ \ \textcolor{keywordflow}{return}\ chunks[k]}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00030}00030\ \textcolor{comment}{\#\ Custom\ dataset\ class}}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00031}\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset}{00031}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset}{CustomDataset}}(Dataset):}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00032}\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_ab2459f7f302238884fa4fd91ba4aa926}{00032}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_ab2459f7f302238884fa4fd91ba4aa926}{\_\_init\_\_}}(self,\ questions,\ image\_folder,\ tokenizer,\ image\_processor,\ model\_config):}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00033}\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a922a68cb331efff2388dcffed1ac0bdc}{00033}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a922a68cb331efff2388dcffed1ac0bdc}{questions}}\ =\ questions}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00034}\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a3e2e61a67331c91ee137b873d7715a68}{00034}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a3e2e61a67331c91ee137b873d7715a68}{image\_folder}}\ =\ image\_folder}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00035}\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_ae82e5fb0e0b014550fa97728c5d4729d}{00035}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_ae82e5fb0e0b014550fa97728c5d4729d}{tokenizer}}\ =\ tokenizer}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00036}\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a4ff15bca89e76f2372e235711c5d22ed}{00036}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a4ff15bca89e76f2372e235711c5d22ed}{image\_processor}}\ =\ image\_processor}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00037}\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a8ba3c5b1077d3b0c5a26c7d695975b1e}{00037}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a8ba3c5b1077d3b0c5a26c7d695975b1e}{model\_config}}\ =\ model\_config}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00039}\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_ad2adfe29af5dbb1dd90fa7363fa327fa}{00039}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_ad2adfe29af5dbb1dd90fa7363fa327fa}{\_\_getitem\_\_}}(self,\ index):}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ line\ =\ self.\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a922a68cb331efff2388dcffed1ac0bdc}{questions}}[index]}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ image\_file\ =\ line[\textcolor{stringliteral}{"{}image"{}}]}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ qs\ =\ line[\textcolor{stringliteral}{"{}text"{}}]}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a8ba3c5b1077d3b0c5a26c7d695975b1e}{model\_config}}.mm\_use\_im\_start\_end:}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ qs\ =\ DEFAULT\_IM\_START\_TOKEN\ +\ DEFAULT\_IMAGE\_TOKEN\ +\ DEFAULT\_IM\_END\_TOKEN\ +\ \textcolor{stringliteral}{'\(\backslash\)n'}\ +\ qs}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ qs\ =\ DEFAULT\_IMAGE\_TOKEN\ +\ \textcolor{stringliteral}{'\(\backslash\)n'}\ +\ qs}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ conv\ =\ conv\_templates[args.conv\_mode].copy()}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ conv.append\_message(conv.roles[0],\ qs)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ conv.append\_message(conv.roles[1],\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ prompt\ =\ conv.get\_prompt()}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ image\ =\ Image.open(os.path.join(self.\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a3e2e61a67331c91ee137b873d7715a68}{image\_folder}},\ image\_file)).convert(\textcolor{stringliteral}{'RGB'})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ image\_tensor\ =\ process\_images([image],\ self.\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a4ff15bca89e76f2372e235711c5d22ed}{image\_processor}},\ self.\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a8ba3c5b1077d3b0c5a26c7d695975b1e}{model\_config}})[0]}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ input\_ids\ =\ tokenizer\_image\_token(prompt,\ self.\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_ae82e5fb0e0b014550fa97728c5d4729d}{tokenizer}},\ IMAGE\_TOKEN\_INDEX,\ return\_tensors=\textcolor{stringliteral}{'pt'})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ input\_ids,\ image\_tensor,\ image.size}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00060}\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_ab8bb08989d0c07810166740d51a8fe7f}{00060}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_ab8bb08989d0c07810166740d51a8fe7f}{\_\_len\_\_}}(self):}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ len(self.\mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset_a922a68cb331efff2388dcffed1ac0bdc}{questions}})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00064}\mbox{\hyperlink{namespacemodel__vqa__loader_a82da1b0a22905dfdeb4dc14358d90618}{00064}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemodel__vqa__loader_a82da1b0a22905dfdeb4dc14358d90618}{collate\_fn}}(batch):}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00065}00065\ \ \ \ \ input\_ids,\ image\_tensors,\ image\_sizes\ =\ zip(*batch)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00066}00066\ \ \ \ \ input\_ids\ =\ torch.stack(input\_ids,\ dim=0)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00067}00067\ \ \ \ \ image\_tensors\ =\ torch.stack(image\_tensors,\ dim=0)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00068}00068\ \ \ \ \ \textcolor{keywordflow}{return}\ input\_ids,\ image\_tensors,\ image\_sizes}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00071}00071\ \textcolor{comment}{\#\ DataLoader}}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00072}\mbox{\hyperlink{namespacemodel__vqa__loader_a61c8c6c2cafc88b6399551fd8690ab4c}{00072}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemodel__vqa__loader_a61c8c6c2cafc88b6399551fd8690ab4c}{create\_data\_loader}}(questions,\ image\_folder,\ tokenizer,\ image\_processor,\ model\_config,\ batch\_size=1,\ num\_workers=4):}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00073}00073\ \ \ \ \ \textcolor{keyword}{assert}\ batch\_size\ ==\ 1,\ \textcolor{stringliteral}{"{}batch\_size\ must\ be\ 1"{}}}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00074}00074\ \ \ \ \ dataset\ =\ \mbox{\hyperlink{classmodel__vqa__loader_1_1_custom_dataset}{CustomDataset}}(questions,\ image\_folder,\ tokenizer,\ image\_processor,\ model\_config)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00075}00075\ \ \ \ \ data\_loader\ =\ DataLoader(dataset,\ batch\_size=batch\_size,\ num\_workers=num\_workers,\ shuffle=\textcolor{keyword}{False},\ collate\_fn=collate\_fn)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{return}\ data\_loader}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00079}\mbox{\hyperlink{namespacemodel__vqa__loader_acbc4b69bb13636e0be94d3caa18c2341}{00079}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacemodel__vqa__loader_acbc4b69bb13636e0be94d3caa18c2341}{eval\_model}}(args):}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00080}00080\ \ \ \ \ \textcolor{comment}{\#\ Model}}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00081}00081\ \ \ \ \ disable\_torch\_init()}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00082}00082\ \ \ \ \ model\_path\ =\ os.path.expanduser(args.model\_path)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00083}00083\ \ \ \ \ model\_name\ =\ get\_model\_name\_from\_path(model\_path)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00084}00084\ \ \ \ \ tokenizer,\ model,\ image\_processor,\ context\_len\ =\ load\_pretrained\_model(model\_path,\ args.model\_base,\ model\_name)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00086}00086\ \ \ \ \ questions\ =\ [json.loads(q)\ \textcolor{keywordflow}{for}\ q\ \textcolor{keywordflow}{in}\ open(os.path.expanduser(args.question\_file),\ \textcolor{stringliteral}{"{}r"{}})]}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00087}00087\ \ \ \ \ questions\ =\ \mbox{\hyperlink{namespacemodel__vqa__loader_a4818936487c94fb131774132c4c333f4}{get\_chunk}}(questions,\ args.num\_chunks,\ args.chunk\_idx)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00088}00088\ \ \ \ \ answers\_file\ =\ os.path.expanduser(args.answers\_file)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00089}00089\ \ \ \ \ os.makedirs(os.path.dirname(answers\_file),\ exist\_ok=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00090}00090\ \ \ \ \ ans\_file\ =\ open(answers\_file,\ \textcolor{stringliteral}{"{}w"{}})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'plain'}\ \textcolor{keywordflow}{in}\ model\_name\ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'finetune'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ model\_name.lower()\ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'mmtag'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ args.conv\_mode:}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ args.conv\_mode\ =\ args.conv\_mode\ +\ \textcolor{stringliteral}{'\_mmtag'}}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{'It\ seems\ that\ this\ is\ a\ plain\ model,\ but\ it\ is\ not\ using\ a\ mmtag\ prompt,\ auto\ switching\ to\ \{args.conv\_mode\}.'})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00096}00096\ \ \ \ \ data\_loader\ =\ \mbox{\hyperlink{namespacemodel__vqa__loader_a61c8c6c2cafc88b6399551fd8690ab4c}{create\_data\_loader}}(questions,\ args.image\_folder,\ tokenizer,\ image\_processor,\ model.config)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00098}00098\ \ \ \ \ \textcolor{keywordflow}{for}\ (input\_ids,\ image\_tensor,\ image\_sizes),\ line\ \textcolor{keywordflow}{in}\ tqdm(zip(data\_loader,\ questions),\ total=len(questions)):}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ idx\ =\ line[\textcolor{stringliteral}{"{}question\_id"{}}]}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ cur\_prompt\ =\ line[\textcolor{stringliteral}{"{}text"{}}]}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ input\_ids\ =\ input\_ids.to(device=\textcolor{stringliteral}{'cuda'},\ non\_blocking=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ torch.inference\_mode():}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ output\_ids\ =\ model.generate(}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids,}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ images=image\_tensor.to(dtype=torch.float16,\ device=\textcolor{stringliteral}{'cuda'},\ non\_blocking=\textcolor{keyword}{True}),}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_sizes=image\_sizes,}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ do\_sample=\textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ args.temperature\ >\ 0\ \textcolor{keywordflow}{else}\ \textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temperature=args.temperature,}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ top\_p=args.top\_p,}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_beams=args.num\_beams,}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_new\_tokens=args.max\_new\_tokens,}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_cache=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ outputs\ =\ tokenizer.batch\_decode(output\_ids,\ skip\_special\_tokens=\textcolor{keyword}{True})[0].strip()}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ ans\_id\ =\ shortuuid.uuid()}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ ans\_file.write(json.dumps(\{\textcolor{stringliteral}{"{}question\_id"{}}:\ idx,}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}prompt"{}}:\ cur\_prompt,}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}text"{}}:\ outputs,}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}answer\_id"{}}:\ ans\_id,}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}model\_id"{}}:\ model\_name,}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}metadata"{}}:\ \{\}\})\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ ans\_file.flush()}}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00126}00126\ \ \ \ \ ans\_file.close()}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00128}00128\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00129}\mbox{\hyperlink{namespacemodel__vqa__loader_aa78239c6a1fd1b338eb0d7651d4a1319}{00129}}\ \ \ \ \ parser\ =\ argparse.ArgumentParser()}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00130}\mbox{\hyperlink{namespacemodel__vqa__loader_ae3975052d58f84c7a71a02e5faa35134}{00130}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/model-\/path"{}},\ type=str,\ default=\textcolor{stringliteral}{"{}facebook/opt-\/350m"{}})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00131}00131\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/model-\/base"{}},\ type=str,\ default=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00132}00132\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/image-\/folder"{}},\ type=str,\ default=\textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00133}00133\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/question-\/file"{}},\ type=str,\ default=\textcolor{stringliteral}{"{}tables/question.jsonl"{}})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00134}00134\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/answers-\/file"{}},\ type=str,\ default=\textcolor{stringliteral}{"{}answer.jsonl"{}})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00135}00135\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/conv-\/mode"{}},\ type=str,\ default=\textcolor{stringliteral}{"{}llava\_v1"{}})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00136}\mbox{\hyperlink{namespacemodel__vqa__loader_a8f45378436b6fb6966c3aacfe22ea3ba}{00136}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/num-\/chunks"{}},\ type=int,\ default=1)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00137}00137\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/chunk-\/idx"{}},\ type=int,\ default=0)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00138}\mbox{\hyperlink{namespacemodel__vqa__loader_a89fd3237f80b4121bd37799365792d42}{00138}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/temperature"{}},\ type=float,\ default=0.2)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00139}00139\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/top\_p"{}},\ type=float,\ default=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00140}00140\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/num\_beams"{}},\ type=int,\ default=1)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00141}00141\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/max\_new\_tokens"{}},\ type=int,\ default=128)}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00142}\mbox{\hyperlink{namespacemodel__vqa__loader_a7b1d8436e4e4e39e06117fa95b494dab}{00142}}\ \ \ \ \ args\ =\ parser.parse\_args()}
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{model__vqa__loader_8py_source_l00144}00144\ \ \ \ \ \mbox{\hyperlink{namespacemodel__vqa__loader_acbc4b69bb13636e0be94d3caa18c2341}{eval\_model}}(args)}
+
+\end{DoxyCode}

@@ -1,0 +1,117 @@
+\doxysection{generate\+\_\+webpage\+\_\+data\+\_\+from\+\_\+table.\+py}
+\hypertarget{generate__webpage__data__from__table_8py_source}{}\label{generate__webpage__data__from__table_8py_source}\index{llava/eval/generate\_webpage\_data\_from\_table.py@{llava/eval/generate\_webpage\_data\_from\_table.py}}
+\mbox{\hyperlink{generate__webpage__data__from__table_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00001}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}Generate\ json\ file\ for\ webpage."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00002}00002\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00003}00003\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00004}00004\ \textcolor{keyword}{import}\ re}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00006}00006\ \textcolor{comment}{\#\ models\ =\ ['llama',\ 'alpaca',\ 'gpt35',\ 'bard']}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00007}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_ab7d37e067a7cff9ed4ce3b39a94ef989}{00007}}\ models\ =\ [\textcolor{stringliteral}{'vicuna'}]}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00010}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{00010}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\_jsonl}}(path:\ str,\ key:\ str=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00011}00011\ \ \ \ \ data\ =\ []}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00012}00012\ \ \ \ \ \textcolor{keyword}{with}\ open(os.path.expanduser(path))\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ f:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ line:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ data.append(json.loads(line))}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00017}00017\ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00018}00018\ \ \ \ \ \ \ \ \ data.sort(key=\textcolor{keyword}{lambda}\ x:\ x[key])}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00019}00019\ \ \ \ \ \ \ \ \ data\ =\ \{item[key]:\ item\ \textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ data\}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00020}00020\ \ \ \ \ \textcolor{keywordflow}{return}\ data}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00023}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a297fb8ecb0b21ab0e3299933c3a3b717}{00023}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a297fb8ecb0b21ab0e3299933c3a3b717}{trim\_hanging\_lines}}(s:\ str,\ n:\ int)\ -\/>\ str:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00024}00024\ \ \ \ \ s\ =\ s.strip()}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00025}00025\ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(n):}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ s\ =\ s.split(\textcolor{stringliteral}{'\(\backslash\)n'},\ 1)[1].strip()}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00027}00027\ \ \ \ \ \textcolor{keywordflow}{return}\ s}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00030}00030\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00031}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a98bacfb9c0529bd4ef29d2203720c3c4}{00031}}\ \ \ \ \ questions\ =\ \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\_jsonl}}(\textcolor{stringliteral}{'table/question.jsonl'},\ key=\textcolor{stringliteral}{'question\_id'})}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00033}00033\ \ \ \ \ \textcolor{comment}{\#\ alpaca\_answers\ =\ read\_jsonl('table/answer/answer\_alpaca-\/13b.jsonl',\ key='question\_id')}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00034}00034\ \ \ \ \ \textcolor{comment}{\#\ bard\_answers\ =\ read\_jsonl('table/answer/answer\_bard.jsonl',\ key='question\_id')}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00035}00035\ \ \ \ \ \textcolor{comment}{\#\ gpt35\_answers\ =\ read\_jsonl('table/answer/answer\_gpt35.jsonl',\ key='question\_id')}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00036}00036\ \ \ \ \ \textcolor{comment}{\#\ llama\_answers\ =\ read\_jsonl('table/answer/answer\_llama-\/13b.jsonl',\ key='question\_id')}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00037}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_aa18487dfbd0fa153dccef6e9340f5f41}{00037}}\ \ \ \ \ vicuna\_answers\ =\ \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\_jsonl}}(\textcolor{stringliteral}{'table/answer/answer\_vicuna-\/13b.jsonl'},\ key=\textcolor{stringliteral}{'question\_id'})}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00038}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_ac3584e96b807f592204627712b7f980c}{00038}}\ \ \ \ \ ours\_answers\ =\ \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\_jsonl}}(\textcolor{stringliteral}{'table/results/llama-\/13b-\/hf-\/alpaca.jsonl'},\ key=\textcolor{stringliteral}{'question\_id'})}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00040}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a580e2d0192e26fbe0817edaed6868436}{00040}}\ \ \ \ \ review\_vicuna\ =\ \mbox{\hyperlink{namespacegenerate__webpage__data__from__table_acc2467ffaa0a05c02cd375724e907f49}{read\_jsonl}}(\textcolor{stringliteral}{'table/review/review\_vicuna-\/13b\_llama-\/13b-\/hf-\/alpaca.jsonl'},\ key=\textcolor{stringliteral}{'question\_id'})}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00041}00041\ \ \ \ \ \textcolor{comment}{\#\ review\_alpaca\ =\ read\_jsonl('table/review/review\_alpaca-\/13b\_vicuna-\/13b.jsonl',\ key='question\_id')}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00042}00042\ \ \ \ \ \textcolor{comment}{\#\ review\_bard\ =\ read\_jsonl('table/review/review\_bard\_vicuna-\/13b.jsonl',\ key='question\_id')}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00043}00043\ \ \ \ \ \textcolor{comment}{\#\ review\_gpt35\ =\ read\_jsonl('table/review/review\_gpt35\_vicuna-\/13b.jsonl',\ key='question\_id')}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00044}00044\ \ \ \ \ \textcolor{comment}{\#\ review\_llama\ =\ read\_jsonl('table/review/review\_llama-\/13b\_vicuna-\/13b.jsonl',\ key='question\_id')}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00046}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a413cb85e2f90dfb89d6bc8e558771963}{00046}}\ \ \ \ \ records\ =\ []}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{for}\ qid\ \textcolor{keywordflow}{in}\ questions.keys():}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00048}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a2e23f4d065f70ba2f7001add512d37f4}{00048}}\ \ \ \ \ \ \ \ \ r\ =\ \{}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ qid,}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'category'}:\ questions[qid][\textcolor{stringliteral}{'category'}],}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'question'}:\ questions[qid][\textcolor{stringliteral}{'text'}],}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'answers'}:\ \{}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'alpaca':\ alpaca\_answers[qid]['text'],}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'llama':\ llama\_answers[qid]['text'],}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'bard':\ bard\_answers[qid]['text'],}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'gpt35':\ gpt35\_answers[qid]['text'],}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'vicuna'}:\ vicuna\_answers[qid][\textcolor{stringliteral}{'text'}],}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'ours'}:\ ours\_answers[qid][\textcolor{stringliteral}{'text'}],}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'evaluations'}:\ \{}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'alpaca':\ review\_alpaca[qid]['text'],}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'llama':\ review\_llama[qid]['text'],}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'bard':\ review\_bard[qid]['text'],}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'vicuna'}:\ review\_vicuna[qid][\textcolor{stringliteral}{'content'}],}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'gpt35':\ review\_gpt35[qid]['text'],}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'scores'}:\ \{}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'vicuna'}:\ review\_vicuna[qid][\textcolor{stringliteral}{'tuple'}],}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'alpaca':\ review\_alpaca[qid]['score'],}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'llama':\ review\_llama[qid]['score'],}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'bard':\ review\_bard[qid]['score'],}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 'gpt35':\ review\_gpt35[qid]['score'],}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ cleanup\ data}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00077}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_aee9ef6db2310ab7fb4e5a49cf91ccae4}{00077}}\ \ \ \ \ \ \ \ \ cleaned\_evals\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ r[\textcolor{stringliteral}{'evaluations'}].items():}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00079}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a51f553aab952729114296005a2b5e2ad}{00079}}\ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ v.strip()}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00080}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_a1eb50d7d3ad4bb06ca84667c83ce71e6}{00080}}\ \ \ \ \ \ \ \ \ \ \ \ \ lines\ =\ v.split(\textcolor{stringliteral}{'\(\backslash\)n'})}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ trim\ the\ first\ line\ if\ it's\ a\ pair\ of\ numbers}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ re.match(\textcolor{stringliteral}{r'\(\backslash\)d+[,\ ]+\(\backslash\)d+'},\ lines[0]):}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lines\ =\ lines[1:]}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ \textcolor{stringliteral}{'\(\backslash\)n'}.join(lines)}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ cleaned\_evals[k]\ =\ v.replace(\textcolor{stringliteral}{'Assistant\ 1'},\ \textcolor{stringliteral}{"{}**Assistant\ 1**"{}}).replace(\textcolor{stringliteral}{'Assistant\ 2'},\ \textcolor{stringliteral}{'**Assistant\ 2**'})}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ r[\textcolor{stringliteral}{'evaluations'}]\ =\ cleaned\_evals}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ records.append(r)}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00090}00090\ \ \ \ \ \textcolor{comment}{\#\ Reorder\ the\ records,\ this\ is\ optional}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00091}00091\ \ \ \ \ \textcolor{keywordflow}{for}\ r\ \textcolor{keywordflow}{in}\ records:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ r[\textcolor{stringliteral}{'id'}]\ <=\ 20:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ r[\textcolor{stringliteral}{'id'}]\ +=\ 60}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ r[\textcolor{stringliteral}{'id'}]\ -\/=\ 20}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{for}\ r\ \textcolor{keywordflow}{in}\ records:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ r[\textcolor{stringliteral}{'id'}]\ <=\ 50:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ r[\textcolor{stringliteral}{'id'}]\ +=\ 10}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ 50\ <\ r[\textcolor{stringliteral}{'id'}]\ <=\ 60:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ r[\textcolor{stringliteral}{'id'}]\ -\/=\ 50}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00101}00101\ \ \ \ \ \textcolor{keywordflow}{for}\ r\ \textcolor{keywordflow}{in}\ records:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ r[\textcolor{stringliteral}{'id'}]\ ==\ 7:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ r[\textcolor{stringliteral}{'id'}]\ =\ 1}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ r[\textcolor{stringliteral}{'id'}]\ <\ 7:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ r[\textcolor{stringliteral}{'id'}]\ +=\ 1\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00107}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_af69ea3811b244491d49dbd4d3ebbe5d3}{00107}}\ \ \ \ \ records.sort(key=\textcolor{keyword}{lambda}\ x:\ x[\textcolor{stringliteral}{'id'}])}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00109}00109\ \ \ \ \ \textcolor{comment}{\#\ Write\ to\ file}}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00110}00110\ \ \ \ \ \textcolor{keyword}{with}\ open(\textcolor{stringliteral}{'webpage/data.json'},\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{generate__webpage__data__from__table_8py_source_l00111}\mbox{\hyperlink{namespacegenerate__webpage__data__from__table_afacd6808fa433f8424ab4c37b205caef}{00111}}\ \ \ \ \ \ \ \ \ json.dump(\{\textcolor{stringliteral}{'questions'}:\ records,\ \textcolor{stringliteral}{'models'}:\ models\},\ f,\ indent=2)}
+
+\end{DoxyCode}

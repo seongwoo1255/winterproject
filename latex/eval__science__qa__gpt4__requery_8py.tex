@@ -1,0 +1,71 @@
+\doxysection{llava/eval/eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.py File Reference}
+\hypertarget{eval__science__qa__gpt4__requery_8py}{}\label{eval__science__qa__gpt4__requery_8py}\index{llava/eval/eval\_science\_qa\_gpt4\_requery.py@{llava/eval/eval\_science\_qa\_gpt4\_requery.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a14db6dcd05c0d0c1602e60c245cf0b5d}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+get\+\_\+args}} ()
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_aef5fd141555d2e526055d2b49b4034a2}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+convert\+\_\+caps}} (\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_acf905aad99a6726f54bec9ab0d690df2}{results}})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a7446f202ff44db428d246ec8709f6a2f}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+get\+\_\+pred\+\_\+idx}} (prediction, choices, options)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a9657d240c27b982ec040ea29029a6bae}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+args}} = \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a14db6dcd05c0d0c1602e60c245cf0b5d}{get\+\_\+args}}()
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_af3aab7b8980ec73b66be41b4cfbf2c4b}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+base\+\_\+dir}} = args.\+base\+\_\+dir
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a832059f7619e9cc860ab5e8b8290c096}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+split\+\_\+indices}} = json.\+load(open(os.\+path.\+join(\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_af3aab7b8980ec73b66be41b4cfbf2c4b}{base\+\_\+dir}}, "{}pid\+\_\+splits.\+json"{})))\mbox{[}args.\+split\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a5fe32cc9753df2c1873a79f1e1205524}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+problems}} = json.\+load(open(os.\+path.\+join(\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_af3aab7b8980ec73b66be41b4cfbf2c4b}{base\+\_\+dir}}, "{}problems.\+json"{})))
+\item 
+list \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a1969d7fc082581c85317da7c8f4d21e8}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+our\+\_\+predictions}} = \mbox{[}json.\+loads(line) for line in open(args.\+our\+\_\+result)\mbox{]}
+\item 
+dict \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a694e95064317ba7a9ed73b0fab55f34c}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+split\+\_\+problems}} = \{idx\+: \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a5fe32cc9753df2c1873a79f1e1205524}{problems}}\mbox{[}idx\mbox{]} for idx in \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a832059f7619e9cc860ab5e8b8290c096}{split\+\_\+indices}}\}
+\item 
+list \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_aedc949ae7176f9b5f35f77fc9c3fc482}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+requery\+\_\+predictions}} = \mbox{[}json.\+loads(line) for line in open(args.\+requery\+\_\+result)\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_aabf5d8cd2197aa52b7d4b51ba7c7e5ad}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+gpt4\+\_\+predictions}} = json.\+load(open(args.\+gpt4\+\_\+result))\mbox{[}\textquotesingle{}outputs\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_acf905aad99a6726f54bec9ab0d690df2}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+results}} = defaultdict(lambda\+: 0)
+\item 
+dict \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a6190ead819123c5e0e4fed11770d4a2c}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+sqa\+\_\+results}} = \{\}
+\item 
+list \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_aca0a0d21392168662d27a51359420ebd}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+our\+\_\+pred}} = \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a1969d7fc082581c85317da7c8f4d21e8}{our\+\_\+predictions}}\mbox{[}prob\+\_\+id\mbox{]}\mbox{[}\textquotesingle{}text\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_ae5fdd2dbee0ea0b7e2bff3c902b4ca66}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+gpt4\+\_\+pred}} = \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_aabf5d8cd2197aa52b7d4b51ba7c7e5ad}{gpt4\+\_\+predictions}}\mbox{[}prob\+\_\+id\mbox{]}
+\item 
+str \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a8afc16a0cb33037effddf042f598a9d2}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+requery\+\_\+pred}} = "{}MISSING"{}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a83ed5413d360db612e07598ac3116003}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+pattern}} = re.\+compile(r\textquotesingle{}The answer is (\mbox{[}A-\/Z\mbox{]}).\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a94ceb38bf035601b9f38f1dee791eb8c}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+our\+\_\+res}} = pattern.\+findall(\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_aca0a0d21392168662d27a51359420ebd}{our\+\_\+pred}})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a9f5b0607fa8ffca4c4cf987a2a6ed048}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+our\+\_\+answer}} = \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a94ceb38bf035601b9f38f1dee791eb8c}{our\+\_\+res}}\mbox{[}0\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a4e7017d97543b5ce4827c52085390e6e}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+requery\+\_\+res}} = pattern.\+findall(\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a8afc16a0cb33037effddf042f598a9d2}{requery\+\_\+pred}})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_aaaf5f46de7e6bb047b7f3af345da8cea}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+requery\+\_\+answer}} = \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a4e7017d97543b5ce4827c52085390e6e}{requery\+\_\+res}}\mbox{[}0\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a8045f5a644118b5420e6b92b9c26160e}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+gpt4\+\_\+res}} = pattern.\+findall(\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_ae5fdd2dbee0ea0b7e2bff3c902b4ca66}{gpt4\+\_\+pred}})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a96f8f87f512ecdb19fff399b08893731}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+gpt4\+\_\+answer}} = \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a8045f5a644118b5420e6b92b9c26160e}{gpt4\+\_\+res}}\mbox{[}0\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_ab965e23dd7cc9960d4bd6c5749b800a5}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+our\+\_\+pred\+\_\+idx}} = \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a7446f202ff44db428d246ec8709f6a2f}{get\+\_\+pred\+\_\+idx}}(\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a9f5b0607fa8ffca4c4cf987a2a6ed048}{our\+\_\+answer}}, prob\mbox{[}\textquotesingle{}choices\textquotesingle{}\mbox{]}, args.\+options)
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a7e766a210d26f8a41f91ab6dbe18a27a}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+gpt4\+\_\+pred\+\_\+idx}} = \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a7446f202ff44db428d246ec8709f6a2f}{get\+\_\+pred\+\_\+idx}}(\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a96f8f87f512ecdb19fff399b08893731}{gpt4\+\_\+answer}}, prob\mbox{[}\textquotesingle{}choices\textquotesingle{}\mbox{]}, args.\+options)
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a6a75881e027c5d87b2c189abb7075241}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+requery\+\_\+pred\+\_\+idx}} = \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a7446f202ff44db428d246ec8709f6a2f}{get\+\_\+pred\+\_\+idx}}(\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_aaaf5f46de7e6bb047b7f3af345da8cea}{requery\+\_\+answer}}, prob\mbox{[}\textquotesingle{}choices\textquotesingle{}\mbox{]}, args.\+options)
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a077e9c3d51c27e4819be4f1b6637eb89}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+total}} = \mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_acf905aad99a6726f54bec9ab0d690df2}{results}}\mbox{[}\textquotesingle{}total\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_ab8845dd914da5f6a0cc00c62d940a941}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+f}}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa__gpt4__requery_a7531c2aa4abbe9f3937bc01db3629760}{eval\+\_\+science\+\_\+qa\+\_\+gpt4\+\_\+requery.\+indent}}
+\end{DoxyCompactItemize}

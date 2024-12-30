@@ -1,0 +1,17 @@
+\chapter{Customize Components in LLa\+VA}
+\hypertarget{md_docs_2_customize___component}{}\label{md_docs_2_customize___component}\index{Customize Components in LLaVA@{Customize Components in LLaVA}}
+\label{md_docs_2_customize___component_autotoc_md0}%
+\Hypertarget{md_docs_2_customize___component_autotoc_md0}%
+
+
+This is an initial guide on how to replace the LLMs, visual encoders, etc. with your choice of components.\hypertarget{md_docs_2_customize___component_autotoc_md1}{}\doxysection{\texorpdfstring{LLM}{LLM}}\label{md_docs_2_customize___component_autotoc_md1}
+It is quite simple to swap out LLa\+MA to any other LLMs. You can refer to our implementation of \href{https://raw.githubusercontent.com/haotian-liu/LLaVA/main/llava/model/language_model/llava_llama.py}{\texttt{ {\ttfamily llava\+\_\+llama.\+py}}} for an example of how to replace the LLM.
+
+Although it may seem that it still needs \texorpdfstring{$\sim$}{\string~}100 lines of code, most of them are copied from the original {\ttfamily llama.\+py} from HF. The only part that is different is to insert some lines for processing the multimodal inputs.
+
+In {\ttfamily forward} function, you can see that we call {\ttfamily self.\+prepare\+\_\+inputs\+\_\+labels\+\_\+for\+\_\+multimodal} to process the multimodal inputs. This function is defined in {\ttfamily Llava\+Meta\+For\+Causal\+LM} and you just need to insert it into the {\ttfamily forward} function of your LLM.
+
+In {\ttfamily prepare\+\_\+inputs\+\_\+for\+\_\+generation} function, you can see that we add {\ttfamily images} to the {\ttfamily model\+\_\+inputs}. This is because we need to pass the images to the LLM during generation.
+
+These are basically all the changes you need to make to replace the LLM.\hypertarget{md_docs_2_customize___component_autotoc_md2}{}\doxysection{\texorpdfstring{Visual Encoder}{Visual Encoder}}\label{md_docs_2_customize___component_autotoc_md2}
+You can check out \href{https://github.com/haotian-liu/LLaVA/blob/main/llava/model/multimodal_encoder/clip_encoder.py}{\texttt{ {\ttfamily clip\+\_\+encoder.\+py}}} on how we implement the CLIP visual encoder. 

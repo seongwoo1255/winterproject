@@ -1,0 +1,136 @@
+\doxysection{summarize\+\_\+gpt\+\_\+review Namespace Reference}
+\hypertarget{namespacesummarize__gpt__review}{}\label{namespacesummarize__gpt__review}\index{summarize\_gpt\_review@{summarize\_gpt\_review}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_ae0bf18adb9db1cf56a182482f12b51b0}{parse\+\_\+args}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_afc5f782bd850f1ecba9b27537624a6bf}{args}} = \mbox{\hyperlink{namespacesummarize__gpt__review_ae0bf18adb9db1cf56a182482f12b51b0}{parse\+\_\+args}}()
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_aee9b0911ea17d6a3af3ce112cb03c672}{ignore}}
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_aeb0e2795fdfffd8f2d70eca75ce9e638}{review\+\_\+files}} = args.\+files
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_a1021328fdd8e129dd3693a83ba5deb00}{config}} = os.\+path.\+basename(review\+\_\+file).replace(\textquotesingle{}gpt4\+\_\+text\+\_\+\textquotesingle{}, \textquotesingle{}\textquotesingle{}).replace(\textquotesingle{}.jsonl\textquotesingle{}, \textquotesingle{}\textquotesingle{})
+\item 
+str \mbox{\hyperlink{namespacesummarize__gpt__review_a59807aeac8fa5743ade8df06b9abc299}{version}} = \textquotesingle{}0613\textquotesingle{}
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_a7c979175c2b75a61f9f998965772b1b5}{scores}} = defaultdict(list)
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_aeba610686e6f065d92c55edabe4b0658}{review}} = json.\+loads(review\+\_\+str)
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_a9c6ef9a68a37492f3045fc268f252b67}{stats}} = np.\+asarray(v).mean(0).tolist()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesummarize__gpt__review_ae0bf18adb9db1cf56a182482f12b51b0}\index{summarize\_gpt\_review@{summarize\_gpt\_review}!parse\_args@{parse\_args}}
+\index{parse\_args@{parse\_args}!summarize\_gpt\_review@{summarize\_gpt\_review}}
+\doxysubsubsection{\texorpdfstring{parse\_args()}{parse\_args()}}
+{\footnotesize\ttfamily \label{namespacesummarize__gpt__review_ae0bf18adb9db1cf56a182482f12b51b0} 
+summarize\+\_\+gpt\+\_\+review.\+parse\+\_\+args (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{summarize__gpt__review_8py_source_l00009}{9}} of file \mbox{\hyperlink{summarize__gpt__review_8py_source}{summarize\+\_\+gpt\+\_\+review.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00009\ \textcolor{keyword}{def\ }parse\_args():}
+\DoxyCodeLine{00010\ \ \ \ \ parser\ =\ argparse.ArgumentParser(description=\textcolor{stringliteral}{'ChatGPT-\/based\ QA\ evaluation.'})}
+\DoxyCodeLine{00011\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/d'},\ \textcolor{stringliteral}{'-\/-\/dir'},\ default=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{00012\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/v'},\ \textcolor{stringliteral}{'-\/-\/version'},\ default=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{00013\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/s'},\ \textcolor{stringliteral}{'-\/-\/select'},\ nargs=\textcolor{stringliteral}{'*'},\ default=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{00014\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/f'},\ \textcolor{stringliteral}{'-\/-\/files'},\ nargs=\textcolor{stringliteral}{'*'},\ default=[])}
+\DoxyCodeLine{00015\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/i'},\ \textcolor{stringliteral}{'-\/-\/ignore'},\ nargs=\textcolor{stringliteral}{'*'},\ default=[])}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordflow}{return}\ parser.parse\_args()}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacesummarize__gpt__review_afc5f782bd850f1ecba9b27537624a6bf}\index{summarize\_gpt\_review@{summarize\_gpt\_review}!args@{args}}
+\index{args@{args}!summarize\_gpt\_review@{summarize\_gpt\_review}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily \label{namespacesummarize__gpt__review_afc5f782bd850f1ecba9b27537624a6bf} 
+summarize\+\_\+gpt\+\_\+review.\+args = \mbox{\hyperlink{namespacesummarize__gpt__review_ae0bf18adb9db1cf56a182482f12b51b0}{parse\+\_\+args}}()}
+
+
+
+Definition at line \mbox{\hyperlink{summarize__gpt__review_8py_source_l00020}{20}} of file \mbox{\hyperlink{summarize__gpt__review_8py_source}{summarize\+\_\+gpt\+\_\+review.\+py}}.
+
+\Hypertarget{namespacesummarize__gpt__review_a1021328fdd8e129dd3693a83ba5deb00}\index{summarize\_gpt\_review@{summarize\_gpt\_review}!config@{config}}
+\index{config@{config}!summarize\_gpt\_review@{summarize\_gpt\_review}}
+\doxysubsubsection{\texorpdfstring{config}{config}}
+{\footnotesize\ttfamily \label{namespacesummarize__gpt__review_a1021328fdd8e129dd3693a83ba5deb00} 
+summarize\+\_\+gpt\+\_\+review.\+config = os.\+path.\+basename(review\+\_\+file).replace(\textquotesingle{}gpt4\+\_\+text\+\_\+\textquotesingle{}, \textquotesingle{}\textquotesingle{}).replace(\textquotesingle{}.jsonl\textquotesingle{}, \textquotesingle{}\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{summarize__gpt__review_8py_source_l00031}{31}} of file \mbox{\hyperlink{summarize__gpt__review_8py_source}{summarize\+\_\+gpt\+\_\+review.\+py}}.
+
+\Hypertarget{namespacesummarize__gpt__review_aee9b0911ea17d6a3af3ce112cb03c672}\index{summarize\_gpt\_review@{summarize\_gpt\_review}!ignore@{ignore}}
+\index{ignore@{ignore}!summarize\_gpt\_review@{summarize\_gpt\_review}}
+\doxysubsubsection{\texorpdfstring{ignore}{ignore}}
+{\footnotesize\ttfamily \label{namespacesummarize__gpt__review_aee9b0911ea17d6a3af3ce112cb03c672} 
+summarize\+\_\+gpt\+\_\+review.\+ignore}
+
+
+
+Definition at line \mbox{\hyperlink{summarize__gpt__review_8py_source_l00023}{23}} of file \mbox{\hyperlink{summarize__gpt__review_8py_source}{summarize\+\_\+gpt\+\_\+review.\+py}}.
+
+\Hypertarget{namespacesummarize__gpt__review_aeba610686e6f065d92c55edabe4b0658}\index{summarize\_gpt\_review@{summarize\_gpt\_review}!review@{review}}
+\index{review@{review}!summarize\_gpt\_review@{summarize\_gpt\_review}}
+\doxysubsubsection{\texorpdfstring{review}{review}}
+{\footnotesize\ttfamily \label{namespacesummarize__gpt__review_aeba610686e6f065d92c55edabe4b0658} 
+summarize\+\_\+gpt\+\_\+review.\+review = json.\+loads(review\+\_\+str)}
+
+
+
+Definition at line \mbox{\hyperlink{summarize__gpt__review_8py_source_l00044}{44}} of file \mbox{\hyperlink{summarize__gpt__review_8py_source}{summarize\+\_\+gpt\+\_\+review.\+py}}.
+
+\Hypertarget{namespacesummarize__gpt__review_aeb0e2795fdfffd8f2d70eca75ce9e638}\index{summarize\_gpt\_review@{summarize\_gpt\_review}!review\_files@{review\_files}}
+\index{review\_files@{review\_files}!summarize\_gpt\_review@{summarize\_gpt\_review}}
+\doxysubsubsection{\texorpdfstring{review\_files}{review\_files}}
+{\footnotesize\ttfamily \label{namespacesummarize__gpt__review_aeb0e2795fdfffd8f2d70eca75ce9e638} 
+list summarize\+\_\+gpt\+\_\+review.\+review\+\_\+files = args.\+files}
+
+
+
+Definition at line \mbox{\hyperlink{summarize__gpt__review_8py_source_l00026}{26}} of file \mbox{\hyperlink{summarize__gpt__review_8py_source}{summarize\+\_\+gpt\+\_\+review.\+py}}.
+
+\Hypertarget{namespacesummarize__gpt__review_a7c979175c2b75a61f9f998965772b1b5}\index{summarize\_gpt\_review@{summarize\_gpt\_review}!scores@{scores}}
+\index{scores@{scores}!summarize\_gpt\_review@{summarize\_gpt\_review}}
+\doxysubsubsection{\texorpdfstring{scores}{scores}}
+{\footnotesize\ttfamily \label{namespacesummarize__gpt__review_a7c979175c2b75a61f9f998965772b1b5} 
+summarize\+\_\+gpt\+\_\+review.\+scores = defaultdict(list)}
+
+
+
+Definition at line \mbox{\hyperlink{summarize__gpt__review_8py_source_l00040}{40}} of file \mbox{\hyperlink{summarize__gpt__review_8py_source}{summarize\+\_\+gpt\+\_\+review.\+py}}.
+
+\Hypertarget{namespacesummarize__gpt__review_a9c6ef9a68a37492f3045fc268f252b67}\index{summarize\_gpt\_review@{summarize\_gpt\_review}!stats@{stats}}
+\index{stats@{stats}!summarize\_gpt\_review@{summarize\_gpt\_review}}
+\doxysubsubsection{\texorpdfstring{stats}{stats}}
+{\footnotesize\ttfamily \label{namespacesummarize__gpt__review_a9c6ef9a68a37492f3045fc268f252b67} 
+list summarize\+\_\+gpt\+\_\+review.\+stats = np.\+asarray(v).mean(0).tolist()}
+
+
+
+Definition at line \mbox{\hyperlink{summarize__gpt__review_8py_source_l00056}{56}} of file \mbox{\hyperlink{summarize__gpt__review_8py_source}{summarize\+\_\+gpt\+\_\+review.\+py}}.
+
+\Hypertarget{namespacesummarize__gpt__review_a59807aeac8fa5743ade8df06b9abc299}\index{summarize\_gpt\_review@{summarize\_gpt\_review}!version@{version}}
+\index{version@{version}!summarize\_gpt\_review@{summarize\_gpt\_review}}
+\doxysubsubsection{\texorpdfstring{version}{version}}
+{\footnotesize\ttfamily \label{namespacesummarize__gpt__review_a59807aeac8fa5743ade8df06b9abc299} 
+str summarize\+\_\+gpt\+\_\+review.\+version = \textquotesingle{}0613\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{summarize__gpt__review_8py_source_l00035}{35}} of file \mbox{\hyperlink{summarize__gpt__review_8py_source}{summarize\+\_\+gpt\+\_\+review.\+py}}.
+

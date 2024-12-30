@@ -1,0 +1,400 @@
+\doxysection{llava\+\_\+mistral.\+Llava\+Mistral\+For\+Causal\+LM Class Reference}
+\hypertarget{classllava__mistral_1_1_llava_mistral_for_causal_l_m}{}\label{classllava__mistral_1_1_llava_mistral_for_causal_l_m}\index{llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}}
+
+
+LLa\+VA Mistral 변형을 통한 Causal Language Model 구현  
+
+
+
+
+Inheritance diagram for llava\+\_\+mistral.\+Llava\+Mistral\+For\+Causal\+LM\+:
+% FIG 0
+
+
+Collaboration diagram for llava\+\_\+mistral.\+Llava\+Mistral\+For\+Causal\+LM\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classllava__mistral_1_1_llava_mistral_for_causal_l_m_a57b73e7ca80208b163724cdc2553bd93}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, config)
+\item 
+\mbox{\hyperlink{classllava__mistral_1_1_llava_mistral_for_causal_l_m_abecebcf7b26104a1c86ba4eff4653202}{get\+\_\+model}} (self)
+\begin{DoxyCompactList}\small\item\em 모델 객체를 반환하는 메서드. \end{DoxyCompactList}\item 
+Union\mbox{[}Tuple, Causal\+LMOutput\+With\+Past\mbox{]} \mbox{\hyperlink{classllava__mistral_1_1_llava_mistral_for_causal_l_m_af35931178a4b4a302888714e5f79c881}{forward}} (self, torch.\+Long\+Tensor input\+\_\+ids=None, Optional\mbox{[}torch.\+Tensor\mbox{]} attention\+\_\+mask=None, Optional\mbox{[}torch.\+Long\+Tensor\mbox{]} position\+\_\+ids=None, Optional\mbox{[}List\mbox{[}torch.\+Float\+Tensor\mbox{]}\mbox{]} past\+\_\+key\+\_\+values=None, Optional\mbox{[}torch.\+Float\+Tensor\mbox{]} inputs\+\_\+embeds=None, Optional\mbox{[}torch.\+Long\+Tensor\mbox{]} labels=None, Optional\mbox{[}bool\mbox{]} use\+\_\+cache=None, Optional\mbox{[}bool\mbox{]} output\+\_\+attentions=None, Optional\mbox{[}bool\mbox{]} output\+\_\+hidden\+\_\+states=None, Optional\mbox{[}torch.\+Float\+Tensor\mbox{]} images=None, Optional\mbox{[}List\mbox{[}List\mbox{[}int\mbox{]}\mbox{]}\mbox{]} image\+\_\+sizes=None, Optional\mbox{[}bool\mbox{]} return\+\_\+dict=None)
+\begin{DoxyCompactList}\small\item\em Causal Language Model의 forward 패스를 정의 \end{DoxyCompactList}\item 
+Union\mbox{[}Generate\+Output, torch.\+Long\+Tensor\mbox{]} \mbox{\hyperlink{classllava__mistral_1_1_llava_mistral_for_causal_l_m_ae2fab1f247f61c3d9b05896396acd0ae}{generate}} (self, Optional\mbox{[}torch.\+Tensor\mbox{]} inputs=None, Optional\mbox{[}torch.\+Tensor\mbox{]} images=None, Optional\mbox{[}torch.\+Tensor\mbox{]} image\+\_\+sizes=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\begin{DoxyCompactList}\small\item\em 입력을 기반으로 텍스트를 생성하는 메서드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classllava__mistral_1_1_llava_mistral_for_causal_l_m_accfe335eec4d5b99d0feb1a88c32f0b0}{prepare\+\_\+inputs\+\_\+for\+\_\+generation}} (self, input\+\_\+ids, past\+\_\+key\+\_\+values=None, inputs\+\_\+embeds=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\begin{DoxyCompactList}\small\item\em 생성에 필요한 입력을 준비하는 메서드 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classllava__mistral_1_1_llava_mistral_for_causal_l_m_a92560a901f050351af95defd4e984f60}{model}} = \mbox{\hyperlink{classllava__mistral_1_1_llava_mistral_model}{Llava\+Mistral\+Model}}(config)
+\item 
+\mbox{\hyperlink{classllava__mistral_1_1_llava_mistral_for_causal_l_m_a550f17fe6d93046ffd7c23b51dd89cc3}{lm\+\_\+head}} = nn.\+Linear(config.\+hidden\+\_\+size, config.\+vocab\+\_\+size, bias=False)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classllava__mistral_1_1_llava_mistral_for_causal_l_m_a1a708eaa09c143573f7f88d093126b22}{config\+\_\+class}} = \mbox{\hyperlink{classllava__mistral_1_1_llava_mistral_config}{Llava\+Mistral\+Config}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+LLa\+VA Mistral 변형을 통한 Causal Language Model 구현 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+
+\begin{DoxyItemize}
+\item 멀티모달 데이터를 기반으로 텍스트를 생성하는 모델입니다.
+\item Mistral 기반 언어 모델과 Vision Encoder의 출력({\ttfamily Hᵥ})을 결합하여 멀티모달 입력({\ttfamily Hₐ})을 생성합니다.
+\item 최종적으로 텍스트 응답({\ttfamily Xₐ})을 생성합니다. 
+\end{DoxyItemize}
+
+Definition at line \mbox{\hyperlink{llava__mistral_8py_source_l00071}{71}} of file \mbox{\hyperlink{llava__mistral_8py_source}{llava\+\_\+mistral.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classllava__mistral_1_1_llava_mistral_for_causal_l_m_a57b73e7ca80208b163724cdc2553bd93}\index{llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classllava__mistral_1_1_llava_mistral_for_causal_l_m_a57b73e7ca80208b163724cdc2553bd93} 
+llava\+\_\+mistral.\+Llava\+Mistral\+For\+Causal\+LM.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{config}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{llava__mistral_8py_source_l00074}{74}} of file \mbox{\hyperlink{llava__mistral_8py_source}{llava\+\_\+mistral.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ config):}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ super(MistralForCausalLM,\ self).\_\_init\_\_(config)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ self.model\ =\ LlavaMistralModel(config)}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ self.lm\_head\ =\ nn.Linear(config.hidden\_size,\ config.vocab\_size,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Initialize\ weights\ and\ apply\ final\ processing}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ self.post\_init()}
+\DoxyCodeLine{00082\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classllava__mistral_1_1_llava_mistral_for_causal_l_m_af35931178a4b4a302888714e5f79c881}\index{llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}!forward@{forward}}
+\index{forward@{forward}!llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{classllava__mistral_1_1_llava_mistral_for_causal_l_m_af35931178a4b4a302888714e5f79c881} 
+ Union\mbox{[}Tuple, Causal\+LMOutput\+With\+Past\mbox{]} llava\+\_\+mistral.\+Llava\+Mistral\+For\+Causal\+LM.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{torch.\+Long\+Tensor }]{input\+\_\+ids}{ = {\ttfamily None}, }\item[{Optional\mbox{[}torch.\+Tensor\mbox{]} }]{attention\+\_\+mask}{ = {\ttfamily None}, }\item[{Optional\mbox{[}torch.\+Long\+Tensor\mbox{]} }]{position\+\_\+ids}{ = {\ttfamily None}, }\item[{Optional\mbox{[}List\mbox{[}torch.\+Float\+Tensor\mbox{]}\mbox{]} }]{past\+\_\+key\+\_\+values}{ = {\ttfamily None}, }\item[{Optional\mbox{[}torch.\+Float\+Tensor\mbox{]} }]{inputs\+\_\+embeds}{ = {\ttfamily None}, }\item[{Optional\mbox{[}torch.\+Long\+Tensor\mbox{]} }]{labels}{ = {\ttfamily None}, }\item[{Optional\mbox{[}bool\mbox{]} }]{use\+\_\+cache}{ = {\ttfamily None}, }\item[{Optional\mbox{[}bool\mbox{]} }]{output\+\_\+attentions}{ = {\ttfamily None}, }\item[{Optional\mbox{[}bool\mbox{]} }]{output\+\_\+hidden\+\_\+states}{ = {\ttfamily None}, }\item[{Optional\mbox{[}torch.\+Float\+Tensor\mbox{]} }]{images}{ = {\ttfamily None}, }\item[{Optional\mbox{[}List\mbox{[}List\mbox{[}int\mbox{]}\mbox{]}\mbox{]} }]{image\+\_\+sizes}{ = {\ttfamily None}, }\item[{Optional\mbox{[}bool\mbox{]} }]{return\+\_\+dict}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Causal Language Model의 forward 패스를 정의 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+ids} & (torch.\+Long\+Tensor) 텍스트 입력 토큰 ID. (optional) \\
+\hline
+{\em attention\+\_\+mask} & (torch.\+Tensor) 입력 텍스트에 대한 어텐션 마스크. (optional) \\
+\hline
+{\em position\+\_\+ids} & (torch.\+Long\+Tensor) 입력 텍스트의 위치 정보 ID. (optional) \\
+\hline
+{\em past\+\_\+key\+\_\+values} & (List\mbox{[}torch.\+Float\+Tensor\mbox{]}) 이전 키/값 캐시. 디코더에서 사용. (optional) \\
+\hline
+{\em inputs\+\_\+embeds} & (torch.\+Float\+Tensor) 입력 텍스트 임베딩. (optional) \\
+\hline
+{\em labels} & (torch.\+Long\+Tensor) 학습 시 사용할 정답 레이블. (optional) \\
+\hline
+{\em use\+\_\+cache} & (bool) 이전 키/값 캐시를 사용할지 여부. (optional) \\
+\hline
+{\em output\+\_\+attentions} & (bool) 어텐션 가중치를 출력할지 여부. (optional) \\
+\hline
+{\em output\+\_\+hidden\+\_\+states} & (bool) 히든 상태를 출력할지 여부. (optional) \\
+\hline
+{\em images} & (torch.\+Float\+Tensor) 입력 이미지 텐서. (optional) \\
+\hline
+{\em image\+\_\+sizes} & (List\mbox{[}List\mbox{[}int\mbox{]}\mbox{]}) 입력 이미지 크기 정보. (optional) \\
+\hline
+{\em return\+\_\+dict} & (bool) 반환 값을 딕셔너리 형태로 출력할지 여부. (optional) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item Union\mbox{[}Tuple, Causal\+LMOutput\+With\+Past\mbox{]}\+: 모델의 출력. 텍스트 생성 결과와 필요시 어텐션 정보, 히든 상태를 포함
+\end{DoxyItemize}
+\end{DoxyReturn}
+
+\begin{DoxyItemize}
+\item 입력 데이터를 기반으로 모델의 출력을 계산합니다.
+\item Vision Encoder의 출력({\ttfamily Hᵥ})과 텍스트 입력({\ttfamily Hₓₓ})을 결합하여 멀티모달 입력({\ttfamily Hₐ})을 생성합니다.
+\item 생성된 멀티모달 입력을 Causal Language Model에 전달하여 최종 출력({\ttfamily Xₐ})을 반환합니다. 
+\end{DoxyItemize}
+
+Definition at line \mbox{\hyperlink{llava__mistral_8py_source_l00112}{112}} of file \mbox{\hyperlink{llava__mistral_8py_source}{llava\+\_\+mistral.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00126\ \ \ \ \ )\ -\/>\ Union[Tuple,\ CausalLMOutputWithPast]:}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ inputs\_embeds\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids,}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask,}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ past\_key\_values,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs\_embeds,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ labels}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ )\ =\ self.prepare\_inputs\_labels\_for\_multimodal(}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids,}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids,}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ past\_key\_values,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ labels,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ images,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_sizes}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ super().forward(}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids=input\_ids,}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask=attention\_mask,}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids=position\_ids,}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ past\_key\_values=past\_key\_values,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ inputs\_embeds=inputs\_embeds,}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ labels=labels,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ use\_cache=use\_cache,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ output\_attentions=output\_attentions,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ output\_hidden\_states=output\_hidden\_states,}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ return\_dict=return\_dict}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00158\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\Hypertarget{classllava__mistral_1_1_llava_mistral_for_causal_l_m_ae2fab1f247f61c3d9b05896396acd0ae}\index{llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}!generate@{generate}}
+\index{generate@{generate}!llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily \label{classllava__mistral_1_1_llava_mistral_for_causal_l_m_ae2fab1f247f61c3d9b05896396acd0ae} 
+ Union\mbox{[}Generate\+Output, torch.\+Long\+Tensor\mbox{]} llava\+\_\+mistral.\+Llava\+Mistral\+For\+Causal\+LM.\+generate (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Optional\mbox{[}torch.\+Tensor\mbox{]} }]{inputs}{ = {\ttfamily None}, }\item[{Optional\mbox{[}torch.\+Tensor\mbox{]} }]{images}{ = {\ttfamily None}, }\item[{Optional\mbox{[}torch.\+Tensor\mbox{]} }]{image\+\_\+sizes}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+
+
+입력을 기반으로 텍스트를 생성하는 메서드 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em inputs} & (torch.\+Tensor) 입력 텍스트 데이터. (optional) \\
+\hline
+{\em images} & (torch.\+Tensor) 입력 이미지 데이터. (optional) \\
+\hline
+{\em image\+\_\+sizes} & (torch.\+Tensor) 입력 이미지 크기 정보. (optional) \\
+\hline
+{\em \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs} & 추가 매개변수. 모델의 텍스트 생성 작업에 필요한 설정.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item Union\mbox{[}Generate\+Output, torch.\+Long\+Tensor\mbox{]}\+: 생성된 텍스트 결과
+\item 텍스트 출력과 관련 정보를 포함
+\end{DoxyItemize}
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Implemented\+Error} & \`{}inputs\+\_\+embeds\`{}가 제공된 경우 발생 \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line \mbox{\hyperlink{llava__mistral_8py_source_l00175}{175}} of file \mbox{\hyperlink{llava__mistral_8py_source}{llava\+\_\+mistral.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00181\ \ \ \ \ )\ -\/>\ Union[GenerateOutput,\ torch.LongTensor]:}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ position\_ids\ =\ kwargs.pop(\textcolor{stringliteral}{"{}position\_ids"{}},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ attention\_mask\ =\ kwargs.pop(\textcolor{stringliteral}{"{}attention\_mask"{}},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}inputs\_embeds"{}}\ \textcolor{keywordflow}{in}\ kwargs:}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ NotImplementedError(\textcolor{stringliteral}{"{}\`{}inputs\_embeds`\ is\ not\ supported"{}})}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ images\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs,}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids,}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask,}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_,}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs\_embeds,}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ )\ =\ self.prepare\_inputs\_labels\_for\_multimodal(}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs,}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids,}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask,}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ images,}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_sizes=image\_sizes}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ inputs\_embeds\ =\ self.get\_model().embed\_tokens(inputs)}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ super().generate(}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids=position\_ids,}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask=attention\_mask,}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ inputs\_embeds=inputs\_embeds,}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ **kwargs}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00213\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 6
+Here is the caller graph for this function\+:
+% FIG 7
+\Hypertarget{classllava__mistral_1_1_llava_mistral_for_causal_l_m_abecebcf7b26104a1c86ba4eff4653202}\index{llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}!get\_model@{get\_model}}
+\index{get\_model@{get\_model}!llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}}
+\doxysubsubsection{\texorpdfstring{get\_model()}{get\_model()}}
+{\footnotesize\ttfamily \label{classllava__mistral_1_1_llava_mistral_for_causal_l_m_abecebcf7b26104a1c86ba4eff4653202} 
+llava\+\_\+mistral.\+Llava\+Mistral\+For\+Causal\+LM.\+get\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+모델 객체를 반환하는 메서드. 
+
+\begin{DoxyReturn}{Returns}
+Mistral 기반 LLa\+VA 모델 객체 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{llava__mistral_8py_source_l00086}{86}} of file \mbox{\hyperlink{llava__mistral_8py_source}{llava\+\_\+mistral.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{def\ }get\_model(self):}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.model}
+\DoxyCodeLine{00088\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 8
+\Hypertarget{classllava__mistral_1_1_llava_mistral_for_causal_l_m_accfe335eec4d5b99d0feb1a88c32f0b0}\index{llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}!prepare\_inputs\_for\_generation@{prepare\_inputs\_for\_generation}}
+\index{prepare\_inputs\_for\_generation@{prepare\_inputs\_for\_generation}!llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}}
+\doxysubsubsection{\texorpdfstring{prepare\_inputs\_for\_generation()}{prepare\_inputs\_for\_generation()}}
+{\footnotesize\ttfamily \label{classllava__mistral_1_1_llava_mistral_for_causal_l_m_accfe335eec4d5b99d0feb1a88c32f0b0} 
+llava\+\_\+mistral.\+Llava\+Mistral\+For\+Causal\+LM.\+prepare\+\_\+inputs\+\_\+for\+\_\+generation (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{input\+\_\+ids}{, }\item[{}]{past\+\_\+key\+\_\+values}{ = {\ttfamily None}, }\item[{}]{inputs\+\_\+embeds}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+
+
+생성에 필요한 입력을 준비하는 메서드 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+
+\begin{DoxyItemize}
+\item 텍스트와 이미지 입력 데이터를 모델에 전달할 수 있는 형태로 변환합니다.
+\item {\ttfamily super().prepare\+\_\+inputs\+\_\+for\+\_\+generation}을 호출해 기본 텍스트 데이터를 준비합니다.
+\item 추가적으로 이미지와 이미지 크기 정보를 포함하여 멀티모달 입력 데이터로 확장합니다.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+ids} & (torch.\+Long\+Tensor) 텍스트 입력 토큰 ID. \\
+\hline
+{\em past\+\_\+key\+\_\+values} & (List\mbox{[}torch.\+Float\+Tensor\mbox{]}) 이전 키/값 캐시. 디코더에서 사용. (optional) \\
+\hline
+{\em inputs\+\_\+embeds} & (torch.\+Float\+Tensor) 입력 텍스트 임베딩. (optional) \\
+\hline
+{\em \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs} & 추가 매개변수. 이미지와 이미지 크기 정보를 포함.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item dict\+: 준비된 입력 데이터 딕셔너리
+\item 포함 항목\+:
+\begin{DoxyItemize}
+\item {\ttfamily input\+\_\+ids}\+: 입력 텍스트 토큰 ID
+\item {\ttfamily past\+\_\+key\+\_\+values}\+: 이전 키/값 캐시
+\item {\ttfamily inputs\+\_\+embeds}\+: 텍스트 임베딩
+\item {\ttfamily images}\+: 입력 이미지 데이터 (제공된 경우)
+\item {\ttfamily image\+\_\+sizes}\+: 이미지 크기 데이터 (제공된 경우) 
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{llava__mistral_8py_source_l00237}{237}} of file \mbox{\hyperlink{llava__mistral_8py_source}{llava\+\_\+mistral.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs\_embeds=\textcolor{keywordtype}{None},\ **kwargs):}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ images\ =\ kwargs.pop(\textcolor{stringliteral}{"{}images"{}},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ image\_sizes\ =\ kwargs.pop(\textcolor{stringliteral}{"{}image\_sizes"{}},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ inputs\ =\ super().prepare\_inputs\_for\_generation(}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids,\ past\_key\_values=past\_key\_values,\ inputs\_embeds=inputs\_embeds,\ **kwargs}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ images\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ inputs[\textcolor{stringliteral}{'images'}]\ =\ images}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ image\_sizes\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ inputs[\textcolor{stringliteral}{'image\_sizes'}]\ =\ image\_sizes}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inputs}
+\DoxyCodeLine{00249\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 9
+Here is the caller graph for this function\+:
+% FIG 10
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classllava__mistral_1_1_llava_mistral_for_causal_l_m_a1a708eaa09c143573f7f88d093126b22}\index{llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}!config\_class@{config\_class}}
+\index{config\_class@{config\_class}!llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}}
+\doxysubsubsection{\texorpdfstring{config\_class}{config\_class}}
+{\footnotesize\ttfamily \label{classllava__mistral_1_1_llava_mistral_for_causal_l_m_a1a708eaa09c143573f7f88d093126b22} 
+llava\+\_\+mistral.\+Llava\+Mistral\+For\+Causal\+LM.\+config\+\_\+class = \mbox{\hyperlink{classllava__mistral_1_1_llava_mistral_config}{Llava\+Mistral\+Config}}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{llava__mistral_8py_source_l00072}{72}} of file \mbox{\hyperlink{llava__mistral_8py_source}{llava\+\_\+mistral.\+py}}.
+
+\Hypertarget{classllava__mistral_1_1_llava_mistral_for_causal_l_m_a550f17fe6d93046ffd7c23b51dd89cc3}\index{llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}!lm\_head@{lm\_head}}
+\index{lm\_head@{lm\_head}!llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}}
+\doxysubsubsection{\texorpdfstring{lm\_head}{lm\_head}}
+{\footnotesize\ttfamily \label{classllava__mistral_1_1_llava_mistral_for_causal_l_m_a550f17fe6d93046ffd7c23b51dd89cc3} 
+llava\+\_\+mistral.\+Llava\+Mistral\+For\+Causal\+LM.\+lm\+\_\+head = nn.\+Linear(config.\+hidden\+\_\+size, config.\+vocab\+\_\+size, bias=False)}
+
+
+
+Definition at line \mbox{\hyperlink{llava__mistral_8py_source_l00078}{78}} of file \mbox{\hyperlink{llava__mistral_8py_source}{llava\+\_\+mistral.\+py}}.
+
+\Hypertarget{classllava__mistral_1_1_llava_mistral_for_causal_l_m_a92560a901f050351af95defd4e984f60}\index{llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}!model@{model}}
+\index{model@{model}!llava\_mistral.LlavaMistralForCausalLM@{llava\_mistral.LlavaMistralForCausalLM}}
+\doxysubsubsection{\texorpdfstring{model}{model}}
+{\footnotesize\ttfamily \label{classllava__mistral_1_1_llava_mistral_for_causal_l_m_a92560a901f050351af95defd4e984f60} 
+llava\+\_\+mistral.\+Llava\+Mistral\+For\+Causal\+LM.\+model = \mbox{\hyperlink{classllava__mistral_1_1_llava_mistral_model}{Llava\+Mistral\+Model}}(config)}
+
+
+
+Definition at line \mbox{\hyperlink{llava__mistral_8py_source_l00076}{76}} of file \mbox{\hyperlink{llava__mistral_8py_source}{llava\+\_\+mistral.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+language\+\_\+model/\mbox{\hyperlink{llava__mistral_8py}{llava\+\_\+mistral.\+py}}\end{DoxyCompactItemize}

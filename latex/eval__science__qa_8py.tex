@@ -1,0 +1,63 @@
+\doxysection{llava/eval/eval\+\_\+science\+\_\+qa.py File Reference}
+\hypertarget{eval__science__qa_8py}{}\label{eval__science__qa_8py}\index{llava/eval/eval\_science\_qa.py@{llava/eval/eval\_science\_qa.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceeval__science__qa}{eval\+\_\+science\+\_\+qa}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a338f040d97805ab7d17760cbed0c877c}{eval\+\_\+science\+\_\+qa.\+get\+\_\+args}} ()
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a18f9d9e163ec1f01332ed0481b634883}{eval\+\_\+science\+\_\+qa.\+convert\+\_\+caps}} (\mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_ad595084a870f1872e06b1b81e553d56e}{eval\+\_\+science\+\_\+qa.\+get\+\_\+pred\+\_\+idx}} (prediction, choices, options)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a98606b88fa74df5cc8cbdf148532eed1}{eval\+\_\+science\+\_\+qa.\+args}} = \mbox{\hyperlink{namespaceeval__science__qa_a338f040d97805ab7d17760cbed0c877c}{get\+\_\+args}}()
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_aa6d19df3b263d5d12c6dd5076f382dc9}{eval\+\_\+science\+\_\+qa.\+base\+\_\+dir}} = args.\+base\+\_\+dir
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_af6b62d0625f35421a91c5008ee7c258e}{eval\+\_\+science\+\_\+qa.\+split\+\_\+indices}} = json.\+load(open(os.\+path.\+join(\mbox{\hyperlink{namespaceeval__science__qa_aa6d19df3b263d5d12c6dd5076f382dc9}{base\+\_\+dir}}, "{}pid\+\_\+splits.\+json"{})))\mbox{[}args.\+split\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_aed3634b320b248a2040aeb7536f40174}{eval\+\_\+science\+\_\+qa.\+problems}} = json.\+load(open(os.\+path.\+join(\mbox{\hyperlink{namespaceeval__science__qa_aa6d19df3b263d5d12c6dd5076f382dc9}{base\+\_\+dir}}, "{}problems.\+json"{})))
+\item 
+list \mbox{\hyperlink{namespaceeval__science__qa_ab686ebb9cb66d916a6bba8e180e18248}{eval\+\_\+science\+\_\+qa.\+predictions}} = \mbox{[}json.\+loads(line) for line in open(args.\+result\+\_\+file)\mbox{]}
+\item 
+dict \mbox{\hyperlink{namespaceeval__science__qa_aa0328d2fe84c654dba7c9e50109295e9}{eval\+\_\+science\+\_\+qa.\+split\+\_\+problems}} = \{idx\+: \mbox{\hyperlink{namespaceeval__science__qa_aed3634b320b248a2040aeb7536f40174}{problems}}\mbox{[}idx\mbox{]} for idx in \mbox{\hyperlink{namespaceeval__science__qa_af6b62d0625f35421a91c5008ee7c258e}{split\+\_\+indices}}\}
+\item 
+dict \mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{eval\+\_\+science\+\_\+qa.\+results}} = \{\textquotesingle{}\mbox{\hyperlink{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811}{correct}}\textquotesingle{}\+: \mbox{[}$\,$\mbox{]}, \textquotesingle{}incorrect\textquotesingle{}\+: \mbox{[}$\,$\mbox{]}\}
+\item 
+dict \mbox{\hyperlink{namespaceeval__science__qa_affa5cc0c383b188cb083990cbb2172f8}{eval\+\_\+science\+\_\+qa.\+sqa\+\_\+results}} = \{\}
+\item 
+dict \mbox{\hyperlink{namespaceeval__science__qa_a1281b2085d0d414c918126dfe4806466}{eval\+\_\+science\+\_\+qa.\+pred}} = \{\textquotesingle{}text\textquotesingle{}\+: \textquotesingle{}FAILED\textquotesingle{}, \textquotesingle{}prompt\textquotesingle{}\+: \textquotesingle{}Unknown\textquotesingle{}\}
+\item 
+str \mbox{\hyperlink{namespaceeval__science__qa_a9c8c299e5e79d3d82809778750123b9e}{eval\+\_\+science\+\_\+qa.\+pred\+\_\+text}} = \textquotesingle{}FAILED\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespaceeval__science__qa_a8cc4b4c3dd1e8eb61f098ae68bea954e}{eval\+\_\+science\+\_\+qa.\+answer}} = \mbox{\hyperlink{namespaceeval__science__qa_a9c8c299e5e79d3d82809778750123b9e}{pred\+\_\+text}}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a2ed4f6e7aa7f866672cab13bfa148366}{eval\+\_\+science\+\_\+qa.\+pattern}} = re.\+compile(r\textquotesingle{}The \mbox{\hyperlink{namespaceeval__science__qa_a8cc4b4c3dd1e8eb61f098ae68bea954e}{answer}} is (\mbox{[}A-\/Z\mbox{]}).\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a668b66a8f11caf3a8d69c6a201b739cf}{eval\+\_\+science\+\_\+qa.\+res}} = pattern.\+findall(\mbox{\hyperlink{namespaceeval__science__qa_a9c8c299e5e79d3d82809778750123b9e}{pred\+\_\+text}})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_adf9c1ad133dd1c7206b29dc4fbeb988d}{eval\+\_\+science\+\_\+qa.\+pred\+\_\+idx}} = \mbox{\hyperlink{namespaceeval__science__qa_ad595084a870f1872e06b1b81e553d56e}{get\+\_\+pred\+\_\+idx}}(\mbox{\hyperlink{namespaceeval__science__qa_a8cc4b4c3dd1e8eb61f098ae68bea954e}{answer}}, prob\mbox{[}\textquotesingle{}choices\textquotesingle{}\mbox{]}, args.\+options)
+\item 
+dict \mbox{\hyperlink{namespaceeval__science__qa_a3e1663e78375d7b17c8ae47598334470}{eval\+\_\+science\+\_\+qa.\+analysis}}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811}{eval\+\_\+science\+\_\+qa.\+correct}} = len(\mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}correct\textquotesingle{}\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a5b5ba9b229edcfaa4b33f77b64950e90}{eval\+\_\+science\+\_\+qa.\+total}} = len(\mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}\mbox{\hyperlink{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811}{correct}}\textquotesingle{}\mbox{]}) + len(\mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}incorrect\textquotesingle{}\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a85a84518d967b565d957717855aff3ad}{eval\+\_\+science\+\_\+qa.\+multimodal\+\_\+correct}} = len(\mbox{[}x for x in \mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}\mbox{\hyperlink{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811}{correct}}\textquotesingle{}\mbox{]} if x\mbox{[}\textquotesingle{}is\+\_\+multimodal\textquotesingle{}\mbox{]}\mbox{]})
+\begin{DoxyCompactList}\small\item\em IMG \#\#\#\#\#\#. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a7bb59d4da31b98c0c6c67365221b58d6}{eval\+\_\+science\+\_\+qa.\+multimodal\+\_\+incorrect}} = len(\mbox{[}x for x in \mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}incorrect\textquotesingle{}\mbox{]} if x\mbox{[}\textquotesingle{}is\+\_\+multimodal\textquotesingle{}\mbox{]}\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a8e2e10abbc802e76b3b49430ec73aeca}{eval\+\_\+science\+\_\+qa.\+multimodal\+\_\+total}} = \mbox{\hyperlink{namespaceeval__science__qa_a85a84518d967b565d957717855aff3ad}{multimodal\+\_\+correct}} + \mbox{\hyperlink{namespaceeval__science__qa_a7bb59d4da31b98c0c6c67365221b58d6}{multimodal\+\_\+incorrect}}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_af735416e59b405b1155de5e40e093efb}{eval\+\_\+science\+\_\+qa.\+f}}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_aa4dd2f3e737d9c05fadc05e15069a753}{eval\+\_\+science\+\_\+qa.\+indent}}
+\end{DoxyCompactItemize}
