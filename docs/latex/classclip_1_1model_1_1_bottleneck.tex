@@ -1,0 +1,317 @@
+\doxysection{clip.\+model.\+Bottleneck Class Reference}
+\hypertarget{classclip_1_1model_1_1_bottleneck}{}\label{classclip_1_1model_1_1_bottleneck}\index{clip.model.Bottleneck@{clip.model.Bottleneck}}
+
+
+Implements a Res\+Net bottleneck block with optional downsampling.  
+
+
+
+
+Inheritance diagram for clip.\+model.\+Bottleneck\+:
+% FIG 0
+
+
+Collaboration diagram for clip.\+model.\+Bottleneck\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ac32e5b1250fcee962268b4afee874671}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, inplanes, planes, \mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a5cc62aa36f7076dae4ff6a63c09600b2}{stride}}=1)
+\begin{DoxyCompactList}\small\item\em Initializes the \doxylink{classclip_1_1model_1_1_bottleneck}{Bottleneck} block. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a15ad94d8a001e94baf3e3d8bac25dc67}{forward}} (self, torch.\+Tensor x)
+\begin{DoxyCompactList}\small\item\em Forward pass of the \doxylink{classclip_1_1model_1_1_bottleneck}{Bottleneck} block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_afacc5e67b5e528f0c206d9312f964a83}{conv1}} = nn.\+Conv2d(inplanes, planes, 1, bias=False)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a012b0e4db62cf29e2d72de2272902208}{bn1}} = nn.\+Batch\+Norm2d(planes)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ad914b4a03974d794d8112df0bc715565}{relu1}} = nn.\+Re\+LU(inplace=True)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a18e52a0700f6b06ce187685a4c74ac3b}{conv2}} = nn.\+Conv2d(planes, planes, 3, padding=1, bias=False)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ab0f7816a3e7f7469d307b9fc970d62de}{bn2}} = nn.\+Batch\+Norm2d(planes)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a6f29b057f213d8e66134261141190be9}{relu2}} = nn.\+Re\+LU(inplace=True)
+\item 
+int \mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a076a284cbd2db51ec5c174b125087ca1}{avgpool}} = nn.\+Avg\+Pool2d(\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a5cc62aa36f7076dae4ff6a63c09600b2}{stride}}) if \mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a5cc62aa36f7076dae4ff6a63c09600b2}{stride}} $>$ 1 else nn.\+Identity()
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a684bbaf70717f4188d26610a00b6eef9}{conv3}} = nn.\+Conv2d(planes, planes \texorpdfstring{$\ast$}{*} self.\+expansion, 1, bias=False)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ae817f6556160447251e22f0e720250ec}{bn3}} = nn.\+Batch\+Norm2d(planes \texorpdfstring{$\ast$}{*} self.\+expansion)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a8eba11d8ae24e708c94657fdd32a641f}{relu3}} = nn.\+Re\+LU(inplace=True)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a414c2f1726c87f71b09f02387a5e19ab}{downsample}} = None
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a5cc62aa36f7076dae4ff6a63c09600b2}{stride}} = stride
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a4b9b4c8576398c1d3880bf31c22b3b45}{expansion}} = 4
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements a Res\+Net bottleneck block with optional downsampling. 
+
+This class includes three convolutional layers with Batch\+Norm and Re\+LU activation. An optional downsampling layer is added when the stride is greater than 1 or the input and output channels differ. 
+\begin{DoxyParams}{Parameters}
+{\em inplanes} & Number of input channels. \\
+\hline
+{\em planes} & Number of output channels. \\
+\hline
+{\em stride} & Stride for the second convolution. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00018}{18}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classclip_1_1model_1_1_bottleneck_ac32e5b1250fcee962268b4afee874671}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_ac32e5b1250fcee962268b4afee874671} 
+clip.\+model.\+Bottleneck.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{inplanes}{, }\item[{}]{planes}{, }\item[{}]{stride}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+
+
+Initializes the \doxylink{classclip_1_1model_1_1_bottleneck}{Bottleneck} block. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inplanes} & Number of input channels. \\
+\hline
+{\em planes} & Number of output channels. \\
+\hline
+{\em stride} & Stride for the second convolution. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00025}{25}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ inplanes,\ planes,\ stride=1):}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ super().\_\_init\_\_()}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ all\ conv\ layers\ have\ stride\ 1.\ an\ avgpool\ is\ performed\ after\ the\ second\ convolution\ when\ stride\ >\ 1}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ self.conv1\ =\ nn.Conv2d(inplanes,\ planes,\ 1,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ self.bn1\ =\ nn.BatchNorm2d(planes)}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ self.relu1\ =\ nn.ReLU(inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ self.conv2\ =\ nn.Conv2d(planes,\ planes,\ 3,\ padding=1,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ self.bn2\ =\ nn.BatchNorm2d(planes)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ self.relu2\ =\ nn.ReLU(inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ self.avgpool\ =\ nn.AvgPool2d(stride)\ \textcolor{keywordflow}{if}\ stride\ >\ 1\ \textcolor{keywordflow}{else}\ nn.Identity()}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ self.conv3\ =\ nn.Conv2d(planes,\ planes\ *\ self.expansion,\ 1,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ self.bn3\ =\ nn.BatchNorm2d(planes\ *\ self.expansion)}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ self.relu3\ =\ nn.ReLU(inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ self.downsample\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ self.stride\ =\ stride}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ stride\ >\ 1\ \textcolor{keywordflow}{or}\ inplanes\ !=\ planes\ *\ Bottleneck.expansion:}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ downsampling\ layer\ is\ prepended\ with\ an\ avgpool,\ and\ the\ subsequent\ convolution\ has\ stride\ 1}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ self.downsample\ =\ nn.Sequential(OrderedDict([}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}-\/1"{}},\ nn.AvgPool2d(stride)),}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}0"{}},\ nn.Conv2d(inplanes,\ planes\ *\ self.expansion,\ 1,\ stride=1,\ bias=\textcolor{keyword}{False})),}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}1"{}},\ nn.BatchNorm2d(planes\ *\ self.expansion))}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ ]))}
+\DoxyCodeLine{00053\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classclip_1_1model_1_1_bottleneck_a15ad94d8a001e94baf3e3d8bac25dc67}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!forward@{forward}}
+\index{forward@{forward}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_a15ad94d8a001e94baf3e3d8bac25dc67} 
+clip.\+model.\+Bottleneck.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{torch.\+Tensor}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Forward pass of the \doxylink{classclip_1_1model_1_1_bottleneck}{Bottleneck} block. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Input tensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Output tensor. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00057}{57}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{def\ }forward(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ identity\ =\ x}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ out\ =\ self.relu1(self.bn1(self.conv1(x)))}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ out\ =\ self.relu2(self.bn2(self.conv2(out)))}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ out\ =\ self.avgpool(out)}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ out\ =\ self.bn3(self.conv3(out))}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.downsample\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ identity\ =\ self.downsample(x)}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ out\ +=\ identity}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ out\ =\ self.relu3(out)}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out}
+\DoxyCodeLine{00071\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classclip_1_1model_1_1_bottleneck_a076a284cbd2db51ec5c174b125087ca1}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!avgpool@{avgpool}}
+\index{avgpool@{avgpool}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{avgpool}{avgpool}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_a076a284cbd2db51ec5c174b125087ca1} 
+int clip.\+model.\+Bottleneck.\+avgpool = nn.\+Avg\+Pool2d(\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a5cc62aa36f7076dae4ff6a63c09600b2}{stride}}) if \mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a5cc62aa36f7076dae4ff6a63c09600b2}{stride}} $>$ 1 else nn.\+Identity()}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00037}{37}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_bottleneck_a012b0e4db62cf29e2d72de2272902208}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!bn1@{bn1}}
+\index{bn1@{bn1}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{bn1}{bn1}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_a012b0e4db62cf29e2d72de2272902208} 
+clip.\+model.\+Bottleneck.\+bn1 = nn.\+Batch\+Norm2d(planes)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00030}{30}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_bottleneck_ab0f7816a3e7f7469d307b9fc970d62de}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!bn2@{bn2}}
+\index{bn2@{bn2}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{bn2}{bn2}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_ab0f7816a3e7f7469d307b9fc970d62de} 
+clip.\+model.\+Bottleneck.\+bn2 = nn.\+Batch\+Norm2d(planes)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00034}{34}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_bottleneck_ae817f6556160447251e22f0e720250ec}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!bn3@{bn3}}
+\index{bn3@{bn3}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{bn3}{bn3}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_ae817f6556160447251e22f0e720250ec} 
+clip.\+model.\+Bottleneck.\+bn3 = nn.\+Batch\+Norm2d(planes \texorpdfstring{$\ast$}{*} self.\+expansion)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00040}{40}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_bottleneck_afacc5e67b5e528f0c206d9312f964a83}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!conv1@{conv1}}
+\index{conv1@{conv1}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{conv1}{conv1}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_afacc5e67b5e528f0c206d9312f964a83} 
+clip.\+model.\+Bottleneck.\+conv1 = nn.\+Conv2d(inplanes, planes, 1, bias=False)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00029}{29}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_bottleneck_a18e52a0700f6b06ce187685a4c74ac3b}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!conv2@{conv2}}
+\index{conv2@{conv2}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{conv2}{conv2}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_a18e52a0700f6b06ce187685a4c74ac3b} 
+clip.\+model.\+Bottleneck.\+conv2 = nn.\+Conv2d(planes, planes, 3, padding=1, bias=False)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00033}{33}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_bottleneck_a684bbaf70717f4188d26610a00b6eef9}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!conv3@{conv3}}
+\index{conv3@{conv3}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{conv3}{conv3}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_a684bbaf70717f4188d26610a00b6eef9} 
+clip.\+model.\+Bottleneck.\+conv3 = nn.\+Conv2d(planes, planes \texorpdfstring{$\ast$}{*} self.\+expansion, 1, bias=False)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00039}{39}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_bottleneck_a414c2f1726c87f71b09f02387a5e19ab}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!downsample@{downsample}}
+\index{downsample@{downsample}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{downsample}{downsample}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_a414c2f1726c87f71b09f02387a5e19ab} 
+clip.\+model.\+Bottleneck.\+downsample = None}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00043}{43}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_bottleneck_a4b9b4c8576398c1d3880bf31c22b3b45}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!expansion@{expansion}}
+\index{expansion@{expansion}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{expansion}{expansion}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_a4b9b4c8576398c1d3880bf31c22b3b45} 
+int clip.\+model.\+Bottleneck.\+expansion = 4\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00019}{19}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_bottleneck_ad914b4a03974d794d8112df0bc715565}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!relu1@{relu1}}
+\index{relu1@{relu1}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{relu1}{relu1}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_ad914b4a03974d794d8112df0bc715565} 
+clip.\+model.\+Bottleneck.\+relu1 = nn.\+Re\+LU(inplace=True)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00031}{31}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_bottleneck_a6f29b057f213d8e66134261141190be9}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!relu2@{relu2}}
+\index{relu2@{relu2}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{relu2}{relu2}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_a6f29b057f213d8e66134261141190be9} 
+clip.\+model.\+Bottleneck.\+relu2 = nn.\+Re\+LU(inplace=True)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00035}{35}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_bottleneck_a8eba11d8ae24e708c94657fdd32a641f}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!relu3@{relu3}}
+\index{relu3@{relu3}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{relu3}{relu3}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_a8eba11d8ae24e708c94657fdd32a641f} 
+clip.\+model.\+Bottleneck.\+relu3 = nn.\+Re\+LU(inplace=True)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00041}{41}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_bottleneck_a5cc62aa36f7076dae4ff6a63c09600b2}\index{clip.model.Bottleneck@{clip.model.Bottleneck}!stride@{stride}}
+\index{stride@{stride}!clip.model.Bottleneck@{clip.model.Bottleneck}}
+\doxysubsubsection{\texorpdfstring{stride}{stride}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_bottleneck_a5cc62aa36f7076dae4ff6a63c09600b2} 
+clip.\+model.\+Bottleneck.\+stride = stride}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00044}{44}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{model_8py}{model.\+py}}\end{DoxyCompactItemize}

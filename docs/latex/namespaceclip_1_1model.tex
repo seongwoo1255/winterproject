@@ -1,0 +1,152 @@
+\doxysection{clip.\+model Namespace Reference}
+\hypertarget{namespaceclip_1_1model}{}\label{namespaceclip_1_1model}\index{clip.model@{clip.model}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d}{Attention\+Pool2d}}
+\begin{DoxyCompactList}\small\item\em Implements a 2D attention pooling layer. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_bottleneck}{Bottleneck}}
+\begin{DoxyCompactList}\small\item\em Implements a Res\+Net bottleneck block with optional downsampling. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p}{CLIP}}
+\begin{DoxyCompactList}\small\item\em Implements the \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP} model, combining image and text encoders. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm}}
+\begin{DoxyCompactList}\small\item\em Subclass of Py\+Torch\textquotesingle{}s \doxylink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm} for handling fp16 precision. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net}{Modified\+Res\+Net}}
+\begin{DoxyCompactList}\small\item\em A modified Res\+Net model for \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_quick_g_e_l_u}{Quick\+GELU}}
+\begin{DoxyCompactList}\small\item\em Implements a fast approximation of the GELU activation function. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block}{Residual\+Attention\+Block}}
+\begin{DoxyCompactList}\small\item\em Implements a residual attention block with multi-\/head self-\/attention and MLP layers. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_transformer}{Transformer}}
+\begin{DoxyCompactList}\small\item\em Implements a \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model with residual attention blocks. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer}{Vision\+Transformer}}
+\begin{DoxyCompactList}\small\item\em Implements a Vision \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceclip_1_1model_a6ef6a1b7a73984a4d445c8c95586a058}{convert\+\_\+weights}} (nn.\+Module model)
+\begin{DoxyCompactList}\small\item\em @function convert\+\_\+weights \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceclip_1_1model_a6cf81409a684321860d7a2c1a59bbfaa}{build\+\_\+model}} (dict state\+\_\+dict)
+\begin{DoxyCompactList}\small\item\em @function build\+\_\+model \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceclip_1_1model_a6cf81409a684321860d7a2c1a59bbfaa}\index{clip.model@{clip.model}!build\_model@{build\_model}}
+\index{build\_model@{build\_model}!clip.model@{clip.model}}
+\doxysubsubsection{\texorpdfstring{build\_model()}{build\_model()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1model_a6cf81409a684321860d7a2c1a59bbfaa} 
+clip.\+model.\+build\+\_\+model (\begin{DoxyParamCaption}\item[{dict}]{state\+\_\+dict}{}\end{DoxyParamCaption})}
+
+
+
+@function build\+\_\+model 
+
+Constructs a \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP} model from a given state dictionary.
+
+Initializes the model components based on the state dictionary and loads their weights. 
+\begin{DoxyParams}{Parameters}
+{\em state\+\_\+dict} & A dictionary containing the pre-\/trained model weights. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP} model instance. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00537}{537}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00537\ \textcolor{keyword}{def\ }build\_model(state\_dict:\ dict):}
+\DoxyCodeLine{00538\ \ \ \ \ vit\ =\ \textcolor{stringliteral}{"{}visual.proj"{}}\ \textcolor{keywordflow}{in}\ state\_dict}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00540\ \ \ \ \ \textcolor{keywordflow}{if}\ vit:}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ vision\_width\ =\ state\_dict[\textcolor{stringliteral}{"{}visual.conv1.weight"{}}].shape[0]}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ vision\_layers\ =\ len([k\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ state\_dict.keys()\ \textcolor{keywordflow}{if}\ k.startswith(\textcolor{stringliteral}{"{}visual."{}})\ \textcolor{keywordflow}{and}\ k.endswith(\textcolor{stringliteral}{"{}.attn.in\_proj\_weight"{}})])}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ vision\_patch\_size\ =\ state\_dict[\textcolor{stringliteral}{"{}visual.conv1.weight"{}}].shape[-\/1]}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ grid\_size\ =\ round((state\_dict[\textcolor{stringliteral}{"{}visual.positional\_embedding"{}}].shape[0]\ -\/\ 1)\ **\ 0.5)}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ image\_resolution\ =\ vision\_patch\_size\ *\ grid\_size}
+\DoxyCodeLine{00546\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ counts:\ list\ =\ [len(set(k.split(\textcolor{stringliteral}{"{}."{}})[2]\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ state\_dict\ \textcolor{keywordflow}{if}\ k.startswith(f\textcolor{stringliteral}{"{}visual.layer\{b\}"{}})))\ \textcolor{keywordflow}{for}\ b\ \textcolor{keywordflow}{in}\ [1,\ 2,\ 3,\ 4]]}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ vision\_layers\ =\ tuple(counts)}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ vision\_width\ =\ state\_dict[\textcolor{stringliteral}{"{}visual.layer1.0.conv1.weight"{}}].shape[0]}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ output\_width\ =\ round((state\_dict[\textcolor{stringliteral}{"{}visual.attnpool.positional\_embedding"{}}].shape[0]\ -\/\ 1)\ **\ 0.5)}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ vision\_patch\_size\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ output\_width\ **\ 2\ +\ 1\ ==\ state\_dict[\textcolor{stringliteral}{"{}visual.attnpool.positional\_embedding"{}}].shape[0]}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ image\_resolution\ =\ output\_width\ *\ 32}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00555\ \ \ \ \ embed\_dim\ =\ state\_dict[\textcolor{stringliteral}{"{}text\_projection"{}}].shape[1]}
+\DoxyCodeLine{00556\ \ \ \ \ context\_length\ =\ state\_dict[\textcolor{stringliteral}{"{}positional\_embedding"{}}].shape[0]}
+\DoxyCodeLine{00557\ \ \ \ \ vocab\_size\ =\ state\_dict[\textcolor{stringliteral}{"{}token\_embedding.weight"{}}].shape[0]}
+\DoxyCodeLine{00558\ \ \ \ \ transformer\_width\ =\ state\_dict[\textcolor{stringliteral}{"{}ln\_final.weight"{}}].shape[0]}
+\DoxyCodeLine{00559\ \ \ \ \ transformer\_heads\ =\ transformer\_width\ //\ 64}
+\DoxyCodeLine{00560\ \ \ \ \ transformer\_layers\ =\ len(set(k.split(\textcolor{stringliteral}{"{}."{}})[2]\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ state\_dict\ \textcolor{keywordflow}{if}\ k.startswith(\textcolor{stringliteral}{"{}transformer.resblocks"{}})))}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \ \ \ \ model\ =\ CLIP(}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ embed\_dim,}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ image\_resolution,\ vision\_layers,\ vision\_width,\ vision\_patch\_size,}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ context\_length,\ vocab\_size,\ transformer\_width,\ transformer\_heads,\ transformer\_layers}
+\DoxyCodeLine{00566\ \ \ \ \ )}
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00568\ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ [\textcolor{stringliteral}{"{}input\_resolution"{}},\ \textcolor{stringliteral}{"{}context\_length"{}},\ \textcolor{stringliteral}{"{}vocab\_size"{}}]:}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{in}\ state\_dict:}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ del\ state\_dict[key]}
+\DoxyCodeLine{00571\ }
+\DoxyCodeLine{00572\ \ \ \ \ convert\_weights(model)}
+\DoxyCodeLine{00573\ \ \ \ \ model.load\_state\_dict(state\_dict)}
+\DoxyCodeLine{00574\ \ \ \ \ \textcolor{keywordflow}{return}\ model.eval()}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 0
+\Hypertarget{namespaceclip_1_1model_a6ef6a1b7a73984a4d445c8c95586a058}\index{clip.model@{clip.model}!convert\_weights@{convert\_weights}}
+\index{convert\_weights@{convert\_weights}!clip.model@{clip.model}}
+\doxysubsubsection{\texorpdfstring{convert\_weights()}{convert\_weights()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1model_a6ef6a1b7a73984a4d445c8c95586a058} 
+clip.\+model.\+convert\+\_\+weights (\begin{DoxyParamCaption}\item[{nn.\+Module}]{model}{}\end{DoxyParamCaption})}
+
+
+
+@function convert\+\_\+weights 
+
+Converts model parameters to fp16 precision.
+
+Applies half-\/precision to applicable parameters in the given model. 
+\begin{DoxyParams}{Parameters}
+{\em model} & A Py\+Torch model to convert.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyVerb}Convert applicable model parameters to fp16\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00509}{509}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00509\ \textcolor{keyword}{def\ }convert\_weights(model:\ nn.Module):}
+\DoxyCodeLine{00510\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Convert\ applicable\ model\ parameters\ to\ fp16"{}"{}"{}}}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00512\ \ \ \ \ \textcolor{keyword}{def\ }\_convert\_weights\_to\_fp16(l):}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(l,\ (nn.Conv1d,\ nn.Conv2d,\ nn.Linear)):}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ l.weight.data\ =\ l.weight.data.half()}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ l.bias\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ l.bias.data\ =\ l.bias.data.half()}
+\DoxyCodeLine{00517\ }
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(l,\ nn.MultiheadAttention):}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ attr\ \textcolor{keywordflow}{in}\ [*[f\textcolor{stringliteral}{"{}\{s\}\_proj\_weight"{}}\ \textcolor{keywordflow}{for}\ s\ \textcolor{keywordflow}{in}\ [\textcolor{stringliteral}{"{}in"{}},\ \textcolor{stringliteral}{"{}q"{}},\ \textcolor{stringliteral}{"{}k"{}},\ \textcolor{stringliteral}{"{}v"{}}]],\ \textcolor{stringliteral}{"{}in\_proj\_bias"{}},\ \textcolor{stringliteral}{"{}bias\_k"{}},\ \textcolor{stringliteral}{"{}bias\_v"{}}]:}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tensor\ =\ getattr(l,\ attr)}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ tensor\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tensor.data\ =\ tensor.data.half()}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ name\ \textcolor{keywordflow}{in}\ [\textcolor{stringliteral}{"{}text\_projection"{}},\ \textcolor{stringliteral}{"{}proj"{}}]:}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(l,\ name):}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attr\ =\ getattr(l,\ name)}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attr\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attr.data\ =\ attr.data.half()}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00530\ \ \ \ \ model.apply(\_convert\_weights\_to\_fp16)}
+\DoxyCodeLine{00531\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 1

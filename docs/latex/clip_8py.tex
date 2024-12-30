@@ -1,0 +1,54 @@
+\doxysection{clip.\+py File Reference}
+\hypertarget{clip_8py}{}\label{clip_8py}\index{clip.py@{clip.py}}
+
+
+Implementation of CLIP model utilities, including loading models, tokenization, and preprocessing.  
+
+
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceclip}{clip}}
+\item 
+namespace \mbox{\hyperlink{namespaceclip_1_1clip}{clip.\+clip}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceclip_1_1clip_a4552ed95f75ae2373bfe34672feb1644}{clip.\+clip.\+\_\+download}} (str url, str root)
+\begin{DoxyCompactList}\small\item\em Downloads a model file from a given URL. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceclip_1_1clip_a5c683955d410d35fc5cdf812c3cd055b}{clip.\+clip.\+\_\+convert\+\_\+image\+\_\+to\+\_\+rgb}} (image)
+\begin{DoxyCompactList}\small\item\em Converts an image to RGB format. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceclip_1_1clip_a60e2bbfd64efea3fcc84b04b30e90dba}{clip.\+clip.\+\_\+transform}} (n\+\_\+px)
+\begin{DoxyCompactList}\small\item\em Creates a preprocessing pipeline for images. \end{DoxyCompactList}\item 
+List\mbox{[}str\mbox{]} \mbox{\hyperlink{namespaceclip_1_1clip_af1e29480bb03a4152c2c3dbc0ba6e5f4}{clip.\+clip.\+available\+\_\+models}} ()
+\begin{DoxyCompactList}\small\item\em Lists the names of available pre-\/trained CLIP models. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceclip_1_1clip_ada9638365db32df0a68806aa2554b186}{clip.\+clip.\+load}} (str name, Union\mbox{[}str, torch.\+device\mbox{]} device="{}cuda"{} if torch.\+cuda.\+is\+\_\+available() else "{}cpu"{}, bool jit=False, str download\+\_\+root=None)
+\begin{DoxyCompactList}\small\item\em Loads a CLIP model. \end{DoxyCompactList}\item 
+Union\mbox{[}torch.\+Int\+Tensor, torch.\+Long\+Tensor\mbox{]} \mbox{\hyperlink{namespaceclip_1_1clip_a36a01501a3d7c1632f3ddc785e8b8eb3}{clip.\+clip.\+tokenize}} (Union\mbox{[}str, List\mbox{[}str\mbox{]}\mbox{]} texts, int context\+\_\+length=77, bool truncate=False)
+\begin{DoxyCompactList}\small\item\em Tokenizes input text(s) for use with CLIP models. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceclip_1_1clip_a28c010f6f72c2bdea5c8cdbf0d0c18bb}{clip.\+clip.\+BICUBIC}} = Interpolation\+Mode.\+BICUBIC
+\item 
+list \mbox{\hyperlink{namespaceclip_1_1clip_a08c0656583a40bb7efbd1d6683627d73}{clip.\+clip.\+\_\+\+\_\+all\+\_\+\+\_\+}} = \mbox{[}"{}available\+\_\+models"{}, "{}load"{}, "{}tokenize"{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceclip_1_1clip_a17b88d157d1798d253cbe86f34466ae2}{clip.\+clip.\+\_\+tokenizer}} = \+\_\+\+Tokenizer()
+\item 
+dict \mbox{\hyperlink{namespaceclip_1_1clip_a414e1aa5cd9650d22dea529ffb6c8625}{clip.\+clip.\+\_\+\+MODELS}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of CLIP model utilities, including loading models, tokenization, and preprocessing. 
+
+This module provides functionalities to handle CLIP models, including downloading pre-\/trained weights, processing input data, and tokenizing text for model input. @dependencies
+\begin{DoxyItemize}
+\item torch\texorpdfstring{$>$}{>}=1.\+7.\+1
+\item torchvision
+\item tqdm 
+\end{DoxyItemize}
+
+Definition in file \mbox{\hyperlink{clip_8py_source}{clip.\+py}}.
+

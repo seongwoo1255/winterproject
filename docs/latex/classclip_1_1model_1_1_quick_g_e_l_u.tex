@@ -1,0 +1,64 @@
+\doxysection{clip.\+model.\+Quick\+GELU Class Reference}
+\hypertarget{classclip_1_1model_1_1_quick_g_e_l_u}{}\label{classclip_1_1model_1_1_quick_g_e_l_u}\index{clip.model.QuickGELU@{clip.model.QuickGELU}}
+
+
+Implements a fast approximation of the GELU activation function.  
+
+
+
+
+Inheritance diagram for clip.\+model.\+Quick\+GELU\+:
+% FIG 0
+
+
+Collaboration diagram for clip.\+model.\+Quick\+GELU\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_quick_g_e_l_u_a8fa36020d3f76827331a25c26a4fbbde}{forward}} (self, torch.\+Tensor x)
+\begin{DoxyCompactList}\small\item\em Forward pass of \doxylink{classclip_1_1model_1_1_quick_g_e_l_u}{Quick\+GELU} activation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements a fast approximation of the GELU activation function. 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00220}{220}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classclip_1_1model_1_1_quick_g_e_l_u_a8fa36020d3f76827331a25c26a4fbbde}\index{clip.model.QuickGELU@{clip.model.QuickGELU}!forward@{forward}}
+\index{forward@{forward}!clip.model.QuickGELU@{clip.model.QuickGELU}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_quick_g_e_l_u_a8fa36020d3f76827331a25c26a4fbbde} 
+clip.\+model.\+Quick\+GELU.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{torch.\+Tensor}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Forward pass of \doxylink{classclip_1_1model_1_1_quick_g_e_l_u}{Quick\+GELU} activation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Input tensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Output tensor after applying GELU. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00224}{224}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keyword}{def\ }forward(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x\ *\ torch.sigmoid(1.702\ *\ x)}
+\DoxyCodeLine{00226\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{model_8py}{model.\+py}}\end{DoxyCompactItemize}

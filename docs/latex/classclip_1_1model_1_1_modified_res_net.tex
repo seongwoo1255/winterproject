@@ -1,0 +1,437 @@
+\doxysection{clip.\+model.\+Modified\+Res\+Net Class Reference}
+\hypertarget{classclip_1_1model_1_1_modified_res_net}{}\label{classclip_1_1model_1_1_modified_res_net}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+
+
+A modified Res\+Net model for \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP}.  
+
+
+
+
+Inheritance diagram for clip.\+model.\+Modified\+Res\+Net\+:
+% FIG 0
+
+
+Collaboration diagram for clip.\+model.\+Modified\+Res\+Net\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_acebba270b3524d3f24f8f0d9f23a34bd}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, layers, \mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a1937e1f0c6b62a95bbbc9b6864d7e023}{output\+\_\+dim}}, heads, \mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a4275994582aa1d6eb1c8f23d7f32ecd2}{input\+\_\+resolution}}=224, width=64)
+\begin{DoxyCompactList}\small\item\em Initializes the \doxylink{classclip_1_1model_1_1_modified_res_net}{Modified\+Res\+Net} model. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a0dd834ae091787ae3120c70f5e5b8a43}{forward}} (self, x)
+\begin{DoxyCompactList}\small\item\em Forward pass of the \doxylink{classclip_1_1model_1_1_modified_res_net}{Modified\+Res\+Net} model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a1937e1f0c6b62a95bbbc9b6864d7e023}{output\+\_\+dim}} = output\+\_\+dim
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a4275994582aa1d6eb1c8f23d7f32ecd2}{input\+\_\+resolution}} = input\+\_\+resolution
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a164a28522af981867fa4848155fff5be}{conv1}} = nn.\+Conv2d(3, width // 2, kernel\+\_\+size=3, stride=2, padding=1, bias=False)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ae839310d7789ebd7435b2e702d5205a4}{bn1}} = nn.\+Batch\+Norm2d(width // 2)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a1e69eb52bf3a6922393d368888962920}{relu1}} = nn.\+Re\+LU(inplace=True)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_aff7d8087cf8dcb4a6aa5099426d6ace2}{conv2}} = nn.\+Conv2d(width // 2, width // 2, kernel\+\_\+size=3, padding=1, bias=False)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ac69869291401bdfd726693bbd6d14774}{bn2}} = nn.\+Batch\+Norm2d(width // 2)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ac4f0b4792ec2e1f259a2dd6b32998f2b}{relu2}} = nn.\+Re\+LU(inplace=True)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a5b3f23c9b99e156321c62485b8b85811}{conv3}} = nn.\+Conv2d(width // 2, width, kernel\+\_\+size=3, padding=1, bias=False)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a555f24d758a5ac9bd2e806ef1af76155}{bn3}} = nn.\+Batch\+Norm2d(width)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a98e87f4076062d291a9e42acb6c8fb43}{relu3}} = nn.\+Re\+LU(inplace=True)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a3215cef9e2c2f043b83c09ea03a036e5}{avgpool}} = nn.\+Avg\+Pool2d(2)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ad03d54e2ecf34e44c23993aa3b41a6d4}{layer1}} = self.\+\_\+make\+\_\+layer(width, layers\mbox{[}0\mbox{]})
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a69fc021ed64e4f927ab132e3cddd3ed8}{layer2}} = self.\+\_\+make\+\_\+layer(width \texorpdfstring{$\ast$}{*} 2, layers\mbox{[}1\mbox{]}, stride=2)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a200bafb840b761bd6e8061a55efb18a6}{layer3}} = self.\+\_\+make\+\_\+layer(width \texorpdfstring{$\ast$}{*} 4, layers\mbox{[}2\mbox{]}, stride=2)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a6e435b968376c493c6c47cee9ecd1b35}{layer4}} = self.\+\_\+make\+\_\+layer(width \texorpdfstring{$\ast$}{*} 8, layers\mbox{[}3\mbox{]}, stride=2)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a12ae72109c0f04987b195180d14cc240}{attnpool}} = \mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d}{Attention\+Pool2d}}(\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a4275994582aa1d6eb1c8f23d7f32ecd2}{input\+\_\+resolution}} // 32, embed\+\_\+dim, heads, \mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a1937e1f0c6b62a95bbbc9b6864d7e023}{output\+\_\+dim}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_aabbf08090062cc512ac9b810cc5e8238}{\+\_\+make\+\_\+layer}} (self, planes, blocks, stride=1)
+\begin{DoxyCompactList}\small\item\em Creates a residual layer with bottleneck blocks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a230a089c65e1ca17513b28f0fea2ab54}{\+\_\+inplanes}} = width
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A modified Res\+Net model for \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP}. 
+
+\begin{DoxyVerb}A ResNet class that is similar to torchvision's but contains the following changes:
+- There are now 3 "stem" convolutions as opposed to 1, with an average pool instead of a max pool.
+- Performs anti-aliasing strided convolutions, where an avgpool is prepended to convolutions with stride > 1
+- The final pooling layer is a QKV attention instead of an average pool
+\end{DoxyVerb}
+
+
+Introduces a 3-\/layer stem and anti-\/aliasing convolutions. The final pooling layer is replaced by a QKV attention mechanism. 
+\begin{DoxyParams}{Parameters}
+{\em layers} & A list of integers specifying the number of bottleneck blocks in each layer. \\
+\hline
+{\em output\+\_\+dim} & Dimensionality of the output embeddings. \\
+\hline
+{\em heads} & Number of attention heads for the attention pooling layer. \\
+\hline
+{\em input\+\_\+resolution} & Input image resolution. \\
+\hline
+{\em width} & Width of the Res\+Net\textquotesingle{}s initial convolutional layer. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00130}{130}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_acebba270b3524d3f24f8f0d9f23a34bd}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_acebba270b3524d3f24f8f0d9f23a34bd} 
+clip.\+model.\+Modified\+Res\+Net.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{layers}{, }\item[{}]{output\+\_\+dim}{, }\item[{}]{heads}{, }\item[{}]{input\+\_\+resolution}{ = {\ttfamily 224}, }\item[{}]{width}{ = {\ttfamily 64}}\end{DoxyParamCaption})}
+
+
+
+Initializes the \doxylink{classclip_1_1model_1_1_modified_res_net}{Modified\+Res\+Net} model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layers} & A list of integers specifying the number of bottleneck blocks in each layer. \\
+\hline
+{\em output\+\_\+dim} & Dimensionality of the output embeddings. \\
+\hline
+{\em heads} & Number of attention heads for the attention pooling layer. \\
+\hline
+{\em input\+\_\+resolution} & Input image resolution. \\
+\hline
+{\em width} & Width of the Res\+Net\textquotesingle{}s initial convolutional layer. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00143}{143}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ layers,\ output\_dim,\ heads,\ input\_resolution=224,\ width=64):}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ super().\_\_init\_\_()}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ self.output\_dim\ =\ output\_dim}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ self.input\_resolution\ =\ input\_resolution}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ the\ 3-\/layer\ stem}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ self.conv1\ =\ nn.Conv2d(3,\ width\ //\ 2,\ kernel\_size=3,\ stride=2,\ padding=1,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ self.bn1\ =\ nn.BatchNorm2d(width\ //\ 2)}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ self.relu1\ =\ nn.ReLU(inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ self.conv2\ =\ nn.Conv2d(width\ //\ 2,\ width\ //\ 2,\ kernel\_size=3,\ padding=1,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ self.bn2\ =\ nn.BatchNorm2d(width\ //\ 2)}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ self.relu2\ =\ nn.ReLU(inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ self.conv3\ =\ nn.Conv2d(width\ //\ 2,\ width,\ kernel\_size=3,\ padding=1,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ self.bn3\ =\ nn.BatchNorm2d(width)}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ self.relu3\ =\ nn.ReLU(inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ self.avgpool\ =\ nn.AvgPool2d(2)}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ residual\ layers}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ self.\_inplanes\ =\ width\ \ \textcolor{comment}{\#\ this\ is\ a\ *mutable*\ variable\ used\ during\ construction}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ self.layer1\ =\ self.\_make\_layer(width,\ layers[0])}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ self.layer2\ =\ self.\_make\_layer(width\ *\ 2,\ layers[1],\ stride=2)}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ self.layer3\ =\ self.\_make\_layer(width\ *\ 4,\ layers[2],\ stride=2)}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ self.layer4\ =\ self.\_make\_layer(width\ *\ 8,\ layers[3],\ stride=2)}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ embed\_dim\ =\ width\ *\ 32\ \ \textcolor{comment}{\#\ the\ ResNet\ feature\ dimension}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ self.attnpool\ =\ AttentionPool2d(input\_resolution\ //\ 32,\ embed\_dim,\ heads,\ output\_dim)}
+\DoxyCodeLine{00169\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_aabbf08090062cc512ac9b810cc5e8238}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!\_make\_layer@{\_make\_layer}}
+\index{\_make\_layer@{\_make\_layer}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{\_make\_layer()}{\_make\_layer()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_aabbf08090062cc512ac9b810cc5e8238} 
+clip.\+model.\+Modified\+Res\+Net.\+\_\+make\+\_\+layer (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{planes}{, }\item[{}]{blocks}{, }\item[{}]{stride}{ = {\ttfamily 1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Creates a residual layer with bottleneck blocks. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em planes} & Number of output planes. \\
+\hline
+{\em blocks} & Number of bottleneck blocks. \\
+\hline
+{\em stride} & Stride for the first bottleneck block. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A sequential container of bottleneck blocks. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00175}{175}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{def\ }\_make\_layer(self,\ planes,\ blocks,\ stride=1):}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ layers\ =\ [Bottleneck(self.\_inplanes,\ planes,\ stride)]}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ self.\_inplanes\ =\ planes\ *\ Bottleneck.expansion}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(1,\ blocks):}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ layers.append(Bottleneck(self.\_inplanes,\ planes))}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nn.Sequential(*layers)}
+\DoxyCodeLine{00183\ }
+
+\end{DoxyCode}
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a0dd834ae091787ae3120c70f5e5b8a43}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!forward@{forward}}
+\index{forward@{forward}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a0dd834ae091787ae3120c70f5e5b8a43} 
+clip.\+model.\+Modified\+Res\+Net.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Forward pass of the \doxylink{classclip_1_1model_1_1_modified_res_net}{Modified\+Res\+Net} model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Input tensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Output tensor. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00187}{187}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{def\ }forward(self,\ x):}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keyword}{def\ }stem(x):}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ self.relu1(self.bn1(self.conv1(x)))}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ self.relu2(self.bn2(self.conv2(x)))}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ self.relu3(self.bn3(self.conv3(x)))}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ self.avgpool(x)}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ x\ =\ x.type(self.conv1.weight.dtype)}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ x\ =\ stem(x)}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ x\ =\ self.layer1(x)}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ x\ =\ self.layer2(x)}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ x\ =\ self.layer3(x)}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ x\ =\ self.layer4(x)}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ x\ =\ self.attnpool(x)}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x}
+\DoxyCodeLine{00204\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a230a089c65e1ca17513b28f0fea2ab54}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!\_inplanes@{\_inplanes}}
+\index{\_inplanes@{\_inplanes}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{\_inplanes}{\_inplanes}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a230a089c65e1ca17513b28f0fea2ab54} 
+clip.\+model.\+Modified\+Res\+Net.\+\_\+inplanes = width\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00161}{161}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a12ae72109c0f04987b195180d14cc240}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!attnpool@{attnpool}}
+\index{attnpool@{attnpool}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{attnpool}{attnpool}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a12ae72109c0f04987b195180d14cc240} 
+clip.\+model.\+Modified\+Res\+Net.\+attnpool = \mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d}{Attention\+Pool2d}}(\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a4275994582aa1d6eb1c8f23d7f32ecd2}{input\+\_\+resolution}} // 32, embed\+\_\+dim, heads, \mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a1937e1f0c6b62a95bbbc9b6864d7e023}{output\+\_\+dim}})}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00168}{168}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a3215cef9e2c2f043b83c09ea03a036e5}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!avgpool@{avgpool}}
+\index{avgpool@{avgpool}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{avgpool}{avgpool}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a3215cef9e2c2f043b83c09ea03a036e5} 
+clip.\+model.\+Modified\+Res\+Net.\+avgpool = nn.\+Avg\+Pool2d(2)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00158}{158}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_ae839310d7789ebd7435b2e702d5205a4}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!bn1@{bn1}}
+\index{bn1@{bn1}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{bn1}{bn1}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_ae839310d7789ebd7435b2e702d5205a4} 
+clip.\+model.\+Modified\+Res\+Net.\+bn1 = nn.\+Batch\+Norm2d(width // 2)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00150}{150}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_ac69869291401bdfd726693bbd6d14774}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!bn2@{bn2}}
+\index{bn2@{bn2}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{bn2}{bn2}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_ac69869291401bdfd726693bbd6d14774} 
+clip.\+model.\+Modified\+Res\+Net.\+bn2 = nn.\+Batch\+Norm2d(width // 2)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00153}{153}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a555f24d758a5ac9bd2e806ef1af76155}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!bn3@{bn3}}
+\index{bn3@{bn3}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{bn3}{bn3}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a555f24d758a5ac9bd2e806ef1af76155} 
+clip.\+model.\+Modified\+Res\+Net.\+bn3 = nn.\+Batch\+Norm2d(width)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00156}{156}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a164a28522af981867fa4848155fff5be}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!conv1@{conv1}}
+\index{conv1@{conv1}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{conv1}{conv1}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a164a28522af981867fa4848155fff5be} 
+clip.\+model.\+Modified\+Res\+Net.\+conv1 = nn.\+Conv2d(3, width // 2, kernel\+\_\+size=3, stride=2, padding=1, bias=False)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00149}{149}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_aff7d8087cf8dcb4a6aa5099426d6ace2}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!conv2@{conv2}}
+\index{conv2@{conv2}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{conv2}{conv2}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_aff7d8087cf8dcb4a6aa5099426d6ace2} 
+clip.\+model.\+Modified\+Res\+Net.\+conv2 = nn.\+Conv2d(width // 2, width // 2, kernel\+\_\+size=3, padding=1, bias=False)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00152}{152}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a5b3f23c9b99e156321c62485b8b85811}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!conv3@{conv3}}
+\index{conv3@{conv3}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{conv3}{conv3}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a5b3f23c9b99e156321c62485b8b85811} 
+clip.\+model.\+Modified\+Res\+Net.\+conv3 = nn.\+Conv2d(width // 2, width, kernel\+\_\+size=3, padding=1, bias=False)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00155}{155}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a4275994582aa1d6eb1c8f23d7f32ecd2}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!input\_resolution@{input\_resolution}}
+\index{input\_resolution@{input\_resolution}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{input\_resolution}{input\_resolution}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a4275994582aa1d6eb1c8f23d7f32ecd2} 
+clip.\+model.\+Modified\+Res\+Net.\+input\+\_\+resolution = input\+\_\+resolution}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00146}{146}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_ad03d54e2ecf34e44c23993aa3b41a6d4}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!layer1@{layer1}}
+\index{layer1@{layer1}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{layer1}{layer1}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_ad03d54e2ecf34e44c23993aa3b41a6d4} 
+clip.\+model.\+Modified\+Res\+Net.\+layer1 = self.\+\_\+make\+\_\+layer(width, layers\mbox{[}0\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00162}{162}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a69fc021ed64e4f927ab132e3cddd3ed8}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!layer2@{layer2}}
+\index{layer2@{layer2}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{layer2}{layer2}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a69fc021ed64e4f927ab132e3cddd3ed8} 
+clip.\+model.\+Modified\+Res\+Net.\+layer2 = self.\+\_\+make\+\_\+layer(width \texorpdfstring{$\ast$}{*} 2, layers\mbox{[}1\mbox{]}, stride=2)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00163}{163}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a200bafb840b761bd6e8061a55efb18a6}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!layer3@{layer3}}
+\index{layer3@{layer3}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{layer3}{layer3}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a200bafb840b761bd6e8061a55efb18a6} 
+clip.\+model.\+Modified\+Res\+Net.\+layer3 = self.\+\_\+make\+\_\+layer(width \texorpdfstring{$\ast$}{*} 4, layers\mbox{[}2\mbox{]}, stride=2)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00164}{164}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a6e435b968376c493c6c47cee9ecd1b35}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!layer4@{layer4}}
+\index{layer4@{layer4}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{layer4}{layer4}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a6e435b968376c493c6c47cee9ecd1b35} 
+clip.\+model.\+Modified\+Res\+Net.\+layer4 = self.\+\_\+make\+\_\+layer(width \texorpdfstring{$\ast$}{*} 8, layers\mbox{[}3\mbox{]}, stride=2)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00165}{165}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a1937e1f0c6b62a95bbbc9b6864d7e023}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!output\_dim@{output\_dim}}
+\index{output\_dim@{output\_dim}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{output\_dim}{output\_dim}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a1937e1f0c6b62a95bbbc9b6864d7e023} 
+clip.\+model.\+Modified\+Res\+Net.\+output\+\_\+dim = output\+\_\+dim}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00145}{145}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a1e69eb52bf3a6922393d368888962920}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!relu1@{relu1}}
+\index{relu1@{relu1}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{relu1}{relu1}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a1e69eb52bf3a6922393d368888962920} 
+clip.\+model.\+Modified\+Res\+Net.\+relu1 = nn.\+Re\+LU(inplace=True)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00151}{151}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_ac4f0b4792ec2e1f259a2dd6b32998f2b}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!relu2@{relu2}}
+\index{relu2@{relu2}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{relu2}{relu2}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_ac4f0b4792ec2e1f259a2dd6b32998f2b} 
+clip.\+model.\+Modified\+Res\+Net.\+relu2 = nn.\+Re\+LU(inplace=True)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00154}{154}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_modified_res_net_a98e87f4076062d291a9e42acb6c8fb43}\index{clip.model.ModifiedResNet@{clip.model.ModifiedResNet}!relu3@{relu3}}
+\index{relu3@{relu3}!clip.model.ModifiedResNet@{clip.model.ModifiedResNet}}
+\doxysubsubsection{\texorpdfstring{relu3}{relu3}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_modified_res_net_a98e87f4076062d291a9e42acb6c8fb43} 
+clip.\+model.\+Modified\+Res\+Net.\+relu3 = nn.\+Re\+LU(inplace=True)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00157}{157}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{model_8py}{model.\+py}}\end{DoxyCompactItemize}

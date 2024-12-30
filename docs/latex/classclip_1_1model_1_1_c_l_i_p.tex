@@ -1,0 +1,504 @@
+\doxysection{clip.\+model.\+CLIP Class Reference}
+\hypertarget{classclip_1_1model_1_1_c_l_i_p}{}\label{classclip_1_1model_1_1_c_l_i_p}\index{clip.model.CLIP@{clip.model.CLIP}}
+
+
+Implements the \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP} model, combining image and text encoders.  
+
+
+
+
+Inheritance diagram for clip.\+model.\+CLIP\+:
+% FIG 0
+
+
+Collaboration diagram for clip.\+model.\+CLIP\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a8d1e2ffcf6520a488132ff393bfff386}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int embed\+\_\+dim, int image\+\_\+resolution, Union\mbox{[}Tuple\mbox{[}int, int, int, int\mbox{]}, int\mbox{]} vision\+\_\+layers, int vision\+\_\+width, int vision\+\_\+patch\+\_\+size, int \mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a507cb107c0aadc7b6b8c162a568266d4}{context\+\_\+length}}, int \mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a68e0021f22c5fddfa0eea90e40845ab8}{vocab\+\_\+size}}, int transformer\+\_\+width, int transformer\+\_\+heads, int transformer\+\_\+layers)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a40e42eae077827d352c674e803af8808}{initialize\+\_\+parameters}} (self)
+\begin{DoxyCompactList}\small\item\em Initializes the weights and biases of the model. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a9475e9be8be2d6ea4084e802eab36ec3}{build\+\_\+attention\+\_\+mask}} (self)
+\begin{DoxyCompactList}\small\item\em Builds the attention mask for causal masking. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aa7f1c0e681a38f249c7fd2cc9013a953}{dtype}} (self)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a3283ef0bb587bdeb878c412767740bfe}{encode\+\_\+image}} (self, image)
+\begin{DoxyCompactList}\small\item\em Encodes an input image to produce visual embeddings. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a8a37611292e5b35fd317bec829ae88fe}{encode\+\_\+text}} (self, text)
+\begin{DoxyCompactList}\small\item\em Encodes input text to produce textual embeddings. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a1c43021197ab17b78bebd15b2a734ab8}{forward}} (self, image, text)
+\begin{DoxyCompactList}\small\item\em Performs a forward pass through the \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP} model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a507cb107c0aadc7b6b8c162a568266d4}{context\+\_\+length}} = context\+\_\+length
+\begin{DoxyCompactList}\small\item\em Initializes the \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP} model with specified parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a652d8b263c38b95087670010bd9cc5e7}{transformer}}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a68e0021f22c5fddfa0eea90e40845ab8}{vocab\+\_\+size}} = vocab\+\_\+size
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a1cc14071ccd1bd3b4cc8a75783c20284}{token\+\_\+embedding}} = nn.\+Embedding(\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a68e0021f22c5fddfa0eea90e40845ab8}{vocab\+\_\+size}}, transformer\+\_\+width)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a20a07f08c6d69a1bf4b292723226717d}{positional\+\_\+embedding}} = nn.\+Parameter(torch.\+empty(self.\+context\+\_\+length, transformer\+\_\+width))
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a8ea9f1df6445dd02515c91fd8547e68a}{ln\+\_\+final}} = \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm}}(transformer\+\_\+width)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a7aeab79fc8796b38fbd3db56b492a85e}{text\+\_\+projection}} = nn.\+Parameter(torch.\+empty(transformer\+\_\+width, embed\+\_\+dim))
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a709f97a0082741b6df0d0c33c018f4ca}{logit\+\_\+scale}} = nn.\+Parameter(torch.\+ones(\mbox{[}$\,$\mbox{]}) \texorpdfstring{$\ast$}{*} np.\+log(1 / 0.\+07))
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_afc9520e89b7aedfda8d9f73a9eb9d0aa}{dtype}}
+\begin{DoxyCompactList}\small\item\em Returns the data type of the model\textquotesingle{}s visual convolutional layer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements the \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP} model, combining image and text encoders. 
+
+Encodes image and text inputs into a shared embedding space, enabling multimodal understanding. 
+\begin{DoxyParams}{Parameters}
+{\em embed\+\_\+dim} & Dimensionality of the shared embeddings. \\
+\hline
+{\em image\+\_\+resolution} & Resolution of input images. \\
+\hline
+{\em vision\+\_\+layers} & Specification of the vision encoder\textquotesingle{}s layers. \\
+\hline
+{\em vision\+\_\+width} & Width of the vision encoder. \\
+\hline
+{\em vision\+\_\+patch\+\_\+size} & Patch size for the Vision \doxylink{classclip_1_1model_1_1_transformer}{Transformer} (if used). \\
+\hline
+{\em context\+\_\+length} & Maximum context length for text inputs. \\
+\hline
+{\em vocab\+\_\+size} & Size of the text vocabulary. \\
+\hline
+{\em transformer\+\_\+width} & Dimensionality of the text embeddings. \\
+\hline
+{\em transformer\+\_\+heads} & Number of attention heads in the text encoder. \\
+\hline
+{\em transformer\+\_\+layers} & Number of layers in the text encoder. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00358}{358}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a8d1e2ffcf6520a488132ff393bfff386}\index{clip.model.CLIP@{clip.model.CLIP}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a8d1e2ffcf6520a488132ff393bfff386} 
+clip.\+model.\+CLIP.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{embed\+\_\+dim}{, }\item[{int}]{image\+\_\+resolution}{, }\item[{Union\mbox{[}Tuple\mbox{[}int, int, int, int\mbox{]}, int\mbox{]}}]{vision\+\_\+layers}{, }\item[{int}]{vision\+\_\+width}{, }\item[{int}]{vision\+\_\+patch\+\_\+size}{, }\item[{int}]{context\+\_\+length}{, }\item[{int}]{vocab\+\_\+size}{, }\item[{int}]{transformer\+\_\+width}{, }\item[{int}]{transformer\+\_\+heads}{, }\item[{int                  }]{transformer\+\_\+layers}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00359}{359}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ):}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ super().\_\_init\_\_()}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ self.context\_length\ =\ context\_length}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(vision\_layers,\ (tuple,\ list)):}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ vision\_heads\ =\ vision\_width\ *\ 32\ //\ 64}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ self.visual\ =\ ModifiedResNet(}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layers=vision\_layers,}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_dim=embed\_dim,}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heads=vision\_heads,}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_resolution=image\_resolution,}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width=vision\_width}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ vision\_heads\ =\ vision\_width\ //\ 64}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ self.visual\ =\ VisionTransformer(}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_resolution=image\_resolution,}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ patch\_size=vision\_patch\_size,}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width=vision\_width,}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layers=vision\_layers,}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heads=vision\_heads,}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_dim=embed\_dim}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ self.transformer\ =\ Transformer(}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ width=transformer\_width,}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ layers=transformer\_layers,}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ heads=transformer\_heads,}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_mask=self.build\_attention\_mask()}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ self.vocab\_size\ =\ vocab\_size}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ self.token\_embedding\ =\ nn.Embedding(vocab\_size,\ transformer\_width)}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ self.positional\_embedding\ =\ nn.Parameter(torch.empty(self.context\_length,\ transformer\_width))}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ self.ln\_final\ =\ LayerNorm(transformer\_width)}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ self.text\_projection\ =\ nn.Parameter(torch.empty(transformer\_width,\ embed\_dim))}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ self.logit\_scale\ =\ nn.Parameter(torch.ones([])\ *\ np.log(1\ /\ 0.07))}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ self.initialize\_parameters()}
+\DoxyCodeLine{00414\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a9475e9be8be2d6ea4084e802eab36ec3}\index{clip.model.CLIP@{clip.model.CLIP}!build\_attention\_mask@{build\_attention\_mask}}
+\index{build\_attention\_mask@{build\_attention\_mask}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{build\_attention\_mask()}{build\_attention\_mask()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a9475e9be8be2d6ea4084e802eab36ec3} 
+clip.\+model.\+CLIP.\+build\+\_\+attention\+\_\+mask (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Builds the attention mask for causal masking. 
+
+\begin{DoxyReturn}{Returns}
+A causal attention mask with additive -\/inf values for disallowed positions. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00447}{447}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00447\ \ \ \ \ \textcolor{keyword}{def\ }build\_attention\_mask(self):}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ lazily\ create\ causal\ attention\ mask,\ with\ full\ attention\ between\ the\ vision\ tokens}}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ pytorch\ uses\ additive\ attention\ mask;\ fill\ with\ -\/inf}}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ mask\ =\ torch.empty(self.context\_length,\ self.context\_length)}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ mask.fill\_(float(\textcolor{stringliteral}{"{}-\/inf"{}}))}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ mask.triu\_(1)\ \ \textcolor{comment}{\#\ zero\ out\ the\ lower\ diagonal}}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mask}
+\DoxyCodeLine{00454\ }
+
+\end{DoxyCode}
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_aa7f1c0e681a38f249c7fd2cc9013a953}\index{clip.model.CLIP@{clip.model.CLIP}!dtype@{dtype}}
+\index{dtype@{dtype}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{dtype()}{dtype()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_aa7f1c0e681a38f249c7fd2cc9013a953} 
+clip.\+model.\+CLIP.\+dtype (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00458}{458}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00458\ \ \ \ \ \textcolor{keyword}{def\ }dtype(self):}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.visual.conv1.weight.dtype}
+\DoxyCodeLine{00460\ }
+
+\end{DoxyCode}
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a3283ef0bb587bdeb878c412767740bfe}\index{clip.model.CLIP@{clip.model.CLIP}!encode\_image@{encode\_image}}
+\index{encode\_image@{encode\_image}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{encode\_image()}{encode\_image()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a3283ef0bb587bdeb878c412767740bfe} 
+clip.\+model.\+CLIP.\+encode\+\_\+image (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{image}{}\end{DoxyParamCaption})}
+
+
+
+Encodes an input image to produce visual embeddings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & A tensor representing the input image. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A tensor of visual embeddings. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00464}{464}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00464\ \ \ \ \ \textcolor{keyword}{def\ }encode\_image(self,\ image):}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.visual(image.type(self.dtype))}
+\DoxyCodeLine{00466\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 4
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a8a37611292e5b35fd317bec829ae88fe}\index{clip.model.CLIP@{clip.model.CLIP}!encode\_text@{encode\_text}}
+\index{encode\_text@{encode\_text}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{encode\_text()}{encode\_text()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a8a37611292e5b35fd317bec829ae88fe} 
+clip.\+model.\+CLIP.\+encode\+\_\+text (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{text}{}\end{DoxyParamCaption})}
+
+
+
+Encodes input text to produce textual embeddings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & A tensor representing tokenized input text. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A tensor of text embeddings. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00470}{470}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00470\ \ \ \ \ \textcolor{keyword}{def\ }encode\_text(self,\ text):}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ x\ =\ self.token\_embedding(text).type(self.dtype)\ \ \textcolor{comment}{\#\ [batch\_size,\ n\_ctx,\ d\_model]}}
+\DoxyCodeLine{00472\ }
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ x\ =\ x\ +\ self.positional\_embedding.type(self.dtype)}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ x\ =\ x.permute(1,\ 0,\ 2)\ \ \textcolor{comment}{\#\ NLD\ -\/>\ LND}}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ x\ =\ self.transformer(x)}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ x\ =\ x.permute(1,\ 0,\ 2)\ \ \textcolor{comment}{\#\ LND\ -\/>\ NLD}}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ x\ =\ self.ln\_final(x).type(self.dtype)}
+\DoxyCodeLine{00478\ }
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ x.shape\ =\ [batch\_size,\ n\_ctx,\ transformer.width]}}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ take\ features\ from\ the\ eot\ embedding\ (eot\_token\ is\ the\ highest\ number\ in\ each\ sequence)}}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ x\ =\ x[torch.arange(x.shape[0]),\ text.argmax(dim=-\/1)]\ @\ self.text\_projection}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x}
+\DoxyCodeLine{00484\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 5
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a1c43021197ab17b78bebd15b2a734ab8}\index{clip.model.CLIP@{clip.model.CLIP}!forward@{forward}}
+\index{forward@{forward}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a1c43021197ab17b78bebd15b2a734ab8} 
+clip.\+model.\+CLIP.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{image}{, }\item[{}]{text}{}\end{DoxyParamCaption})}
+
+
+
+Performs a forward pass through the \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP} model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & A tensor representing the input image. \\
+\hline
+{\em text} & A tensor representing tokenized input text. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A tuple of logits for image-\/to-\/text and text-\/to-\/image similarities. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00489}{489}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keyword}{def\ }forward(self,\ image,\ text):}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ image\_features\ =\ self.encode\_image(image)}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ text\_features\ =\ self.encode\_text(text)}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ normalized\ features}}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ image\_features\ =\ image\_features\ /\ image\_features.norm(dim=1,\ keepdim=\textcolor{keyword}{True})}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ text\_features\ =\ text\_features\ /\ text\_features.norm(dim=1,\ keepdim=\textcolor{keyword}{True})}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ cosine\ similarity\ as\ logits}}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ logit\_scale\ =\ self.logit\_scale.exp()}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ logits\_per\_image\ =\ logit\_scale\ *\ image\_features\ @\ text\_features.t()}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ logits\_per\_text\ =\ logits\_per\_image.t()}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ shape\ =\ [global\_batch\_size,\ global\_batch\_size]}}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ logits\_per\_image,\ logits\_per\_text}
+\DoxyCodeLine{00504\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 6
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a40e42eae077827d352c674e803af8808}\index{clip.model.CLIP@{clip.model.CLIP}!initialize\_parameters@{initialize\_parameters}}
+\index{initialize\_parameters@{initialize\_parameters}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{initialize\_parameters()}{initialize\_parameters()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a40e42eae077827d352c674e803af8808} 
+clip.\+model.\+CLIP.\+initialize\+\_\+parameters (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the weights and biases of the model. 
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00416}{416}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00416\ \ \ \ \ \textcolor{keyword}{def\ }initialize\_parameters(self):}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ nn.init.normal\_(self.token\_embedding.weight,\ std=0.02)}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ nn.init.normal\_(self.positional\_embedding,\ std=0.01)}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(self.visual,\ ModifiedResNet):}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.visual.attnpool\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std\ =\ self.visual.attnpool.c\_proj.in\_features\ **\ -\/0.5}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(self.visual.attnpool.q\_proj.weight,\ std=std)}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(self.visual.attnpool.k\_proj.weight,\ std=std)}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(self.visual.attnpool.v\_proj.weight,\ std=std)}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(self.visual.attnpool.c\_proj.weight,\ std=std)}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ resnet\_block\ \textcolor{keywordflow}{in}\ [self.visual.layer1,\ self.visual.layer2,\ self.visual.layer3,\ self.visual.layer4]:}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ name,\ param\ \textcolor{keywordflow}{in}\ resnet\_block.named\_parameters():}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ name.endswith(\textcolor{stringliteral}{"{}bn3.weight"{}}):}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.zeros\_(param)}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ proj\_std\ =\ (self.transformer.width\ **\ -\/0.5)\ *\ ((2\ *\ self.transformer.layers)\ **\ -\/0.5)}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ attn\_std\ =\ self.transformer.width\ **\ -\/0.5}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ fc\_std\ =\ (2\ *\ self.transformer.width)\ **\ -\/0.5}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ block\ \textcolor{keywordflow}{in}\ self.transformer.resblocks:}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(block.attn.in\_proj\_weight,\ std=attn\_std)}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(block.attn.out\_proj.weight,\ std=proj\_std)}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(block.mlp.c\_fc.weight,\ std=fc\_std)}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(block.mlp.c\_proj.weight,\ std=proj\_std)}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.text\_projection\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(self.text\_projection,\ std=self.transformer.width\ **\ -\/0.5)}
+\DoxyCodeLine{00444\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a507cb107c0aadc7b6b8c162a568266d4}\index{clip.model.CLIP@{clip.model.CLIP}!context\_length@{context\_length}}
+\index{context\_length@{context\_length}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{context\_length}{context\_length}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a507cb107c0aadc7b6b8c162a568266d4} 
+clip.\+model.\+CLIP.\+context\+\_\+length = context\+\_\+length}
+
+
+
+Initializes the \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP} model with specified parameters. 
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00376}{376}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_afc9520e89b7aedfda8d9f73a9eb9d0aa}\index{clip.model.CLIP@{clip.model.CLIP}!dtype@{dtype}}
+\index{dtype@{dtype}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{dtype}{dtype}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_afc9520e89b7aedfda8d9f73a9eb9d0aa} 
+clip.\+model.\+CLIP.\+dtype}
+
+
+
+Returns the data type of the model\textquotesingle{}s visual convolutional layer. 
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00465}{465}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a8ea9f1df6445dd02515c91fd8547e68a}\index{clip.model.CLIP@{clip.model.CLIP}!ln\_final@{ln\_final}}
+\index{ln\_final@{ln\_final}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{ln\_final}{ln\_final}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a8ea9f1df6445dd02515c91fd8547e68a} 
+clip.\+model.\+CLIP.\+ln\+\_\+final = \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm}}(transformer\+\_\+width)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00408}{408}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a709f97a0082741b6df0d0c33c018f4ca}\index{clip.model.CLIP@{clip.model.CLIP}!logit\_scale@{logit\_scale}}
+\index{logit\_scale@{logit\_scale}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{logit\_scale}{logit\_scale}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a709f97a0082741b6df0d0c33c018f4ca} 
+clip.\+model.\+CLIP.\+logit\+\_\+scale = nn.\+Parameter(torch.\+ones(\mbox{[}$\,$\mbox{]}) \texorpdfstring{$\ast$}{*} np.\+log(1 / 0.\+07))}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00411}{411}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a20a07f08c6d69a1bf4b292723226717d}\index{clip.model.CLIP@{clip.model.CLIP}!positional\_embedding@{positional\_embedding}}
+\index{positional\_embedding@{positional\_embedding}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{positional\_embedding}{positional\_embedding}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a20a07f08c6d69a1bf4b292723226717d} 
+clip.\+model.\+CLIP.\+positional\+\_\+embedding = nn.\+Parameter(torch.\+empty(self.\+context\+\_\+length, transformer\+\_\+width))}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00407}{407}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a7aeab79fc8796b38fbd3db56b492a85e}\index{clip.model.CLIP@{clip.model.CLIP}!text\_projection@{text\_projection}}
+\index{text\_projection@{text\_projection}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{text\_projection}{text\_projection}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a7aeab79fc8796b38fbd3db56b492a85e} 
+clip.\+model.\+CLIP.\+text\+\_\+projection = nn.\+Parameter(torch.\+empty(transformer\+\_\+width, embed\+\_\+dim))}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00410}{410}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a1cc14071ccd1bd3b4cc8a75783c20284}\index{clip.model.CLIP@{clip.model.CLIP}!token\_embedding@{token\_embedding}}
+\index{token\_embedding@{token\_embedding}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{token\_embedding}{token\_embedding}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a1cc14071ccd1bd3b4cc8a75783c20284} 
+clip.\+model.\+CLIP.\+token\+\_\+embedding = nn.\+Embedding(\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a68e0021f22c5fddfa0eea90e40845ab8}{vocab\+\_\+size}}, transformer\+\_\+width)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00406}{406}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a652d8b263c38b95087670010bd9cc5e7}\index{clip.model.CLIP@{clip.model.CLIP}!transformer@{transformer}}
+\index{transformer@{transformer}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{transformer}{transformer}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a652d8b263c38b95087670010bd9cc5e7} 
+clip.\+model.\+CLIP.\+transformer}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ Transformer(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ width=transformer\_width,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ layers=transformer\_layers,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ heads=transformer\_heads,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ attn\_mask=self.build\_attention\_mask()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00398}{398}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}\index{clip.model.CLIP@{clip.model.CLIP}!visual@{visual}}
+\index{visual@{visual}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{visual}{visual}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899} 
+clip.\+model.\+CLIP.\+visual}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ ModifiedResNet(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layers=vision\_layers,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_dim=embed\_dim,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heads=vision\_heads,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_resolution=image\_resolution,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width=vision\_width}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00380}{380}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_c_l_i_p_a68e0021f22c5fddfa0eea90e40845ab8}\index{clip.model.CLIP@{clip.model.CLIP}!vocab\_size@{vocab\_size}}
+\index{vocab\_size@{vocab\_size}!clip.model.CLIP@{clip.model.CLIP}}
+\doxysubsubsection{\texorpdfstring{vocab\_size}{vocab\_size}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_c_l_i_p_a68e0021f22c5fddfa0eea90e40845ab8} 
+clip.\+model.\+CLIP.\+vocab\+\_\+size = vocab\+\_\+size}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00405}{405}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{model_8py}{model.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,224 @@
+\doxysection{clip.\+model.\+Attention\+Pool2d Class Reference}
+\hypertarget{classclip_1_1model_1_1_attention_pool2d}{}\label{classclip_1_1model_1_1_attention_pool2d}\index{clip.model.AttentionPool2d@{clip.model.AttentionPool2d}}
+
+
+Implements a 2D attention pooling layer.  
+
+
+
+
+Inheritance diagram for clip.\+model.\+Attention\+Pool2d\+:
+% FIG 0
+
+
+Collaboration diagram for clip.\+model.\+Attention\+Pool2d\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ab5432a58e9fa66517b922da7de33fd46}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int spacial\+\_\+dim, int embed\+\_\+dim, int \mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ac860445d42477e149e4e4ae32ca04f46}{num\+\_\+heads}}, int output\+\_\+dim=None)
+\begin{DoxyCompactList}\small\item\em Initializes the \doxylink{classclip_1_1model_1_1_attention_pool2d}{Attention\+Pool2d} layer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ac60ba0d4bc1e93765b42649237a04287}{forward}} (self, x)
+\begin{DoxyCompactList}\small\item\em Forward pass of the \doxylink{classclip_1_1model_1_1_attention_pool2d}{Attention\+Pool2d} layer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ae85c3aca45dea426c75c0b559d4f7d1b}{positional\+\_\+embedding}} = nn.\+Parameter(torch.\+randn(spacial\+\_\+dim \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 2 + 1, embed\+\_\+dim) / embed\+\_\+dim \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 0.\+5)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ae74e2dcfb2812449514602e163947f2b}{k\+\_\+proj}} = nn.\+Linear(embed\+\_\+dim, embed\+\_\+dim)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_a35d45e96c06d11d8751052decf73927c}{q\+\_\+proj}} = nn.\+Linear(embed\+\_\+dim, embed\+\_\+dim)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_abcd3be7dca8707bf9ed9a0e2665d21f1}{v\+\_\+proj}} = nn.\+Linear(embed\+\_\+dim, embed\+\_\+dim)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_a539010f0947964e79db7fdf90e411e0a}{c\+\_\+proj}} = nn.\+Linear(embed\+\_\+dim, output\+\_\+dim or embed\+\_\+dim)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ac860445d42477e149e4e4ae32ca04f46}{num\+\_\+heads}} = num\+\_\+heads
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements a 2D attention pooling layer. 
+
+This class includes positional embeddings and multi-\/head self-\/attention for pooling spatial features. 
+\begin{DoxyParams}{Parameters}
+{\em spacial\+\_\+dim} & The spatial dimension of the input feature map. \\
+\hline
+{\em embed\+\_\+dim} & Dimensionality of the feature embeddings. \\
+\hline
+{\em num\+\_\+heads} & Number of attention heads. \\
+\hline
+{\em output\+\_\+dim} & Dimensionality of the output embeddings (default\+: same as embed\+\_\+dim). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00079}{79}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classclip_1_1model_1_1_attention_pool2d_ab5432a58e9fa66517b922da7de33fd46}\index{clip.model.AttentionPool2d@{clip.model.AttentionPool2d}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!clip.model.AttentionPool2d@{clip.model.AttentionPool2d}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_attention_pool2d_ab5432a58e9fa66517b922da7de33fd46} 
+clip.\+model.\+Attention\+Pool2d.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{spacial\+\_\+dim}{, }\item[{int}]{embed\+\_\+dim}{, }\item[{int}]{num\+\_\+heads}{, }\item[{int }]{output\+\_\+dim}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Initializes the \doxylink{classclip_1_1model_1_1_attention_pool2d}{Attention\+Pool2d} layer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em spacial\+\_\+dim} & The spatial dimension of the input feature map. \\
+\hline
+{\em embed\+\_\+dim} & Dimensionality of the feature embeddings. \\
+\hline
+{\em num\+\_\+heads} & Number of attention heads. \\
+\hline
+{\em output\+\_\+dim} & Dimensionality of the output embeddings. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00085}{85}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ spacial\_dim:\ int,\ embed\_dim:\ int,\ num\_heads:\ int,\ output\_dim:\ int\ =\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ super().\_\_init\_\_()}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ self.positional\_embedding\ =\ nn.Parameter(torch.randn(spacial\_dim\ **\ 2\ +\ 1,\ embed\_dim)\ /\ embed\_dim\ **\ 0.5)}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ self.k\_proj\ =\ nn.Linear(embed\_dim,\ embed\_dim)}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ self.q\_proj\ =\ nn.Linear(embed\_dim,\ embed\_dim)}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ self.v\_proj\ =\ nn.Linear(embed\_dim,\ embed\_dim)}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ self.c\_proj\ =\ nn.Linear(embed\_dim,\ output\_dim\ \textcolor{keywordflow}{or}\ embed\_dim)}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ self.num\_heads\ =\ num\_heads}
+\DoxyCodeLine{00093\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classclip_1_1model_1_1_attention_pool2d_ac60ba0d4bc1e93765b42649237a04287}\index{clip.model.AttentionPool2d@{clip.model.AttentionPool2d}!forward@{forward}}
+\index{forward@{forward}!clip.model.AttentionPool2d@{clip.model.AttentionPool2d}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_attention_pool2d_ac60ba0d4bc1e93765b42649237a04287} 
+clip.\+model.\+Attention\+Pool2d.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Forward pass of the \doxylink{classclip_1_1model_1_1_attention_pool2d}{Attention\+Pool2d} layer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Input tensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Output tensor. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00097}{97}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{def\ }forward(self,\ x):}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ x\ =\ x.flatten(start\_dim=2).permute(2,\ 0,\ 1)\ \ \textcolor{comment}{\#\ NCHW\ -\/>\ (HW)NC}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ x\ =\ torch.cat([x.mean(dim=0,\ keepdim=\textcolor{keyword}{True}),\ x],\ dim=0)\ \ \textcolor{comment}{\#\ (HW+1)NC}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ x\ =\ x\ +\ self.positional\_embedding[:,\ \textcolor{keywordtype}{None},\ :].to(x.dtype)\ \ \textcolor{comment}{\#\ (HW+1)NC}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ x,\ \_\ =\ F.multi\_head\_attention\_forward(}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ query=x[:1],\ key=x,\ value=x,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ embed\_dim\_to\_check=x.shape[-\/1],}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ num\_heads=self.num\_heads,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ q\_proj\_weight=self.q\_proj.weight,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ k\_proj\_weight=self.k\_proj.weight,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ v\_proj\_weight=self.v\_proj.weight,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ in\_proj\_weight=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ in\_proj\_bias=torch.cat([self.q\_proj.bias,\ self.k\_proj.bias,\ self.v\_proj.bias]),}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ bias\_k=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ bias\_v=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ add\_zero\_attn=\textcolor{keyword}{False},}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ dropout\_p=0,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ out\_proj\_weight=self.c\_proj.weight,}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ out\_proj\_bias=self.c\_proj.bias,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ use\_separate\_proj\_weight=\textcolor{keyword}{True},}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ training=self.training,}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ need\_weights=\textcolor{keyword}{False}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x.squeeze(0)}
+\DoxyCodeLine{00121\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classclip_1_1model_1_1_attention_pool2d_a539010f0947964e79db7fdf90e411e0a}\index{clip.model.AttentionPool2d@{clip.model.AttentionPool2d}!c\_proj@{c\_proj}}
+\index{c\_proj@{c\_proj}!clip.model.AttentionPool2d@{clip.model.AttentionPool2d}}
+\doxysubsubsection{\texorpdfstring{c\_proj}{c\_proj}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_attention_pool2d_a539010f0947964e79db7fdf90e411e0a} 
+clip.\+model.\+Attention\+Pool2d.\+c\+\_\+proj = nn.\+Linear(embed\+\_\+dim, output\+\_\+dim or embed\+\_\+dim)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00091}{91}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_attention_pool2d_ae74e2dcfb2812449514602e163947f2b}\index{clip.model.AttentionPool2d@{clip.model.AttentionPool2d}!k\_proj@{k\_proj}}
+\index{k\_proj@{k\_proj}!clip.model.AttentionPool2d@{clip.model.AttentionPool2d}}
+\doxysubsubsection{\texorpdfstring{k\_proj}{k\_proj}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_attention_pool2d_ae74e2dcfb2812449514602e163947f2b} 
+clip.\+model.\+Attention\+Pool2d.\+k\+\_\+proj = nn.\+Linear(embed\+\_\+dim, embed\+\_\+dim)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00088}{88}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_attention_pool2d_ac860445d42477e149e4e4ae32ca04f46}\index{clip.model.AttentionPool2d@{clip.model.AttentionPool2d}!num\_heads@{num\_heads}}
+\index{num\_heads@{num\_heads}!clip.model.AttentionPool2d@{clip.model.AttentionPool2d}}
+\doxysubsubsection{\texorpdfstring{num\_heads}{num\_heads}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_attention_pool2d_ac860445d42477e149e4e4ae32ca04f46} 
+clip.\+model.\+Attention\+Pool2d.\+num\+\_\+heads = num\+\_\+heads}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00092}{92}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_attention_pool2d_ae85c3aca45dea426c75c0b559d4f7d1b}\index{clip.model.AttentionPool2d@{clip.model.AttentionPool2d}!positional\_embedding@{positional\_embedding}}
+\index{positional\_embedding@{positional\_embedding}!clip.model.AttentionPool2d@{clip.model.AttentionPool2d}}
+\doxysubsubsection{\texorpdfstring{positional\_embedding}{positional\_embedding}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_attention_pool2d_ae85c3aca45dea426c75c0b559d4f7d1b} 
+clip.\+model.\+Attention\+Pool2d.\+positional\+\_\+embedding = nn.\+Parameter(torch.\+randn(spacial\+\_\+dim \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 2 + 1, embed\+\_\+dim) / embed\+\_\+dim \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 0.\+5)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00087}{87}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_attention_pool2d_a35d45e96c06d11d8751052decf73927c}\index{clip.model.AttentionPool2d@{clip.model.AttentionPool2d}!q\_proj@{q\_proj}}
+\index{q\_proj@{q\_proj}!clip.model.AttentionPool2d@{clip.model.AttentionPool2d}}
+\doxysubsubsection{\texorpdfstring{q\_proj}{q\_proj}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_attention_pool2d_a35d45e96c06d11d8751052decf73927c} 
+clip.\+model.\+Attention\+Pool2d.\+q\+\_\+proj = nn.\+Linear(embed\+\_\+dim, embed\+\_\+dim)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00089}{89}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_attention_pool2d_abcd3be7dca8707bf9ed9a0e2665d21f1}\index{clip.model.AttentionPool2d@{clip.model.AttentionPool2d}!v\_proj@{v\_proj}}
+\index{v\_proj@{v\_proj}!clip.model.AttentionPool2d@{clip.model.AttentionPool2d}}
+\doxysubsubsection{\texorpdfstring{v\_proj}{v\_proj}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_attention_pool2d_abcd3be7dca8707bf9ed9a0e2665d21f1} 
+clip.\+model.\+Attention\+Pool2d.\+v\+\_\+proj = nn.\+Linear(embed\+\_\+dim, embed\+\_\+dim)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00090}{90}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{model_8py}{model.\+py}}\end{DoxyCompactItemize}

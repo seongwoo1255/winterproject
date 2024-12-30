@@ -1,0 +1,148 @@
+\doxysection{simple\+\_\+tokenizer.\+py}
+\hypertarget{simple__tokenizer_8py_source}{}\label{simple__tokenizer_8py_source}\mbox{\hyperlink{simple__tokenizer_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00001}\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer}{00001}}\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00011}00011\ \textcolor{keyword}{import}\ gzip}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00012}00012\ \textcolor{keyword}{import}\ html}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00013}00013\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00014}00014\ \textcolor{keyword}{from}\ functools\ \textcolor{keyword}{import}\ lru\_cache}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00016}00016\ \textcolor{keyword}{import}\ ftfy}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00017}00017\ \textcolor{keyword}{import}\ regex\ \textcolor{keyword}{as}\ re}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00022}00022\ \textcolor{preprocessor}{@lru\_cache()}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00023}\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a60caf340a81c7885c3aac41bf5eeca3d}{00023}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a60caf340a81c7885c3aac41bf5eeca3d}{default\_bpe}}():}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00024}00024\ \ \ \ \ \textcolor{keywordflow}{return}\ os.path.join(os.path.dirname(os.path.abspath(\_\_file\_\_)),\ \textcolor{stringliteral}{"{}bpe\_simple\_vocab\_16e6.txt.gz"{}})}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00030}00030\ \textcolor{preprocessor}{@lru\_cache()}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00031}\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a05809bce5e2074836ebe6d431005a0c9}{00031}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a05809bce5e2074836ebe6d431005a0c9}{bytes\_to\_unicode}}():}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00032}00032\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ \ \ Returns\ list\ of\ utf-\/8\ byte\ and\ a\ corresponding\ list\ of\ unicode\ strings.}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00034}00034\ \textcolor{stringliteral}{\ \ \ \ The\ reversible\ bpe\ codes\ work\ on\ unicode\ strings.}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ \ \ This\ means\ you\ need\ a\ large\ \#\ of\ unicode\ characters\ in\ your\ vocab\ if\ you\ want\ to\ avoid\ UNKs.}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00036}00036\ \textcolor{stringliteral}{\ \ \ \ When\ you're\ at\ something\ like\ a\ 10B\ token\ dataset\ you\ end\ up\ needing\ around\ 5K\ for\ decent\ coverage.}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ \ \ This\ is\ a\ signficant\ percentage\ of\ your\ normal,\ say,\ 32K\ bpe\ vocab.}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ \ \ To\ avoid\ that,\ we\ want\ lookup\ tables\ between\ utf-\/8\ bytes\ and\ unicode\ strings.}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ \ \ And\ avoids\ mapping\ to\ whitespace/control\ characters\ the\ bpe\ code\ barfs\ on.}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00041}00041\ \ \ \ \ bs\ =\ list(range(ord(\textcolor{stringliteral}{"{}!"{}}),\ ord(\textcolor{stringliteral}{"{}\string~"{}})+1))+list(range(ord(\textcolor{stringliteral}{"{}¡"{}}),\ ord(\textcolor{stringliteral}{"{}¬"{}})+1))+list(range(ord(\textcolor{stringliteral}{"{}®"{}}),\ ord(\textcolor{stringliteral}{"{}ÿ"{}})+1))}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00042}00042\ \ \ \ \ cs\ =\ bs[:]}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00043}00043\ \ \ \ \ n\ =\ 0}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{for}\ b\ \textcolor{keywordflow}{in}\ range(2**8):}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ b\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ bs:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ bs.append(b)}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ cs.append(2**8+n)}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ n\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00049}00049\ \ \ \ \ cs\ =\ [chr(n)\ \textcolor{keywordflow}{for}\ n\ \textcolor{keywordflow}{in}\ cs]}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{return}\ dict(zip(bs,\ cs))}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00056}\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a70c67c878a64d25b2a44feaaa0559a55}{00056}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a70c67c878a64d25b2a44feaaa0559a55}{get\_pairs}}(word):}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00057}00057\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Return\ set\ of\ symbol\ pairs\ in\ a\ word.}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00058}00058\ \textcolor{stringliteral}{\ \ \ \ Word\ is\ represented\ as\ tuple\ of\ symbols\ (symbols\ being\ variable-\/length\ strings).}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00059}00059\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00060}00060\ \ \ \ \ pairs\ =\ set()}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00061}00061\ \ \ \ \ prev\_char\ =\ word[0]}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00062}00062\ \ \ \ \ \textcolor{keywordflow}{for}\ char\ \textcolor{keywordflow}{in}\ word[1:]:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ pairs.add((prev\_char,\ char))}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ prev\_char\ =\ char}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{return}\ pairs}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00071}\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a44a7e4043bef03185865f4c074e9df31}{00071}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a44a7e4043bef03185865f4c074e9df31}{basic\_clean}}(text):}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00072}00072\ \ \ \ \ text\ =\ ftfy.fix\_text(text)}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00073}00073\ \ \ \ \ text\ =\ html.unescape(html.unescape(text))}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00074}00074\ \ \ \ \ \textcolor{keywordflow}{return}\ text.strip()}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00080}\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_af38df56fc6ba00cac41934baaad0fd22}{00080}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_af38df56fc6ba00cac41934baaad0fd22}{whitespace\_clean}}(text):}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00081}00081\ \ \ \ \ text\ =\ re.sub(\textcolor{stringliteral}{r'\(\backslash\)s+'},\ \textcolor{stringliteral}{'\ '},\ text)}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00082}00082\ \ \ \ \ text\ =\ text.strip()}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00083}00083\ \ \ \ \ \textcolor{keywordflow}{return}\ text}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00089}\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer}{00089}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer}{SimpleTokenizer}}(object):}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00090}00090\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00092}\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a3850d49cfd8797c3be538d7c30a4587e}{00092}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a3850d49cfd8797c3be538d7c30a4587e}{\_\_init\_\_}}(self,\ bpe\_path:\ str\ =\ \mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a60caf340a81c7885c3aac41bf5eeca3d}{default\_bpe}}()):}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00093}\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aaeecfb49bf2827b7d6c36bff00887d27}{00093}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aaeecfb49bf2827b7d6c36bff00887d27}{byte\_encoder}}\ =\ \mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a05809bce5e2074836ebe6d431005a0c9}{bytes\_to\_unicode}}()}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00094}\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a487faaaab225638ae2bda77d0020743d}{00094}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a487faaaab225638ae2bda77d0020743d}{byte\_decoder}}\ =\ \{v:\ k\ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aaeecfb49bf2827b7d6c36bff00887d27}{byte\_encoder}}.items()\}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ merges\ =\ gzip.open(bpe\_path).read().\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a9bfd931f9f8f82aa0aad0600277b4331}{decode}}(\textcolor{stringliteral}{"{}utf-\/8"{}}).split(\textcolor{stringliteral}{'\(\backslash\)n'})}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ merges\ =\ merges[1:49152-\/256-\/2+1]}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ merges\ =\ [tuple(merge.split())\ \textcolor{keywordflow}{for}\ merge\ \textcolor{keywordflow}{in}\ merges]}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ vocab\ =\ list(\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a05809bce5e2074836ebe6d431005a0c9}{bytes\_to\_unicode}}().values())}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ vocab\ =\ vocab\ +\ [v+\textcolor{stringliteral}{'</w>'}\ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ vocab]}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ merge\ \textcolor{keywordflow}{in}\ merges:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ vocab.append(\textcolor{stringliteral}{''}.join(merge))}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ vocab.extend([\textcolor{stringliteral}{'<|startoftext|>'},\ \textcolor{stringliteral}{'<|endoftext|>'}])}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00103}\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a5742585d059628bdcd2e574aeec1ffcf}{00103}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a5742585d059628bdcd2e574aeec1ffcf}{encoder}}\ =\ dict(zip(vocab,\ range(len(vocab))))}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00104}\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a4f736325839b91028db82f2449f5de68}{00104}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a4f736325839b91028db82f2449f5de68}{decoder}}\ =\ \{v:\ k\ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a5742585d059628bdcd2e574aeec1ffcf}{encoder}}.items()\}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00105}\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a517f45098d3423f0e3bde2e23ad25807}{00105}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a517f45098d3423f0e3bde2e23ad25807}{bpe\_ranks}}\ =\ dict(zip(merges,\ range(len(merges))))}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00106}\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a64b54fa0b498bec296bbadc34063a5fb}{00106}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a64b54fa0b498bec296bbadc34063a5fb}{cache}}\ =\ \{\textcolor{stringliteral}{'<|startoftext|>'}:\ \textcolor{stringliteral}{'<|startoftext|>'},\ \textcolor{stringliteral}{'<|endoftext|>'}:\ \textcolor{stringliteral}{'<|endoftext|>'}\}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00107}\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aea10f4a0eb504013d8c65e55b2d4f33e}{00107}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aea10f4a0eb504013d8c65e55b2d4f33e}{pat}}\ =\ re.compile(\textcolor{stringliteral}{r"{}"{}"{}<\(\backslash\)|startoftext\(\backslash\)|>|<\(\backslash\)|endoftext\(\backslash\)|>|'s|'t|'re|'ve|'m|'ll|'d|[\(\backslash\)p\{L\}]+|[\(\backslash\)p\{N\}]|[\string^\(\backslash\)s\(\backslash\)p\{L\}\(\backslash\)p\{N\}]+"{}"{}"{}},\ re.IGNORECASE)}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00109}00109\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00112}\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_ac6dcf8b2f585968330d9f14d6bc68e85}{00112}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_ac6dcf8b2f585968330d9f14d6bc68e85}{bpe}}(self,\ token):}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ token\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a64b54fa0b498bec296bbadc34063a5fb}{cache}}:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a64b54fa0b498bec296bbadc34063a5fb}{cache}}[token]}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ word\ =\ tuple(token[:-\/1])\ +\ (\ token[-\/1]\ +\ \textcolor{stringliteral}{'</w>'},)}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ pairs\ =\ \mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a70c67c878a64d25b2a44feaaa0559a55}{get\_pairs}}(word)}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ pairs:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ token+\textcolor{stringliteral}{'</w>'}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ bigram\ =\ min(pairs,\ key\ =\ \textcolor{keyword}{lambda}\ pair:\ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a517f45098d3423f0e3bde2e23ad25807}{bpe\_ranks}}.get(pair,\ float(\textcolor{stringliteral}{'inf'})))}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ bigram\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a517f45098d3423f0e3bde2e23ad25807}{bpe\_ranks}}:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ first,\ second\ =\ bigram}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ new\_word\ =\ []}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ i\ =\ 0}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ i\ <\ len(word):}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ j\ =\ word.index(first,\ i)}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_word.extend(word[i:j])}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ =\ j}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_word.extend(word[i:])}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ word[i]\ ==\ first\ \textcolor{keywordflow}{and}\ i\ <\ len(word)-\/1\ \textcolor{keywordflow}{and}\ word[i+1]\ ==\ second:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_word.append(first+second)}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ +=\ 2}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_word.append(word[i])}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ new\_word\ =\ tuple(new\_word)}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ word\ =\ new\_word}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(word)\ ==\ 1:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pairs\ =\ \mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a70c67c878a64d25b2a44feaaa0559a55}{get\_pairs}}(word)}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ word\ =\ \textcolor{stringliteral}{'\ '}.join(word)}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a64b54fa0b498bec296bbadc34063a5fb}{cache}}[token]\ =\ word}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ word}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00152}00152\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00153}00153\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00156}\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a32fc5803c2b7bba692e08c32b1fdeed5}{00156}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a32fc5803c2b7bba692e08c32b1fdeed5}{encode}}(self,\ text):}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ bpe\_tokens\ =\ []}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ text\ =\ \mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_af38df56fc6ba00cac41934baaad0fd22}{whitespace\_clean}}(\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a44a7e4043bef03185865f4c074e9df31}{basic\_clean}}(text)).lower()}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ token\ \textcolor{keywordflow}{in}\ re.findall(self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aea10f4a0eb504013d8c65e55b2d4f33e}{pat}},\ text):}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ token\ =\ \textcolor{stringliteral}{''}.join(self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aaeecfb49bf2827b7d6c36bff00887d27}{byte\_encoder}}[b]\ \textcolor{keywordflow}{for}\ b\ \textcolor{keywordflow}{in}\ token.encode(\textcolor{stringliteral}{'utf-\/8'}))}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ bpe\_tokens.extend(self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a5742585d059628bdcd2e574aeec1ffcf}{encoder}}[bpe\_token]\ \textcolor{keywordflow}{for}\ bpe\_token\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_ac6dcf8b2f585968330d9f14d6bc68e85}{bpe}}(token).split(\textcolor{stringliteral}{'\ '}))}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ bpe\_tokens}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00164}00164\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00167}\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a9bfd931f9f8f82aa0aad0600277b4331}{00167}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a9bfd931f9f8f82aa0aad0600277b4331}{decode}}(self,\ tokens):}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ text\ =\ \textcolor{stringliteral}{''}.join([self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a4f736325839b91028db82f2449f5de68}{decoder}}[token]\ \textcolor{keywordflow}{for}\ token\ \textcolor{keywordflow}{in}\ tokens])}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ text\ =\ bytearray([self.\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a487faaaab225638ae2bda77d0020743d}{byte\_decoder}}[c]\ \textcolor{keywordflow}{for}\ c\ \textcolor{keywordflow}{in}\ text]).\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a9bfd931f9f8f82aa0aad0600277b4331}{decode}}(\textcolor{stringliteral}{'utf-\/8'},\ errors=\textcolor{stringliteral}{"{}replace"{}}).replace(\textcolor{stringliteral}{'</w>'},\ \textcolor{stringliteral}{'\ '})}
+\DoxyCodeLine{\Hypertarget{simple__tokenizer_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ text}
+
+\end{DoxyCode}

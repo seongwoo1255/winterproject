@@ -1,0 +1,319 @@
+\doxysection{clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer Class Reference}
+\hypertarget{classclip_1_1simple__tokenizer_1_1_simple_tokenizer}{}\label{classclip_1_1simple__tokenizer_1_1_simple_tokenizer}\index{clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}}
+
+
+Implements a simple Byte Pair Encoding (BPE) tokenizer.  
+
+
+
+
+Inheritance diagram for clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer\+:
+% FIG 0
+
+
+Collaboration diagram for clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a3850d49cfd8797c3be538d7c30a4587e}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, str bpe\+\_\+path=\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a60caf340a81c7885c3aac41bf5eeca3d}{default\+\_\+bpe}}())
+\begin{DoxyCompactList}\small\item\em Initializes the \doxylink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer}{Simple\+Tokenizer}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_ac6dcf8b2f585968330d9f14d6bc68e85}{bpe}} (self, token)
+\begin{DoxyCompactList}\small\item\em Encodes a token using BPE. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a32fc5803c2b7bba692e08c32b1fdeed5}{encode}} (self, text)
+\begin{DoxyCompactList}\small\item\em Encodes text into BPE tokens. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a9bfd931f9f8f82aa0aad0600277b4331}{decode}} (self, tokens)
+\begin{DoxyCompactList}\small\item\em Decodes BPE token indices into a text string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aaeecfb49bf2827b7d6c36bff00887d27}{byte\+\_\+encoder}} = \mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a05809bce5e2074836ebe6d431005a0c9}{bytes\+\_\+to\+\_\+unicode}}()
+\item 
+dict \mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a487faaaab225638ae2bda77d0020743d}{byte\+\_\+decoder}} = \{v\+: k for k, v in self.\+byte\+\_\+encoder.\+items()\}
+\item 
+\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a5742585d059628bdcd2e574aeec1ffcf}{encoder}} = dict(zip(vocab, range(len(vocab))))
+\item 
+dict \mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a4f736325839b91028db82f2449f5de68}{decoder}} = \{v\+: k for k, v in self.\+encoder.\+items()\}
+\item 
+\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a517f45098d3423f0e3bde2e23ad25807}{bpe\+\_\+ranks}} = dict(zip(merges, range(len(merges))))
+\item 
+dict \mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a64b54fa0b498bec296bbadc34063a5fb}{cache}} = \{\textquotesingle{}$<$\texorpdfstring{$\vert$}{|}startoftext\texorpdfstring{$\vert$}{|}$>$\textquotesingle{}\+: \textquotesingle{}$<$\texorpdfstring{$\vert$}{|}startoftext\texorpdfstring{$\vert$}{|}$>$\textquotesingle{}, \textquotesingle{}$<$\texorpdfstring{$\vert$}{|}endoftext\texorpdfstring{$\vert$}{|}$>$\textquotesingle{}\+: \textquotesingle{}$<$\texorpdfstring{$\vert$}{|}endoftext\texorpdfstring{$\vert$}{|}$>$\textquotesingle{}\}
+\item 
+\mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aea10f4a0eb504013d8c65e55b2d4f33e}{pat}} = re.\+compile(, re.\+IGNORECASE)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements a simple Byte Pair Encoding (BPE) tokenizer. 
+
+The tokenizer uses BPE to encode and decode text. It supports custom vocabulary paths. 
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00089}{89}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a3850d49cfd8797c3be538d7c30a4587e}\index{clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a3850d49cfd8797c3be538d7c30a4587e} 
+clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{str }]{bpe\+\_\+path}{ = {\ttfamily \mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a60caf340a81c7885c3aac41bf5eeca3d}{default\+\_\+bpe}}()}}\end{DoxyParamCaption})}
+
+
+
+Initializes the \doxylink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer}{Simple\+Tokenizer}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bpe\+\_\+path} & Path to the BPE vocabulary file. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00092}{92}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ bpe\_path:\ str\ =\ default\_bpe()):}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ self.byte\_encoder\ =\ bytes\_to\_unicode()}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ self.byte\_decoder\ =\ \{v:\ k\ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ self.byte\_encoder.items()\}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ merges\ =\ gzip.open(bpe\_path).read().decode(\textcolor{stringliteral}{"{}utf-\/8"{}}).split(\textcolor{stringliteral}{'\(\backslash\)n'})}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ merges\ =\ merges[1:49152-\/256-\/2+1]}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ merges\ =\ [tuple(merge.split())\ \textcolor{keywordflow}{for}\ merge\ \textcolor{keywordflow}{in}\ merges]}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ vocab\ =\ list(bytes\_to\_unicode().values())}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ vocab\ =\ vocab\ +\ [v+\textcolor{stringliteral}{'</w>'}\ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ vocab]}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ merge\ \textcolor{keywordflow}{in}\ merges:}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ vocab.append(\textcolor{stringliteral}{''}.join(merge))}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ vocab.extend([\textcolor{stringliteral}{'<|startoftext|>'},\ \textcolor{stringliteral}{'<|endoftext|>'}])}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ self.encoder\ =\ dict(zip(vocab,\ range(len(vocab))))}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ self.decoder\ =\ \{v:\ k\ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ self.encoder.items()\}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ self.bpe\_ranks\ =\ dict(zip(merges,\ range(len(merges))))}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ self.cache\ =\ \{\textcolor{stringliteral}{'<|startoftext|>'}:\ \textcolor{stringliteral}{'<|startoftext|>'},\ \textcolor{stringliteral}{'<|endoftext|>'}:\ \textcolor{stringliteral}{'<|endoftext|>'}\}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ self.pat\ =\ re.compile(\textcolor{stringliteral}{r"{}"{}"{}<\(\backslash\)|startoftext\(\backslash\)|>|<\(\backslash\)|endoftext\(\backslash\)|>|'s|'t|'re|'ve|'m|'ll|'d|[\(\backslash\)p\{L\}]+|[\(\backslash\)p\{N\}]|[\string^\(\backslash\)s\(\backslash\)p\{L\}\(\backslash\)p\{N\}]+"{}"{}"{}},\ re.IGNORECASE)}
+\DoxyCodeLine{00108\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_ac6dcf8b2f585968330d9f14d6bc68e85}\index{clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}!bpe@{bpe}}
+\index{bpe@{bpe}!clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}}
+\doxysubsubsection{\texorpdfstring{bpe()}{bpe()}}
+{\footnotesize\ttfamily \label{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_ac6dcf8b2f585968330d9f14d6bc68e85} 
+clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer.\+bpe (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{token}{}\end{DoxyParamCaption})}
+
+
+
+Encodes a token using BPE. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & The input token as a string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Encoded token as a BPE string. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00112}{112}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{def\ }bpe(self,\ token):}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ token\ \textcolor{keywordflow}{in}\ self.cache:}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.cache[token]}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ word\ =\ tuple(token[:-\/1])\ +\ (\ token[-\/1]\ +\ \textcolor{stringliteral}{'</w>'},)}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ pairs\ =\ get\_pairs(word)}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ pairs:}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ token+\textcolor{stringliteral}{'</w>'}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ bigram\ =\ min(pairs,\ key\ =\ \textcolor{keyword}{lambda}\ pair:\ self.bpe\_ranks.get(pair,\ float(\textcolor{stringliteral}{'inf'})))}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ bigram\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ self.bpe\_ranks:}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ first,\ second\ =\ bigram}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ new\_word\ =\ []}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ i\ =\ 0}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ i\ <\ len(word):}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ j\ =\ word.index(first,\ i)}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_word.extend(word[i:j])}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ =\ j}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}:}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_word.extend(word[i:])}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ word[i]\ ==\ first\ \textcolor{keywordflow}{and}\ i\ <\ len(word)-\/1\ \textcolor{keywordflow}{and}\ word[i+1]\ ==\ second:}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_word.append(first+second)}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ +=\ 2}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_word.append(word[i])}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ +=\ 1}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ new\_word\ =\ tuple(new\_word)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ word\ =\ new\_word}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(word)\ ==\ 1:}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pairs\ =\ get\_pairs(word)}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ word\ =\ \textcolor{stringliteral}{'\ '}.join(word)}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ self.cache[token]\ =\ word}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ word}
+\DoxyCodeLine{00152\ \ \ \ \ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\Hypertarget{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a9bfd931f9f8f82aa0aad0600277b4331}\index{clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}!decode@{decode}}
+\index{decode@{decode}!clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}}
+\doxysubsubsection{\texorpdfstring{decode()}{decode()}}
+{\footnotesize\ttfamily \label{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a9bfd931f9f8f82aa0aad0600277b4331} 
+clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer.\+decode (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{tokens}{}\end{DoxyParamCaption})}
+
+
+
+Decodes BPE token indices into a text string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tokens} & A list of BPE token indices. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Decoded text string. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00167}{167}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{def\ }decode(self,\ tokens):}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ text\ =\ \textcolor{stringliteral}{''}.join([self.decoder[token]\ \textcolor{keywordflow}{for}\ token\ \textcolor{keywordflow}{in}\ tokens])}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ text\ =\ bytearray([self.byte\_decoder[c]\ \textcolor{keywordflow}{for}\ c\ \textcolor{keywordflow}{in}\ text]).decode(\textcolor{stringliteral}{'utf-\/8'},\ errors=\textcolor{stringliteral}{"{}replace"{}}).replace(\textcolor{stringliteral}{'</w>'},\ \textcolor{stringliteral}{'\ '})}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ text}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 5
+Here is the caller graph for this function\+:
+% FIG 6
+\Hypertarget{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a32fc5803c2b7bba692e08c32b1fdeed5}\index{clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}!encode@{encode}}
+\index{encode@{encode}!clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}}
+\doxysubsubsection{\texorpdfstring{encode()}{encode()}}
+{\footnotesize\ttfamily \label{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a32fc5803c2b7bba692e08c32b1fdeed5} 
+clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer.\+encode (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{text}{}\end{DoxyParamCaption})}
+
+
+
+Encodes text into BPE tokens. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & The input text string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A list of BPE token indices. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00156}{156}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{def\ }encode(self,\ text):}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ bpe\_tokens\ =\ []}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ text\ =\ whitespace\_clean(basic\_clean(text)).lower()}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ token\ \textcolor{keywordflow}{in}\ re.findall(self.pat,\ text):}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ token\ =\ \textcolor{stringliteral}{''}.join(self.byte\_encoder[b]\ \textcolor{keywordflow}{for}\ b\ \textcolor{keywordflow}{in}\ token.encode(\textcolor{stringliteral}{'utf-\/8'}))}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ bpe\_tokens.extend(self.encoder[bpe\_token]\ \textcolor{keywordflow}{for}\ bpe\_token\ \textcolor{keywordflow}{in}\ self.bpe(token).split(\textcolor{stringliteral}{'\ '}))}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ bpe\_tokens}
+\DoxyCodeLine{00163\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 7
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a517f45098d3423f0e3bde2e23ad25807}\index{clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}!bpe\_ranks@{bpe\_ranks}}
+\index{bpe\_ranks@{bpe\_ranks}!clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}}
+\doxysubsubsection{\texorpdfstring{bpe\_ranks}{bpe\_ranks}}
+{\footnotesize\ttfamily \label{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a517f45098d3423f0e3bde2e23ad25807} 
+clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer.\+bpe\+\_\+ranks = dict(zip(merges, range(len(merges))))}
+
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00105}{105}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+\Hypertarget{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a487faaaab225638ae2bda77d0020743d}\index{clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}!byte\_decoder@{byte\_decoder}}
+\index{byte\_decoder@{byte\_decoder}!clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}}
+\doxysubsubsection{\texorpdfstring{byte\_decoder}{byte\_decoder}}
+{\footnotesize\ttfamily \label{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a487faaaab225638ae2bda77d0020743d} 
+dict clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer.\+byte\+\_\+decoder = \{v\+: k for k, v in self.\+byte\+\_\+encoder.\+items()\}}
+
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00094}{94}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+\Hypertarget{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aaeecfb49bf2827b7d6c36bff00887d27}\index{clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}!byte\_encoder@{byte\_encoder}}
+\index{byte\_encoder@{byte\_encoder}!clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}}
+\doxysubsubsection{\texorpdfstring{byte\_encoder}{byte\_encoder}}
+{\footnotesize\ttfamily \label{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aaeecfb49bf2827b7d6c36bff00887d27} 
+clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer.\+byte\+\_\+encoder = \mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a05809bce5e2074836ebe6d431005a0c9}{bytes\+\_\+to\+\_\+unicode}}()}
+
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00093}{93}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+\Hypertarget{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a64b54fa0b498bec296bbadc34063a5fb}\index{clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}!cache@{cache}}
+\index{cache@{cache}!clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}}
+\doxysubsubsection{\texorpdfstring{cache}{cache}}
+{\footnotesize\ttfamily \label{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a64b54fa0b498bec296bbadc34063a5fb} 
+dict clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer.\+cache = \{\textquotesingle{}$<$\texorpdfstring{$\vert$}{|}startoftext\texorpdfstring{$\vert$}{|}$>$\textquotesingle{}\+: \textquotesingle{}$<$\texorpdfstring{$\vert$}{|}startoftext\texorpdfstring{$\vert$}{|}$>$\textquotesingle{}, \textquotesingle{}$<$\texorpdfstring{$\vert$}{|}endoftext\texorpdfstring{$\vert$}{|}$>$\textquotesingle{}\+: \textquotesingle{}$<$\texorpdfstring{$\vert$}{|}endoftext\texorpdfstring{$\vert$}{|}$>$\textquotesingle{}\}}
+
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00106}{106}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+\Hypertarget{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a4f736325839b91028db82f2449f5de68}\index{clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}!decoder@{decoder}}
+\index{decoder@{decoder}!clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}}
+\doxysubsubsection{\texorpdfstring{decoder}{decoder}}
+{\footnotesize\ttfamily \label{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a4f736325839b91028db82f2449f5de68} 
+dict clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer.\+decoder = \{v\+: k for k, v in self.\+encoder.\+items()\}}
+
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00104}{104}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+\Hypertarget{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a5742585d059628bdcd2e574aeec1ffcf}\index{clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}!encoder@{encoder}}
+\index{encoder@{encoder}!clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}}
+\doxysubsubsection{\texorpdfstring{encoder}{encoder}}
+{\footnotesize\ttfamily \label{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_a5742585d059628bdcd2e574aeec1ffcf} 
+clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer.\+encoder = dict(zip(vocab, range(len(vocab))))}
+
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00103}{103}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+\Hypertarget{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aea10f4a0eb504013d8c65e55b2d4f33e}\index{clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}!pat@{pat}}
+\index{pat@{pat}!clip.simple\_tokenizer.SimpleTokenizer@{clip.simple\_tokenizer.SimpleTokenizer}}
+\doxysubsubsection{\texorpdfstring{pat}{pat}}
+{\footnotesize\ttfamily \label{classclip_1_1simple__tokenizer_1_1_simple_tokenizer_aea10f4a0eb504013d8c65e55b2d4f33e} 
+clip.\+simple\+\_\+tokenizer.\+Simple\+Tokenizer.\+pat = re.\+compile(, re.\+IGNORECASE)}
+
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00107}{107}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{simple__tokenizer_8py}{simple\+\_\+tokenizer.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,51 @@
+\doxysection{model.\+py File Reference}
+\hypertarget{model_8py}{}\label{model_8py}\index{model.py@{model.py}}
+
+
+Contains model components for CLIP, including Res\+Net, Vision Transformer, and their building blocks.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_bottleneck}{clip.\+model.\+Bottleneck}}
+\begin{DoxyCompactList}\small\item\em Implements a Res\+Net bottleneck block with optional downsampling. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d}{clip.\+model.\+Attention\+Pool2d}}
+\begin{DoxyCompactList}\small\item\em Implements a 2D attention pooling layer. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net}{clip.\+model.\+Modified\+Res\+Net}}
+\begin{DoxyCompactList}\small\item\em A modified Res\+Net model for \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{clip.\+model.\+Layer\+Norm}}
+\begin{DoxyCompactList}\small\item\em Subclass of Py\+Torch\textquotesingle{}s \doxylink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm} for handling fp16 precision. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_quick_g_e_l_u}{clip.\+model.\+Quick\+GELU}}
+\begin{DoxyCompactList}\small\item\em Implements a fast approximation of the GELU activation function. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block}{clip.\+model.\+Residual\+Attention\+Block}}
+\begin{DoxyCompactList}\small\item\em Implements a residual attention block with multi-\/head self-\/attention and MLP layers. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_transformer}{clip.\+model.\+Transformer}}
+\begin{DoxyCompactList}\small\item\em Implements a \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model with residual attention blocks. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer}{clip.\+model.\+Vision\+Transformer}}
+\begin{DoxyCompactList}\small\item\em Implements a Vision \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p}{clip.\+model.\+CLIP}}
+\begin{DoxyCompactList}\small\item\em Implements the \doxylink{classclip_1_1model_1_1_c_l_i_p}{CLIP} model, combining image and text encoders. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceclip}{clip}}
+\item 
+namespace \mbox{\hyperlink{namespaceclip_1_1model}{clip.\+model}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceclip_1_1model_a6ef6a1b7a73984a4d445c8c95586a058}{clip.\+model.\+convert\+\_\+weights}} (nn.\+Module model)
+\begin{DoxyCompactList}\small\item\em @function convert\+\_\+weights \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceclip_1_1model_a6cf81409a684321860d7a2c1a59bbfaa}{clip.\+model.\+build\+\_\+model}} (dict state\+\_\+dict)
+\begin{DoxyCompactList}\small\item\em @function build\+\_\+model \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains model components for CLIP, including Res\+Net, Vision Transformer, and their building blocks. 
+
+Defines the architecture and utility functions for CLIP, a multimodal model for image and text understanding. 
+
+Definition in file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+

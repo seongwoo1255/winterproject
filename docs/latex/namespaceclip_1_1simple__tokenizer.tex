@@ -1,0 +1,212 @@
+\doxysection{clip.\+simple\+\_\+tokenizer Namespace Reference}
+\hypertarget{namespaceclip_1_1simple__tokenizer}{}\label{namespaceclip_1_1simple__tokenizer}\index{clip.simple\_tokenizer@{clip.simple\_tokenizer}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classclip_1_1simple__tokenizer_1_1_simple_tokenizer}{Simple\+Tokenizer}}
+\begin{DoxyCompactList}\small\item\em Implements a simple Byte Pair Encoding (BPE) tokenizer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a60caf340a81c7885c3aac41bf5eeca3d}{default\+\_\+bpe}} ()
+\begin{DoxyCompactList}\small\item\em Returns the default path to the BPE vocabulary file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a05809bce5e2074836ebe6d431005a0c9}{bytes\+\_\+to\+\_\+unicode}} ()
+\begin{DoxyCompactList}\small\item\em Creates a mapping between bytes and Unicode characters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a70c67c878a64d25b2a44feaaa0559a55}{get\+\_\+pairs}} (word)
+\begin{DoxyCompactList}\small\item\em Extracts symbol pairs from a given word. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_a44a7e4043bef03185865f4c074e9df31}{basic\+\_\+clean}} (text)
+\begin{DoxyCompactList}\small\item\em Cleans the input text by fixing text and unescaping HTML entities. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceclip_1_1simple__tokenizer_af38df56fc6ba00cac41934baaad0fd22}{whitespace\+\_\+clean}} (text)
+\begin{DoxyCompactList}\small\item\em Cleans whitespace from the input text. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceclip_1_1simple__tokenizer_a44a7e4043bef03185865f4c074e9df31}\index{clip.simple\_tokenizer@{clip.simple\_tokenizer}!basic\_clean@{basic\_clean}}
+\index{basic\_clean@{basic\_clean}!clip.simple\_tokenizer@{clip.simple\_tokenizer}}
+\doxysubsubsection{\texorpdfstring{basic\_clean()}{basic\_clean()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1simple__tokenizer_a44a7e4043bef03185865f4c074e9df31} 
+clip.\+simple\+\_\+tokenizer.\+basic\+\_\+clean (\begin{DoxyParamCaption}\item[{}]{text}{}\end{DoxyParamCaption})}
+
+
+
+Cleans the input text by fixing text and unescaping HTML entities. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & The input text string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Cleaned text string. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00071}{71}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00071\ \textcolor{keyword}{def\ }basic\_clean(text):}
+\DoxyCodeLine{00072\ \ \ \ \ text\ =\ ftfy.fix\_text(text)}
+\DoxyCodeLine{00073\ \ \ \ \ text\ =\ html.unescape(html.unescape(text))}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{return}\ text.strip()}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 0
+\Hypertarget{namespaceclip_1_1simple__tokenizer_a05809bce5e2074836ebe6d431005a0c9}\index{clip.simple\_tokenizer@{clip.simple\_tokenizer}!bytes\_to\_unicode@{bytes\_to\_unicode}}
+\index{bytes\_to\_unicode@{bytes\_to\_unicode}!clip.simple\_tokenizer@{clip.simple\_tokenizer}}
+\doxysubsubsection{\texorpdfstring{bytes\_to\_unicode()}{bytes\_to\_unicode()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1simple__tokenizer_a05809bce5e2074836ebe6d431005a0c9} 
+clip.\+simple\+\_\+tokenizer.\+bytes\+\_\+to\+\_\+unicode (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Creates a mapping between bytes and Unicode characters. 
+
+This function provides a reversible mapping used for BPE encoding and decoding. \begin{DoxyReturn}{Returns}
+A dictionary mapping bytes to Unicode strings.
+\end{DoxyReturn}
+\begin{DoxyVerb}Returns list of utf-8 byte and a corresponding list of unicode strings.
+The reversible bpe codes work on unicode strings.
+This means you need a large # of unicode characters in your vocab if you want to avoid UNKs.
+When you're at something like a 10B token dataset you end up needing around 5K for decent coverage.
+This is a signficant percentage of your normal, say, 32K bpe vocab.
+To avoid that, we want lookup tables between utf-8 bytes and unicode strings.
+And avoids mapping to whitespace/control characters the bpe code barfs on.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00031}{31}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00031\ \textcolor{keyword}{def\ }bytes\_to\_unicode():}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00033\ \textcolor{stringliteral}{\ \ \ \ Returns\ list\ of\ utf-\/8\ byte\ and\ a\ corresponding\ list\ of\ unicode\ strings.}}
+\DoxyCodeLine{00034\ \textcolor{stringliteral}{\ \ \ \ The\ reversible\ bpe\ codes\ work\ on\ unicode\ strings.}}
+\DoxyCodeLine{00035\ \textcolor{stringliteral}{\ \ \ \ This\ means\ you\ need\ a\ large\ \#\ of\ unicode\ characters\ in\ your\ vocab\ if\ you\ want\ to\ avoid\ UNKs.}}
+\DoxyCodeLine{00036\ \textcolor{stringliteral}{\ \ \ \ When\ you're\ at\ something\ like\ a\ 10B\ token\ dataset\ you\ end\ up\ needing\ around\ 5K\ for\ decent\ coverage.}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{\ \ \ \ This\ is\ a\ signficant\ percentage\ of\ your\ normal,\ say,\ 32K\ bpe\ vocab.}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{\ \ \ \ To\ avoid\ that,\ we\ want\ lookup\ tables\ between\ utf-\/8\ bytes\ and\ unicode\ strings.}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ \ \ And\ avoids\ mapping\ to\ whitespace/control\ characters\ the\ bpe\ code\ barfs\ on.}}
+\DoxyCodeLine{00040\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00041\ \ \ \ \ bs\ =\ list(range(ord(\textcolor{stringliteral}{"{}!"{}}),\ ord(\textcolor{stringliteral}{"{}\string~"{}})+1))+list(range(ord(\textcolor{stringliteral}{"{}¡"{}}),\ ord(\textcolor{stringliteral}{"{}¬"{}})+1))+list(range(ord(\textcolor{stringliteral}{"{}®"{}}),\ ord(\textcolor{stringliteral}{"{}ÿ"{}})+1))}
+\DoxyCodeLine{00042\ \ \ \ \ cs\ =\ bs[:]}
+\DoxyCodeLine{00043\ \ \ \ \ n\ =\ 0}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{for}\ b\ \textcolor{keywordflow}{in}\ range(2**8):}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ b\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ bs:}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ bs.append(b)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ cs.append(2**8+n)}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ n\ +=\ 1}
+\DoxyCodeLine{00049\ \ \ \ \ cs\ =\ [chr(n)\ \textcolor{keywordflow}{for}\ n\ \textcolor{keywordflow}{in}\ cs]}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{return}\ dict(zip(bs,\ cs))}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+
+\end{DoxyCode}
+\Hypertarget{namespaceclip_1_1simple__tokenizer_a60caf340a81c7885c3aac41bf5eeca3d}\index{clip.simple\_tokenizer@{clip.simple\_tokenizer}!default\_bpe@{default\_bpe}}
+\index{default\_bpe@{default\_bpe}!clip.simple\_tokenizer@{clip.simple\_tokenizer}}
+\doxysubsubsection{\texorpdfstring{default\_bpe()}{default\_bpe()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1simple__tokenizer_a60caf340a81c7885c3aac41bf5eeca3d} 
+clip.\+simple\+\_\+tokenizer.\+default\+\_\+bpe (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the default path to the BPE vocabulary file. 
+
+Uses the directory of the current file to locate the vocabulary file. \begin{DoxyReturn}{Returns}
+Path to the BPE vocabulary file. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00023}{23}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00023\ \textcolor{keyword}{def\ }default\_bpe():}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordflow}{return}\ os.path.join(os.path.dirname(os.path.abspath(\_\_file\_\_)),\ \textcolor{stringliteral}{"{}bpe\_simple\_vocab\_16e6.txt.gz"{}})}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 1
+\Hypertarget{namespaceclip_1_1simple__tokenizer_a70c67c878a64d25b2a44feaaa0559a55}\index{clip.simple\_tokenizer@{clip.simple\_tokenizer}!get\_pairs@{get\_pairs}}
+\index{get\_pairs@{get\_pairs}!clip.simple\_tokenizer@{clip.simple\_tokenizer}}
+\doxysubsubsection{\texorpdfstring{get\_pairs()}{get\_pairs()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1simple__tokenizer_a70c67c878a64d25b2a44feaaa0559a55} 
+clip.\+simple\+\_\+tokenizer.\+get\+\_\+pairs (\begin{DoxyParamCaption}\item[{}]{word}{}\end{DoxyParamCaption})}
+
+
+
+Extracts symbol pairs from a given word. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em word} & The input word as a tuple of symbols. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A set of symbol pairs.
+\end{DoxyReturn}
+\begin{DoxyVerb}Return set of symbol pairs in a word.
+Word is represented as tuple of symbols (symbols being variable-length strings).
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00056}{56}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00056\ \textcolor{keyword}{def\ }get\_pairs(word):}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Return\ set\ of\ symbol\ pairs\ in\ a\ word.}}
+\DoxyCodeLine{00058\ \textcolor{stringliteral}{\ \ \ \ Word\ is\ represented\ as\ tuple\ of\ symbols\ (symbols\ being\ variable-\/length\ strings).}}
+\DoxyCodeLine{00059\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00060\ \ \ \ \ pairs\ =\ set()}
+\DoxyCodeLine{00061\ \ \ \ \ prev\_char\ =\ word[0]}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{for}\ char\ \textcolor{keywordflow}{in}\ word[1:]:}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ pairs.add((prev\_char,\ char))}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ prev\_char\ =\ char}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{return}\ pairs}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 2
+\Hypertarget{namespaceclip_1_1simple__tokenizer_af38df56fc6ba00cac41934baaad0fd22}\index{clip.simple\_tokenizer@{clip.simple\_tokenizer}!whitespace\_clean@{whitespace\_clean}}
+\index{whitespace\_clean@{whitespace\_clean}!clip.simple\_tokenizer@{clip.simple\_tokenizer}}
+\doxysubsubsection{\texorpdfstring{whitespace\_clean()}{whitespace\_clean()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1simple__tokenizer_af38df56fc6ba00cac41934baaad0fd22} 
+clip.\+simple\+\_\+tokenizer.\+whitespace\+\_\+clean (\begin{DoxyParamCaption}\item[{}]{text}{}\end{DoxyParamCaption})}
+
+
+
+Cleans whitespace from the input text. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & The input text string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Text string with redundant whitespace removed. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{simple__tokenizer_8py_source_l00080}{80}} of file \mbox{\hyperlink{simple__tokenizer_8py_source}{simple\+\_\+tokenizer.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00080\ \textcolor{keyword}{def\ }whitespace\_clean(text):}
+\DoxyCodeLine{00081\ \ \ \ \ text\ =\ re.sub(\textcolor{stringliteral}{r'\(\backslash\)s+'},\ \textcolor{stringliteral}{'\ '},\ text)}
+\DoxyCodeLine{00082\ \ \ \ \ text\ =\ text.strip()}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{return}\ text}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 3

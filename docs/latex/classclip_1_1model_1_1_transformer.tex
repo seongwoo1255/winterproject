@@ -1,0 +1,163 @@
+\doxysection{clip.\+model.\+Transformer Class Reference}
+\hypertarget{classclip_1_1model_1_1_transformer}{}\label{classclip_1_1model_1_1_transformer}\index{clip.model.Transformer@{clip.model.Transformer}}
+
+
+Implements a \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model with residual attention blocks.  
+
+
+
+
+Inheritance diagram for clip.\+model.\+Transformer\+:
+% FIG 0
+
+
+Collaboration diagram for clip.\+model.\+Transformer\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad01e03987e707e3cc613c1bf5fbb3a8e}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int \mbox{\hyperlink{classclip_1_1model_1_1_transformer_a89aa7f2755c23e68d1346b8acda5d8b6}{width}}, int \mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad19f731c0d49646badb5ca7a2697eba9}{layers}}, int heads, torch.\+Tensor attn\+\_\+mask=None)
+\begin{DoxyCompactList}\small\item\em Initializes the \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad6f775079524e60a4280eaab65645a89}{forward}} (self, torch.\+Tensor x)
+\begin{DoxyCompactList}\small\item\em Forward pass of the \doxylink{classclip_1_1model_1_1_transformer}{Transformer}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_transformer_a89aa7f2755c23e68d1346b8acda5d8b6}{width}} = width
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad19f731c0d49646badb5ca7a2697eba9}{layers}} = layers
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_transformer_a5123c00cff793f9c9be08121b4d97595}{resblocks}} = nn.\+Sequential(\texorpdfstring{$\ast$}{*}\mbox{[}\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block}{Residual\+Attention\+Block}}(\mbox{\hyperlink{classclip_1_1model_1_1_transformer_a89aa7f2755c23e68d1346b8acda5d8b6}{width}}, heads, attn\+\_\+mask) for \+\_\+ in range(\mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad19f731c0d49646badb5ca7a2697eba9}{layers}})\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements a \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model with residual attention blocks. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & Dimensionality of the embeddings. \\
+\hline
+{\em layers} & Number of residual attention blocks. \\
+\hline
+{\em heads} & Number of attention heads. \\
+\hline
+{\em attn\+\_\+mask} & Optional attention mask. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00272}{272}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classclip_1_1model_1_1_transformer_ad01e03987e707e3cc613c1bf5fbb3a8e}\index{clip.model.Transformer@{clip.model.Transformer}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!clip.model.Transformer@{clip.model.Transformer}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_transformer_ad01e03987e707e3cc613c1bf5fbb3a8e} 
+clip.\+model.\+Transformer.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{width}{, }\item[{int}]{layers}{, }\item[{int}]{heads}{, }\item[{torch.\+Tensor }]{attn\+\_\+mask}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Initializes the \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & Dimensionality of the embeddings. \\
+\hline
+{\em layers} & Number of residual attention blocks. \\
+\hline
+{\em heads} & Number of attention heads. \\
+\hline
+{\em attn\+\_\+mask} & Optional attention mask. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00278}{278}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ width:\ int,\ layers:\ int,\ heads:\ int,\ attn\_mask:\ torch.Tensor\ =\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ super().\_\_init\_\_()}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ self.width\ =\ width}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ self.layers\ =\ layers}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ self.resblocks\ =\ nn.Sequential(*[ResidualAttentionBlock(width,\ heads,\ attn\_mask)\ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(layers)])}
+\DoxyCodeLine{00283\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classclip_1_1model_1_1_transformer_ad6f775079524e60a4280eaab65645a89}\index{clip.model.Transformer@{clip.model.Transformer}!forward@{forward}}
+\index{forward@{forward}!clip.model.Transformer@{clip.model.Transformer}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_transformer_ad6f775079524e60a4280eaab65645a89} 
+clip.\+model.\+Transformer.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{torch.\+Tensor}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Forward pass of the \doxylink{classclip_1_1model_1_1_transformer}{Transformer}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Input tensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Output tensor. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00287}{287}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keyword}{def\ }forward(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.resblocks(x)}
+\DoxyCodeLine{00289\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classclip_1_1model_1_1_transformer_ad19f731c0d49646badb5ca7a2697eba9}\index{clip.model.Transformer@{clip.model.Transformer}!layers@{layers}}
+\index{layers@{layers}!clip.model.Transformer@{clip.model.Transformer}}
+\doxysubsubsection{\texorpdfstring{layers}{layers}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_transformer_ad19f731c0d49646badb5ca7a2697eba9} 
+clip.\+model.\+Transformer.\+layers = layers}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00281}{281}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_transformer_a5123c00cff793f9c9be08121b4d97595}\index{clip.model.Transformer@{clip.model.Transformer}!resblocks@{resblocks}}
+\index{resblocks@{resblocks}!clip.model.Transformer@{clip.model.Transformer}}
+\doxysubsubsection{\texorpdfstring{resblocks}{resblocks}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_transformer_a5123c00cff793f9c9be08121b4d97595} 
+clip.\+model.\+Transformer.\+resblocks = nn.\+Sequential(\texorpdfstring{$\ast$}{*}\mbox{[}\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block}{Residual\+Attention\+Block}}(\mbox{\hyperlink{classclip_1_1model_1_1_transformer_a89aa7f2755c23e68d1346b8acda5d8b6}{width}}, heads, attn\+\_\+mask) for \+\_\+ in range(\mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad19f731c0d49646badb5ca7a2697eba9}{layers}})\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00282}{282}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_transformer_a89aa7f2755c23e68d1346b8acda5d8b6}\index{clip.model.Transformer@{clip.model.Transformer}!width@{width}}
+\index{width@{width}!clip.model.Transformer@{clip.model.Transformer}}
+\doxysubsubsection{\texorpdfstring{width}{width}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_transformer_a89aa7f2755c23e68d1346b8acda5d8b6} 
+clip.\+model.\+Transformer.\+width = width}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00280}{280}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{model_8py}{model.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,73 @@
+\doxysection{clip.\+model.\+Layer\+Norm Class Reference}
+\hypertarget{classclip_1_1model_1_1_layer_norm}{}\label{classclip_1_1model_1_1_layer_norm}\index{clip.model.LayerNorm@{clip.model.LayerNorm}}
+
+
+Subclass of Py\+Torch\textquotesingle{}s \doxylink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm} for handling fp16 precision.  
+
+
+
+
+Inheritance diagram for clip.\+model.\+Layer\+Norm\+:
+% FIG 0
+
+
+Collaboration diagram for clip.\+model.\+Layer\+Norm\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_layer_norm_ae29530ff5a0b1aceae6893b9227e8731}{forward}} (self, torch.\+Tensor x)
+\begin{DoxyCompactList}\small\item\em Forward pass of \doxylink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm} with fp16 support. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Subclass of Py\+Torch\textquotesingle{}s \doxylink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm} for handling fp16 precision. 
+
+\begin{DoxyVerb}Subclass torch's LayerNorm to handle fp16.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00207}{207}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classclip_1_1model_1_1_layer_norm_ae29530ff5a0b1aceae6893b9227e8731}\index{clip.model.LayerNorm@{clip.model.LayerNorm}!forward@{forward}}
+\index{forward@{forward}!clip.model.LayerNorm@{clip.model.LayerNorm}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_layer_norm_ae29530ff5a0b1aceae6893b9227e8731} 
+clip.\+model.\+Layer\+Norm.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{torch.\+Tensor}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Forward pass of \doxylink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm} with fp16 support. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Input tensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Output tensor with normalized values. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00213}{213}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keyword}{def\ }forward(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ orig\_type\ =\ x.dtype}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ ret\ =\ super().forward(x.type(torch.float32))}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret.type(orig\_type)}
+\DoxyCodeLine{00217\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{model_8py}{model.\+py}}\end{DoxyCompactItemize}

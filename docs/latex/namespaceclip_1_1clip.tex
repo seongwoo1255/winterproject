@@ -1,0 +1,512 @@
+\doxysection{clip.\+clip Namespace Reference}
+\hypertarget{namespaceclip_1_1clip}{}\label{namespaceclip_1_1clip}\index{clip.clip@{clip.clip}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceclip_1_1clip_a4552ed95f75ae2373bfe34672feb1644}{\+\_\+download}} (str url, str root)
+\begin{DoxyCompactList}\small\item\em Downloads a model file from a given URL. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceclip_1_1clip_a5c683955d410d35fc5cdf812c3cd055b}{\+\_\+convert\+\_\+image\+\_\+to\+\_\+rgb}} (image)
+\begin{DoxyCompactList}\small\item\em Converts an image to RGB format. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceclip_1_1clip_a60e2bbfd64efea3fcc84b04b30e90dba}{\+\_\+transform}} (n\+\_\+px)
+\begin{DoxyCompactList}\small\item\em Creates a preprocessing pipeline for images. \end{DoxyCompactList}\item 
+List\mbox{[}str\mbox{]} \mbox{\hyperlink{namespaceclip_1_1clip_af1e29480bb03a4152c2c3dbc0ba6e5f4}{available\+\_\+models}} ()
+\begin{DoxyCompactList}\small\item\em Lists the names of available pre-\/trained CLIP models. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceclip_1_1clip_ada9638365db32df0a68806aa2554b186}{load}} (str name, Union\mbox{[}str, torch.\+device\mbox{]} device="{}cuda"{} if torch.\+cuda.\+is\+\_\+available() else "{}cpu"{}, bool jit=False, str download\+\_\+root=None)
+\begin{DoxyCompactList}\small\item\em Loads a CLIP model. \end{DoxyCompactList}\item 
+Union\mbox{[}torch.\+Int\+Tensor, torch.\+Long\+Tensor\mbox{]} \mbox{\hyperlink{namespaceclip_1_1clip_a36a01501a3d7c1632f3ddc785e8b8eb3}{tokenize}} (Union\mbox{[}str, List\mbox{[}str\mbox{]}\mbox{]} texts, int context\+\_\+length=77, bool truncate=False)
+\begin{DoxyCompactList}\small\item\em Tokenizes input text(s) for use with CLIP models. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceclip_1_1clip_a28c010f6f72c2bdea5c8cdbf0d0c18bb}{BICUBIC}} = Interpolation\+Mode.\+BICUBIC
+\item 
+list \mbox{\hyperlink{namespaceclip_1_1clip_a08c0656583a40bb7efbd1d6683627d73}{\+\_\+\+\_\+all\+\_\+\+\_\+}} = \mbox{[}"{}available\+\_\+models"{}, "{}load"{}, "{}tokenize"{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceclip_1_1clip_a17b88d157d1798d253cbe86f34466ae2}{\+\_\+tokenizer}} = \+\_\+\+Tokenizer()
+\item 
+dict \mbox{\hyperlink{namespaceclip_1_1clip_a414e1aa5cd9650d22dea529ffb6c8625}{\+\_\+\+MODELS}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceclip_1_1clip_a5c683955d410d35fc5cdf812c3cd055b}\index{clip.clip@{clip.clip}!\_convert\_image\_to\_rgb@{\_convert\_image\_to\_rgb}}
+\index{\_convert\_image\_to\_rgb@{\_convert\_image\_to\_rgb}!clip.clip@{clip.clip}}
+\doxysubsubsection{\texorpdfstring{\_convert\_image\_to\_rgb()}{\_convert\_image\_to\_rgb()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1clip_a5c683955d410d35fc5cdf812c3cd055b} 
+clip.\+clip.\+\_\+convert\+\_\+image\+\_\+to\+\_\+rgb (\begin{DoxyParamCaption}\item[{}]{image}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Converts an image to RGB format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & A PIL.\+Image object representing the image to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A PIL.\+Image object in RGB format. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{clip_8py_source_l00108}{108}} of file \mbox{\hyperlink{clip_8py_source}{clip.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00108\ \textcolor{keyword}{def\ }\_convert\_image\_to\_rgb(image):}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordflow}{return}\ image.convert(\textcolor{stringliteral}{"{}RGB"{}})}
+\DoxyCodeLine{00110\ }
+
+\end{DoxyCode}
+\Hypertarget{namespaceclip_1_1clip_a4552ed95f75ae2373bfe34672feb1644}\index{clip.clip@{clip.clip}!\_download@{\_download}}
+\index{\_download@{\_download}!clip.clip@{clip.clip}}
+\doxysubsubsection{\texorpdfstring{\_download()}{\_download()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1clip_a4552ed95f75ae2373bfe34672feb1644} 
+clip.\+clip.\+\_\+download (\begin{DoxyParamCaption}\item[{str}]{url}{, }\item[{str}]{root}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Downloads a model file from a given URL. 
+
+This function downloads a file to the specified directory, validates its SHA256 checksum, and ensures the integrity of the downloaded file. If the checksum does not match, the download is retried or raises an error. 
+\begin{DoxyParams}{Parameters}
+{\em url} & The URL from which to download the model file. \\
+\hline
+{\em root} & The root directory where the downloaded file will be saved. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The absolute file path to the downloaded model file. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Runtime\+Error} & If the file exists but is not a regular file, or if the checksum does not match. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line \mbox{\hyperlink{clip_8py_source_l00073}{73}} of file \mbox{\hyperlink{clip_8py_source}{clip.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00073\ \textcolor{keyword}{def\ }\_download(url:\ str,\ root:\ str):}
+\DoxyCodeLine{00074\ \ \ \ \ os.makedirs(root,\ exist\_ok=\textcolor{keyword}{True})}
+\DoxyCodeLine{00075\ \ \ \ \ filename\ =\ os.path.basename(url)}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ expected\_sha256\ =\ url.split(\textcolor{stringliteral}{"{}/"{}})[-\/2]}
+\DoxyCodeLine{00078\ \ \ \ \ download\_target\ =\ os.path.join(root,\ filename)}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{if}\ os.path.exists(download\_target)\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ os.path.isfile(download\_target):}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ RuntimeError(f\textcolor{stringliteral}{"{}\{download\_target\}\ exists\ and\ is\ not\ a\ regular\ file"{}})}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{if}\ os.path.isfile(download\_target):}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hashlib.sha256(open(download\_target,\ \textcolor{stringliteral}{"{}rb"{}}).read()).hexdigest()\ ==\ expected\_sha256:}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ download\_target}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ warnings.warn(f\textcolor{stringliteral}{"{}\{download\_target\}\ exists,\ but\ the\ SHA256\ checksum\ does\ not\ match;\ re-\/downloading\ the\ file"{}})}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{with}\ urllib.request.urlopen(url)\ \textcolor{keyword}{as}\ source,\ open(download\_target,\ \textcolor{stringliteral}{"{}wb"{}})\ \textcolor{keyword}{as}\ output:}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ tqdm(total=int(source.info().get(\textcolor{stringliteral}{"{}Content-\/Length"{}})),\ ncols=80,\ unit=\textcolor{stringliteral}{'iB'},\ unit\_scale=\textcolor{keyword}{True},\ unit\_divisor=1024)\ \textcolor{keyword}{as}\ loop:}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buffer\ =\ source.read(8192)}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ buffer:}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output.write(buffer)}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ loop.update(len(buffer))}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{if}\ hashlib.sha256(open(download\_target,\ \textcolor{stringliteral}{"{}rb"{}}).read()).hexdigest()\ !=\ expected\_sha256:}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ RuntimeError(\textcolor{stringliteral}{"{}Model\ has\ been\ downloaded\ but\ the\ SHA256\ checksum\ does\ not\ not\ match"{}})}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{return}\ download\_target}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 0
+\Hypertarget{namespaceclip_1_1clip_a60e2bbfd64efea3fcc84b04b30e90dba}\index{clip.clip@{clip.clip}!\_transform@{\_transform}}
+\index{\_transform@{\_transform}!clip.clip@{clip.clip}}
+\doxysubsubsection{\texorpdfstring{\_transform()}{\_transform()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1clip_a60e2bbfd64efea3fcc84b04b30e90dba} 
+clip.\+clip.\+\_\+transform (\begin{DoxyParamCaption}\item[{}]{n\+\_\+px}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Creates a preprocessing pipeline for images. 
+
+The pipeline includes resizing, cropping, converting to RGB, and normalization. 
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+px} & The target size for resizing and cropping images. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Compose object that applies resizing, cropping, RGB conversion, and normalization to input images. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{clip_8py_source_l00115}{115}} of file \mbox{\hyperlink{clip_8py_source}{clip.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00115\ \textcolor{keyword}{def\ }\_transform(n\_px):}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{return}\ Compose([}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ Resize(n\_px,\ interpolation=BICUBIC),}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ CenterCrop(n\_px),}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \_convert\_image\_to\_rgb,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ ToTensor(),}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ Normalize((0.48145466,\ 0.4578275,\ 0.40821073),\ (0.26862954,\ 0.26130258,\ 0.27577711)),}
+\DoxyCodeLine{00122\ \ \ \ \ ])}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{comment}{\#\ Public\ functions}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 1
+\Hypertarget{namespaceclip_1_1clip_af1e29480bb03a4152c2c3dbc0ba6e5f4}\index{clip.clip@{clip.clip}!available\_models@{available\_models}}
+\index{available\_models@{available\_models}!clip.clip@{clip.clip}}
+\doxysubsubsection{\texorpdfstring{available\_models()}{available\_models()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1clip_af1e29480bb03a4152c2c3dbc0ba6e5f4} 
+ List\mbox{[}str\mbox{]} clip.\+clip.\+available\+\_\+models (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Lists the names of available pre-\/trained CLIP models. 
+
+\begin{DoxyReturn}{Returns}
+A list of strings representing the names of the available models.
+\end{DoxyReturn}
+\begin{DoxyVerb}Returns the names of available CLIP models\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{clip_8py_source_l00127}{127}} of file \mbox{\hyperlink{clip_8py_source}{clip.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00127\ \textcolor{keyword}{def\ }available\_models()\ -\/>\ List[str]:}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ names\ of\ available\ CLIP\ models"{}"{}"{}}}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ list(\_MODELS.keys())}
+\DoxyCodeLine{00130\ }
+
+\end{DoxyCode}
+\Hypertarget{namespaceclip_1_1clip_ada9638365db32df0a68806aa2554b186}\index{clip.clip@{clip.clip}!load@{load}}
+\index{load@{load}!clip.clip@{clip.clip}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1clip_ada9638365db32df0a68806aa2554b186} 
+clip.\+clip.\+load (\begin{DoxyParamCaption}\item[{str}]{name}{, }\item[{Union\mbox{[}str, torch.\+device\mbox{]} }]{device}{ = {\ttfamily "{}cuda"{}~if~torch.cuda.is\+\_\+available()~else~"{}cpu"{}}, }\item[{bool }]{jit}{ = {\ttfamily False}, }\item[{str }]{download\+\_\+root}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Loads a CLIP model. 
+
+Handles downloading the model weights, loading them into memory, and preparing the model for inference. 
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the model to load or the path to a model checkpoint file. \\
+\hline
+{\em device} & The device to load the model onto (default\+: "{}cuda"{} if available, otherwise "{}cpu"{}). \\
+\hline
+{\em jit} & Whether to load the optimized JIT model or the more hackable non-\/\+JIT version. \\
+\hline
+{\em download\+\_\+root} & The directory to save downloaded model files (default\+: "{}\texorpdfstring{$\sim$}{\string~}/.\+cache/clip"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A tuple containing the loaded model (torch.\+nn.\+Module) and a preprocessing pipeline (Callable).
+\end{DoxyReturn}
+\begin{DoxyVerb}Load a CLIP model
+
+Parameters
+----------
+name : str
+    A model name listed by `clip.available_models()`, or the path to a model checkpoint containing the state_dict
+
+device : Union[str, torch.device]
+    The device to put the loaded model
+
+jit : bool
+    Whether to load the optimized JIT model or more hackable non-JIT model (default).
+
+download_root: str
+    path to download the model files; by default, it uses "~/.cache/clip"
+
+Returns
+-------
+model : torch.nn.Module
+    The CLIP model
+
+preprocess : Callable[[PIL.Image], torch.Tensor]
+    A torchvision transform that converts a PIL image into a tensor that the returned model can take as its input
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{clip_8py_source_l00138}{138}} of file \mbox{\hyperlink{clip_8py_source}{clip.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00138\ \textcolor{keyword}{def\ }load(name:\ str,\ device:\ Union[str,\ torch.device]\ =\ \textcolor{stringliteral}{"{}cuda"{}}\ \textcolor{keywordflow}{if}\ torch.cuda.is\_available()\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{"{}cpu"{}},\ jit:\ bool\ =\ \textcolor{keyword}{False},\ download\_root:\ str\ =\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Load\ a\ CLIP\ model}}
+\DoxyCodeLine{00140\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00141\ \textcolor{stringliteral}{\ \ \ \ Parameters}}
+\DoxyCodeLine{00142\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00143\ \textcolor{stringliteral}{\ \ \ \ name\ :\ str}}
+\DoxyCodeLine{00144\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ A\ model\ name\ listed\ by\ \`{}clip.available\_models()\`{},\ or\ the\ path\ to\ a\ model\ checkpoint\ containing\ the\ state\_dict}}
+\DoxyCodeLine{00145\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00146\ \textcolor{stringliteral}{\ \ \ \ device\ :\ Union[str,\ torch.device]}}
+\DoxyCodeLine{00147\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ The\ device\ to\ put\ the\ loaded\ model}}
+\DoxyCodeLine{00148\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00149\ \textcolor{stringliteral}{\ \ \ \ jit\ :\ bool}}
+\DoxyCodeLine{00150\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Whether\ to\ load\ the\ optimized\ JIT\ model\ or\ more\ hackable\ non-\/JIT\ model\ (default).}}
+\DoxyCodeLine{00151\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00152\ \textcolor{stringliteral}{\ \ \ \ download\_root:\ str}}
+\DoxyCodeLine{00153\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ path\ to\ download\ the\ model\ files;\ by\ default,\ it\ uses\ "{}\string~/.cache/clip"{}}}
+\DoxyCodeLine{00154\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00155\ \textcolor{stringliteral}{\ \ \ \ Returns}}
+\DoxyCodeLine{00156\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00157\ \textcolor{stringliteral}{\ \ \ \ model\ :\ torch.nn.Module}}
+\DoxyCodeLine{00158\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ The\ CLIP\ model}}
+\DoxyCodeLine{00159\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00160\ \textcolor{stringliteral}{\ \ \ \ preprocess\ :\ Callable[[PIL.Image],\ torch.Tensor]}}
+\DoxyCodeLine{00161\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ A\ torchvision\ transform\ that\ converts\ a\ PIL\ image\ into\ a\ tensor\ that\ the\ returned\ model\ can\ take\ as\ its\ input}}
+\DoxyCodeLine{00162\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordflow}{if}\ name\ \textcolor{keywordflow}{in}\ \_MODELS:}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ model\_path\ =\ \_download(\_MODELS[name],\ download\_root\ \textcolor{keywordflow}{or}\ os.path.expanduser(\textcolor{stringliteral}{"{}\string~/.cache/clip"{}}))}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{elif}\ os.path.isfile(name):}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ model\_path\ =\ name}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ RuntimeError(f\textcolor{stringliteral}{"{}Model\ \{name\}\ not\ found;\ available\ models\ =\ \{available\_models()\}"{}})}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{with}\ open(model\_path,\ \textcolor{stringliteral}{'rb'})\ \textcolor{keyword}{as}\ opened\_file:}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ loading\ JIT\ archive}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ torch.jit.load(opened\_file,\ map\_location=device\ \textcolor{keywordflow}{if}\ jit\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{"{}cpu"{}}).eval()}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ state\_dict\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ RuntimeError:}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ loading\ saved\ state\ dict}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ jit:}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ warnings.warn(f\textcolor{stringliteral}{"{}File\ \{model\_path\}\ is\ not\ a\ JIT\ archive.\ Loading\ as\ a\ state\ dict\ instead"{}})}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ jit\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ state\_dict\ =\ torch.load(opened\_file,\ map\_location=\textcolor{stringliteral}{"{}cpu"{}})}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ jit:}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ model\ =\ build\_model(state\_dict\ \textcolor{keywordflow}{or}\ model.state\_dict()).to(device)}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ str(device)\ ==\ \textcolor{stringliteral}{"{}cpu"{}}:}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ model.float()}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ model,\ \_transform(model.visual.input\_resolution)}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{comment}{\#\ patch\ the\ device\ names}}
+\DoxyCodeLine{00189\ \ \ \ \ device\_holder\ =\ torch.jit.trace(\textcolor{keyword}{lambda}:\ torch.ones([]).to(torch.device(device)),\ example\_inputs=[])}
+\DoxyCodeLine{00190\ \ \ \ \ device\_node\ =\ [n\ \textcolor{keywordflow}{for}\ n\ \textcolor{keywordflow}{in}\ device\_holder.graph.findAllNodes(\textcolor{stringliteral}{"{}prim::Constant"{}})\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}Device"{}}\ \textcolor{keywordflow}{in}\ repr(n)][-\/1]}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keyword}{def\ }\_node\_get(node:\ torch.\_C.Node,\ key:\ str):}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Gets\ attributes\ of\ a\ node\ which\ is\ polymorphic\ over\ return\ type.}}
+\DoxyCodeLine{00194\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00195\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ From\ https://github.com/pytorch/pytorch/pull/82628}}
+\DoxyCodeLine{00196\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ sel\ =\ node.kindOf(key)}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ getattr(node,\ sel)(key)}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keyword}{def\ }patch\_device(module):}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ graphs\ =\ [module.graph]\ \textcolor{keywordflow}{if}\ hasattr(module,\ \textcolor{stringliteral}{"{}graph"{}})\ \textcolor{keywordflow}{else}\ []}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ RuntimeError:}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ graphs\ =\ []}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(module,\ \textcolor{stringliteral}{"{}forward1"{}}):}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ graphs.append(module.forward1.graph)}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ graph\ \textcolor{keywordflow}{in}\ graphs:}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ node\ \textcolor{keywordflow}{in}\ graph.findAllNodes(\textcolor{stringliteral}{"{}prim::Constant"{}}):}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}value"{}}\ \textcolor{keywordflow}{in}\ node.attributeNames()\ \textcolor{keywordflow}{and}\ str(\_node\_get(node,\ \textcolor{stringliteral}{"{}value"{}})).startswith(\textcolor{stringliteral}{"{}cuda"{}}):}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ node.copyAttributes(device\_node)}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ model.apply(patch\_device)}
+\DoxyCodeLine{00215\ \ \ \ \ patch\_device(model.encode\_image)}
+\DoxyCodeLine{00216\ \ \ \ \ patch\_device(model.encode\_text)}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{comment}{\#\ patch\ dtype\ to\ float32\ on\ CPU}}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordflow}{if}\ str(device)\ ==\ \textcolor{stringliteral}{"{}cpu"{}}:}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ float\_holder\ =\ torch.jit.trace(\textcolor{keyword}{lambda}:\ torch.ones([]).float(),\ example\_inputs=[])}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ float\_input\ =\ list(float\_holder.graph.findNode(\textcolor{stringliteral}{"{}aten::to"{}}).inputs())[1]}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ float\_node\ =\ float\_input.node()}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{keyword}{def\ }patch\_float(module):}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graphs\ =\ [module.graph]\ \textcolor{keywordflow}{if}\ hasattr(module,\ \textcolor{stringliteral}{"{}graph"{}})\ \textcolor{keywordflow}{else}\ []}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ RuntimeError:}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graphs\ =\ []}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(module,\ \textcolor{stringliteral}{"{}forward1"{}}):}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graphs.append(module.forward1.graph)}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ graph\ \textcolor{keywordflow}{in}\ graphs:}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ node\ \textcolor{keywordflow}{in}\ graph.findAllNodes(\textcolor{stringliteral}{"{}aten::to"{}}):}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs\ =\ list(node.inputs())}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ [1,\ 2]:\ \ \textcolor{comment}{\#\ dtype\ can\ be\ the\ second\ or\ third\ argument\ to\ aten::to()}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \_node\_get(inputs[i].node(),\ \textcolor{stringliteral}{"{}value"{}})\ ==\ 5:}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs[i].node().copyAttributes(float\_node)}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ model.apply(patch\_float)}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ patch\_float(model.encode\_image)}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ patch\_float(model.encode\_text)}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ model.float()}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keywordflow}{return}\ model,\ \_transform(model.input\_resolution.item())}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{namespaceclip_1_1clip_a36a01501a3d7c1632f3ddc785e8b8eb3}\index{clip.clip@{clip.clip}!tokenize@{tokenize}}
+\index{tokenize@{tokenize}!clip.clip@{clip.clip}}
+\doxysubsubsection{\texorpdfstring{tokenize()}{tokenize()}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1clip_a36a01501a3d7c1632f3ddc785e8b8eb3} 
+ Union\mbox{[}torch.\+Int\+Tensor, torch.\+Long\+Tensor\mbox{]} clip.\+clip.\+tokenize (\begin{DoxyParamCaption}\item[{Union\mbox{[}str, List\mbox{[}str\mbox{]}\mbox{]}}]{texts}{, }\item[{int }]{context\+\_\+length}{ = {\ttfamily 77}, }\item[{bool }]{truncate}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+
+
+Tokenizes input text(s) for use with CLIP models. 
+
+This function converts input strings into tokenized representations that are padded or truncated to match the required {\ttfamily context\+\_\+length}. Start-\/of-\/text and end-\/of-\/text tokens are added automatically. 
+\begin{DoxyParams}{Parameters}
+{\em texts} & A single string or a list of strings to tokenize. \\
+\hline
+{\em context\+\_\+length} & The maximum length for tokenization (default\+: 77). \\
+\hline
+{\em truncate} & Whether to truncate text if it exceeds the context length (default\+: False). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A 2D tensor with shape \mbox{[}number of input strings, context\+\_\+length\mbox{]}, containing tokenized text inputs. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Runtime\+Error} & If a text input exceeds {\ttfamily context\+\_\+length} and truncation is disabled.\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyVerb}Returns the tokenized representation of given input string(s)
+
+Parameters
+----------
+texts : Union[str, List[str]]
+    An input string or a list of input strings to tokenize
+
+context_length : int
+    The context length to use; all CLIP models use 77 as the context length
+
+truncate: bool
+    Whether to truncate the text in case its encoding is longer than the context length
+
+Returns
+-------
+A two-dimensional tensor containing the resulting tokens, shape = [number of input strings, context_length].
+We return LongTensor when torch version is <1.8.0, since older index_select requires indices to be long.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{clip_8py_source_l00257}{257}} of file \mbox{\hyperlink{clip_8py_source}{clip.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00257\ \textcolor{keyword}{def\ }tokenize(texts:\ Union[str,\ List[str]],\ context\_length:\ int\ =\ 77,\ truncate:\ bool\ =\ \textcolor{keyword}{False})\ -\/>\ Union[torch.IntTensor,\ torch.LongTensor]:}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00259\ \textcolor{stringliteral}{\ \ \ \ Returns\ the\ tokenized\ representation\ of\ given\ input\ string(s)}}
+\DoxyCodeLine{00260\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00261\ \textcolor{stringliteral}{\ \ \ \ Parameters}}
+\DoxyCodeLine{00262\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00263\ \textcolor{stringliteral}{\ \ \ \ texts\ :\ Union[str,\ List[str]]}}
+\DoxyCodeLine{00264\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ An\ input\ string\ or\ a\ list\ of\ input\ strings\ to\ tokenize}}
+\DoxyCodeLine{00265\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00266\ \textcolor{stringliteral}{\ \ \ \ context\_length\ :\ int}}
+\DoxyCodeLine{00267\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ The\ context\ length\ to\ use;\ all\ CLIP\ models\ use\ 77\ as\ the\ context\ length}}
+\DoxyCodeLine{00268\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00269\ \textcolor{stringliteral}{\ \ \ \ truncate:\ bool}}
+\DoxyCodeLine{00270\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Whether\ to\ truncate\ the\ text\ in\ case\ its\ encoding\ is\ longer\ than\ the\ context\ length}}
+\DoxyCodeLine{00271\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00272\ \textcolor{stringliteral}{\ \ \ \ Returns}}
+\DoxyCodeLine{00273\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00274\ \textcolor{stringliteral}{\ \ \ \ A\ two-\/dimensional\ tensor\ containing\ the\ resulting\ tokens,\ shape\ =\ [number\ of\ input\ strings,\ context\_length].}}
+\DoxyCodeLine{00275\ \textcolor{stringliteral}{\ \ \ \ We\ return\ LongTensor\ when\ torch\ version\ is\ <1.8.0,\ since\ older\ index\_select\ requires\ indices\ to\ be\ long.}}
+\DoxyCodeLine{00276\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(texts,\ str):}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ texts\ =\ [texts]}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ sot\_token\ =\ \_tokenizer.encoder[\textcolor{stringliteral}{"{}<|startoftext|>"{}}]}
+\DoxyCodeLine{00281\ \ \ \ \ eot\_token\ =\ \_tokenizer.encoder[\textcolor{stringliteral}{"{}<|endoftext|>"{}}]}
+\DoxyCodeLine{00282\ \ \ \ \ all\_tokens\ =\ [[sot\_token]\ +\ \_tokenizer.encode(text)\ +\ [eot\_token]\ \textcolor{keywordflow}{for}\ text\ \textcolor{keywordflow}{in}\ texts]}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordflow}{if}\ version.parse(torch.\_\_version\_\_)\ <\ version.parse(\textcolor{stringliteral}{"{}1.8.0"{}}):}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ result\ =\ torch.zeros(len(all\_tokens),\ context\_length,\ dtype=torch.long)}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ result\ =\ torch.zeros(len(all\_tokens),\ context\_length,\ dtype=torch.int)}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ tokens\ \textcolor{keywordflow}{in}\ enumerate(all\_tokens):}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(tokens)\ >\ context\_length:}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ truncate:}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokens\ =\ tokens[:context\_length]}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokens[-\/1]\ =\ eot\_token}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ RuntimeError(f\textcolor{stringliteral}{"{}Input\ \{texts[i]\}\ is\ too\ long\ for\ context\ length\ \{context\_length\}"{}})}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ result[i,\ :len(tokens)]\ =\ torch.tensor(tokens)}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceclip_1_1clip_a08c0656583a40bb7efbd1d6683627d73}\index{clip.clip@{clip.clip}!\_\_all\_\_@{\_\_all\_\_}}
+\index{\_\_all\_\_@{\_\_all\_\_}!clip.clip@{clip.clip}}
+\doxysubsubsection{\texorpdfstring{\_\_all\_\_}{\_\_all\_\_}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1clip_a08c0656583a40bb7efbd1d6683627d73} 
+list clip.\+clip.\+\_\+\+\_\+all\+\_\+\+\_\+ = \mbox{[}"{}available\+\_\+models"{}, "{}load"{}, "{}tokenize"{}\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{clip_8py_source_l00049}{49}} of file \mbox{\hyperlink{clip_8py_source}{clip.\+py}}.
+
+\Hypertarget{namespaceclip_1_1clip_a414e1aa5cd9650d22dea529ffb6c8625}\index{clip.clip@{clip.clip}!\_MODELS@{\_MODELS}}
+\index{\_MODELS@{\_MODELS}!clip.clip@{clip.clip}}
+\doxysubsubsection{\texorpdfstring{\_MODELS}{\_MODELS}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1clip_a414e1aa5cd9650d22dea529ffb6c8625} 
+dict clip.\+clip.\+\_\+\+MODELS\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}RN50"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/afeb0e10f9e5a86da6080e35cf09123aca3b358a0c3e3b6c78a7b63bc04b6762/RN50.pt"{}},}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}RN101"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/8fa8567bab74a42d41c5915025a8e4538c3bdbe8804a470a72f30b0d94fab599/RN101.pt"{}},}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{"{}RN50x4"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/7e526bd135e493cef0776de27d5f42653e6b4c8bf9e0f653bb11773263205fdd/RN50x4.pt"{}},}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{"{}RN50x16"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/52378b407f34354e150460fe41077663dd5b39c54cd0bfd2b27167a4a06ec9aa/RN50x16.pt"{}},}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{stringliteral}{"{}RN50x64"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/be1cfb55d75a9666199fb2206c106743da0f6468c9d327f3e0d0a543a9919d9c/RN50x64.pt"{}},}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{stringliteral}{"{}ViT-\/B/32"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-\/B-\/32.pt"{}},}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{stringliteral}{"{}ViT-\/B/16"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-\/B-\/16.pt"{}},}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{stringliteral}{"{}ViT-\/L/14"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-\/L-\/14.pt"{}},}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{stringliteral}{"{}ViT-\/L/14@336px"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/3035c92b350959924f9f00213499208652fc7ea050643e8b385c2dac08641f02/ViT-\/L-\/14-\/336px.pt"{}},}
+\DoxyCodeLine{00011\ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{clip_8py_source_l00052}{52}} of file \mbox{\hyperlink{clip_8py_source}{clip.\+py}}.
+
+\Hypertarget{namespaceclip_1_1clip_a17b88d157d1798d253cbe86f34466ae2}\index{clip.clip@{clip.clip}!\_tokenizer@{\_tokenizer}}
+\index{\_tokenizer@{\_tokenizer}!clip.clip@{clip.clip}}
+\doxysubsubsection{\texorpdfstring{\_tokenizer}{\_tokenizer}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1clip_a17b88d157d1798d253cbe86f34466ae2} 
+clip.\+clip.\+\_\+tokenizer = \+\_\+\+Tokenizer()\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{clip_8py_source_l00050}{50}} of file \mbox{\hyperlink{clip_8py_source}{clip.\+py}}.
+
+\Hypertarget{namespaceclip_1_1clip_a28c010f6f72c2bdea5c8cdbf0d0c18bb}\index{clip.clip@{clip.clip}!BICUBIC@{BICUBIC}}
+\index{BICUBIC@{BICUBIC}!clip.clip@{clip.clip}}
+\doxysubsubsection{\texorpdfstring{BICUBIC}{BICUBIC}}
+{\footnotesize\ttfamily \label{namespaceclip_1_1clip_a28c010f6f72c2bdea5c8cdbf0d0c18bb} 
+clip.\+clip.\+BICUBIC = Interpolation\+Mode.\+BICUBIC}
+
+
+
+Definition at line \mbox{\hyperlink{clip_8py_source_l00036}{36}} of file \mbox{\hyperlink{clip_8py_source}{clip.\+py}}.
+

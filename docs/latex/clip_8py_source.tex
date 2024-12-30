@@ -1,0 +1,259 @@
+\doxysection{clip.\+py}
+\hypertarget{clip_8py_source}{}\label{clip_8py_source}\mbox{\hyperlink{clip_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00001}\mbox{\hyperlink{namespaceclip_1_1clip}{00001}}\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00016}00016\ \textcolor{comment}{\#\ Import\ statements}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00019}00019\ \textcolor{keyword}{import}\ hashlib}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00020}00020\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00021}00021\ \textcolor{keyword}{import}\ urllib}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00022}00022\ \textcolor{keyword}{import}\ warnings}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00023}00023\ \textcolor{keyword}{from}\ packaging\ \textcolor{keyword}{import}\ version}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00024}00024\ \textcolor{keyword}{from}\ typing\ \textcolor{keyword}{import}\ Union,\ List}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00026}00026\ \textcolor{keyword}{import}\ torch}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00027}00027\ \textcolor{keyword}{from}\ PIL\ \textcolor{keyword}{import}\ Image}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00028}00028\ \textcolor{keyword}{from}\ torchvision.transforms\ \textcolor{keyword}{import}\ Compose,\ Resize,\ CenterCrop,\ ToTensor,\ Normalize}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00029}00029\ \textcolor{keyword}{from}\ tqdm\ \textcolor{keyword}{import}\ tqdm}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00031}00031\ \textcolor{keyword}{from}\ .model\ \textcolor{keyword}{import}\ build\_model}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00032}00032\ \textcolor{keyword}{from}\ .simple\_tokenizer\ \textcolor{keyword}{import}\ SimpleTokenizer\ \textcolor{keyword}{as}\ \_Tokenizer}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00034}00034\ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00035}00035\ \ \ \ \ \textcolor{keyword}{from}\ torchvision.transforms\ \textcolor{keyword}{import}\ InterpolationMode}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00036}\mbox{\hyperlink{namespaceclip_1_1clip_a28c010f6f72c2bdea5c8cdbf0d0c18bb}{00036}}\ \ \ \ \ BICUBIC\ =\ InterpolationMode.BICUBIC}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00037}00037\ \textcolor{keywordflow}{except}\ ImportError:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00038}00038\ \ \ \ \ BICUBIC\ =\ Image.BICUBIC}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00041}00041\ \textcolor{keywordflow}{if}\ version.parse(torch.\_\_version\_\_)\ <\ version.parse(\textcolor{stringliteral}{"{}1.7.1"{}}):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00042}00042\ \ \ \ \ warnings.warn(\textcolor{stringliteral}{"{}PyTorch\ version\ 1.7.1\ or\ higher\ is\ recommended"{}})}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00044}00044\ \textcolor{comment}{\#\ Constants\ and\ globals}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00049}\mbox{\hyperlink{namespaceclip_1_1clip_a08c0656583a40bb7efbd1d6683627d73}{00049}}\ \_\_all\_\_\ =\ [\textcolor{stringliteral}{"{}available\_models"{}},\ \textcolor{stringliteral}{"{}load"{}},\ \textcolor{stringliteral}{"{}tokenize"{}}]}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00050}\mbox{\hyperlink{namespaceclip_1_1clip_a17b88d157d1798d253cbe86f34466ae2}{00050}}\ \_tokenizer\ =\ \_Tokenizer()}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00052}\mbox{\hyperlink{namespaceclip_1_1clip_a414e1aa5cd9650d22dea529ffb6c8625}{00052}}\ \_MODELS\ =\ \{}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00053}00053\ \ \ \ \ \textcolor{stringliteral}{"{}RN50"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/afeb0e10f9e5a86da6080e35cf09123aca3b358a0c3e3b6c78a7b63bc04b6762/RN50.pt"{}},}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00054}00054\ \ \ \ \ \textcolor{stringliteral}{"{}RN101"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/8fa8567bab74a42d41c5915025a8e4538c3bdbe8804a470a72f30b0d94fab599/RN101.pt"{}},}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00055}00055\ \ \ \ \ \textcolor{stringliteral}{"{}RN50x4"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/7e526bd135e493cef0776de27d5f42653e6b4c8bf9e0f653bb11773263205fdd/RN50x4.pt"{}},}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00056}00056\ \ \ \ \ \textcolor{stringliteral}{"{}RN50x16"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/52378b407f34354e150460fe41077663dd5b39c54cd0bfd2b27167a4a06ec9aa/RN50x16.pt"{}},}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00057}00057\ \ \ \ \ \textcolor{stringliteral}{"{}RN50x64"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/be1cfb55d75a9666199fb2206c106743da0f6468c9d327f3e0d0a543a9919d9c/RN50x64.pt"{}},}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00058}00058\ \ \ \ \ \textcolor{stringliteral}{"{}ViT-\/B/32"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-\/B-\/32.pt"{}},}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00059}00059\ \ \ \ \ \textcolor{stringliteral}{"{}ViT-\/B/16"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-\/B-\/16.pt"{}},}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00060}00060\ \ \ \ \ \textcolor{stringliteral}{"{}ViT-\/L/14"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-\/L-\/14.pt"{}},}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00061}00061\ \ \ \ \ \textcolor{stringliteral}{"{}ViT-\/L/14@336px"{}}:\ \textcolor{stringliteral}{"{}https://openaipublic.azureedge.net/clip/models/3035c92b350959924f9f00213499208652fc7ea050643e8b385c2dac08641f02/ViT-\/L-\/14-\/336px.pt"{}},}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00062}00062\ \}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00064}00064\ \textcolor{comment}{\#\ Private\ helper\ functions}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00073}\mbox{\hyperlink{namespaceclip_1_1clip_a4552ed95f75ae2373bfe34672feb1644}{00073}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1clip_a4552ed95f75ae2373bfe34672feb1644}{\_download}}(url:\ str,\ root:\ str):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00074}00074\ \ \ \ \ os.makedirs(root,\ exist\_ok=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00075}00075\ \ \ \ \ filename\ =\ os.path.basename(url)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00077}00077\ \ \ \ \ expected\_sha256\ =\ url.split(\textcolor{stringliteral}{"{}/"{}})[-\/2]}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00078}00078\ \ \ \ \ download\_target\ =\ os.path.join(root,\ filename)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{if}\ os.path.exists(download\_target)\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ os.path.isfile(download\_target):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ RuntimeError(f\textcolor{stringliteral}{"{}\{download\_target\}\ exists\ and\ is\ not\ a\ regular\ file"{}})}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00083}00083\ \ \ \ \ \textcolor{keywordflow}{if}\ os.path.isfile(download\_target):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hashlib.sha256(open(download\_target,\ \textcolor{stringliteral}{"{}rb"{}}).read()).hexdigest()\ ==\ expected\_sha256:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ download\_target}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ warnings.warn(f\textcolor{stringliteral}{"{}\{download\_target\}\ exists,\ but\ the\ SHA256\ checksum\ does\ not\ match;\ re-\/downloading\ the\ file"{}})}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00089}00089\ \ \ \ \ \textcolor{keyword}{with}\ urllib.request.urlopen(url)\ \textcolor{keyword}{as}\ source,\ open(download\_target,\ \textcolor{stringliteral}{"{}wb"{}})\ \textcolor{keyword}{as}\ output:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ tqdm(total=int(source.info().get(\textcolor{stringliteral}{"{}Content-\/Length"{}})),\ ncols=80,\ unit=\textcolor{stringliteral}{'iB'},\ unit\_scale=\textcolor{keyword}{True},\ unit\_divisor=1024)\ \textcolor{keyword}{as}\ loop:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buffer\ =\ source.read(8192)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ buffer:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output.write(buffer)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ loop.update(len(buffer))}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{if}\ hashlib.sha256(open(download\_target,\ \textcolor{stringliteral}{"{}rb"{}}).read()).hexdigest()\ !=\ expected\_sha256:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ RuntimeError(\textcolor{stringliteral}{"{}Model\ has\ been\ downloaded\ but\ the\ SHA256\ checksum\ does\ not\ not\ match"{}})}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{return}\ download\_target}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00108}\mbox{\hyperlink{namespaceclip_1_1clip_a5c683955d410d35fc5cdf812c3cd055b}{00108}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1clip_a5c683955d410d35fc5cdf812c3cd055b}{\_convert\_image\_to\_rgb}}(image):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{return}\ image.convert(\textcolor{stringliteral}{"{}RGB"{}})}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00115}\mbox{\hyperlink{namespaceclip_1_1clip_a60e2bbfd64efea3fcc84b04b30e90dba}{00115}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1clip_a60e2bbfd64efea3fcc84b04b30e90dba}{\_transform}}(n\_px):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00116}00116\ \ \ \ \ \textcolor{keywordflow}{return}\ Compose([}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ Resize(n\_px,\ interpolation=BICUBIC),}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ CenterCrop(n\_px),}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \_convert\_image\_to\_rgb,}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ ToTensor(),}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ Normalize((0.48145466,\ 0.4578275,\ 0.40821073),\ (0.26862954,\ 0.26130258,\ 0.27577711)),}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00122}00122\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00124}00124\ \textcolor{comment}{\#\ Public\ functions}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00127}\mbox{\hyperlink{namespaceclip_1_1clip_af1e29480bb03a4152c2c3dbc0ba6e5f4}{00127}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1clip_af1e29480bb03a4152c2c3dbc0ba6e5f4}{available\_models}}()\ -\/>\ List[str]:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00128}00128\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ names\ of\ available\ CLIP\ models"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00129}00129\ \ \ \ \ \textcolor{keywordflow}{return}\ list(\_MODELS.keys())}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00138}\mbox{\hyperlink{namespaceclip_1_1clip_ada9638365db32df0a68806aa2554b186}{00138}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1clip_ada9638365db32df0a68806aa2554b186}{load}}(name:\ str,\ device:\ Union[str,\ torch.device]\ =\ \textcolor{stringliteral}{"{}cuda"{}}\ \textcolor{keywordflow}{if}\ torch.cuda.is\_available()\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{"{}cpu"{}},\ jit:\ bool\ =\ \textcolor{keyword}{False},\ download\_root:\ str\ =\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00139}00139\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Load\ a\ CLIP\ model}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00140}00140\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00141}00141\ \textcolor{stringliteral}{\ \ \ \ Parameters}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00142}00142\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00143}00143\ \textcolor{stringliteral}{\ \ \ \ name\ :\ str}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00144}00144\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ A\ model\ name\ listed\ by\ \`{}clip.available\_models()\`{},\ or\ the\ path\ to\ a\ model\ checkpoint\ containing\ the\ state\_dict}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00145}00145\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00146}00146\ \textcolor{stringliteral}{\ \ \ \ device\ :\ Union[str,\ torch.device]}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00147}00147\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ The\ device\ to\ put\ the\ loaded\ model}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00148}00148\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00149}00149\ \textcolor{stringliteral}{\ \ \ \ jit\ :\ bool}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00150}00150\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Whether\ to\ load\ the\ optimized\ JIT\ model\ or\ more\ hackable\ non-\/JIT\ model\ (default).}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00151}00151\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00152}00152\ \textcolor{stringliteral}{\ \ \ \ download\_root:\ str}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00153}00153\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ path\ to\ download\ the\ model\ files;\ by\ default,\ it\ uses\ "{}\string~/.cache/clip"{}}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00154}00154\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00155}00155\ \textcolor{stringliteral}{\ \ \ \ Returns}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00156}00156\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00157}00157\ \textcolor{stringliteral}{\ \ \ \ model\ :\ torch.nn.Module}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00158}00158\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ The\ CLIP\ model}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00159}00159\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00160}00160\ \textcolor{stringliteral}{\ \ \ \ preprocess\ :\ Callable[[PIL.Image],\ torch.Tensor]}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00161}00161\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ A\ torchvision\ transform\ that\ converts\ a\ PIL\ image\ into\ a\ tensor\ that\ the\ returned\ model\ can\ take\ as\ its\ input}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00162}00162\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00163}00163\ \ \ \ \ \textcolor{keywordflow}{if}\ name\ \textcolor{keywordflow}{in}\ \_MODELS:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ model\_path\ =\ \mbox{\hyperlink{namespaceclip_1_1clip_a4552ed95f75ae2373bfe34672feb1644}{\_download}}(\_MODELS[name],\ download\_root\ \textcolor{keywordflow}{or}\ os.path.expanduser(\textcolor{stringliteral}{"{}\string~/.cache/clip"{}}))}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00165}00165\ \ \ \ \ \textcolor{keywordflow}{elif}\ os.path.isfile(name):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ model\_path\ =\ name}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00167}00167\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ RuntimeError(f\textcolor{stringliteral}{"{}Model\ \{name\}\ not\ found;\ available\ models\ =\ \{available\_models()\}"{}})}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00170}00170\ \ \ \ \ \textcolor{keyword}{with}\ open(model\_path,\ \textcolor{stringliteral}{'rb'})\ \textcolor{keyword}{as}\ opened\_file:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ loading\ JIT\ archive}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ torch.jit.load(opened\_file,\ map\_location=device\ \textcolor{keywordflow}{if}\ jit\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{"{}cpu"{}}).eval()}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ state\_dict\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ RuntimeError:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ loading\ saved\ state\ dict}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ jit:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ warnings.warn(f\textcolor{stringliteral}{"{}File\ \{model\_path\}\ is\ not\ a\ JIT\ archive.\ Loading\ as\ a\ state\ dict\ instead"{}})}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ jit\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ state\_dict\ =\ torch.load(opened\_file,\ map\_location=\textcolor{stringliteral}{"{}cpu"{}})}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00182}00182\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ jit:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ model\ =\ build\_model(state\_dict\ \textcolor{keywordflow}{or}\ model.state\_dict()).to(device)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ str(device)\ ==\ \textcolor{stringliteral}{"{}cpu"{}}:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ model.float()}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ model,\ \mbox{\hyperlink{namespaceclip_1_1clip_a60e2bbfd64efea3fcc84b04b30e90dba}{\_transform}}(model.visual.input\_resolution)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00188}00188\ \ \ \ \ \textcolor{comment}{\#\ patch\ the\ device\ names}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00189}00189\ \ \ \ \ device\_holder\ =\ torch.jit.trace(\textcolor{keyword}{lambda}:\ torch.ones([]).to(torch.device(device)),\ example\_inputs=[])}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00190}00190\ \ \ \ \ device\_node\ =\ [n\ \textcolor{keywordflow}{for}\ n\ \textcolor{keywordflow}{in}\ device\_holder.graph.findAllNodes(\textcolor{stringliteral}{"{}prim::Constant"{}})\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}Device"{}}\ \textcolor{keywordflow}{in}\ repr(n)][-\/1]}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00192}00192\ \ \ \ \ \textcolor{keyword}{def\ }\_node\_get(node:\ torch.\_C.Node,\ key:\ str):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Gets\ attributes\ of\ a\ node\ which\ is\ polymorphic\ over\ return\ type.}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00194}00194\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00195}00195\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ From\ https://github.com/pytorch/pytorch/pull/82628}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00196}00196\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ sel\ =\ node.kindOf(key)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ getattr(node,\ sel)(key)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00200}00200\ \ \ \ \ \textcolor{keyword}{def\ }patch\_device(module):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ graphs\ =\ [module.graph]\ \textcolor{keywordflow}{if}\ hasattr(module,\ \textcolor{stringliteral}{"{}graph"{}})\ \textcolor{keywordflow}{else}\ []}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ RuntimeError:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ graphs\ =\ []}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(module,\ \textcolor{stringliteral}{"{}forward1"{}}):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ graphs.append(module.forward1.graph)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ graph\ \textcolor{keywordflow}{in}\ graphs:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ node\ \textcolor{keywordflow}{in}\ graph.findAllNodes(\textcolor{stringliteral}{"{}prim::Constant"{}}):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}value"{}}\ \textcolor{keywordflow}{in}\ node.attributeNames()\ \textcolor{keywordflow}{and}\ str(\_node\_get(node,\ \textcolor{stringliteral}{"{}value"{}})).startswith(\textcolor{stringliteral}{"{}cuda"{}}):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ node.copyAttributes(device\_node)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00214}00214\ \ \ \ \ model.apply(patch\_device)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00215}00215\ \ \ \ \ patch\_device(model.encode\_image)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00216}00216\ \ \ \ \ patch\_device(model.encode\_text)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00218}00218\ \ \ \ \ \textcolor{comment}{\#\ patch\ dtype\ to\ float32\ on\ CPU}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00219}00219\ \ \ \ \ \textcolor{keywordflow}{if}\ str(device)\ ==\ \textcolor{stringliteral}{"{}cpu"{}}:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00220}00220\ \ \ \ \ \ \ \ \ float\_holder\ =\ torch.jit.trace(\textcolor{keyword}{lambda}:\ torch.ones([]).float(),\ example\_inputs=[])}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ float\_input\ =\ list(float\_holder.graph.findNode(\textcolor{stringliteral}{"{}aten::to"{}}).inputs())[1]}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ float\_node\ =\ float\_input.node()}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{keyword}{def\ }patch\_float(module):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graphs\ =\ [module.graph]\ \textcolor{keywordflow}{if}\ hasattr(module,\ \textcolor{stringliteral}{"{}graph"{}})\ \textcolor{keywordflow}{else}\ []}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ RuntimeError:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graphs\ =\ []}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(module,\ \textcolor{stringliteral}{"{}forward1"{}}):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graphs.append(module.forward1.graph)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ graph\ \textcolor{keywordflow}{in}\ graphs:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ node\ \textcolor{keywordflow}{in}\ graph.findAllNodes(\textcolor{stringliteral}{"{}aten::to"{}}):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs\ =\ list(node.inputs())}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ [1,\ 2]:\ \ \textcolor{comment}{\#\ dtype\ can\ be\ the\ second\ or\ third\ argument\ to\ aten::to()}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \_node\_get(inputs[i].node(),\ \textcolor{stringliteral}{"{}value"{}})\ ==\ 5:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs[i].node().copyAttributes(float\_node)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00240}00240\ \ \ \ \ \ \ \ \ model.apply(patch\_float)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00241}00241\ \ \ \ \ \ \ \ \ patch\_float(model.encode\_image)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00242}00242\ \ \ \ \ \ \ \ \ patch\_float(model.encode\_text)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00243}00243\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ model.float()}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00246}00246\ \ \ \ \ \textcolor{keywordflow}{return}\ model,\ \mbox{\hyperlink{namespaceclip_1_1clip_a60e2bbfd64efea3fcc84b04b30e90dba}{\_transform}}(model.input\_resolution.item())}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00257}\mbox{\hyperlink{namespaceclip_1_1clip_a36a01501a3d7c1632f3ddc785e8b8eb3}{00257}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1clip_a36a01501a3d7c1632f3ddc785e8b8eb3}{tokenize}}(texts:\ Union[str,\ List[str]],\ context\_length:\ int\ =\ 77,\ truncate:\ bool\ =\ \textcolor{keyword}{False})\ -\/>\ Union[torch.IntTensor,\ torch.LongTensor]:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00258}00258\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00259}00259\ \textcolor{stringliteral}{\ \ \ \ Returns\ the\ tokenized\ representation\ of\ given\ input\ string(s)}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00260}00260\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00261}00261\ \textcolor{stringliteral}{\ \ \ \ Parameters}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00262}00262\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00263}00263\ \textcolor{stringliteral}{\ \ \ \ texts\ :\ Union[str,\ List[str]]}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00264}00264\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ An\ input\ string\ or\ a\ list\ of\ input\ strings\ to\ tokenize}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00265}00265\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00266}00266\ \textcolor{stringliteral}{\ \ \ \ context\_length\ :\ int}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00267}00267\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ The\ context\ length\ to\ use;\ all\ CLIP\ models\ use\ 77\ as\ the\ context\ length}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00268}00268\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00269}00269\ \textcolor{stringliteral}{\ \ \ \ truncate:\ bool}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00270}00270\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Whether\ to\ truncate\ the\ text\ in\ case\ its\ encoding\ is\ longer\ than\ the\ context\ length}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00271}00271\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00272}00272\ \textcolor{stringliteral}{\ \ \ \ Returns}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00273}00273\ \textcolor{stringliteral}{\ \ \ \ -\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00274}00274\ \textcolor{stringliteral}{\ \ \ \ A\ two-\/dimensional\ tensor\ containing\ the\ resulting\ tokens,\ shape\ =\ [number\ of\ input\ strings,\ context\_length].}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00275}00275\ \textcolor{stringliteral}{\ \ \ \ We\ return\ LongTensor\ when\ torch\ version\ is\ <1.8.0,\ since\ older\ index\_select\ requires\ indices\ to\ be\ long.}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00276}00276\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00277}00277\ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(texts,\ str):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00278}00278\ \ \ \ \ \ \ \ \ texts\ =\ [texts]}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00279}00279\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00280}00280\ \ \ \ \ sot\_token\ =\ \_tokenizer.encoder[\textcolor{stringliteral}{"{}<|startoftext|>"{}}]}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00281}00281\ \ \ \ \ eot\_token\ =\ \_tokenizer.encoder[\textcolor{stringliteral}{"{}<|endoftext|>"{}}]}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00282}00282\ \ \ \ \ all\_tokens\ =\ [[sot\_token]\ +\ \_tokenizer.encode(text)\ +\ [eot\_token]\ \textcolor{keywordflow}{for}\ text\ \textcolor{keywordflow}{in}\ texts]}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00283}00283\ \ \ \ \ \textcolor{keywordflow}{if}\ version.parse(torch.\_\_version\_\_)\ <\ version.parse(\textcolor{stringliteral}{"{}1.8.0"{}}):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00284}00284\ \ \ \ \ \ \ \ \ result\ =\ torch.zeros(len(all\_tokens),\ context\_length,\ dtype=torch.long)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00285}00285\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00286}00286\ \ \ \ \ \ \ \ \ result\ =\ torch.zeros(len(all\_tokens),\ context\_length,\ dtype=torch.int)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00287}00287\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00288}00288\ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ tokens\ \textcolor{keywordflow}{in}\ enumerate(all\_tokens):}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00289}00289\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(tokens)\ >\ context\_length:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ truncate:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokens\ =\ tokens[:context\_length]}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokens[-\/1]\ =\ eot\_token}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ RuntimeError(f\textcolor{stringliteral}{"{}Input\ \{texts[i]\}\ is\ too\ long\ for\ context\ length\ \{context\_length\}"{}})}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00295}00295\ \ \ \ \ \ \ \ \ result[i,\ :len(tokens)]\ =\ torch.tensor(tokens)}
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{clip_8py_source_l00297}00297\ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+
+\end{DoxyCode}

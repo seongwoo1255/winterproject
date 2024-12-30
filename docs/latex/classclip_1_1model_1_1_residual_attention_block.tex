@@ -1,0 +1,237 @@
+\doxysection{clip.\+model.\+Residual\+Attention\+Block Class Reference}
+\hypertarget{classclip_1_1model_1_1_residual_attention_block}{}\label{classclip_1_1model_1_1_residual_attention_block}\index{clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}}
+
+
+Implements a residual attention block with multi-\/head self-\/attention and MLP layers.  
+
+
+
+
+Inheritance diagram for clip.\+model.\+Residual\+Attention\+Block\+:
+% FIG 0
+
+
+Collaboration diagram for clip.\+model.\+Residual\+Attention\+Block\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_afe556c09842f324aadb4db14b6b0694e}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int d\+\_\+model, int n\+\_\+head, torch.\+Tensor \mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a616be515fd342537e584b3836939940f}{attn\+\_\+mask}}=None)
+\begin{DoxyCompactList}\small\item\em Initializes the \doxylink{classclip_1_1model_1_1_residual_attention_block}{Residual\+Attention\+Block}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a09d81d36edb8b1a7a5377f5a62b26329}{attention}} (self, torch.\+Tensor x)
+\begin{DoxyCompactList}\small\item\em Computes multi-\/head attention. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_ae17e4a4b266a1f21d5a68d852f55a9eb}{forward}} (self, torch.\+Tensor x)
+\begin{DoxyCompactList}\small\item\em Forward pass of the \doxylink{classclip_1_1model_1_1_residual_attention_block}{Residual\+Attention\+Block}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_af41f1f2ff72d7d2ce92026e9aa908cb2}{attn}} = nn.\+Multihead\+Attention(d\+\_\+model, n\+\_\+head)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_ab443a064417bd0d4dee16387293e7fa6}{ln\+\_\+1}} = \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm}}(d\+\_\+model)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a85390aee593e704892394ba6740b82ea}{mlp}}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a293cfebadfc5ccb1b5a5dc767d00cdc6}{ln\+\_\+2}} = \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm}}(d\+\_\+model)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a616be515fd342537e584b3836939940f}{attn\+\_\+mask}} = attn\+\_\+mask
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements a residual attention block with multi-\/head self-\/attention and MLP layers. 
+
+Each block contains a self-\/attention layer, layer normalization, and a feed-\/forward MLP. 
+\begin{DoxyParams}{Parameters}
+{\em d\+\_\+model} & Dimensionality of the input embeddings. \\
+\hline
+{\em n\+\_\+head} & Number of attention heads. \\
+\hline
+{\em attn\+\_\+mask} & Optional attention mask. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00233}{233}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classclip_1_1model_1_1_residual_attention_block_afe556c09842f324aadb4db14b6b0694e}\index{clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_residual_attention_block_afe556c09842f324aadb4db14b6b0694e} 
+clip.\+model.\+Residual\+Attention\+Block.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{d\+\_\+model}{, }\item[{int}]{n\+\_\+head}{, }\item[{torch.\+Tensor }]{attn\+\_\+mask}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Initializes the \doxylink{classclip_1_1model_1_1_residual_attention_block}{Residual\+Attention\+Block}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d\+\_\+model} & Dimensionality of the input embeddings. \\
+\hline
+{\em n\+\_\+head} & Number of attention heads. \\
+\hline
+{\em attn\+\_\+mask} & Optional attention mask. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00238}{238}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ d\_model:\ int,\ n\_head:\ int,\ attn\_mask:\ torch.Tensor\ =\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ super().\_\_init\_\_()}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ self.attn\ =\ nn.MultiheadAttention(d\_model,\ n\_head)}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ self.ln\_1\ =\ LayerNorm(d\_model)}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ self.mlp\ =\ nn.Sequential(OrderedDict([}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}c\_fc"{}},\ nn.Linear(d\_model,\ d\_model\ *\ 4)),}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}gelu"{}},\ QuickGELU()),}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}c\_proj"{}},\ nn.Linear(d\_model\ *\ 4,\ d\_model))}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ ]))}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ self.ln\_2\ =\ LayerNorm(d\_model)}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ self.attn\_mask\ =\ attn\_mask}
+\DoxyCodeLine{00250\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classclip_1_1model_1_1_residual_attention_block_a09d81d36edb8b1a7a5377f5a62b26329}\index{clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}!attention@{attention}}
+\index{attention@{attention}!clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}}
+\doxysubsubsection{\texorpdfstring{attention()}{attention()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_residual_attention_block_a09d81d36edb8b1a7a5377f5a62b26329} 
+clip.\+model.\+Residual\+Attention\+Block.\+attention (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{torch.\+Tensor}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Computes multi-\/head attention. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Input tensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Output tensor after attention. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00254}{254}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keyword}{def\ }attention(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ self.attn\_mask\ =\ self.attn\_mask.to(dtype=x.dtype,\ device=x.device)\ \textcolor{keywordflow}{if}\ self.attn\_mask\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.attn(x,\ x,\ x,\ need\_weights=\textcolor{keyword}{False},\ attn\_mask=self.attn\_mask)[0]}
+\DoxyCodeLine{00257\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 4
+\Hypertarget{classclip_1_1model_1_1_residual_attention_block_ae17e4a4b266a1f21d5a68d852f55a9eb}\index{clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}!forward@{forward}}
+\index{forward@{forward}!clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_residual_attention_block_ae17e4a4b266a1f21d5a68d852f55a9eb} 
+clip.\+model.\+Residual\+Attention\+Block.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{torch.\+Tensor}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Forward pass of the \doxylink{classclip_1_1model_1_1_residual_attention_block}{Residual\+Attention\+Block}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Input tensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Output tensor. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00261}{261}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keyword}{def\ }forward(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ x\ =\ x\ +\ self.attention(self.ln\_1(x))}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ x\ =\ x\ +\ self.mlp(self.ln\_2(x))}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x}
+\DoxyCodeLine{00265\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 5
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classclip_1_1model_1_1_residual_attention_block_af41f1f2ff72d7d2ce92026e9aa908cb2}\index{clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}!attn@{attn}}
+\index{attn@{attn}!clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}}
+\doxysubsubsection{\texorpdfstring{attn}{attn}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_residual_attention_block_af41f1f2ff72d7d2ce92026e9aa908cb2} 
+clip.\+model.\+Residual\+Attention\+Block.\+attn = nn.\+Multihead\+Attention(d\+\_\+model, n\+\_\+head)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00241}{241}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_residual_attention_block_a616be515fd342537e584b3836939940f}\index{clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}!attn\_mask@{attn\_mask}}
+\index{attn\_mask@{attn\_mask}!clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}}
+\doxysubsubsection{\texorpdfstring{attn\_mask}{attn\_mask}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_residual_attention_block_a616be515fd342537e584b3836939940f} 
+clip.\+model.\+Residual\+Attention\+Block.\+attn\+\_\+mask = attn\+\_\+mask}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00249}{249}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_residual_attention_block_ab443a064417bd0d4dee16387293e7fa6}\index{clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}!ln\_1@{ln\_1}}
+\index{ln\_1@{ln\_1}!clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}}
+\doxysubsubsection{\texorpdfstring{ln\_1}{ln\_1}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_residual_attention_block_ab443a064417bd0d4dee16387293e7fa6} 
+clip.\+model.\+Residual\+Attention\+Block.\+ln\+\_\+1 = \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm}}(d\+\_\+model)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00242}{242}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_residual_attention_block_a293cfebadfc5ccb1b5a5dc767d00cdc6}\index{clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}!ln\_2@{ln\_2}}
+\index{ln\_2@{ln\_2}!clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}}
+\doxysubsubsection{\texorpdfstring{ln\_2}{ln\_2}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_residual_attention_block_a293cfebadfc5ccb1b5a5dc767d00cdc6} 
+clip.\+model.\+Residual\+Attention\+Block.\+ln\+\_\+2 = \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm}}(d\+\_\+model)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00248}{248}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_residual_attention_block_a85390aee593e704892394ba6740b82ea}\index{clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}!mlp@{mlp}}
+\index{mlp@{mlp}!clip.model.ResidualAttentionBlock@{clip.model.ResidualAttentionBlock}}
+\doxysubsubsection{\texorpdfstring{mlp}{mlp}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_residual_attention_block_a85390aee593e704892394ba6740b82ea} 
+clip.\+model.\+Residual\+Attention\+Block.\+mlp}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ nn.Sequential(OrderedDict([}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}c\_fc"{}},\ nn.Linear(d\_model,\ d\_model\ *\ 4)),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}gelu"{}},\ QuickGELU()),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}c\_proj"{}},\ nn.Linear(d\_model\ *\ 4,\ d\_model))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ]))}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00243}{243}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{model_8py}{model.\+py}}\end{DoxyCompactItemize}

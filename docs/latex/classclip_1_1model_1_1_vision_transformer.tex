@@ -1,0 +1,269 @@
+\doxysection{clip.\+model.\+Vision\+Transformer Class Reference}
+\hypertarget{classclip_1_1model_1_1_vision_transformer}{}\label{classclip_1_1model_1_1_vision_transformer}\index{clip.model.VisionTransformer@{clip.model.VisionTransformer}}
+
+
+Implements a Vision \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model.  
+
+
+
+
+Inheritance diagram for clip.\+model.\+Vision\+Transformer\+:
+% FIG 0
+
+
+Collaboration diagram for clip.\+model.\+Vision\+Transformer\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a77082f1f862512d3474a3ec14fa36e97}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int \mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_adcf2489c748fafe8623cf5e82b2395c1}{input\+\_\+resolution}}, int patch\+\_\+size, int width, int layers, int heads, int \mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a913fe57671fa80951ec275a54b4701ec}{output\+\_\+dim}})
+\begin{DoxyCompactList}\small\item\em Initializes the Vision \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a901b6f055a300bf905322d8aa01180c8}{forward}} (self, torch.\+Tensor x)
+\begin{DoxyCompactList}\small\item\em Forward pass of the Vision \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_adcf2489c748fafe8623cf5e82b2395c1}{input\+\_\+resolution}} = input\+\_\+resolution
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a913fe57671fa80951ec275a54b4701ec}{output\+\_\+dim}} = output\+\_\+dim
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a65715e9f32bfbdbe7407c760ad763c70}{conv1}} = nn.\+Conv2d(in\+\_\+channels=3, out\+\_\+channels=width, kernel\+\_\+size=patch\+\_\+size, stride=patch\+\_\+size, bias=False)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a800b9a226cebfd11f0ecbd4006711842}{class\+\_\+embedding}} = nn.\+Parameter(scale \texorpdfstring{$\ast$}{*} torch.\+randn(width))
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a6099ce56289b4c6bff23825d1880c7d3}{positional\+\_\+embedding}} = nn.\+Parameter(scale \texorpdfstring{$\ast$}{*} torch.\+randn((\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_adcf2489c748fafe8623cf5e82b2395c1}{input\+\_\+resolution}} // patch\+\_\+size) \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 2 + 1, width))
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_ab7b89a226de61c5c98c95b564ef87bd9}{ln\+\_\+pre}} = \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm}}(width)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a6dd2010512ed07448d3d8580b68fb983}{transformer}} = \mbox{\hyperlink{classclip_1_1model_1_1_transformer}{Transformer}}(width, layers, heads)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_af393aeaed6cf76f910aa94a9deeced82}{ln\+\_\+post}} = \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm}}(width)
+\item 
+\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a61985796f2bed517e961ab9b6b63d0c3}{proj}} = nn.\+Parameter(scale \texorpdfstring{$\ast$}{*} torch.\+randn(width, \mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a913fe57671fa80951ec275a54b4701ec}{output\+\_\+dim}}))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements a Vision \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model. 
+
+Encodes input images into a sequence of patch embeddings and processes them using a \doxylink{classclip_1_1model_1_1_transformer}{Transformer}. 
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+resolution} & Input image resolution. \\
+\hline
+{\em patch\+\_\+size} & Size of image patches. \\
+\hline
+{\em width} & Dimensionality of the embeddings. \\
+\hline
+{\em layers} & Number of \doxylink{classclip_1_1model_1_1_transformer}{Transformer} layers. \\
+\hline
+{\em heads} & Number of attention heads. \\
+\hline
+{\em output\+\_\+dim} & Dimensionality of the output embeddings. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00299}{299}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classclip_1_1model_1_1_vision_transformer_a77082f1f862512d3474a3ec14fa36e97}\index{clip.model.VisionTransformer@{clip.model.VisionTransformer}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!clip.model.VisionTransformer@{clip.model.VisionTransformer}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_vision_transformer_a77082f1f862512d3474a3ec14fa36e97} 
+clip.\+model.\+Vision\+Transformer.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{input\+\_\+resolution}{, }\item[{int}]{patch\+\_\+size}{, }\item[{int}]{width}{, }\item[{int}]{layers}{, }\item[{int}]{heads}{, }\item[{int}]{output\+\_\+dim}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the Vision \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+resolution} & Input image resolution. \\
+\hline
+{\em patch\+\_\+size} & Size of image patches. \\
+\hline
+{\em width} & Dimensionality of the embeddings. \\
+\hline
+{\em layers} & Number of \doxylink{classclip_1_1model_1_1_transformer}{Transformer} layers. \\
+\hline
+{\em heads} & Number of attention heads. \\
+\hline
+{\em output\+\_\+dim} & Dimensionality of the output embeddings. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00307}{307}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ input\_resolution:\ int,\ patch\_size:\ int,\ width:\ int,\ layers:\ int,\ heads:\ int,\ output\_dim:\ int):}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ super().\_\_init\_\_()}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ self.input\_resolution\ =\ input\_resolution}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ self.output\_dim\ =\ output\_dim}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ self.conv1\ =\ nn.Conv2d(in\_channels=3,\ out\_channels=width,\ kernel\_size=patch\_size,\ stride=patch\_size,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ scale\ =\ width\ **\ -\/0.5}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ self.class\_embedding\ =\ nn.Parameter(scale\ *\ torch.randn(width))}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ self.positional\_embedding\ =\ nn.Parameter(scale\ *\ torch.randn((input\_resolution\ //\ patch\_size)\ **\ 2\ +\ 1,\ width))}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ self.ln\_pre\ =\ LayerNorm(width)}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ self.transformer\ =\ Transformer(width,\ layers,\ heads)}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ self.ln\_post\ =\ LayerNorm(width)}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ self.proj\ =\ nn.Parameter(scale\ *\ torch.randn(width,\ output\_dim))}
+\DoxyCodeLine{00322\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classclip_1_1model_1_1_vision_transformer_a901b6f055a300bf905322d8aa01180c8}\index{clip.model.VisionTransformer@{clip.model.VisionTransformer}!forward@{forward}}
+\index{forward@{forward}!clip.model.VisionTransformer@{clip.model.VisionTransformer}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_vision_transformer_a901b6f055a300bf905322d8aa01180c8} 
+clip.\+model.\+Vision\+Transformer.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{torch.\+Tensor}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Forward pass of the Vision \doxylink{classclip_1_1model_1_1_transformer}{Transformer} model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Input tensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Output tensor. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00326}{326}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keyword}{def\ }forward(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ x\ =\ self.conv1(x)\ \ \textcolor{comment}{\#\ shape\ =\ [*,\ width,\ grid,\ grid]}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ x\ =\ x.reshape(x.shape[0],\ x.shape[1],\ -\/1)\ \ \textcolor{comment}{\#\ shape\ =\ [*,\ width,\ grid\ **\ 2]}}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ x\ =\ x.permute(0,\ 2,\ 1)\ \ \textcolor{comment}{\#\ shape\ =\ [*,\ grid\ **\ 2,\ width]}}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ x\ =\ torch.cat([self.class\_embedding.to(x.dtype)\ +\ torch.zeros(x.shape[0],\ 1,\ x.shape[-\/1],\ dtype=x.dtype,\ device=x.device),\ x],\ dim=1)\ \ \textcolor{comment}{\#\ shape\ =\ [*,\ grid\ **\ 2\ +\ 1,\ width]}}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ x\ =\ x\ +\ self.positional\_embedding.to(x.dtype)}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ x\ =\ self.ln\_pre(x)}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ x\ =\ x.permute(1,\ 0,\ 2)\ \ \textcolor{comment}{\#\ NLD\ -\/>\ LND}}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ x\ =\ self.transformer(x)}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ x\ =\ x.permute(1,\ 0,\ 2)\ \ \textcolor{comment}{\#\ LND\ -\/>\ NLD}}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ x\ =\ self.ln\_post(x[:,\ 0,\ :])}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.proj\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ x\ @\ self.proj}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x}
+\DoxyCodeLine{00344\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classclip_1_1model_1_1_vision_transformer_a800b9a226cebfd11f0ecbd4006711842}\index{clip.model.VisionTransformer@{clip.model.VisionTransformer}!class\_embedding@{class\_embedding}}
+\index{class\_embedding@{class\_embedding}!clip.model.VisionTransformer@{clip.model.VisionTransformer}}
+\doxysubsubsection{\texorpdfstring{class\_embedding}{class\_embedding}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_vision_transformer_a800b9a226cebfd11f0ecbd4006711842} 
+clip.\+model.\+Vision\+Transformer.\+class\+\_\+embedding = nn.\+Parameter(scale \texorpdfstring{$\ast$}{*} torch.\+randn(width))}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00314}{314}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_vision_transformer_a65715e9f32bfbdbe7407c760ad763c70}\index{clip.model.VisionTransformer@{clip.model.VisionTransformer}!conv1@{conv1}}
+\index{conv1@{conv1}!clip.model.VisionTransformer@{clip.model.VisionTransformer}}
+\doxysubsubsection{\texorpdfstring{conv1}{conv1}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_vision_transformer_a65715e9f32bfbdbe7407c760ad763c70} 
+clip.\+model.\+Vision\+Transformer.\+conv1 = nn.\+Conv2d(in\+\_\+channels=3, out\+\_\+channels=width, kernel\+\_\+size=patch\+\_\+size, stride=patch\+\_\+size, bias=False)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00311}{311}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_vision_transformer_adcf2489c748fafe8623cf5e82b2395c1}\index{clip.model.VisionTransformer@{clip.model.VisionTransformer}!input\_resolution@{input\_resolution}}
+\index{input\_resolution@{input\_resolution}!clip.model.VisionTransformer@{clip.model.VisionTransformer}}
+\doxysubsubsection{\texorpdfstring{input\_resolution}{input\_resolution}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_vision_transformer_adcf2489c748fafe8623cf5e82b2395c1} 
+clip.\+model.\+Vision\+Transformer.\+input\+\_\+resolution = input\+\_\+resolution}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00309}{309}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_vision_transformer_af393aeaed6cf76f910aa94a9deeced82}\index{clip.model.VisionTransformer@{clip.model.VisionTransformer}!ln\_post@{ln\_post}}
+\index{ln\_post@{ln\_post}!clip.model.VisionTransformer@{clip.model.VisionTransformer}}
+\doxysubsubsection{\texorpdfstring{ln\_post}{ln\_post}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_vision_transformer_af393aeaed6cf76f910aa94a9deeced82} 
+clip.\+model.\+Vision\+Transformer.\+ln\+\_\+post = \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm}}(width)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00320}{320}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_vision_transformer_ab7b89a226de61c5c98c95b564ef87bd9}\index{clip.model.VisionTransformer@{clip.model.VisionTransformer}!ln\_pre@{ln\_pre}}
+\index{ln\_pre@{ln\_pre}!clip.model.VisionTransformer@{clip.model.VisionTransformer}}
+\doxysubsubsection{\texorpdfstring{ln\_pre}{ln\_pre}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_vision_transformer_ab7b89a226de61c5c98c95b564ef87bd9} 
+clip.\+model.\+Vision\+Transformer.\+ln\+\_\+pre = \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{Layer\+Norm}}(width)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00316}{316}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_vision_transformer_a913fe57671fa80951ec275a54b4701ec}\index{clip.model.VisionTransformer@{clip.model.VisionTransformer}!output\_dim@{output\_dim}}
+\index{output\_dim@{output\_dim}!clip.model.VisionTransformer@{clip.model.VisionTransformer}}
+\doxysubsubsection{\texorpdfstring{output\_dim}{output\_dim}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_vision_transformer_a913fe57671fa80951ec275a54b4701ec} 
+clip.\+model.\+Vision\+Transformer.\+output\+\_\+dim = output\+\_\+dim}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00310}{310}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_vision_transformer_a6099ce56289b4c6bff23825d1880c7d3}\index{clip.model.VisionTransformer@{clip.model.VisionTransformer}!positional\_embedding@{positional\_embedding}}
+\index{positional\_embedding@{positional\_embedding}!clip.model.VisionTransformer@{clip.model.VisionTransformer}}
+\doxysubsubsection{\texorpdfstring{positional\_embedding}{positional\_embedding}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_vision_transformer_a6099ce56289b4c6bff23825d1880c7d3} 
+clip.\+model.\+Vision\+Transformer.\+positional\+\_\+embedding = nn.\+Parameter(scale \texorpdfstring{$\ast$}{*} torch.\+randn((\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_adcf2489c748fafe8623cf5e82b2395c1}{input\+\_\+resolution}} // patch\+\_\+size) \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 2 + 1, width))}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00315}{315}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_vision_transformer_a61985796f2bed517e961ab9b6b63d0c3}\index{clip.model.VisionTransformer@{clip.model.VisionTransformer}!proj@{proj}}
+\index{proj@{proj}!clip.model.VisionTransformer@{clip.model.VisionTransformer}}
+\doxysubsubsection{\texorpdfstring{proj}{proj}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_vision_transformer_a61985796f2bed517e961ab9b6b63d0c3} 
+clip.\+model.\+Vision\+Transformer.\+proj = nn.\+Parameter(scale \texorpdfstring{$\ast$}{*} torch.\+randn(width, \mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a913fe57671fa80951ec275a54b4701ec}{output\+\_\+dim}}))}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00321}{321}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classclip_1_1model_1_1_vision_transformer_a6dd2010512ed07448d3d8580b68fb983}\index{clip.model.VisionTransformer@{clip.model.VisionTransformer}!transformer@{transformer}}
+\index{transformer@{transformer}!clip.model.VisionTransformer@{clip.model.VisionTransformer}}
+\doxysubsubsection{\texorpdfstring{transformer}{transformer}}
+{\footnotesize\ttfamily \label{classclip_1_1model_1_1_vision_transformer_a6dd2010512ed07448d3d8580b68fb983} 
+clip.\+model.\+Vision\+Transformer.\+transformer = \mbox{\hyperlink{classclip_1_1model_1_1_transformer}{Transformer}}(width, layers, heads)}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00318}{318}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{model_8py}{model.\+py}}\end{DoxyCompactItemize}

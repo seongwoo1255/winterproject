@@ -1,0 +1,464 @@
+\doxysection{model.\+py}
+\hypertarget{model_8py_source}{}\label{model_8py_source}\mbox{\hyperlink{model_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00001}\mbox{\hyperlink{namespaceclip_1_1model}{00001}}\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00004}00004\ \textcolor{keyword}{from}\ collections\ \textcolor{keyword}{import}\ OrderedDict}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00005}00005\ \textcolor{keyword}{from}\ typing\ \textcolor{keyword}{import}\ Tuple,\ Union}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00007}00007\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00008}00008\ \textcolor{keyword}{import}\ torch}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00009}00009\ \textcolor{keyword}{import}\ torch.nn.functional\ \textcolor{keyword}{as}\ F}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00010}00010\ \textcolor{keyword}{from}\ torch\ \textcolor{keyword}{import}\ nn}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00018}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck}{00018}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck}{Bottleneck}}(nn.Module):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00019}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a4b9b4c8576398c1d3880bf31c22b3b45}{00019}}\ \ \ \ \ expansion\ =\ 4}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00021}00021\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00025}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ac32e5b1250fcee962268b4afee874671}{00025}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ac32e5b1250fcee962268b4afee874671}{\_\_init\_\_}}(self,\ inplanes,\ planes,\ stride=1):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ super().\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ac32e5b1250fcee962268b4afee874671}{\_\_init\_\_}}()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ all\ conv\ layers\ have\ stride\ 1.\ an\ avgpool\ is\ performed\ after\ the\ second\ convolution\ when\ stride\ >\ 1}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00029}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_afacc5e67b5e528f0c206d9312f964a83}{00029}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_afacc5e67b5e528f0c206d9312f964a83}{conv1}}\ =\ nn.Conv2d(inplanes,\ planes,\ 1,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00030}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a012b0e4db62cf29e2d72de2272902208}{00030}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a012b0e4db62cf29e2d72de2272902208}{bn1}}\ =\ nn.BatchNorm2d(planes)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00031}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ad914b4a03974d794d8112df0bc715565}{00031}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ad914b4a03974d794d8112df0bc715565}{relu1}}\ =\ nn.ReLU(inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00033}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a18e52a0700f6b06ce187685a4c74ac3b}{00033}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a18e52a0700f6b06ce187685a4c74ac3b}{conv2}}\ =\ nn.Conv2d(planes,\ planes,\ 3,\ padding=1,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00034}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ab0f7816a3e7f7469d307b9fc970d62de}{00034}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ab0f7816a3e7f7469d307b9fc970d62de}{bn2}}\ =\ nn.BatchNorm2d(planes)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00035}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a6f29b057f213d8e66134261141190be9}{00035}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a6f29b057f213d8e66134261141190be9}{relu2}}\ =\ nn.ReLU(inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00037}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a076a284cbd2db51ec5c174b125087ca1}{00037}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a076a284cbd2db51ec5c174b125087ca1}{avgpool}}\ =\ nn.AvgPool2d(stride)\ \textcolor{keywordflow}{if}\ stride\ >\ 1\ \textcolor{keywordflow}{else}\ nn.Identity()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00039}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a684bbaf70717f4188d26610a00b6eef9}{00039}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a684bbaf70717f4188d26610a00b6eef9}{conv3}}\ =\ nn.Conv2d(planes,\ planes\ *\ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a4b9b4c8576398c1d3880bf31c22b3b45}{expansion}},\ 1,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00040}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ae817f6556160447251e22f0e720250ec}{00040}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ae817f6556160447251e22f0e720250ec}{bn3}}\ =\ nn.BatchNorm2d(planes\ *\ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a4b9b4c8576398c1d3880bf31c22b3b45}{expansion}})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00041}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a8eba11d8ae24e708c94657fdd32a641f}{00041}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a8eba11d8ae24e708c94657fdd32a641f}{relu3}}\ =\ nn.ReLU(inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00043}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a414c2f1726c87f71b09f02387a5e19ab}{00043}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a414c2f1726c87f71b09f02387a5e19ab}{downsample}}\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00044}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a5cc62aa36f7076dae4ff6a63c09600b2}{00044}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a5cc62aa36f7076dae4ff6a63c09600b2}{stride}}\ =\ stride}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ stride\ >\ 1\ \textcolor{keywordflow}{or}\ inplanes\ !=\ planes\ *\ Bottleneck.expansion:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ downsampling\ layer\ is\ prepended\ with\ an\ avgpool,\ and\ the\ subsequent\ convolution\ has\ stride\ 1}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a414c2f1726c87f71b09f02387a5e19ab}{downsample}}\ =\ nn.Sequential(OrderedDict([}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}-\/1"{}},\ nn.AvgPool2d(stride)),}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}0"{}},\ nn.Conv2d(inplanes,\ planes\ *\ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a4b9b4c8576398c1d3880bf31c22b3b45}{expansion}},\ 1,\ stride=1,\ bias=\textcolor{keyword}{False})),}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}1"{}},\ nn.BatchNorm2d(planes\ *\ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a4b9b4c8576398c1d3880bf31c22b3b45}{expansion}}))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ ]))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00054}00054\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00057}\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a15ad94d8a001e94baf3e3d8bac25dc67}{00057}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a15ad94d8a001e94baf3e3d8bac25dc67}{forward}}(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ identity\ =\ x}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ out\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ad914b4a03974d794d8112df0bc715565}{relu1}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a012b0e4db62cf29e2d72de2272902208}{bn1}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_afacc5e67b5e528f0c206d9312f964a83}{conv1}}(x)))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ out\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a6f29b057f213d8e66134261141190be9}{relu2}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ab0f7816a3e7f7469d307b9fc970d62de}{bn2}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a18e52a0700f6b06ce187685a4c74ac3b}{conv2}}(out)))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ out\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a076a284cbd2db51ec5c174b125087ca1}{avgpool}}(out)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ out\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_ae817f6556160447251e22f0e720250ec}{bn3}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a684bbaf70717f4188d26610a00b6eef9}{conv3}}(out))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a414c2f1726c87f71b09f02387a5e19ab}{downsample}}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ identity\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a414c2f1726c87f71b09f02387a5e19ab}{downsample}}(x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ out\ +=\ identity}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ out\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck_a8eba11d8ae24e708c94657fdd32a641f}{relu3}}(out)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00079}\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d}{00079}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d}{AttentionPool2d}}(nn.Module):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00080}00080\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00085}\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ab5432a58e9fa66517b922da7de33fd46}{00085}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ab5432a58e9fa66517b922da7de33fd46}{\_\_init\_\_}}(self,\ spacial\_dim:\ int,\ embed\_dim:\ int,\ num\_heads:\ int,\ output\_dim:\ int\ =\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ super().\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ab5432a58e9fa66517b922da7de33fd46}{\_\_init\_\_}}()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00087}\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ae85c3aca45dea426c75c0b559d4f7d1b}{00087}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ae85c3aca45dea426c75c0b559d4f7d1b}{positional\_embedding}}\ =\ nn.Parameter(torch.randn(spacial\_dim\ **\ 2\ +\ 1,\ embed\_dim)\ /\ embed\_dim\ **\ 0.5)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00088}\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ae74e2dcfb2812449514602e163947f2b}{00088}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ae74e2dcfb2812449514602e163947f2b}{k\_proj}}\ =\ nn.Linear(embed\_dim,\ embed\_dim)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00089}\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_a35d45e96c06d11d8751052decf73927c}{00089}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_a35d45e96c06d11d8751052decf73927c}{q\_proj}}\ =\ nn.Linear(embed\_dim,\ embed\_dim)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00090}\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_abcd3be7dca8707bf9ed9a0e2665d21f1}{00090}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_abcd3be7dca8707bf9ed9a0e2665d21f1}{v\_proj}}\ =\ nn.Linear(embed\_dim,\ embed\_dim)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00091}\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_a539010f0947964e79db7fdf90e411e0a}{00091}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_a539010f0947964e79db7fdf90e411e0a}{c\_proj}}\ =\ nn.Linear(embed\_dim,\ output\_dim\ \textcolor{keywordflow}{or}\ embed\_dim)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00092}\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ac860445d42477e149e4e4ae32ca04f46}{00092}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ac860445d42477e149e4e4ae32ca04f46}{num\_heads}}\ =\ num\_heads}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00094}00094\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00097}\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ac60ba0d4bc1e93765b42649237a04287}{00097}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ac60ba0d4bc1e93765b42649237a04287}{forward}}(self,\ x):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ x\ =\ x.flatten(start\_dim=2).permute(2,\ 0,\ 1)\ \ \textcolor{comment}{\#\ NCHW\ -\/>\ (HW)NC}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ x\ =\ torch.cat([x.mean(dim=0,\ keepdim=\textcolor{keyword}{True}),\ x],\ dim=0)\ \ \textcolor{comment}{\#\ (HW+1)NC}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ x\ =\ x\ +\ self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ae85c3aca45dea426c75c0b559d4f7d1b}{positional\_embedding}}[:,\ \textcolor{keywordtype}{None},\ :].to(x.dtype)\ \ \textcolor{comment}{\#\ (HW+1)NC}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ x,\ \_\ =\ F.multi\_head\_attention\_forward(}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ query=x[:1],\ key=x,\ value=x,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ embed\_dim\_to\_check=x.shape[-\/1],}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ num\_heads=self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ac860445d42477e149e4e4ae32ca04f46}{num\_heads}},}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ q\_proj\_weight=self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_a35d45e96c06d11d8751052decf73927c}{q\_proj}}.weight,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ k\_proj\_weight=self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ae74e2dcfb2812449514602e163947f2b}{k\_proj}}.weight,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ v\_proj\_weight=self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_abcd3be7dca8707bf9ed9a0e2665d21f1}{v\_proj}}.weight,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ in\_proj\_weight=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ in\_proj\_bias=torch.cat([self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_a35d45e96c06d11d8751052decf73927c}{q\_proj}}.bias,\ self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_ae74e2dcfb2812449514602e163947f2b}{k\_proj}}.bias,\ self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_abcd3be7dca8707bf9ed9a0e2665d21f1}{v\_proj}}.bias]),}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ bias\_k=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ bias\_v=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ add\_zero\_attn=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ dropout\_p=0,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ out\_proj\_weight=self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_a539010f0947964e79db7fdf90e411e0a}{c\_proj}}.weight,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ out\_proj\_bias=self.\mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d_a539010f0947964e79db7fdf90e411e0a}{c\_proj}}.bias,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ use\_separate\_proj\_weight=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ training=self.training,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ need\_weights=\textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x.squeeze(0)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00130}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net}{00130}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net}{ModifiedResNet}}(nn.Module):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00131}00131\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00132}00132\ \textcolor{stringliteral}{\ \ \ \ A\ ResNet\ class\ that\ is\ similar\ to\ torchvision's\ but\ contains\ the\ following\ changes:}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00133}00133\ \textcolor{stringliteral}{\ \ \ \ -\/\ There\ are\ now\ 3\ "{}stem"{}\ convolutions\ as\ opposed\ to\ 1,\ with\ an\ average\ pool\ instead\ of\ a\ max\ pool.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ \ \ -\/\ Performs\ anti-\/aliasing\ strided\ convolutions,\ where\ an\ avgpool\ is\ prepended\ to\ convolutions\ with\ stride\ >\ 1}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00135}00135\ \textcolor{stringliteral}{\ \ \ \ -\/\ The\ final\ pooling\ layer\ is\ a\ QKV\ attention\ instead\ of\ an\ average\ pool}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00136}00136\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00137}00137\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00143}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_acebba270b3524d3f24f8f0d9f23a34bd}{00143}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_acebba270b3524d3f24f8f0d9f23a34bd}{\_\_init\_\_}}(self,\ layers,\ output\_dim,\ heads,\ input\_resolution=224,\ width=64):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ super().\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_acebba270b3524d3f24f8f0d9f23a34bd}{\_\_init\_\_}}()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00145}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a1937e1f0c6b62a95bbbc9b6864d7e023}{00145}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a1937e1f0c6b62a95bbbc9b6864d7e023}{output\_dim}}\ =\ output\_dim}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00146}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a4275994582aa1d6eb1c8f23d7f32ecd2}{00146}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a4275994582aa1d6eb1c8f23d7f32ecd2}{input\_resolution}}\ =\ input\_resolution}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ the\ 3-\/layer\ stem}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00149}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a164a28522af981867fa4848155fff5be}{00149}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a164a28522af981867fa4848155fff5be}{conv1}}\ =\ nn.Conv2d(3,\ width\ //\ 2,\ kernel\_size=3,\ stride=2,\ padding=1,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00150}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ae839310d7789ebd7435b2e702d5205a4}{00150}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ae839310d7789ebd7435b2e702d5205a4}{bn1}}\ =\ nn.BatchNorm2d(width\ //\ 2)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00151}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a1e69eb52bf3a6922393d368888962920}{00151}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a1e69eb52bf3a6922393d368888962920}{relu1}}\ =\ nn.ReLU(inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00152}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_aff7d8087cf8dcb4a6aa5099426d6ace2}{00152}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_aff7d8087cf8dcb4a6aa5099426d6ace2}{conv2}}\ =\ nn.Conv2d(width\ //\ 2,\ width\ //\ 2,\ kernel\_size=3,\ padding=1,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00153}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ac69869291401bdfd726693bbd6d14774}{00153}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ac69869291401bdfd726693bbd6d14774}{bn2}}\ =\ nn.BatchNorm2d(width\ //\ 2)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00154}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ac4f0b4792ec2e1f259a2dd6b32998f2b}{00154}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ac4f0b4792ec2e1f259a2dd6b32998f2b}{relu2}}\ =\ nn.ReLU(inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00155}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a5b3f23c9b99e156321c62485b8b85811}{00155}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a5b3f23c9b99e156321c62485b8b85811}{conv3}}\ =\ nn.Conv2d(width\ //\ 2,\ width,\ kernel\_size=3,\ padding=1,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00156}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a555f24d758a5ac9bd2e806ef1af76155}{00156}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a555f24d758a5ac9bd2e806ef1af76155}{bn3}}\ =\ nn.BatchNorm2d(width)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00157}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a98e87f4076062d291a9e42acb6c8fb43}{00157}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a98e87f4076062d291a9e42acb6c8fb43}{relu3}}\ =\ nn.ReLU(inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00158}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a3215cef9e2c2f043b83c09ea03a036e5}{00158}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a3215cef9e2c2f043b83c09ea03a036e5}{avgpool}}\ =\ nn.AvgPool2d(2)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ residual\ layers}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00161}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a230a089c65e1ca17513b28f0fea2ab54}{00161}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a230a089c65e1ca17513b28f0fea2ab54}{\_inplanes}}\ =\ width\ \ \textcolor{comment}{\#\ this\ is\ a\ *mutable*\ variable\ used\ during\ construction}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00162}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ad03d54e2ecf34e44c23993aa3b41a6d4}{00162}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ad03d54e2ecf34e44c23993aa3b41a6d4}{layer1}}\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_aabbf08090062cc512ac9b810cc5e8238}{\_make\_layer}}(width,\ layers[0])}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00163}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a69fc021ed64e4f927ab132e3cddd3ed8}{00163}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a69fc021ed64e4f927ab132e3cddd3ed8}{layer2}}\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_aabbf08090062cc512ac9b810cc5e8238}{\_make\_layer}}(width\ *\ 2,\ layers[1],\ stride=2)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00164}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a200bafb840b761bd6e8061a55efb18a6}{00164}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a200bafb840b761bd6e8061a55efb18a6}{layer3}}\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_aabbf08090062cc512ac9b810cc5e8238}{\_make\_layer}}(width\ *\ 4,\ layers[2],\ stride=2)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00165}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a6e435b968376c493c6c47cee9ecd1b35}{00165}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a6e435b968376c493c6c47cee9ecd1b35}{layer4}}\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_aabbf08090062cc512ac9b810cc5e8238}{\_make\_layer}}(width\ *\ 8,\ layers[3],\ stride=2)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ embed\_dim\ =\ width\ *\ 32\ \ \textcolor{comment}{\#\ the\ ResNet\ feature\ dimension}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00168}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a12ae72109c0f04987b195180d14cc240}{00168}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a12ae72109c0f04987b195180d14cc240}{attnpool}}\ =\ \mbox{\hyperlink{classclip_1_1model_1_1_attention_pool2d}{AttentionPool2d}}(input\_resolution\ //\ 32,\ embed\_dim,\ heads,\ output\_dim)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00170}00170\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00175}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_aabbf08090062cc512ac9b810cc5e8238}{00175}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_aabbf08090062cc512ac9b810cc5e8238}{\_make\_layer}}(self,\ planes,\ blocks,\ stride=1):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ layers\ =\ [\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck}{Bottleneck}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a230a089c65e1ca17513b28f0fea2ab54}{\_inplanes}},\ planes,\ stride)]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a230a089c65e1ca17513b28f0fea2ab54}{\_inplanes}}\ =\ planes\ *\ Bottleneck.expansion}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(1,\ blocks):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ layers.append(\mbox{\hyperlink{classclip_1_1model_1_1_bottleneck}{Bottleneck}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a230a089c65e1ca17513b28f0fea2ab54}{\_inplanes}},\ planes))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00182}00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nn.Sequential(*layers)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00184}00184\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00187}\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a0dd834ae091787ae3120c70f5e5b8a43}{00187}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a0dd834ae091787ae3120c70f5e5b8a43}{forward}}(self,\ x):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ \textcolor{keyword}{def\ }stem(x):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a1e69eb52bf3a6922393d368888962920}{relu1}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ae839310d7789ebd7435b2e702d5205a4}{bn1}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a164a28522af981867fa4848155fff5be}{conv1}}(x)))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ac4f0b4792ec2e1f259a2dd6b32998f2b}{relu2}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ac69869291401bdfd726693bbd6d14774}{bn2}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_aff7d8087cf8dcb4a6aa5099426d6ace2}{conv2}}(x)))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a98e87f4076062d291a9e42acb6c8fb43}{relu3}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a555f24d758a5ac9bd2e806ef1af76155}{bn3}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a5b3f23c9b99e156321c62485b8b85811}{conv3}}(x)))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a3215cef9e2c2f043b83c09ea03a036e5}{avgpool}}(x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ x\ =\ x.type(self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a164a28522af981867fa4848155fff5be}{conv1}}.weight.dtype)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ x\ =\ stem(x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_ad03d54e2ecf34e44c23993aa3b41a6d4}{layer1}}(x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a69fc021ed64e4f927ab132e3cddd3ed8}{layer2}}(x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a200bafb840b761bd6e8061a55efb18a6}{layer3}}(x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a6e435b968376c493c6c47cee9ecd1b35}{layer4}}(x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net_a12ae72109c0f04987b195180d14cc240}{attnpool}}(x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00207}\mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{00207}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{LayerNorm}}(nn.LayerNorm):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00208}00208\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Subclass\ torch's\ LayerNorm\ to\ handle\ fp16."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00210}00210\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00213}\mbox{\hyperlink{classclip_1_1model_1_1_layer_norm_ae29530ff5a0b1aceae6893b9227e8731}{00213}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_layer_norm_ae29530ff5a0b1aceae6893b9227e8731}{forward}}(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ orig\_type\ =\ x.dtype}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00215}00215\ \ \ \ \ \ \ \ \ ret\ =\ super().\mbox{\hyperlink{classclip_1_1model_1_1_layer_norm_ae29530ff5a0b1aceae6893b9227e8731}{forward}}(x.type(torch.float32))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret.type(orig\_type)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00220}\mbox{\hyperlink{classclip_1_1model_1_1_quick_g_e_l_u}{00220}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classclip_1_1model_1_1_quick_g_e_l_u}{QuickGELU}}(nn.Module):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00221}00221\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00224}\mbox{\hyperlink{classclip_1_1model_1_1_quick_g_e_l_u_a8fa36020d3f76827331a25c26a4fbbde}{00224}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_quick_g_e_l_u_a8fa36020d3f76827331a25c26a4fbbde}{forward}}(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x\ *\ torch.sigmoid(1.702\ *\ x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00233}\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block}{00233}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block}{ResidualAttentionBlock}}(nn.Module):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00234}00234\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00238}\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_afe556c09842f324aadb4db14b6b0694e}{00238}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_afe556c09842f324aadb4db14b6b0694e}{\_\_init\_\_}}(self,\ d\_model:\ int,\ n\_head:\ int,\ attn\_mask:\ torch.Tensor\ =\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00239}00239\ \ \ \ \ \ \ \ \ super().\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_afe556c09842f324aadb4db14b6b0694e}{\_\_init\_\_}}()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00241}\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_af41f1f2ff72d7d2ce92026e9aa908cb2}{00241}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_af41f1f2ff72d7d2ce92026e9aa908cb2}{attn}}\ =\ nn.MultiheadAttention(d\_model,\ n\_head)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00242}\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_ab443a064417bd0d4dee16387293e7fa6}{00242}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_ab443a064417bd0d4dee16387293e7fa6}{ln\_1}}\ =\ \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{LayerNorm}}(d\_model)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00243}\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a85390aee593e704892394ba6740b82ea}{00243}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a85390aee593e704892394ba6740b82ea}{mlp}}\ =\ nn.Sequential(OrderedDict([}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}c\_fc"{}},\ nn.Linear(d\_model,\ d\_model\ *\ 4)),}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}gelu"{}},\ \mbox{\hyperlink{classclip_1_1model_1_1_quick_g_e_l_u}{QuickGELU}}()),}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}c\_proj"{}},\ nn.Linear(d\_model\ *\ 4,\ d\_model))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ ]))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00248}\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a293cfebadfc5ccb1b5a5dc767d00cdc6}{00248}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a293cfebadfc5ccb1b5a5dc767d00cdc6}{ln\_2}}\ =\ \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{LayerNorm}}(d\_model)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00249}\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a616be515fd342537e584b3836939940f}{00249}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a616be515fd342537e584b3836939940f}{attn\_mask}}\ =\ attn\_mask}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00251}00251\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00254}\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a09d81d36edb8b1a7a5377f5a62b26329}{00254}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a09d81d36edb8b1a7a5377f5a62b26329}{attention}}(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a616be515fd342537e584b3836939940f}{attn\_mask}}\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a616be515fd342537e584b3836939940f}{attn\_mask}}.to(dtype=x.dtype,\ device=x.device)\ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a616be515fd342537e584b3836939940f}{attn\_mask}}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_af41f1f2ff72d7d2ce92026e9aa908cb2}{attn}}(x,\ x,\ x,\ need\_weights=\textcolor{keyword}{False},\ attn\_mask=self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a616be515fd342537e584b3836939940f}{attn\_mask}})[0]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00258}00258\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00261}\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_ae17e4a4b266a1f21d5a68d852f55a9eb}{00261}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_ae17e4a4b266a1f21d5a68d852f55a9eb}{forward}}(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ x\ =\ x\ +\ self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a09d81d36edb8b1a7a5377f5a62b26329}{attention}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_ab443a064417bd0d4dee16387293e7fa6}{ln\_1}}(x))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00263}00263\ \ \ \ \ \ \ \ \ x\ =\ x\ +\ self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a85390aee593e704892394ba6740b82ea}{mlp}}(self.\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block_a293cfebadfc5ccb1b5a5dc767d00cdc6}{ln\_2}}(x))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00264}00264\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00266}00266\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00272}\mbox{\hyperlink{classclip_1_1model_1_1_transformer}{00272}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classclip_1_1model_1_1_transformer}{Transformer}}(nn.Module):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00273}00273\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00278}\mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad01e03987e707e3cc613c1bf5fbb3a8e}{00278}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad01e03987e707e3cc613c1bf5fbb3a8e}{\_\_init\_\_}}(self,\ width:\ int,\ layers:\ int,\ heads:\ int,\ attn\_mask:\ torch.Tensor\ =\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00279}00279\ \ \ \ \ \ \ \ \ super().\mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad01e03987e707e3cc613c1bf5fbb3a8e}{\_\_init\_\_}}()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00280}\mbox{\hyperlink{classclip_1_1model_1_1_transformer_a89aa7f2755c23e68d1346b8acda5d8b6}{00280}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_transformer_a89aa7f2755c23e68d1346b8acda5d8b6}{width}}\ =\ width}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00281}\mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad19f731c0d49646badb5ca7a2697eba9}{00281}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad19f731c0d49646badb5ca7a2697eba9}{layers}}\ =\ layers}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00282}\mbox{\hyperlink{classclip_1_1model_1_1_transformer_a5123c00cff793f9c9be08121b4d97595}{00282}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_transformer_a5123c00cff793f9c9be08121b4d97595}{resblocks}}\ =\ nn.Sequential(*[\mbox{\hyperlink{classclip_1_1model_1_1_residual_attention_block}{ResidualAttentionBlock}}(width,\ heads,\ attn\_mask)\ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(layers)])}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00283}00283\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00284}00284\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00287}\mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad6f775079524e60a4280eaab65645a89}{00287}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_transformer_ad6f775079524e60a4280eaab65645a89}{forward}}(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classclip_1_1model_1_1_transformer_a5123c00cff793f9c9be08121b4d97595}{resblocks}}(x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00289}00289\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00299}\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer}{00299}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer}{VisionTransformer}}(nn.Module):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00300}00300\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00307}\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a77082f1f862512d3474a3ec14fa36e97}{00307}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a77082f1f862512d3474a3ec14fa36e97}{\_\_init\_\_}}(self,\ input\_resolution:\ int,\ patch\_size:\ int,\ width:\ int,\ layers:\ int,\ heads:\ int,\ output\_dim:\ int):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ super().\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a77082f1f862512d3474a3ec14fa36e97}{\_\_init\_\_}}()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00309}\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_adcf2489c748fafe8623cf5e82b2395c1}{00309}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_adcf2489c748fafe8623cf5e82b2395c1}{input\_resolution}}\ =\ input\_resolution}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00310}\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a913fe57671fa80951ec275a54b4701ec}{00310}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a913fe57671fa80951ec275a54b4701ec}{output\_dim}}\ =\ output\_dim}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00311}\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a65715e9f32bfbdbe7407c760ad763c70}{00311}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a65715e9f32bfbdbe7407c760ad763c70}{conv1}}\ =\ nn.Conv2d(in\_channels=3,\ out\_channels=width,\ kernel\_size=patch\_size,\ stride=patch\_size,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00312}00312\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00313}00313\ \ \ \ \ \ \ \ \ scale\ =\ width\ **\ -\/0.5}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00314}\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a800b9a226cebfd11f0ecbd4006711842}{00314}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a800b9a226cebfd11f0ecbd4006711842}{class\_embedding}}\ =\ nn.Parameter(scale\ *\ torch.randn(width))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00315}\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a6099ce56289b4c6bff23825d1880c7d3}{00315}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a6099ce56289b4c6bff23825d1880c7d3}{positional\_embedding}}\ =\ nn.Parameter(scale\ *\ torch.randn((input\_resolution\ //\ patch\_size)\ **\ 2\ +\ 1,\ width))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00316}\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_ab7b89a226de61c5c98c95b564ef87bd9}{00316}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_ab7b89a226de61c5c98c95b564ef87bd9}{ln\_pre}}\ =\ \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{LayerNorm}}(width)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00317}00317\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00318}\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a6dd2010512ed07448d3d8580b68fb983}{00318}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a6dd2010512ed07448d3d8580b68fb983}{transformer}}\ =\ \mbox{\hyperlink{classclip_1_1model_1_1_transformer}{Transformer}}(width,\ layers,\ heads)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00320}\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_af393aeaed6cf76f910aa94a9deeced82}{00320}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_af393aeaed6cf76f910aa94a9deeced82}{ln\_post}}\ =\ \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{LayerNorm}}(width)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00321}\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a61985796f2bed517e961ab9b6b63d0c3}{00321}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a61985796f2bed517e961ab9b6b63d0c3}{proj}}\ =\ nn.Parameter(scale\ *\ torch.randn(width,\ output\_dim))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00322}00322\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00323}00323\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00326}\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a901b6f055a300bf905322d8aa01180c8}{00326}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a901b6f055a300bf905322d8aa01180c8}{forward}}(self,\ x:\ torch.Tensor):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00327}00327\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a65715e9f32bfbdbe7407c760ad763c70}{conv1}}(x)\ \ \textcolor{comment}{\#\ shape\ =\ [*,\ width,\ grid,\ grid]}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00328}00328\ \ \ \ \ \ \ \ \ x\ =\ x.reshape(x.shape[0],\ x.shape[1],\ -\/1)\ \ \textcolor{comment}{\#\ shape\ =\ [*,\ width,\ grid\ **\ 2]}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00329}00329\ \ \ \ \ \ \ \ \ x\ =\ x.permute(0,\ 2,\ 1)\ \ \textcolor{comment}{\#\ shape\ =\ [*,\ grid\ **\ 2,\ width]}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00330}00330\ \ \ \ \ \ \ \ \ x\ =\ torch.cat([self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a800b9a226cebfd11f0ecbd4006711842}{class\_embedding}}.to(x.dtype)\ +\ torch.zeros(x.shape[0],\ 1,\ x.shape[-\/1],\ dtype=x.dtype,\ device=x.device),\ x],\ dim=1)\ \ \textcolor{comment}{\#\ shape\ =\ [*,\ grid\ **\ 2\ +\ 1,\ width]}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00331}00331\ \ \ \ \ \ \ \ \ x\ =\ x\ +\ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a6099ce56289b4c6bff23825d1880c7d3}{positional\_embedding}}.to(x.dtype)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00332}00332\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_ab7b89a226de61c5c98c95b564ef87bd9}{ln\_pre}}(x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00334}00334\ \ \ \ \ \ \ \ \ x\ =\ x.permute(1,\ 0,\ 2)\ \ \textcolor{comment}{\#\ NLD\ -\/>\ LND}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00335}00335\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a6dd2010512ed07448d3d8580b68fb983}{transformer}}(x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00336}00336\ \ \ \ \ \ \ \ \ x\ =\ x.permute(1,\ 0,\ 2)\ \ \textcolor{comment}{\#\ LND\ -\/>\ NLD}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00337}00337\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00338}00338\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_af393aeaed6cf76f910aa94a9deeced82}{ln\_post}}(x[:,\ 0,\ :])}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00340}00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a61985796f2bed517e961ab9b6b63d0c3}{proj}}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ x\ @\ self.\mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer_a61985796f2bed517e961ab9b6b63d0c3}{proj}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00342}00342\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00343}00343\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00344}00344\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00345}00345\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00358}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p}{00358}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p}{CLIP}}(nn.Module):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00359}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a8d1e2ffcf6520a488132ff393bfff386}{00359}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a8d1e2ffcf6520a488132ff393bfff386}{\_\_init\_\_}}(self,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ embed\_dim:\ int,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ vision}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_resolution:\ int,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vision\_layers:\ Union[Tuple[int,\ int,\ int,\ int],\ int],}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vision\_width:\ int,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vision\_patch\_size:\ int,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ text}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ context\_length:\ int,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vocab\_size:\ int,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ transformer\_width:\ int,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00370}00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ transformer\_heads:\ int,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ transformer\_layers:\ int}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00373}00373\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00374}00374\ \ \ \ \ \ \ \ \ super().\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a8d1e2ffcf6520a488132ff393bfff386}{\_\_init\_\_}}()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00376}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a507cb107c0aadc7b6b8c162a568266d4}{00376}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a507cb107c0aadc7b6b8c162a568266d4}{context\_length}}\ =\ context\_length}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00377}00377\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00378}00378\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(vision\_layers,\ (tuple,\ list)):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ vision\_heads\ =\ vision\_width\ *\ 32\ //\ 64}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00380}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{00380}}\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}\ =\ \mbox{\hyperlink{classclip_1_1model_1_1_modified_res_net}{ModifiedResNet}}(}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layers=vision\_layers,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00382}00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_dim=embed\_dim,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00383}00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heads=vision\_heads,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_resolution=image\_resolution,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00385}00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width=vision\_width}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00387}00387\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ vision\_heads\ =\ vision\_width\ //\ 64}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}\ =\ \mbox{\hyperlink{classclip_1_1model_1_1_vision_transformer}{VisionTransformer}}(}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_resolution=image\_resolution,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ patch\_size=vision\_patch\_size,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width=vision\_width,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layers=vision\_layers,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heads=vision\_heads,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_dim=embed\_dim}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00397}00397\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00398}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a652d8b263c38b95087670010bd9cc5e7}{00398}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a652d8b263c38b95087670010bd9cc5e7}{transformer}}\ =\ \mbox{\hyperlink{classclip_1_1model_1_1_transformer}{Transformer}}(}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ width=transformer\_width,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ layers=transformer\_layers,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ heads=transformer\_heads,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_mask=self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a9475e9be8be2d6ea4084e802eab36ec3}{build\_attention\_mask}}()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00403}00403\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00404}00404\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00405}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a68e0021f22c5fddfa0eea90e40845ab8}{00405}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a68e0021f22c5fddfa0eea90e40845ab8}{vocab\_size}}\ =\ vocab\_size}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00406}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a1cc14071ccd1bd3b4cc8a75783c20284}{00406}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a1cc14071ccd1bd3b4cc8a75783c20284}{token\_embedding}}\ =\ nn.Embedding(vocab\_size,\ transformer\_width)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00407}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a20a07f08c6d69a1bf4b292723226717d}{00407}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a20a07f08c6d69a1bf4b292723226717d}{positional\_embedding}}\ =\ nn.Parameter(torch.empty(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a507cb107c0aadc7b6b8c162a568266d4}{context\_length}},\ transformer\_width))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00408}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a8ea9f1df6445dd02515c91fd8547e68a}{00408}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a8ea9f1df6445dd02515c91fd8547e68a}{ln\_final}}\ =\ \mbox{\hyperlink{classclip_1_1model_1_1_layer_norm}{LayerNorm}}(transformer\_width)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00409}00409\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00410}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a7aeab79fc8796b38fbd3db56b492a85e}{00410}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a7aeab79fc8796b38fbd3db56b492a85e}{text\_projection}}\ =\ nn.Parameter(torch.empty(transformer\_width,\ embed\_dim))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00411}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a709f97a0082741b6df0d0c33c018f4ca}{00411}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a709f97a0082741b6df0d0c33c018f4ca}{logit\_scale}}\ =\ nn.Parameter(torch.ones([])\ *\ np.log(1\ /\ 0.07))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00412}00412\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00413}00413\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a40e42eae077827d352c674e803af8808}{initialize\_parameters}}()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00414}00414\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00415}00415\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00416}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a40e42eae077827d352c674e803af8808}{00416}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a40e42eae077827d352c674e803af8808}{initialize\_parameters}}(self):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00417}00417\ \ \ \ \ \ \ \ \ nn.init.normal\_(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a1cc14071ccd1bd3b4cc8a75783c20284}{token\_embedding}}.weight,\ std=0.02)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00418}00418\ \ \ \ \ \ \ \ \ nn.init.normal\_(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a20a07f08c6d69a1bf4b292723226717d}{positional\_embedding}},\ std=0.01)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00419}00419\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00420}00420\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}},\ ModifiedResNet):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00421}00421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}.attnpool\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00422}00422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}.attnpool.c\_proj.in\_features\ **\ -\/0.5}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00423}00423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}.attnpool.q\_proj.weight,\ std=std)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00424}00424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}.attnpool.k\_proj.weight,\ std=std)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00425}00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}.attnpool.v\_proj.weight,\ std=std)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00426}00426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}.attnpool.c\_proj.weight,\ std=std)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00427}00427\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00428}00428\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ resnet\_block\ \textcolor{keywordflow}{in}\ [self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}.layer1,\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}.layer2,\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}.layer3,\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}.layer4]:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ name,\ param\ \textcolor{keywordflow}{in}\ resnet\_block.named\_parameters():}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00430}00430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ name.endswith(\textcolor{stringliteral}{"{}bn3.weight"{}}):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.zeros\_(param)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00432}00432\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00433}00433\ \ \ \ \ \ \ \ \ proj\_std\ =\ (self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a652d8b263c38b95087670010bd9cc5e7}{transformer}}.width\ **\ -\/0.5)\ *\ ((2\ *\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a652d8b263c38b95087670010bd9cc5e7}{transformer}}.layers)\ **\ -\/0.5)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00434}00434\ \ \ \ \ \ \ \ \ attn\_std\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a652d8b263c38b95087670010bd9cc5e7}{transformer}}.width\ **\ -\/0.5}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00435}00435\ \ \ \ \ \ \ \ \ fc\_std\ =\ (2\ *\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a652d8b263c38b95087670010bd9cc5e7}{transformer}}.width)\ **\ -\/0.5}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00436}00436\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ block\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a652d8b263c38b95087670010bd9cc5e7}{transformer}}.resblocks:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(block.attn.in\_proj\_weight,\ std=attn\_std)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00438}00438\ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(block.attn.out\_proj.weight,\ std=proj\_std)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00439}00439\ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(block.mlp.c\_fc.weight,\ std=fc\_std)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00440}00440\ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(block.mlp.c\_proj.weight,\ std=proj\_std)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00441}00441\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00442}00442\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a7aeab79fc8796b38fbd3db56b492a85e}{text\_projection}}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00443}00443\ \ \ \ \ \ \ \ \ \ \ \ \ nn.init.normal\_(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a7aeab79fc8796b38fbd3db56b492a85e}{text\_projection}},\ std=self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a652d8b263c38b95087670010bd9cc5e7}{transformer}}.width\ **\ -\/0.5)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00444}00444\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00445}00445\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00447}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a9475e9be8be2d6ea4084e802eab36ec3}{00447}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a9475e9be8be2d6ea4084e802eab36ec3}{build\_attention\_mask}}(self):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00448}00448\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ lazily\ create\ causal\ attention\ mask,\ with\ full\ attention\ between\ the\ vision\ tokens}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00449}00449\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ pytorch\ uses\ additive\ attention\ mask;\ fill\ with\ -\/inf}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00450}00450\ \ \ \ \ \ \ \ \ mask\ =\ torch.empty(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a507cb107c0aadc7b6b8c162a568266d4}{context\_length}},\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a507cb107c0aadc7b6b8c162a568266d4}{context\_length}})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00451}00451\ \ \ \ \ \ \ \ \ mask.fill\_(float(\textcolor{stringliteral}{"{}-\/inf"{}}))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00452}00452\ \ \ \ \ \ \ \ \ mask.triu\_(1)\ \ \textcolor{comment}{\#\ zero\ out\ the\ lower\ diagonal}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00453}00453\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mask}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00454}00454\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00455}00455\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00457}00457\ \ \ \ \ \textcolor{preprocessor}{@property}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00458}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aa7f1c0e681a38f249c7fd2cc9013a953}{00458}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_afc9520e89b7aedfda8d9f73a9eb9d0aa}{dtype}}(self):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00459}00459\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}.conv1.weight.dtype}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00460}00460\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00461}00461\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00464}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a3283ef0bb587bdeb878c412767740bfe}{00464}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a3283ef0bb587bdeb878c412767740bfe}{encode\_image}}(self,\ image):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00465}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_afc9520e89b7aedfda8d9f73a9eb9d0aa}{00465}}\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_aec9f9c357c7cd60ba9e166bba5e7c899}{visual}}(image.type(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_afc9520e89b7aedfda8d9f73a9eb9d0aa}{dtype}}))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00466}00466\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00467}00467\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00470}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a8a37611292e5b35fd317bec829ae88fe}{00470}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a8a37611292e5b35fd317bec829ae88fe}{encode\_text}}(self,\ text):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00471}00471\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a1cc14071ccd1bd3b4cc8a75783c20284}{token\_embedding}}(text).type(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_afc9520e89b7aedfda8d9f73a9eb9d0aa}{dtype}})\ \ \textcolor{comment}{\#\ [batch\_size,\ n\_ctx,\ d\_model]}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00472}00472\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00473}00473\ \ \ \ \ \ \ \ \ x\ =\ x\ +\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a20a07f08c6d69a1bf4b292723226717d}{positional\_embedding}}.type(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_afc9520e89b7aedfda8d9f73a9eb9d0aa}{dtype}})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00474}00474\ \ \ \ \ \ \ \ \ x\ =\ x.permute(1,\ 0,\ 2)\ \ \textcolor{comment}{\#\ NLD\ -\/>\ LND}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00475}00475\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a652d8b263c38b95087670010bd9cc5e7}{transformer}}(x)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00476}00476\ \ \ \ \ \ \ \ \ x\ =\ x.permute(1,\ 0,\ 2)\ \ \textcolor{comment}{\#\ LND\ -\/>\ NLD}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00477}00477\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a8ea9f1df6445dd02515c91fd8547e68a}{ln\_final}}(x).type(self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_afc9520e89b7aedfda8d9f73a9eb9d0aa}{dtype}})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00478}00478\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00479}00479\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ x.shape\ =\ [batch\_size,\ n\_ctx,\ transformer.width]}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00480}00480\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ take\ features\ from\ the\ eot\ embedding\ (eot\_token\ is\ the\ highest\ number\ in\ each\ sequence)}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00481}00481\ \ \ \ \ \ \ \ \ x\ =\ x[torch.arange(x.shape[0]),\ text.argmax(dim=-\/1)]\ @\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a7aeab79fc8796b38fbd3db56b492a85e}{text\_projection}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00482}00482\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00483}00483\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00484}00484\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00485}00485\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00489}\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a1c43021197ab17b78bebd15b2a734ab8}{00489}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a1c43021197ab17b78bebd15b2a734ab8}{forward}}(self,\ image,\ text):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00490}00490\ \ \ \ \ \ \ \ \ image\_features\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a3283ef0bb587bdeb878c412767740bfe}{encode\_image}}(image)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00491}00491\ \ \ \ \ \ \ \ \ text\_features\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a8a37611292e5b35fd317bec829ae88fe}{encode\_text}}(text)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00492}00492\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00493}00493\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ normalized\ features}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00494}00494\ \ \ \ \ \ \ \ \ image\_features\ =\ image\_features\ /\ image\_features.norm(dim=1,\ keepdim=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00495}00495\ \ \ \ \ \ \ \ \ text\_features\ =\ text\_features\ /\ text\_features.norm(dim=1,\ keepdim=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00496}00496\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00497}00497\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ cosine\ similarity\ as\ logits}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00498}00498\ \ \ \ \ \ \ \ \ logit\_scale\ =\ self.\mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p_a709f97a0082741b6df0d0c33c018f4ca}{logit\_scale}}.exp()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00499}00499\ \ \ \ \ \ \ \ \ logits\_per\_image\ =\ logit\_scale\ *\ image\_features\ @\ text\_features.t()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00500}00500\ \ \ \ \ \ \ \ \ logits\_per\_text\ =\ logits\_per\_image.t()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00501}00501\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00502}00502\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ shape\ =\ [global\_batch\_size,\ global\_batch\_size]}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00503}00503\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ logits\_per\_image,\ logits\_per\_text}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00504}00504\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00505}00505\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00509}\mbox{\hyperlink{namespaceclip_1_1model_a6ef6a1b7a73984a4d445c8c95586a058}{00509}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1model_a6ef6a1b7a73984a4d445c8c95586a058}{convert\_weights}}(model:\ nn.Module):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00510}00510\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Convert\ applicable\ model\ parameters\ to\ fp16"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00511}00511\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00512}00512\ \ \ \ \ \textcolor{keyword}{def\ }\_convert\_weights\_to\_fp16(l):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00513}00513\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(l,\ (nn.Conv1d,\ nn.Conv2d,\ nn.Linear)):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00514}00514\ \ \ \ \ \ \ \ \ \ \ \ \ l.weight.data\ =\ l.weight.data.half()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00515}00515\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ l.bias\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00516}00516\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ l.bias.data\ =\ l.bias.data.half()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00517}00517\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00518}00518\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(l,\ nn.MultiheadAttention):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00519}00519\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ attr\ \textcolor{keywordflow}{in}\ [*[f\textcolor{stringliteral}{"{}\{s\}\_proj\_weight"{}}\ \textcolor{keywordflow}{for}\ s\ \textcolor{keywordflow}{in}\ [\textcolor{stringliteral}{"{}in"{}},\ \textcolor{stringliteral}{"{}q"{}},\ \textcolor{stringliteral}{"{}k"{}},\ \textcolor{stringliteral}{"{}v"{}}]],\ \textcolor{stringliteral}{"{}in\_proj\_bias"{}},\ \textcolor{stringliteral}{"{}bias\_k"{}},\ \textcolor{stringliteral}{"{}bias\_v"{}}]:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00520}00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tensor\ =\ getattr(l,\ attr)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00521}00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ tensor\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00522}00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tensor.data\ =\ tensor.data.half()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00523}00523\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00524}00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ name\ \textcolor{keywordflow}{in}\ [\textcolor{stringliteral}{"{}text\_projection"{}},\ \textcolor{stringliteral}{"{}proj"{}}]:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00525}00525\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(l,\ name):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00526}00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attr\ =\ getattr(l,\ name)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00527}00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attr\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00528}00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attr.data\ =\ attr.data.half()}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00529}00529\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00530}00530\ \ \ \ \ model.apply(\_convert\_weights\_to\_fp16)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00531}00531\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00532}00532\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00537}\mbox{\hyperlink{namespaceclip_1_1model_a6cf81409a684321860d7a2c1a59bbfaa}{00537}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceclip_1_1model_a6cf81409a684321860d7a2c1a59bbfaa}{build\_model}}(state\_dict:\ dict):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00538}00538\ \ \ \ \ vit\ =\ \textcolor{stringliteral}{"{}visual.proj"{}}\ \textcolor{keywordflow}{in}\ state\_dict}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00539}00539\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00540}00540\ \ \ \ \ \textcolor{keywordflow}{if}\ vit:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00541}00541\ \ \ \ \ \ \ \ \ vision\_width\ =\ state\_dict[\textcolor{stringliteral}{"{}visual.conv1.weight"{}}].shape[0]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00542}00542\ \ \ \ \ \ \ \ \ vision\_layers\ =\ len([k\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ state\_dict.keys()\ \textcolor{keywordflow}{if}\ k.startswith(\textcolor{stringliteral}{"{}visual."{}})\ \textcolor{keywordflow}{and}\ k.endswith(\textcolor{stringliteral}{"{}.attn.in\_proj\_weight"{}})])}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00543}00543\ \ \ \ \ \ \ \ \ vision\_patch\_size\ =\ state\_dict[\textcolor{stringliteral}{"{}visual.conv1.weight"{}}].shape[-\/1]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00544}00544\ \ \ \ \ \ \ \ \ grid\_size\ =\ round((state\_dict[\textcolor{stringliteral}{"{}visual.positional\_embedding"{}}].shape[0]\ -\/\ 1)\ **\ 0.5)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00545}00545\ \ \ \ \ \ \ \ \ image\_resolution\ =\ vision\_patch\_size\ *\ grid\_size}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00546}00546\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00547}00547\ \ \ \ \ \ \ \ \ counts:\ list\ =\ [len(set(k.split(\textcolor{stringliteral}{"{}."{}})[2]\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ state\_dict\ \textcolor{keywordflow}{if}\ k.startswith(f\textcolor{stringliteral}{"{}visual.layer\{b\}"{}})))\ \textcolor{keywordflow}{for}\ b\ \textcolor{keywordflow}{in}\ [1,\ 2,\ 3,\ 4]]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00548}00548\ \ \ \ \ \ \ \ \ vision\_layers\ =\ tuple(counts)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00549}00549\ \ \ \ \ \ \ \ \ vision\_width\ =\ state\_dict[\textcolor{stringliteral}{"{}visual.layer1.0.conv1.weight"{}}].shape[0]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00550}00550\ \ \ \ \ \ \ \ \ output\_width\ =\ round((state\_dict[\textcolor{stringliteral}{"{}visual.attnpool.positional\_embedding"{}}].shape[0]\ -\/\ 1)\ **\ 0.5)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00551}00551\ \ \ \ \ \ \ \ \ vision\_patch\_size\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00552}00552\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ output\_width\ **\ 2\ +\ 1\ ==\ state\_dict[\textcolor{stringliteral}{"{}visual.attnpool.positional\_embedding"{}}].shape[0]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00553}00553\ \ \ \ \ \ \ \ \ image\_resolution\ =\ output\_width\ *\ 32}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00554}00554\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00555}00555\ \ \ \ \ embed\_dim\ =\ state\_dict[\textcolor{stringliteral}{"{}text\_projection"{}}].shape[1]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00556}00556\ \ \ \ \ context\_length\ =\ state\_dict[\textcolor{stringliteral}{"{}positional\_embedding"{}}].shape[0]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00557}00557\ \ \ \ \ vocab\_size\ =\ state\_dict[\textcolor{stringliteral}{"{}token\_embedding.weight"{}}].shape[0]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00558}00558\ \ \ \ \ transformer\_width\ =\ state\_dict[\textcolor{stringliteral}{"{}ln\_final.weight"{}}].shape[0]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00559}00559\ \ \ \ \ transformer\_heads\ =\ transformer\_width\ //\ 64}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00560}00560\ \ \ \ \ transformer\_layers\ =\ len(set(k.split(\textcolor{stringliteral}{"{}."{}})[2]\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ state\_dict\ \textcolor{keywordflow}{if}\ k.startswith(\textcolor{stringliteral}{"{}transformer.resblocks"{}})))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00561}00561\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00562}00562\ \ \ \ \ model\ =\ \mbox{\hyperlink{classclip_1_1model_1_1_c_l_i_p}{CLIP}}(}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00563}00563\ \ \ \ \ \ \ \ \ embed\_dim,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00564}00564\ \ \ \ \ \ \ \ \ image\_resolution,\ vision\_layers,\ vision\_width,\ vision\_patch\_size,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00565}00565\ \ \ \ \ \ \ \ \ context\_length,\ vocab\_size,\ transformer\_width,\ transformer\_heads,\ transformer\_layers}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00566}00566\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00567}00567\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00568}00568\ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ [\textcolor{stringliteral}{"{}input\_resolution"{}},\ \textcolor{stringliteral}{"{}context\_length"{}},\ \textcolor{stringliteral}{"{}vocab\_size"{}}]:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00569}00569\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{in}\ state\_dict:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00570}00570\ \ \ \ \ \ \ \ \ \ \ \ \ del\ state\_dict[key]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00571}00571\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00572}00572\ \ \ \ \ \mbox{\hyperlink{namespaceclip_1_1model_a6ef6a1b7a73984a4d445c8c95586a058}{convert\_weights}}(model)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00573}00573\ \ \ \ \ model.load\_state\_dict(state\_dict)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00574}00574\ \ \ \ \ \textcolor{keywordflow}{return}\ model.eval()}
+
+\end{DoxyCode}
