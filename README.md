@@ -15,7 +15,7 @@ Doxygen을 사용해 문서를 생성하고 GitHub Pages로 배포합니다.
 
 ## 🔗 관련 링크
 - 프로젝트 코드: [LLaVA (LAVIS)](https://github.com/haotian-liu/LLaVA)
-- 문서 사이트: [LLaVA (doxygen)](file:///Users/jeongjiu/Downloads/Blip-2/html/index.html)
+- 문서 사이트: [Blip-2 (doxygen)](https://seongwoo1255.github.io/winterproject/Blip-2/index.html)
 
 ---
 
