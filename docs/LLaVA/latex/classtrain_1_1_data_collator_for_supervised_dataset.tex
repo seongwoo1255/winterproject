@@ -1,0 +1,91 @@
+\doxysection{train.\+Data\+Collator\+For\+Supervised\+Dataset Class Reference}
+\hypertarget{classtrain_1_1_data_collator_for_supervised_dataset}{}\label{classtrain_1_1_data_collator_for_supervised_dataset}\index{train.DataCollatorForSupervisedDataset@{train.DataCollatorForSupervisedDataset}}
+
+
+Inheritance diagram for train.\+Data\+Collator\+For\+Supervised\+Dataset\+:
+% FIG 0
+
+
+Collaboration diagram for train.\+Data\+Collator\+For\+Supervised\+Dataset\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Dict\mbox{[}str, torch.\+Tensor\mbox{]} \mbox{\hyperlink{classtrain_1_1_data_collator_for_supervised_dataset_a5f7840e4ce8f6df7ce56451cad536103}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self, Sequence\mbox{[}Dict\mbox{]} instances)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+transformers \mbox{\hyperlink{classtrain_1_1_data_collator_for_supervised_dataset_a4d1712dd42c5d659f2d91841199cbaad}{tokenizer}} .Pre\+Trained\+Tokenizer
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Collate examples for supervised fine-tuning.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00743}{743}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classtrain_1_1_data_collator_for_supervised_dataset_a5f7840e4ce8f6df7ce56451cad536103}\index{train.DataCollatorForSupervisedDataset@{train.DataCollatorForSupervisedDataset}!\_\_call\_\_@{\_\_call\_\_}}
+\index{\_\_call\_\_@{\_\_call\_\_}!train.DataCollatorForSupervisedDataset@{train.DataCollatorForSupervisedDataset}}
+\doxysubsubsection{\texorpdfstring{\_\_call\_\_()}{\_\_call\_\_()}}
+{\footnotesize\ttfamily \label{classtrain_1_1_data_collator_for_supervised_dataset_a5f7840e4ce8f6df7ce56451cad536103} 
+ Dict\mbox{[}str, torch.\+Tensor\mbox{]} train.\+Data\+Collator\+For\+Supervised\+Dataset.\+\_\+\+\_\+call\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Sequence\mbox{[}Dict\mbox{]}}]{instances}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00748}{748}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00748\ \ \ \ \ \textcolor{keyword}{def\ }\_\_call\_\_(self,\ instances:\ Sequence[Dict])\ -\/>\ Dict[str,\ torch.Tensor]:}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ input\_ids,\ labels\ =\ tuple([instance[key]\ \textcolor{keywordflow}{for}\ instance\ \textcolor{keywordflow}{in}\ instances]}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ (\textcolor{stringliteral}{"{}input\_ids"{}},\ \textcolor{stringliteral}{"{}labels"{}}))}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ input\_ids\ =\ torch.nn.utils.rnn.pad\_sequence(}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids,}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ \ \ \ \ batch\_first=\textcolor{keyword}{True},}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \ \ \ \ padding\_value=self.tokenizer.pad\_token\_id)}
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ labels\ =\ torch.nn.utils.rnn.pad\_sequence(labels,}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ batch\_first=\textcolor{keyword}{True},}
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ padding\_value=IGNORE\_INDEX)}
+\DoxyCodeLine{00758\ \ \ \ \ \ \ \ \ input\_ids\ =\ input\_ids[:,\ :self.tokenizer.model\_max\_length]}
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \ \ labels\ =\ labels[:,\ :self.tokenizer.model\_max\_length]}
+\DoxyCodeLine{00760\ \ \ \ \ \ \ \ \ batch\ =\ dict(}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids=input\_ids,}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \ \ \ \ labels=labels,}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask=input\_ids.ne(self.tokenizer.pad\_token\_id),}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00765\ }
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'image'}\ \textcolor{keywordflow}{in}\ instances[0]:}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ \ \ \ \ images\ =\ [instance[\textcolor{stringliteral}{'image'}]\ \textcolor{keywordflow}{for}\ instance\ \textcolor{keywordflow}{in}\ instances]}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ all(x\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ x.shape\ ==\ images[0].shape\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ images):}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ batch[\textcolor{stringliteral}{'images'}]\ =\ torch.stack(images)}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ batch[\textcolor{stringliteral}{'images'}]\ =\ images}
+\DoxyCodeLine{00772\ }
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ batch}
+\DoxyCodeLine{00774\ }
+\DoxyCodeLine{00775\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classtrain_1_1_data_collator_for_supervised_dataset_a4d1712dd42c5d659f2d91841199cbaad}\index{train.DataCollatorForSupervisedDataset@{train.DataCollatorForSupervisedDataset}!tokenizer@{tokenizer}}
+\index{tokenizer@{tokenizer}!train.DataCollatorForSupervisedDataset@{train.DataCollatorForSupervisedDataset}}
+\doxysubsubsection{\texorpdfstring{tokenizer}{tokenizer}}
+{\footnotesize\ttfamily \label{classtrain_1_1_data_collator_for_supervised_dataset_a4d1712dd42c5d659f2d91841199cbaad} 
+transformers train.\+Data\+Collator\+For\+Supervised\+Dataset.\+tokenizer .Pre\+Trained\+Tokenizer\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00746}{746}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+llava/train/\mbox{\hyperlink{train_8py}{train.\+py}}\end{DoxyCompactItemize}

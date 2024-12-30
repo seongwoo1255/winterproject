@@ -1,0 +1,400 @@
+\doxysection{llava.\+conversation Namespace Reference}
+\hypertarget{namespacellava_1_1conversation}{}\label{namespacellava_1_1conversation}\index{llava.conversation@{llava.conversation}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classllava_1_1conversation_1_1_conversation}{Conversation}}
+\item 
+class \mbox{\hyperlink{classllava_1_1conversation_1_1_separator_style}{Separator\+Style}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_a0ea7e88b34ff4170dcc15bda3c16a08d}{conv\+\_\+vicuna\+\_\+v0}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_a8bc33fc17d5ec73e58df6d8d68e1cdb6}{conv\+\_\+vicuna\+\_\+v1}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_ab81d01c1151226c6f4c05e96d70ea904}{conv\+\_\+llama\+\_\+2}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_aee4891707f40527c86c0483aed04dec7}{conv\+\_\+llava\+\_\+llama\+\_\+2}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_a1bfa9feb395cdbf2877280180b20afeb}{conv\+\_\+mpt}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_a13d74de68160e56b91eefeda821aea34}{conv\+\_\+llava\+\_\+plain}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_a5193c5b29e23374ccc3994d186962609}{conv\+\_\+llava\+\_\+v0}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_ac62bbf7722871c6913873056481dfce4}{conv\+\_\+llava\+\_\+v0\+\_\+mmtag}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_ab96947de3105fb8ead71d55a055fec06}{conv\+\_\+llava\+\_\+v1}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_a58a7c20021b9a112b108f907b4b1b290}{conv\+\_\+llava\+\_\+v1\+\_\+mmtag}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_a4a7ea6a07c18c32b74f6aaab78cd7484}{conv\+\_\+mistral\+\_\+instruct}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_aaed194350e5e5982ccfe886cdfacef92}{conv\+\_\+chatml\+\_\+direct}}
+\item 
+\mbox{\hyperlink{namespacellava_1_1conversation_ab81a5d5030ea37093c29f5026d602d86}{default\+\_\+conversation}} = \mbox{\hyperlink{namespacellava_1_1conversation_a8bc33fc17d5ec73e58df6d8d68e1cdb6}{conv\+\_\+vicuna\+\_\+v1}}
+\item 
+dict \mbox{\hyperlink{namespacellava_1_1conversation_a738d06459c92a97d57206c98c314ceec}{conv\+\_\+templates}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacellava_1_1conversation_aaed194350e5e5982ccfe886cdfacef92}\index{llava.conversation@{llava.conversation}!conv\_chatml\_direct@{conv\_chatml\_direct}}
+\index{conv\_chatml\_direct@{conv\_chatml\_direct}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_chatml\_direct}{conv\_chatml\_direct}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_aaed194350e5e5982ccfe886cdfacef92} 
+llava.\+conversation.\+conv\+\_\+chatml\+\_\+direct}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ Conversation(}
+\DoxyCodeLine{00002\ \ \ \ \ system=,}
+\DoxyCodeLine{00003\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}<|im\_start|>user\(\backslash\)n"{}},\ \textcolor{stringliteral}{"{}<|im\_start|>assistant\(\backslash\)n"{}}),}
+\DoxyCodeLine{00004\ \ \ \ \ version=\textcolor{stringliteral}{"{}mpt"{}},}
+\DoxyCodeLine{00005\ \ \ \ \ messages=(),}
+\DoxyCodeLine{00006\ \ \ \ \ offset=0,}
+\DoxyCodeLine{00007\ \ \ \ \ sep\_style=SeparatorStyle.MPT,}
+\DoxyCodeLine{00008\ \ \ \ \ sep=\textcolor{stringliteral}{"{}<|im\_end|>"{}},}
+\DoxyCodeLine{00009\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00361}{361}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_ab81d01c1151226c6f4c05e96d70ea904}\index{llava.conversation@{llava.conversation}!conv\_llama\_2@{conv\_llama\_2}}
+\index{conv\_llama\_2@{conv\_llama\_2}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_llama\_2}{conv\_llama\_2}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_ab81d01c1151226c6f4c05e96d70ea904} 
+llava.\+conversation.\+conv\+\_\+llama\+\_\+2}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ Conversation(}
+\DoxyCodeLine{00002\ \ \ \ \ system=,}
+\DoxyCodeLine{00003\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}USER"{}},\ \textcolor{stringliteral}{"{}ASSISTANT"{}}),}
+\DoxyCodeLine{00004\ \ \ \ \ version=\textcolor{stringliteral}{"{}llama\_v2"{}},}
+\DoxyCodeLine{00005\ \ \ \ \ messages=(),}
+\DoxyCodeLine{00006\ \ \ \ \ offset=0,}
+\DoxyCodeLine{00007\ \ \ \ \ sep\_style=SeparatorStyle.LLAMA\_2,}
+\DoxyCodeLine{00008\ \ \ \ \ sep=\textcolor{stringliteral}{"{}<s>"{}},}
+\DoxyCodeLine{00009\ \ \ \ \ sep2=\textcolor{stringliteral}{"{}</s>"{}},}
+\DoxyCodeLine{00010\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00254}{254}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_aee4891707f40527c86c0483aed04dec7}\index{llava.conversation@{llava.conversation}!conv\_llava\_llama\_2@{conv\_llava\_llama\_2}}
+\index{conv\_llava\_llama\_2@{conv\_llava\_llama\_2}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_llava\_llama\_2}{conv\_llava\_llama\_2}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_aee4891707f40527c86c0483aed04dec7} 
+llava.\+conversation.\+conv\+\_\+llava\+\_\+llama\+\_\+2}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ Conversation(}
+\DoxyCodeLine{00002\ \ \ \ \ system=\textcolor{stringliteral}{"{}You\ are\ a\ helpful\ language\ and\ vision\ assistant.\ "{}}}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}You\ are\ able\ to\ understand\ the\ visual\ content\ that\ the\ user\ provides,\ "{}}}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}and\ assist\ the\ user\ with\ a\ variety\ of\ tasks\ using\ natural\ language."{}},}
+\DoxyCodeLine{00005\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}USER"{}},\ \textcolor{stringliteral}{"{}ASSISTANT"{}}),}
+\DoxyCodeLine{00006\ \ \ \ \ version=\textcolor{stringliteral}{"{}llama\_v2"{}},}
+\DoxyCodeLine{00007\ \ \ \ \ messages=(),}
+\DoxyCodeLine{00008\ \ \ \ \ offset=0,}
+\DoxyCodeLine{00009\ \ \ \ \ sep\_style=SeparatorStyle.LLAMA\_2,}
+\DoxyCodeLine{00010\ \ \ \ \ sep=\textcolor{stringliteral}{"{}<s>"{}},}
+\DoxyCodeLine{00011\ \ \ \ \ sep2=\textcolor{stringliteral}{"{}</s>"{}},}
+\DoxyCodeLine{00012\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00267}{267}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_a13d74de68160e56b91eefeda821aea34}\index{llava.conversation@{llava.conversation}!conv\_llava\_plain@{conv\_llava\_plain}}
+\index{conv\_llava\_plain@{conv\_llava\_plain}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_llava\_plain}{conv\_llava\_plain}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_a13d74de68160e56b91eefeda821aea34} 
+llava.\+conversation.\+conv\+\_\+llava\+\_\+plain}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ Conversation(}
+\DoxyCodeLine{00002\ \ \ \ \ system=\textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{00003\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}"{}},\ \textcolor{stringliteral}{"{}"{}}),}
+\DoxyCodeLine{00004\ \ \ \ \ messages=(}
+\DoxyCodeLine{00005\ \ \ \ \ ),}
+\DoxyCodeLine{00006\ \ \ \ \ offset=0,}
+\DoxyCodeLine{00007\ \ \ \ \ sep\_style=SeparatorStyle.PLAIN,}
+\DoxyCodeLine{00008\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\(\backslash\)n"{}},}
+\DoxyCodeLine{00009\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00291}{291}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_a5193c5b29e23374ccc3994d186962609}\index{llava.conversation@{llava.conversation}!conv\_llava\_v0@{conv\_llava\_v0}}
+\index{conv\_llava\_v0@{conv\_llava\_v0}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_llava\_v0}{conv\_llava\_v0}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_a5193c5b29e23374ccc3994d186962609} 
+llava.\+conversation.\+conv\+\_\+llava\+\_\+v0}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ Conversation(}
+\DoxyCodeLine{00002\ \ \ \ \ system=\textcolor{stringliteral}{"{}A\ chat\ between\ a\ curious\ human\ and\ an\ artificial\ intelligence\ assistant.\ "{}}}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ assistant\ gives\ helpful,\ detailed,\ and\ polite\ answers\ to\ the\ human's\ questions."{}},}
+\DoxyCodeLine{00004\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}Human"{}},\ \textcolor{stringliteral}{"{}Assistant"{}}),}
+\DoxyCodeLine{00005\ \ \ \ \ messages=(}
+\DoxyCodeLine{00006\ \ \ \ \ ),}
+\DoxyCodeLine{00007\ \ \ \ \ offset=0,}
+\DoxyCodeLine{00008\ \ \ \ \ sep\_style=SeparatorStyle.SINGLE,}
+\DoxyCodeLine{00009\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\#\#\#"{}},}
+\DoxyCodeLine{00010\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00301}{301}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_ac62bbf7722871c6913873056481dfce4}\index{llava.conversation@{llava.conversation}!conv\_llava\_v0\_mmtag@{conv\_llava\_v0\_mmtag}}
+\index{conv\_llava\_v0\_mmtag@{conv\_llava\_v0\_mmtag}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_llava\_v0\_mmtag}{conv\_llava\_v0\_mmtag}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_ac62bbf7722871c6913873056481dfce4} 
+llava.\+conversation.\+conv\+\_\+llava\+\_\+v0\+\_\+mmtag}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ Conversation(}
+\DoxyCodeLine{00002\ \ \ \ \ system=\textcolor{stringliteral}{"{}A\ chat\ between\ a\ curious\ user\ and\ an\ artificial\ intelligence\ assistant.\ "{}}}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ assistant\ is\ able\ to\ understand\ the\ visual\ content\ that\ the\ user\ provides,\ and\ assist\ the\ user\ with\ a\ variety\ of\ tasks\ using\ natural\ language."{}}}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ visual\ content\ will\ be\ provided\ with\ the\ following\ format:\ <Image>visual\ content</Image>."{}},}
+\DoxyCodeLine{00005\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}Human"{}},\ \textcolor{stringliteral}{"{}Assistant"{}}),}
+\DoxyCodeLine{00006\ \ \ \ \ messages=(}
+\DoxyCodeLine{00007\ \ \ \ \ ),}
+\DoxyCodeLine{00008\ \ \ \ \ offset=0,}
+\DoxyCodeLine{00009\ \ \ \ \ sep\_style=SeparatorStyle.SINGLE,}
+\DoxyCodeLine{00010\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\#\#\#"{}},}
+\DoxyCodeLine{00011\ \ \ \ \ version=\textcolor{stringliteral}{"{}v0\_mmtag"{}},}
+\DoxyCodeLine{00012\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00312}{312}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_ab96947de3105fb8ead71d55a055fec06}\index{llava.conversation@{llava.conversation}!conv\_llava\_v1@{conv\_llava\_v1}}
+\index{conv\_llava\_v1@{conv\_llava\_v1}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_llava\_v1}{conv\_llava\_v1}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_ab96947de3105fb8ead71d55a055fec06} 
+llava.\+conversation.\+conv\+\_\+llava\+\_\+v1}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ Conversation(}
+\DoxyCodeLine{00002\ \ \ \ \ system=\textcolor{stringliteral}{"{}A\ chat\ between\ a\ curious\ human\ and\ an\ artificial\ intelligence\ assistant.\ "{}}}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ assistant\ gives\ helpful,\ detailed,\ and\ polite\ answers\ to\ the\ human's\ questions."{}},}
+\DoxyCodeLine{00004\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}USER"{}},\ \textcolor{stringliteral}{"{}ASSISTANT"{}}),}
+\DoxyCodeLine{00005\ \ \ \ \ version=\textcolor{stringliteral}{"{}v1"{}},}
+\DoxyCodeLine{00006\ \ \ \ \ messages=(),}
+\DoxyCodeLine{00007\ \ \ \ \ offset=0,}
+\DoxyCodeLine{00008\ \ \ \ \ sep\_style=SeparatorStyle.TWO,}
+\DoxyCodeLine{00009\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\ "{}},}
+\DoxyCodeLine{00010\ \ \ \ \ sep2=\textcolor{stringliteral}{"{}</s>"{}},}
+\DoxyCodeLine{00011\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00325}{325}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_a58a7c20021b9a112b108f907b4b1b290}\index{llava.conversation@{llava.conversation}!conv\_llava\_v1\_mmtag@{conv\_llava\_v1\_mmtag}}
+\index{conv\_llava\_v1\_mmtag@{conv\_llava\_v1\_mmtag}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_llava\_v1\_mmtag}{conv\_llava\_v1\_mmtag}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_a58a7c20021b9a112b108f907b4b1b290} 
+llava.\+conversation.\+conv\+\_\+llava\+\_\+v1\+\_\+mmtag}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ Conversation(}
+\DoxyCodeLine{00002\ \ \ \ \ system=\textcolor{stringliteral}{"{}A\ chat\ between\ a\ curious\ user\ and\ an\ artificial\ intelligence\ assistant.\ "{}}}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ assistant\ is\ able\ to\ understand\ the\ visual\ content\ that\ the\ user\ provides,\ and\ assist\ the\ user\ with\ a\ variety\ of\ tasks\ using\ natural\ language."{}}}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ visual\ content\ will\ be\ provided\ with\ the\ following\ format:\ <Image>visual\ content</Image>."{}},}
+\DoxyCodeLine{00005\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}USER"{}},\ \textcolor{stringliteral}{"{}ASSISTANT"{}}),}
+\DoxyCodeLine{00006\ \ \ \ \ messages=(),}
+\DoxyCodeLine{00007\ \ \ \ \ offset=0,}
+\DoxyCodeLine{00008\ \ \ \ \ sep\_style=SeparatorStyle.TWO,}
+\DoxyCodeLine{00009\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\ "{}},}
+\DoxyCodeLine{00010\ \ \ \ \ sep2=\textcolor{stringliteral}{"{}</s>"{}},}
+\DoxyCodeLine{00011\ \ \ \ \ version=\textcolor{stringliteral}{"{}v1\_mmtag"{}},}
+\DoxyCodeLine{00012\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00337}{337}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_a4a7ea6a07c18c32b74f6aaab78cd7484}\index{llava.conversation@{llava.conversation}!conv\_mistral\_instruct@{conv\_mistral\_instruct}}
+\index{conv\_mistral\_instruct@{conv\_mistral\_instruct}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_mistral\_instruct}{conv\_mistral\_instruct}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_a4a7ea6a07c18c32b74f6aaab78cd7484} 
+llava.\+conversation.\+conv\+\_\+mistral\+\_\+instruct}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ Conversation(}
+\DoxyCodeLine{00002\ \ \ \ \ system=\textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{00003\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}USER"{}},\ \textcolor{stringliteral}{"{}ASSISTANT"{}}),}
+\DoxyCodeLine{00004\ \ \ \ \ version=\textcolor{stringliteral}{"{}llama\_v2"{}},}
+\DoxyCodeLine{00005\ \ \ \ \ messages=(),}
+\DoxyCodeLine{00006\ \ \ \ \ offset=0,}
+\DoxyCodeLine{00007\ \ \ \ \ sep\_style=SeparatorStyle.LLAMA\_2,}
+\DoxyCodeLine{00008\ \ \ \ \ sep=\textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{00009\ \ \ \ \ sep2=\textcolor{stringliteral}{"{}</s>"{}},}
+\DoxyCodeLine{00010\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00350}{350}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_a1bfa9feb395cdbf2877280180b20afeb}\index{llava.conversation@{llava.conversation}!conv\_mpt@{conv\_mpt}}
+\index{conv\_mpt@{conv\_mpt}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_mpt}{conv\_mpt}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_a1bfa9feb395cdbf2877280180b20afeb} 
+llava.\+conversation.\+conv\+\_\+mpt}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ Conversation(}
+\DoxyCodeLine{00002\ \ \ \ \ system=,}
+\DoxyCodeLine{00003\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}<|im\_start|>user\(\backslash\)n"{}},\ \textcolor{stringliteral}{"{}<|im\_start|>assistant\(\backslash\)n"{}}),}
+\DoxyCodeLine{00004\ \ \ \ \ version=\textcolor{stringliteral}{"{}mpt"{}},}
+\DoxyCodeLine{00005\ \ \ \ \ messages=(),}
+\DoxyCodeLine{00006\ \ \ \ \ offset=0,}
+\DoxyCodeLine{00007\ \ \ \ \ sep\_style=SeparatorStyle.MPT,}
+\DoxyCodeLine{00008\ \ \ \ \ sep=\textcolor{stringliteral}{"{}<|im\_end|>"{}},}
+\DoxyCodeLine{00009\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00280}{280}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_a738d06459c92a97d57206c98c314ceec}\index{llava.conversation@{llava.conversation}!conv\_templates@{conv\_templates}}
+\index{conv\_templates@{conv\_templates}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_templates}{conv\_templates}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_a738d06459c92a97d57206c98c314ceec} 
+dict llava.\+conversation.\+conv\+\_\+templates}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}default"{}}:\ conv\_vicuna\_v0,}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}v0"{}}:\ conv\_vicuna\_v0,}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{"{}v1"{}}:\ conv\_vicuna\_v1,}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{"{}vicuna\_v1"{}}:\ conv\_vicuna\_v1,}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{stringliteral}{"{}llama\_2"{}}:\ conv\_llama\_2,}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{stringliteral}{"{}mistral\_instruct"{}}:\ conv\_mistral\_instruct,}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{stringliteral}{"{}chatml\_direct"{}}:\ conv\_chatml\_direct,}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{stringliteral}{"{}mistral\_direct"{}}:\ conv\_chatml\_direct,}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{stringliteral}{"{}plain"{}}:\ conv\_llava\_plain,}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{stringliteral}{"{}v0\_plain"{}}:\ conv\_llava\_plain,}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{stringliteral}{"{}llava\_v0"{}}:\ conv\_llava\_v0,}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{stringliteral}{"{}v0\_mmtag"{}}:\ conv\_llava\_v0\_mmtag,}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{stringliteral}{"{}llava\_v1"{}}:\ conv\_llava\_v1,}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{stringliteral}{"{}v1\_mmtag"{}}:\ conv\_llava\_v1\_mmtag,}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{stringliteral}{"{}llava\_llama\_2"{}}:\ conv\_llava\_llama\_2,}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{stringliteral}{"{}mpt"{}}:\ conv\_mpt,}
+\DoxyCodeLine{00020\ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00373}{373}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_a0ea7e88b34ff4170dcc15bda3c16a08d}\index{llava.conversation@{llava.conversation}!conv\_vicuna\_v0@{conv\_vicuna\_v0}}
+\index{conv\_vicuna\_v0@{conv\_vicuna\_v0}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_vicuna\_v0}{conv\_vicuna\_v0}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_a0ea7e88b34ff4170dcc15bda3c16a08d} 
+llava.\+conversation.\+conv\+\_\+vicuna\+\_\+v0}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ Conversation(}
+\DoxyCodeLine{00002\ \ \ \ \ system=\textcolor{stringliteral}{"{}A\ chat\ between\ a\ curious\ human\ and\ an\ artificial\ intelligence\ assistant.\ "{}}}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ assistant\ gives\ helpful,\ detailed,\ and\ polite\ answers\ to\ the\ human's\ questions."{}},}
+\DoxyCodeLine{00004\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}Human"{}},\ \textcolor{stringliteral}{"{}Assistant"{}}),}
+\DoxyCodeLine{00005\ \ \ \ \ messages=(}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}Human"{}},\ \textcolor{stringliteral}{"{}What\ are\ the\ key\ differences\ between\ renewable\ and\ non-\/renewable\ energy\ sources?"{}}),}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{"{}Assistant"{}},}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Renewable\ energy\ sources\ are\ those\ that\ can\ be\ replenished\ naturally\ in\ a\ relatively\ "{}}}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}short\ amount\ of\ time,\ such\ as\ solar,\ wind,\ hydro,\ geothermal,\ and\ biomass.\ "{}}}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Non-\/renewable\ energy\ sources,\ on\ the\ other\ hand,\ are\ finite\ and\ will\ eventually\ be\ "{}}}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}depleted,\ such\ as\ coal,\ oil,\ and\ natural\ gas.\ Here\ are\ some\ key\ differences\ between\ "{}}}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}renewable\ and\ non-\/renewable\ energy\ sources:\(\backslash\)n"{}}}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}1.\ Availability:\ Renewable\ energy\ sources\ are\ virtually\ inexhaustible,\ while\ non-\/renewable\ "{}}}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}energy\ sources\ are\ finite\ and\ will\ eventually\ run\ out.\(\backslash\)n"{}}}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}2.\ Environmental\ impact:\ Renewable\ energy\ sources\ have\ a\ much\ lower\ environmental\ impact\ "{}}}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}than\ non-\/renewable\ sources,\ which\ can\ lead\ to\ air\ and\ water\ pollution,\ greenhouse\ gas\ emissions,\ "{}}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}and\ other\ negative\ effects.\(\backslash\)n"{}}}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}3.\ Cost:\ Renewable\ energy\ sources\ can\ be\ more\ expensive\ to\ initially\ set\ up,\ but\ they\ typically\ "{}}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}have\ lower\ operational\ costs\ than\ non-\/renewable\ sources.\(\backslash\)n"{}}}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}4.\ Reliability:\ Renewable\ energy\ sources\ are\ often\ more\ reliable\ and\ can\ be\ used\ in\ more\ remote\ "{}}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}locations\ than\ non-\/renewable\ sources.\(\backslash\)n"{}}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}5.\ Flexibility:\ Renewable\ energy\ sources\ are\ often\ more\ flexible\ and\ can\ be\ adapted\ to\ different\ "{}}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}situations\ and\ needs,\ while\ non-\/renewable\ sources\ are\ more\ rigid\ and\ inflexible.\(\backslash\)n"{}}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}6.\ Sustainability:\ Renewable\ energy\ sources\ are\ more\ sustainable\ over\ the\ long\ term,\ while\ "{}}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}non-\/renewable\ sources\ are\ not,\ and\ their\ depletion\ can\ lead\ to\ economic\ and\ social\ instability.\(\backslash\)n"{}})}
+\DoxyCodeLine{00026\ \ \ \ \ ),}
+\DoxyCodeLine{00027\ \ \ \ \ offset=2,}
+\DoxyCodeLine{00028\ \ \ \ \ sep\_style=SeparatorStyle.SINGLE,}
+\DoxyCodeLine{00029\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\#\#\#"{}},}
+\DoxyCodeLine{00030\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00211}{211}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_a8bc33fc17d5ec73e58df6d8d68e1cdb6}\index{llava.conversation@{llava.conversation}!conv\_vicuna\_v1@{conv\_vicuna\_v1}}
+\index{conv\_vicuna\_v1@{conv\_vicuna\_v1}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{conv\_vicuna\_v1}{conv\_vicuna\_v1}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_a8bc33fc17d5ec73e58df6d8d68e1cdb6} 
+llava.\+conversation.\+conv\+\_\+vicuna\+\_\+v1}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ Conversation(}
+\DoxyCodeLine{00002\ \ \ \ \ system=\textcolor{stringliteral}{"{}A\ chat\ between\ a\ curious\ user\ and\ an\ artificial\ intelligence\ assistant.\ "{}}}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}The\ assistant\ gives\ helpful,\ detailed,\ and\ polite\ answers\ to\ the\ user's\ questions."{}},}
+\DoxyCodeLine{00004\ \ \ \ \ roles=(\textcolor{stringliteral}{"{}USER"{}},\ \textcolor{stringliteral}{"{}ASSISTANT"{}}),}
+\DoxyCodeLine{00005\ \ \ \ \ version=\textcolor{stringliteral}{"{}v1"{}},}
+\DoxyCodeLine{00006\ \ \ \ \ messages=(),}
+\DoxyCodeLine{00007\ \ \ \ \ offset=0,}
+\DoxyCodeLine{00008\ \ \ \ \ sep\_style=SeparatorStyle.TWO,}
+\DoxyCodeLine{00009\ \ \ \ \ sep=\textcolor{stringliteral}{"{}\ "{}},}
+\DoxyCodeLine{00010\ \ \ \ \ sep2=\textcolor{stringliteral}{"{}</s>"{}},}
+\DoxyCodeLine{00011\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00242}{242}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+
+\Hypertarget{namespacellava_1_1conversation_ab81a5d5030ea37093c29f5026d602d86}\index{llava.conversation@{llava.conversation}!default\_conversation@{default\_conversation}}
+\index{default\_conversation@{default\_conversation}!llava.conversation@{llava.conversation}}
+\doxysubsubsection{\texorpdfstring{default\_conversation}{default\_conversation}}
+{\footnotesize\ttfamily \label{namespacellava_1_1conversation_ab81a5d5030ea37093c29f5026d602d86} 
+llava.\+conversation.\+default\+\_\+conversation = \mbox{\hyperlink{namespacellava_1_1conversation_a8bc33fc17d5ec73e58df6d8d68e1cdb6}{conv\+\_\+vicuna\+\_\+v1}}}
+
+
+
+Definition at line \mbox{\hyperlink{conversation_8py_source_l00372}{372}} of file \mbox{\hyperlink{conversation_8py_source}{conversation.\+py}}.
+

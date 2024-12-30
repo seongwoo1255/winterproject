@@ -1,0 +1,29 @@
+\doxysection{llava/eval/eval\+\_\+pope.py File Reference}
+\hypertarget{eval__pope_8py}{}\label{eval__pope_8py}\index{llava/eval/eval\_pope.py@{llava/eval/eval\_pope.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceeval__pope}{eval\+\_\+pope}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceeval__pope_a52e243ef5d768d0c945ee6fa02710a12}{eval\+\_\+pope.\+eval\+\_\+pope}} (\mbox{\hyperlink{namespaceeval__pope_a2a40bb03ad27a654dd4e1a1340b6070f}{answers}}, label\+\_\+file)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceeval__pope_ad1a4f3177767b98b69663b18c1a1537f}{eval\+\_\+pope.\+parser}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespaceeval__pope_acb56e1455f37b77d5a1a893d5e539dec}{eval\+\_\+pope.\+type}}
+\item 
+\mbox{\hyperlink{namespaceeval__pope_a21f3bc0a3e0186a80227f20aedabe904}{eval\+\_\+pope.\+args}} = parser.\+parse\+\_\+args()
+\item 
+list \mbox{\hyperlink{namespaceeval__pope_a00d11b6bb8d179a945200a0811fb22f3}{eval\+\_\+pope.\+questions}} = \mbox{[}json.\+loads(line) for line in open(args.\+question\+\_\+file)\mbox{]}
+\item 
+list \mbox{\hyperlink{namespaceeval__pope_a2a40bb03ad27a654dd4e1a1340b6070f}{eval\+\_\+pope.\+answers}} = \mbox{[}json.\+loads(q) for q in open(args.\+result\+\_\+file)\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__pope_a6e6897f8a310712acd0ddf1ab3ff15c2}{eval\+\_\+pope.\+category}} = file\mbox{[}10\+:-\/5\mbox{]}
+\item 
+list \mbox{\hyperlink{namespaceeval__pope_ad85c31915ca1a716e011c9315e5cda81}{eval\+\_\+pope.\+cur\+\_\+answers}} = \mbox{[}x for x in \mbox{\hyperlink{namespaceeval__pope_a2a40bb03ad27a654dd4e1a1340b6070f}{answers}} if \mbox{\hyperlink{namespaceeval__pope_a00d11b6bb8d179a945200a0811fb22f3}{questions}}\mbox{[}x\mbox{[}\textquotesingle{}question\+\_\+id\textquotesingle{}\mbox{]}\mbox{]}\mbox{[}\textquotesingle{}\mbox{\hyperlink{namespaceeval__pope_a6e6897f8a310712acd0ddf1ab3ff15c2}{category}}\textquotesingle{}\mbox{]} == \mbox{\hyperlink{namespaceeval__pope_a6e6897f8a310712acd0ddf1ab3ff15c2}{category}}\mbox{]}
+\end{DoxyCompactItemize}

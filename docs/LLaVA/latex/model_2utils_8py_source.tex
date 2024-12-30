@@ -1,0 +1,27 @@
+\doxysection{utils.\+py}
+\hypertarget{model_2utils_8py_source}{}\label{model_2utils_8py_source}\index{llava/model/utils.py@{llava/model/utils.py}}
+\mbox{\hyperlink{model_2utils_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00001}\mbox{\hyperlink{namespacellava_1_1model_1_1utils}{00001}}\ }
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00007}00007\ \textcolor{keyword}{from}\ transformers\ \textcolor{keyword}{import}\ AutoConfig}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00016}\mbox{\hyperlink{namespacellava_1_1model_1_1utils_a4fdb060af6a3d86067784a086bb56180}{00016}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacellava_1_1model_1_1utils_a4fdb060af6a3d86067784a086bb56180}{auto\_upgrade}}(config):}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00017}00017\ \ \ \ \ cfg\ =\ AutoConfig.from\_pretrained(config)}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00018}00018\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'llava'}\ \textcolor{keywordflow}{in}\ config\ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'llava'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ cfg.model\_type:}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ cfg.model\_type\ ==\ \textcolor{stringliteral}{'llama'}}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00020}00020\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}You\ are\ using\ newer\ LLaVA\ code\ base,\ while\ the\ checkpoint\ of\ v0\ is\ from\ older\ code\ base."{}})}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00021}00021\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}You\ must\ upgrade\ the\ checkpoint\ to\ the\ new\ code\ base\ (this\ can\ be\ done\ automatically)."{}})}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00022}00022\ \ \ \ \ \ \ \ \ confirm\ =\ input(\textcolor{stringliteral}{"{}Please\ confirm\ that\ you\ want\ to\ upgrade\ the\ checkpoint.\ [Y/N]"{}})}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ confirm.lower()\ \textcolor{keywordflow}{in}\ [\textcolor{stringliteral}{"{}y"{}},\ \textcolor{stringliteral}{"{}yes"{}}]:}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Upgrading\ checkpoint..."{}})}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ len(cfg.architectures)\ ==\ 1}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ setattr(cfg.\_\_class\_\_,\ \textcolor{stringliteral}{"{}model\_type"{}},\ \textcolor{stringliteral}{"{}llava"{}})}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ cfg.architectures[0]\ =\ \textcolor{stringliteral}{'LlavaLlamaForCausalLM'}}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ cfg.save\_pretrained(config)}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Checkpoint\ upgraded."{}})}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Checkpoint\ upgrade\ aborted."{}})}
+\DoxyCodeLine{\Hypertarget{model_2utils_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ exit(1)}
+
+\end{DoxyCode}

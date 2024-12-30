@@ -1,0 +1,13 @@
+digraph "llava.serve.gradio_web_server.flag_last_response"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="llava.serve.gradio\l_web_server.flag_last\l_response",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [id="edge3_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="llava.serve.gradio\l_web_server.vote_last\l_response",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$namespacellava_1_1serve_1_1gradio__web__server.html#a859a9f172b39a6097a21be093e3d5550",tooltip=" "];
+  Node2 -> Node3 [id="edge4_Node000002_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="llava.serve.gradio\l_web_server.get_conv\l_log_filename",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$namespacellava_1_1serve_1_1gradio__web__server.html#a051e70056bbe57dbbbf2f75acd022f04",tooltip=" "];
+}

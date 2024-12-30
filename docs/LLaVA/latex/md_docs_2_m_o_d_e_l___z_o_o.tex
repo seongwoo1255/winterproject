@@ -1,0 +1,224 @@
+\chapter{Model Zoo}
+\hypertarget{md_docs_2_m_o_d_e_l___z_o_o}{}\label{md_docs_2_m_o_d_e_l___z_o_o}\index{Model Zoo@{Model Zoo}}
+\label{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md45}%
+\Hypertarget{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md45}%
+
+
+{\bfseries{To Use LLa\+VA-\/1.\+6 checkpoints, your llava package version must be newer than 1.\+2.\+0. \href{https://github.com/haotian-liu/LLaVA\#upgrade-to-latest-code-base}{\texttt{ Instructions}} on how to upgrade.}}
+
+If you are interested in including any other details in Model Zoo, please open an issue \+:)
+
+The model weights below are {\itshape merged} weights. You do not need to apply delta. The usage of LLa\+VA checkpoints should comply with the base LLM\textquotesingle{}s model license.\hypertarget{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md46}{}\doxysection{\texorpdfstring{LLa\+VA-\/v1.\+6}{LLa\+VA-\/v1.\+6}}\label{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md46}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{18}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Version   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Checkpoint   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MMMU   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Math\+Vista   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ VQAv2   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ GQA   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Viz\+Wiz   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SQA   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Text\+VQA   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ POPE   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MME   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MM-\/\+Bench   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MM-\/\+Bench-\/\+CN   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SEED-\/\+IMG   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLa\+VA-\/\+Bench-\/\+Wild   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MM-\/\+Vet    }\\\cline{1-18}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Version   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Checkpoint   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MMMU   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Math\+Vista   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ VQAv2   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ GQA   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Viz\+Wiz   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SQA   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Text\+VQA   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ POPE   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MME   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MM-\/\+Bench   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MM-\/\+Bench-\/\+CN   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SEED-\/\+IMG   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLa\+VA-\/\+Bench-\/\+Wild   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MM-\/\+Vet    }\\\cline{1-18}
+\endhead
+LLa\+VA-\/1.\+6   &Vicuna-\/7B   &full\+\_\+ft-\/1e   &\href{https://huggingface.co/liuhaotian/llava-v1.6-vicuna-7b}{\texttt{ liuhaotian/llava-\/v1.\+6-\/vicuna-\/7b}}   &35.\+8   &34.\+6   &81.\+8   &64.\+2   &57.\+6   &70.\+1   &64.\+9   &86.\+5   &1519/332   &67.\+4   &60.\+6   &70.\+2   &81.\+6   &43.\+9    \\\cline{1-18}
+LLa\+VA-\/1.\+6   &Vicuna-\/13B   &full\+\_\+ft-\/1e   &\href{https://huggingface.co/liuhaotian/llava-v1.6-vicuna-13b}{\texttt{ liuhaotian/llava-\/v1.\+6-\/vicuna-\/13b}}   &36.\+2   &35.\+3   &82.\+8   &65.\+4   &60.\+5   &73.\+6   &67.\+1   &86.\+2   &1575/326   &70   &64.\+4   &71.\+9   &87.\+3   &48.\+4    \\\cline{1-18}
+LLa\+VA-\/1.\+6   &Mistral-\/7B   &full\+\_\+ft-\/1e   &\href{https://huggingface.co/liuhaotian/llava-v1.6-mistral-7b}{\texttt{ liuhaotian/llava-\/v1.\+6-\/mistral-\/7b}}   &35.\+3   &37.\+7   &82.\+2   &64.\+8   &60.\+0   &72.\+8   &65.\+7   &86.\+7   &1498/321   &68.\+7   &61.\+2   &72.\+2   &83.\+2   &47.\+3    \\\cline{1-18}
+LLa\+VA-\/1.\+6   &Hermes-\/\+Yi-\/34B   &full\+\_\+ft-\/1e   &\href{https://huggingface.co/liuhaotian/llava-v1.6-34b}{\texttt{ liuhaotian/llava-\/v1.\+6-\/34b}}   &51.\+1   &46.\+5   &83.\+7   &67.\+1   &63.\+8   &81.\+8   &69.\+5   &87.\+7   &1631/397   &79.\+3   &79   &75.\+9   &89.\+6   &57.\+4   \\\cline{1-18}
+\end{longtabu}
+
+
+{\itshape LLa\+VA-\/1.\+6-\/34B outperforms Gemini Pro on benchmarks like MMMU and Math\+Vista.}\hypertarget{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md47}{}\doxysection{\texorpdfstring{LLa\+VA-\/v1.\+5}{LLa\+VA-\/v1.\+5}}\label{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md47}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{16}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Version   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Size   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Checkpoint   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ VQAv2   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ GQA   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Viz\+Wiz   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SQA   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Text\+VQA   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ POPE   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MME   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MM-\/\+Bench   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MM-\/\+Bench-\/\+CN   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SEED   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLa\+VA-\/\+Bench-\/\+Wild   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MM-\/\+Vet    }\\\cline{1-16}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Version   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Size   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Checkpoint   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ VQAv2   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ GQA   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Viz\+Wiz   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SQA   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Text\+VQA   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ POPE   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MME   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MM-\/\+Bench   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MM-\/\+Bench-\/\+CN   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SEED   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLa\+VA-\/\+Bench-\/\+Wild   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ MM-\/\+Vet    }\\\cline{1-16}
+\endhead
+LLa\+VA-\/1.\+5   &7B   &full\+\_\+ft-\/1e   &\href{https://huggingface.co/liuhaotian/llava-v1.5-7b}{\texttt{ liuhaotian/llava-\/v1.\+5-\/7b}}   &78.\+5   &62.\+0   &50.\+0   &66.\+8   &58.\+2   &85.\+9   &1510.\+7   &64.\+3   &58.\+3   &58.\+6   &65.\+4   &31.\+1    \\\cline{1-16}
+LLa\+VA-\/1.\+5   &13B   &full\+\_\+ft-\/1e   &\href{https://huggingface.co/liuhaotian/llava-v1.5-13b}{\texttt{ liuhaotian/llava-\/v1.\+5-\/13b}}   &80.\+0   &63.\+3   &53.\+6   &71.\+6   &61.\+3   &85.\+9   &1531.\+3   &67.\+7   &63.\+6   &61.\+6   &72.\+5   &36.\+1    \\\cline{1-16}
+LLa\+VA-\/1.\+5   &7B   &lora-\/1e   &\href{https://huggingface.co/liuhaotian/llava-v1.5-7b-lora}{\texttt{ liuhaotian/llava-\/v1.\+5-\/7b-\/lora}}   &79.\+1   &63.\+0   &47.\+8   &68.\+4   &58.\+2   &86.\+4   &1476.\+9   &66.\+1   &58.\+9   &60.\+1   &67.\+9   &30.\+2    \\\cline{1-16}
+LLa\+VA-\/1.\+5   &13B   &lora-\/1e   &\href{https://huggingface.co/liuhaotian/llava-v1.5-13b-lora}{\texttt{ liuhaotian/llava-\/v1.\+5-\/13b-\/lora}}   &80.\+0   &63.\+3   &58.\+9   &71.\+2   &60.\+2   &86.\+7   &1541.\+7   &68.\+5   &61.\+5   &61.\+3   &69.\+5   &38.\+3   \\\cline{1-16}
+\end{longtabu}
+
+
+Base model\+: Vicuna v1.\+5. Training logs\+: \href{https://api.wandb.ai/links/lht/6orh56wc}{\texttt{ wandb}}.
+
+ ~\newline
+ LLa\+VA-\/1.\+5 achieves So\+TA performance across 11 benchmarks. \hypertarget{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md48}{}\doxysection{\texorpdfstring{LLa\+VA-\/v1}{LLa\+VA-\/v1}}\label{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md48}
+{\itshape Note\+: We recommend using the most capable LLa\+VA-\/v1.\+6 series above for the best performance.}
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{11}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLa\+VA-\/\+Bench-\/\+Conv   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLa\+VA-\/\+Bench-\/\+Detail   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLa\+VA-\/\+Bench-\/\+Complex   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLa\+VA-\/\+Bench-\/\+Overall   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-11}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLa\+VA-\/\+Bench-\/\+Conv   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLa\+VA-\/\+Bench-\/\+Detail   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLa\+VA-\/\+Bench-\/\+Complex   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ LLa\+VA-\/\+Bench-\/\+Overall   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-11}
+\endhead
+Vicuna-\/13\+B-\/v1.\+3   &CLIP-\/\+L-\/336px   &LCS-\/558K   &1e   &LLa\+VA-\/\+Instruct-\/80K   &proj-\/1e, lora-\/1e   &64.\+3   &55.\+9   &81.\+7   &70.\+1   &\href{https://huggingface.co/liuhaotian/llava-v1-0719-336px-lora-vicuna-13b-v1.3}{\texttt{ Lo\+RA}} \href{https://huggingface.co/liuhaotian/llava-v1-0719-336px-lora-merge-vicuna-13b-v1.3}{\texttt{ Lo\+RA-\/\+Merged}}    \\\cline{1-11}
+LLa\+MA-\/2-\/13\+B-\/\+Chat   &CLIP-\/L   &LCS-\/558K   &1e   &LLa\+VA-\/\+Instruct-\/80K   &full\+\_\+ft-\/1e   &56.\+7   &58.\+6   &80.\+0   &67.\+9   &\href{https://huggingface.co/liuhaotian/llava-llama-2-13b-chat-lightning-preview}{\texttt{ ckpt}}    \\\cline{1-11}
+LLa\+MA-\/2-\/7\+B-\/\+Chat   &CLIP-\/L   &LCS-\/558K   &1e   &LLa\+VA-\/\+Instruct-\/80K   &lora-\/1e   &51.\+2   &58.\+9   &71.\+6   &62.\+8   &\href{https://huggingface.co/liuhaotian/llava-llama-2-7b-chat-lightning-lora-preview}{\texttt{ Lo\+RA}}   \\\cline{1-11}
+\end{longtabu}
+\hypertarget{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md49}{}\doxysection{\texorpdfstring{Projector weights}{Projector weights}}\label{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md49}
+These are projector weights we have pretrained. You can use these projector weights for visual instruction tuning. They are just pretrained on image-\/text pairs and are NOT instruction-\/tuned, which means they do NOT follow instructions as well as our official models and can output repetitive, lengthy, and garbled outputs. If you want to have nice conversations with LLa\+VA, use the checkpoints above (LLa\+VA v1.\+6).
+
+NOTE\+: These projector weights are only compatible with {\ttfamily llava\texorpdfstring{$>$}{>}=1.\+0.\+0}. Please check out the latest codebase if your local code version is below v1.\+0.\+0.
+
+NOTE\+: When you use our pretrained projector for visual instruction tuning, it is very important to use the same base LLM and vision encoder as the one we used for pretraining the projector. Otherwise, the performance will be very poor.
+
+When using these projector weights to instruction-\/tune your LMM, please make sure that these options are correctly set as follows,
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/-\/mm\_use\_im\_start\_end\ False}
+\DoxyCodeLine{-\/-\/mm\_use\_im\_patch\_token\ False}
+
+\end{DoxyCode}
+
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{6}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Projection   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-6}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Projection   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-6}
+\endhead
+Vicuna-\/13\+B-\/v1.\+5   &CLIP-\/\+L-\/336px   &MLP-\/2x   &LCS-\/558K   &1e   &\href{https://huggingface.co/liuhaotian/llava-v1.5-mlp2x-336px-pretrain-vicuna-13b-v1.5}{\texttt{ projector}}    \\\cline{1-6}
+Vicuna-\/7\+B-\/v1.\+5   &CLIP-\/\+L-\/336px   &MLP-\/2x   &LCS-\/558K   &1e   &\href{https://huggingface.co/liuhaotian/llava-v1.5-mlp2x-336px-pretrain-vicuna-7b-v1.5}{\texttt{ projector}}    \\\cline{1-6}
+LLa\+MA-\/2-\/13\+B-\/\+Chat   &CLIP-\/\+L-\/336px   &Linear   &LCS-\/558K   &1e   &\href{https://huggingface.co/liuhaotian/llava-336px-pretrain-llama-2-13b-chat}{\texttt{ projector}}    \\\cline{1-6}
+LLa\+MA-\/2-\/7\+B-\/\+Chat   &CLIP-\/\+L-\/336px   &Linear   &LCS-\/558K   &1e   &\href{https://huggingface.co/liuhaotian/llava-336px-pretrain-llama-2-7b-chat}{\texttt{ projector}}    \\\cline{1-6}
+LLa\+MA-\/2-\/13\+B-\/\+Chat   &CLIP-\/L   &Linear   &LCS-\/558K   &1e   &\href{https://huggingface.co/liuhaotian/llava-pretrain-llama-2-13b-chat}{\texttt{ projector}}    \\\cline{1-6}
+LLa\+MA-\/2-\/7\+B-\/\+Chat   &CLIP-\/L   &Linear   &LCS-\/558K   &1e   &\href{https://huggingface.co/liuhaotian/llava-pretrain-llama-2-7b-chat}{\texttt{ projector}}    \\\cline{1-6}
+Vicuna-\/13\+B-\/v1.\+3   &CLIP-\/\+L-\/336px   &Linear   &LCS-\/558K   &1e   &\href{https://huggingface.co/liuhaotian/llava-336px-pretrain-vicuna-13b-v1.3}{\texttt{ projector}}    \\\cline{1-6}
+Vicuna-\/7\+B-\/v1.\+3   &CLIP-\/\+L-\/336px   &Linear   &LCS-\/558K   &1e   &\href{https://huggingface.co/liuhaotian/llava-336px-pretrain-vicuna-7b-v1.3}{\texttt{ projector}}    \\\cline{1-6}
+Vicuna-\/13\+B-\/v1.\+3   &CLIP-\/L   &Linear   &LCS-\/558K   &1e   &\href{https://huggingface.co/liuhaotian/llava-pretrain-vicuna-13b-v1.3}{\texttt{ projector}}    \\\cline{1-6}
+Vicuna-\/7\+B-\/v1.\+3   &CLIP-\/L   &Linear   &LCS-\/558K   &1e   &\href{https://huggingface.co/liuhaotian/llava-pretrain-vicuna-7b-v1.3}{\texttt{ projector}}   \\\cline{1-6}
+\end{longtabu}
+\hypertarget{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md50}{}\doxysection{\texorpdfstring{Science QA Checkpoints}{Science QA Checkpoints}}\label{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md50}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{7}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-7}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-7}
+\endhead
+Vicuna-\/13\+B-\/v1.\+3   &CLIP-\/L   &LCS-\/558K   &1e   &Science\+QA   &full\+\_\+ft-\/12e   &\href{https://huggingface.co/liuhaotian/llava-lcs558k-scienceqa-vicuna-13b-v1.3}{\texttt{ ckpt}}   \\\cline{1-7}
+\end{longtabu}
+\hypertarget{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md51}{}\doxysection{\texorpdfstring{Legacy Models (merged weights)}{Legacy Models (merged weights)}}\label{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md51}
+The model weights below are {\itshape merged} weights. You do not need to apply delta. The usage of LLa\+VA checkpoints should comply with the base LLM\textquotesingle{}s model license.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{7}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-7}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-7}
+\endhead
+MPT-\/7\+B-\/\+Chat   &CLIP-\/L   &LCS-\/558K   &1e   &LLa\+VA-\/\+Instruct-\/80K   &full\+\_\+ft-\/1e   &\href{https://huggingface.co/liuhaotian/LLaVA-Lightning-MPT-7B-preview}{\texttt{ preview}}   \\\cline{1-7}
+\end{longtabu}
+\hypertarget{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md52}{}\doxysection{\texorpdfstring{Legacy Models (delta weights)}{Legacy Models (delta weights)}}\label{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md52}
+The model weights below are {\itshape delta} weights. The usage of LLa\+VA checkpoints should comply with the base LLM\textquotesingle{}s model license\+: \href{https://github.com/facebookresearch/llama/blob/main/MODEL_CARD.md}{\texttt{ LLa\+MA}}.
+
+You can add our delta to the original LLa\+MA weights to obtain the LLa\+VA weights.
+
+Instructions\+:
+
+
+\begin{DoxyEnumerate}
+\item Get the original LLa\+MA weights in the huggingface format by following the instructions \href{https://huggingface.co/docs/transformers/main/model_doc/llama}{\texttt{ here}}.
+\item Use the following scripts to get LLa\+VA weights by applying our delta. It will automatically download delta weights from our Hugging Face account. In the script below, we use the delta weights of \href{https://huggingface.co/liuhaotian/LLaVA-7b-delta-v0}{\texttt{ {\ttfamily liuhaotian/\+LLa\+VA-\/7b-\/delta-\/v0}}} as an example. It can be adapted for other delta weights by changing the {\ttfamily -\/-\/delta} argument (and base/target accordingly).
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{python3\ -\/m\ llava.model.apply\_delta\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ -\/-\/base\ /path/to/llama-\/7b\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ -\/-\/target\ /output/path/to/LLaVA-\/7B-\/v0\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ -\/-\/delta\ liuhaotian/LLaVA-\/7b-\/delta-\/v0}
+
+\end{DoxyCode}
+
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{7}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-7}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Finetuning schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-7}
+\endhead
+Vicuna-\/13\+B-\/v1.\+1   &CLIP-\/L   &CC-\/595K   &1e   &LLa\+VA-\/\+Instruct-\/158K   &full\+\_\+ft-\/3e   &\href{https://huggingface.co/liuhaotian/LLaVA-13b-delta-v1-1}{\texttt{ delta-\/weights}}    \\\cline{1-7}
+Vicuna-\/7\+B-\/v1.\+1   &CLIP-\/L   &LCS-\/558K   &1e   &LLa\+VA-\/\+Instruct-\/80K   &full\+\_\+ft-\/1e   &\href{https://huggingface.co/liuhaotian/LLaVA-Lightning-7B-delta-v1-1}{\texttt{ delta-\/weights}}    \\\cline{1-7}
+Vicuna-\/13\+B-\/v0   &CLIP-\/L   &CC-\/595K   &1e   &LLa\+VA-\/\+Instruct-\/158K   &full\+\_\+ft-\/3e   &\href{https://huggingface.co/liuhaotian/LLaVA-13b-delta-v0}{\texttt{ delta-\/weights}}    \\\cline{1-7}
+Vicuna-\/13\+B-\/v0   &CLIP-\/L   &CC-\/595K   &1e   &Science\+QA   &full\+\_\+ft-\/12e   &\href{https://huggingface.co/liuhaotian/LLaVA-13b-delta-v0-science_qa}{\texttt{ delta-\/weights}}    \\\cline{1-7}
+Vicuna-\/7\+B-\/v0   &CLIP-\/L   &CC-\/595K   &1e   &LLa\+VA-\/\+Instruct-\/158K   &full\+\_\+ft-\/3e   &\href{https://huggingface.co/liuhaotian/LLaVA-7b-delta-v0}{\texttt{ delta-\/weights}}   \\\cline{1-7}
+\end{longtabu}
+\hypertarget{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md53}{}\doxysection{\texorpdfstring{Legacy Projector weights}{Legacy Projector weights}}\label{md_docs_2_m_o_d_e_l___z_o_o_autotoc_md53}
+The following projector weights are deprecated, and the support for them may be removed in the future. They do not support zero-\/shot inference. Please use the projector weights in the table above if possible.
+
+{\bfseries{NOTE}}\+: When you use our pretrained projector for visual instruction tuning, it is very important to {\bfseries{use the same base LLM and vision encoder}} as the one we used for pretraining the projector. Otherwise, the performance will be very bad.
+
+When using these projector weights to instruction tune your LMM, please make sure that these options are correctly set as follows,
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/-\/mm\_use\_im\_start\_end\ True}
+\DoxyCodeLine{-\/-\/mm\_use\_im\_patch\_token\ False}
+
+\end{DoxyCode}
+
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-5}
+\endhead
+Vicuna-\/7\+B-\/v1.\+1   &CLIP-\/L   &LCS-\/558K   &1e   &\href{https://huggingface.co/liuhaotian/LLaVA-Pretrained-Projectors/blob/main/LLaVA-7b-pretrain-projector-v1-1-LCS-558K-blip_caption.bin}{\texttt{ projector}}    \\\cline{1-5}
+Vicuna-\/13\+B-\/v0   &CLIP-\/L   &CC-\/595K   &1e   &\href{https://huggingface.co/liuhaotian/LLaVA-Pretrained-Projectors/blob/main/LLaVA-13b-pretrain-projector-v0-CC3M-595K-original_caption.bin}{\texttt{ projector}}    \\\cline{1-5}
+Vicuna-\/7\+B-\/v0   &CLIP-\/L   &CC-\/595K   &1e   &\href{https://huggingface.co/liuhaotian/LLaVA-Pretrained-Projectors/blob/main/LLaVA-7b-pretrain-projector-v0-CC3M-595K-original_caption.bin}{\texttt{ projector}}   \\\cline{1-5}
+\end{longtabu}
+
+
+When using these projector weights to instruction tune your LMM, please make sure that these options are correctly set as follows,
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/-\/mm\_use\_im\_start\_end\ False}
+\DoxyCodeLine{-\/-\/mm\_use\_im\_patch\_token\ False}
+
+\end{DoxyCode}
+
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Base LLM   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Vision Encoder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretrain Data   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Pretraining schedule   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Download    }\\\cline{1-5}
+\endhead
+Vicuna-\/13\+B-\/v0   &CLIP-\/L   &CC-\/595K   &1e   &\href{https://huggingface.co/liuhaotian/LLaVA-Pretrained-Projectors/blob/main/LLaVA-13b-pretrain-projector-v0-CC3M-595K-original_caption-no_im_token.bin}{\texttt{ projector}}   \\\cline{1-5}
+\end{longtabu}

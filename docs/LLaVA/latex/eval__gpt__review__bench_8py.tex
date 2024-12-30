@@ -1,0 +1,79 @@
+\doxysection{llava/eval/eval\+\_\+gpt\+\_\+review\+\_\+bench.py File Reference}
+\hypertarget{eval__gpt__review__bench_8py}{}\label{eval__gpt__review__bench_8py}\index{llava/eval/eval\_gpt\_review\_bench.py@{llava/eval/eval\_gpt\_review\_bench.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceeval__gpt__review__bench}{eval\+\_\+gpt\+\_\+review\+\_\+bench}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a087a2008308d6470a79415e29c4b6a91}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+get\+\_\+eval}} (str \mbox{\hyperlink{namespaceeval__gpt__review__bench_a5d45767da22a865725233874ff946e4f}{content}}, \mbox{\hyperlink{namespaceeval__gpt__review__bench_a402ffddb0755d79dda91fe668e0d74b8}{int}} max\+\_\+tokens)
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a78430c68f31f811ee785cd1d9e445a1a}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+parse\+\_\+score}} (\mbox{\hyperlink{namespaceeval__gpt__review__bench_adec863a0315aac4ca5b4081146b297cc}{review}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{namespaceeval__gpt__review__bench_a84e73f80487d91a9a2e76aaa8e3f803f}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+NUM\+\_\+\+SECONDS\+\_\+\+TO\+\_\+\+SLEEP}} = 0.\+5
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_aefb231a817be982abce95fb06af433e4}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+parser}} = argparse.\+Argument\+Parser(description=\textquotesingle{}Chat\+GPT-\/based QA evaluation.\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_ad8ad2d488b40a014f7114aeda81692e2}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+nargs}}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a2bee2247e4872dfb5f8f2d501b089c59}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+default}}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a31f41dda7747f3f9529091c716f7cdd1}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+type}}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a402ffddb0755d79dda91fe668e0d74b8}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+int}}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a602d8b3b2ee099170ba80dce1be15712}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+help}}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a490f7ae88be92f5fd242877dbb865c25}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+args}} = parser.\+parse\+\_\+args()
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_af5b52a996ece495e41811beadcca5a38}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+f\+\_\+q}} = open(os.\+path.\+expanduser(args.\+question))
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_add0cc8ad2260a973673497f6e3d556a9}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+f\+\_\+ans1}} = open(os.\+path.\+expanduser(args.\+answer\+\_\+list\mbox{[}0\mbox{]}))
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a2f67589ec6f9984d8177d82906536989}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+f\+\_\+ans2}} = open(os.\+path.\+expanduser(args.\+answer\+\_\+list\mbox{[}1\mbox{]}))
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_ab57f13df1359626f5990a9912f7e0776}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+rule\+\_\+dict}} = json.\+load(open(os.\+path.\+expanduser(args.\+rule), \textquotesingle{}r\textquotesingle{}))
+\item 
+list \mbox{\hyperlink{namespaceeval__gpt__review__bench_a72b3a012f1412d0f8384fd1ad818d1ea}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+cur\+\_\+reviews}} = \mbox{[}json.\+loads(line) for line in open(os.\+path.\+expanduser(args.\+output))\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a092e10a13e6c24a5907eddc37c4cd356}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+review\+\_\+file}} = open(f\textquotesingle{}\{args.\+output\}\textquotesingle{}, \textquotesingle{}a\textquotesingle{})
+\item 
+list \mbox{\hyperlink{namespaceeval__gpt__review__bench_a31dbe04bf6f84333e14231c8a6073e4a}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+context\+\_\+list}} = \mbox{[}json.\+loads(line) for line in open(os.\+path.\+expanduser(args.\+context))\mbox{]}
+\item 
+dict \mbox{\hyperlink{namespaceeval__gpt__review__bench_a3cffbcc9206b392f0fd2e2b6b75af050}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+image\+\_\+to\+\_\+context}} = \{context\mbox{[}\textquotesingle{}image\textquotesingle{}\mbox{]}\+: context for context in \mbox{\hyperlink{namespaceeval__gpt__review__bench_a31dbe04bf6f84333e14231c8a6073e4a}{context\+\_\+list}}\}
+\item 
+list \mbox{\hyperlink{namespaceeval__gpt__review__bench_a4f302404d2ddaa4ddcd2996619d1c809}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+handles}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a402ffddb0755d79dda91fe668e0d74b8}{int}} \mbox{\hyperlink{namespaceeval__gpt__review__bench_a80dc8936aa00a04b8922f9c912e01a18}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+idx}} = 0
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a4fa46f3987141bac4338148147164d49}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+ques}} = json.\+loads(ques\+\_\+js)
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a598eeced57be61e400561c889b8b2baf}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+ans1}} = json.\+loads(ans1\+\_\+js)
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a6f8f156c7105650129a92196f04da072}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+ans2}} = json.\+loads(ans2\+\_\+js)
+\item 
+dict \mbox{\hyperlink{namespaceeval__gpt__review__bench_af1cdcccb6ce0b5291cbb9a7019afc409}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+inst}} = \mbox{\hyperlink{namespaceeval__gpt__review__bench_a3cffbcc9206b392f0fd2e2b6b75af050}{image\+\_\+to\+\_\+context}}\mbox{[}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a4fa46f3987141bac4338148147164d49}{ques}}\mbox{[}\textquotesingle{}image\textquotesingle{}\mbox{]}\mbox{]}
+\item 
+str \mbox{\hyperlink{namespaceeval__gpt__review__bench_aae5907a476a0fa82dc9e75bff4202c09}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+cap\+\_\+str}} = \textquotesingle{}\textbackslash{}n\textquotesingle{}.join(\mbox{\hyperlink{namespaceeval__gpt__review__bench_af1cdcccb6ce0b5291cbb9a7019afc409}{inst}}\mbox{[}\textquotesingle{}caption\textquotesingle{}\mbox{]})
+\item 
+str \mbox{\hyperlink{namespaceeval__gpt__review__bench_a139fb4708e447d57adce9b49f91b2f9b}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+category}} = \textquotesingle{}llava\+\_\+bench\+\_\+\textquotesingle{} + json.\+loads(ques\+\_\+js)\mbox{[}\textquotesingle{}category\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a05d5e71b037d1ce6fc2dbf3654409121}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+rule}} = \mbox{\hyperlink{namespaceeval__gpt__review__bench_ab57f13df1359626f5990a9912f7e0776}{rule\+\_\+dict}}\mbox{[}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a139fb4708e447d57adce9b49f91b2f9b}{category}}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a79b75947f590ab1b19a8cf01a20340b3}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+prompt}} = \mbox{\hyperlink{namespaceeval__gpt__review__bench_a05d5e71b037d1ce6fc2dbf3654409121}{rule}}\mbox{[}\textquotesingle{}prompt\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a82841e18a9bfe0b459155f402d021cc7}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+role}} = \mbox{\hyperlink{namespaceeval__gpt__review__bench_a05d5e71b037d1ce6fc2dbf3654409121}{rule}}\mbox{[}\textquotesingle{}role\textquotesingle{}\mbox{]}
+\item 
+tuple \mbox{\hyperlink{namespaceeval__gpt__review__bench_a5d45767da22a865725233874ff946e4f}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+content}}
+\item 
+dict \mbox{\hyperlink{namespaceeval__gpt__review__bench_a3e1796e589c6b60844c6c23e34aa76ca}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+cur\+\_\+js}}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_adec863a0315aac4ca5b4081146b297cc}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+review}} = \mbox{\hyperlink{namespaceeval__gpt__review__bench_a087a2008308d6470a79415e29c4b6a91}{get\+\_\+eval}}(\mbox{\hyperlink{namespaceeval__gpt__review__bench_a5d45767da22a865725233874ff946e4f}{content}}, args.\+max\+\_\+tokens)
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__bench_a726c9acec76704cca0125be0784badf7}{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+scores}} = \mbox{\hyperlink{namespaceeval__gpt__review__bench_a78430c68f31f811ee785cd1d9e445a1a}{parse\+\_\+score}}(\mbox{\hyperlink{namespaceeval__gpt__review__bench_adec863a0315aac4ca5b4081146b297cc}{review}})
+\end{DoxyCompactItemize}

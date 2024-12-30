@@ -1,0 +1,238 @@
+\doxysection{train.\+Lazy\+Supervised\+Dataset Class Reference}
+\hypertarget{classtrain_1_1_lazy_supervised_dataset}{}\label{classtrain_1_1_lazy_supervised_dataset}\index{train.LazySupervisedDataset@{train.LazySupervisedDataset}}
+
+
+Inheritance diagram for train.\+Lazy\+Supervised\+Dataset\+:
+% FIG 0
+
+
+Collaboration diagram for train.\+Lazy\+Supervised\+Dataset\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtrain_1_1_lazy_supervised_dataset_a5f95e4024b2920cacfaeede873cb9c1b}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, str data\+\_\+path, transformers.\+Pre\+Trained\+Tokenizer \mbox{\hyperlink{classtrain_1_1_lazy_supervised_dataset_ab54db5493930c7b03bf46f82632388b7}{tokenizer}}, \mbox{\hyperlink{classtrain_1_1_data_arguments}{Data\+Arguments}} \mbox{\hyperlink{classtrain_1_1_lazy_supervised_dataset_a2438505d27dec5e5c179f31bc47a9bdc}{data\+\_\+args}})
+\item 
+\mbox{\hyperlink{classtrain_1_1_lazy_supervised_dataset_af8ea530055bbcec93164c385045b0053}{\+\_\+\+\_\+len\+\_\+\+\_\+}} (self)
+\item 
+\mbox{\hyperlink{classtrain_1_1_lazy_supervised_dataset_acf2c27f728e1cde77f17f852f2a1ac5f}{lengths}} (self)
+\item 
+\mbox{\hyperlink{classtrain_1_1_lazy_supervised_dataset_a3bb492f3ab4b98f6f08f3b93dd6295e5}{modality\+\_\+lengths}} (self)
+\item 
+Dict\mbox{[}str, torch.\+Tensor\mbox{]} \mbox{\hyperlink{classtrain_1_1_lazy_supervised_dataset_ac22e9e31ad402a958d23aa1859ab5d2d}{\+\_\+\+\_\+getitem\+\_\+\+\_\+}} (self, i)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtrain_1_1_lazy_supervised_dataset_ab54db5493930c7b03bf46f82632388b7}{tokenizer}} = tokenizer
+\item 
+\mbox{\hyperlink{classtrain_1_1_lazy_supervised_dataset_a9c1760e0d7c47684eab48c41af498611}{list\+\_\+data\+\_\+dict}} = list\+\_\+data\+\_\+dict
+\item 
+\mbox{\hyperlink{classtrain_1_1_lazy_supervised_dataset_a2438505d27dec5e5c179f31bc47a9bdc}{data\+\_\+args}} = data\+\_\+args
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Dataset for supervised fine-tuning.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00658}{658}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classtrain_1_1_lazy_supervised_dataset_a5f95e4024b2920cacfaeede873cb9c1b}\index{train.LazySupervisedDataset@{train.LazySupervisedDataset}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!train.LazySupervisedDataset@{train.LazySupervisedDataset}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classtrain_1_1_lazy_supervised_dataset_a5f95e4024b2920cacfaeede873cb9c1b} 
+train.\+Lazy\+Supervised\+Dataset.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{str}]{data\+\_\+path}{, }\item[{transformers.\+Pre\+Trained\+Tokenizer}]{tokenizer}{, }\item[{\mbox{\hyperlink{classtrain_1_1_data_arguments}{Data\+Arguments}}}]{data\+\_\+args}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00661}{661}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\_args:\ DataArguments):}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ super(LazySupervisedDataset,\ self).\_\_init\_\_()}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ list\_data\_dict\ =\ json.load(open(data\_path,\ \textcolor{stringliteral}{"{}r"{}}))}
+\DoxyCodeLine{00666\ }
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ rank0\_print(\textcolor{stringliteral}{"{}Formatting\ inputs...Skip\ in\ lazy\ mode"{}})}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ self.tokenizer\ =\ tokenizer}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ self.list\_data\_dict\ =\ list\_data\_dict}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ self.data\_args\ =\ data\_args}
+\DoxyCodeLine{00671\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classtrain_1_1_lazy_supervised_dataset_ac22e9e31ad402a958d23aa1859ab5d2d}\index{train.LazySupervisedDataset@{train.LazySupervisedDataset}!\_\_getitem\_\_@{\_\_getitem\_\_}}
+\index{\_\_getitem\_\_@{\_\_getitem\_\_}!train.LazySupervisedDataset@{train.LazySupervisedDataset}}
+\doxysubsubsection{\texorpdfstring{\_\_getitem\_\_()}{\_\_getitem\_\_()}}
+{\footnotesize\ttfamily \label{classtrain_1_1_lazy_supervised_dataset_ac22e9e31ad402a958d23aa1859ab5d2d} 
+ Dict\mbox{[}str, torch.\+Tensor\mbox{]} train.\+Lazy\+Supervised\+Dataset.\+\_\+\+\_\+getitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{i}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00692}{692}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00692\ \ \ \ \ \textcolor{keyword}{def\ }\_\_getitem\_\_(self,\ i)\ -\/>\ Dict[str,\ torch.Tensor]:}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ sources\ =\ self.list\_data\_dict[i]}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(i,\ int):}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ \ \ sources\ =\ [sources]}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ len(sources)\ ==\ 1,\ \textcolor{stringliteral}{"{}Don't\ know\ why\ it\ is\ wrapped\ to\ a\ list"{}}\ \ \textcolor{comment}{\#\ FIXME}}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'image'}\ \textcolor{keywordflow}{in}\ sources[0]:}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \ \ \ \ image\_file\ =\ self.list\_data\_dict[i][\textcolor{stringliteral}{'image'}]}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \ \ \ \ image\_folder\ =\ self.data\_args.image\_folder}
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ \ \ \ \ processor\ =\ self.data\_args.image\_processor}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \ \ \ \ image\ =\ Image.open(os.path.join(image\_folder,\ image\_file)).convert(\textcolor{stringliteral}{'RGB'})}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.data\_args.image\_aspect\_ratio\ ==\ \textcolor{stringliteral}{'pad'}:}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{def\ }expand2square(pil\_img,\ background\_color):}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width,\ height\ =\ pil\_img.size}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ width\ ==\ height:}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pil\_img}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ width\ >\ height:}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ Image.new(pil\_img.mode,\ (width,\ width),\ background\_color)}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result.paste(pil\_img,\ (0,\ (width\ -\/\ height)\ //\ 2))}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ Image.new(pil\_img.mode,\ (height,\ height),\ background\_color)}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result.paste(pil\_img,\ ((height\ -\/\ width)\ //\ 2,\ 0))}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\ =\ expand2square(image,\ tuple(int(x*255)\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ processor.image\_mean))}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\ =\ processor.preprocess(image,\ return\_tensors=\textcolor{stringliteral}{'pt'})[\textcolor{stringliteral}{'pixel\_values'}][0]}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\ =\ processor.preprocess(image,\ return\_tensors=\textcolor{stringliteral}{'pt'})[\textcolor{stringliteral}{'pixel\_values'}][0]}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ \ \ \ \ sources\ =\ preprocess\_multimodal(}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ copy.deepcopy([e[\textcolor{stringliteral}{"{}conversations"{}}]\ \textcolor{keywordflow}{for}\ e\ \textcolor{keywordflow}{in}\ sources]),}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.data\_args)}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \ \ \ \ sources\ =\ copy.deepcopy([e[\textcolor{stringliteral}{"{}conversations"{}}]\ \textcolor{keywordflow}{for}\ e\ \textcolor{keywordflow}{in}\ sources])}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ data\_dict\ =\ preprocess(}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \ \ \ \ sources,}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \ \ \ \ self.tokenizer,}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \ \ \ \ has\_image=(\textcolor{stringliteral}{'image'}\ \textcolor{keywordflow}{in}\ self.list\_data\_dict[i]))}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(i,\ int):}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \ \ \ \ data\_dict\ =\ dict(input\_ids=data\_dict[\textcolor{stringliteral}{"{}input\_ids"{}}][0],}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ labels=data\_dict[\textcolor{stringliteral}{"{}labels"{}}][0])}
+\DoxyCodeLine{00731\ }
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ image\ exist\ in\ the\ data}}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'image'}\ \textcolor{keywordflow}{in}\ self.list\_data\_dict[i]:}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ \ \ \ \ data\_dict[\textcolor{stringliteral}{'image'}]\ =\ image}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.data\_args.is\_multimodal:}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ image\ does\ not\ exist\ in\ the\ data,\ but\ the\ model\ is\ multimodal}}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \ \ \ \ crop\_size\ =\ self.data\_args.image\_processor.crop\_size}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ \ \ \ \ data\_dict[\textcolor{stringliteral}{'image'}]\ =\ torch.zeros(3,\ crop\_size[\textcolor{stringliteral}{'height'}],\ crop\_size[\textcolor{stringliteral}{'width'}])}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data\_dict}
+\DoxyCodeLine{00740\ }
+\DoxyCodeLine{00741\ }
+\DoxyCodeLine{00742\ \textcolor{preprocessor}{@dataclass}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 4
+\Hypertarget{classtrain_1_1_lazy_supervised_dataset_af8ea530055bbcec93164c385045b0053}\index{train.LazySupervisedDataset@{train.LazySupervisedDataset}!\_\_len\_\_@{\_\_len\_\_}}
+\index{\_\_len\_\_@{\_\_len\_\_}!train.LazySupervisedDataset@{train.LazySupervisedDataset}}
+\doxysubsubsection{\texorpdfstring{\_\_len\_\_()}{\_\_len\_\_()}}
+{\footnotesize\ttfamily \label{classtrain_1_1_lazy_supervised_dataset_af8ea530055bbcec93164c385045b0053} 
+train.\+Lazy\+Supervised\+Dataset.\+\_\+\+\_\+len\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00672}{672}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00672\ \ \ \ \ \textcolor{keyword}{def\ }\_\_len\_\_(self):}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ len(self.list\_data\_dict)}
+\DoxyCodeLine{00674\ }
+
+\end{DoxyCode}
+\Hypertarget{classtrain_1_1_lazy_supervised_dataset_acf2c27f728e1cde77f17f852f2a1ac5f}\index{train.LazySupervisedDataset@{train.LazySupervisedDataset}!lengths@{lengths}}
+\index{lengths@{lengths}!train.LazySupervisedDataset@{train.LazySupervisedDataset}}
+\doxysubsubsection{\texorpdfstring{lengths()}{lengths()}}
+{\footnotesize\ttfamily \label{classtrain_1_1_lazy_supervised_dataset_acf2c27f728e1cde77f17f852f2a1ac5f} 
+train.\+Lazy\+Supervised\+Dataset.\+lengths (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00676}{676}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00676\ \ \ \ \ \textcolor{keyword}{def\ }lengths(self):}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ length\_list\ =\ []}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ sample\ \textcolor{keywordflow}{in}\ self.list\_data\_dict:}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ img\_tokens\ =\ 128\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'image'}\ \textcolor{keywordflow}{in}\ sample\ \textcolor{keywordflow}{else}\ 0}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \ \ \ \ length\_list.append(sum(len(conv[\textcolor{stringliteral}{'value'}].split())\ \textcolor{keywordflow}{for}\ conv\ \textcolor{keywordflow}{in}\ sample[\textcolor{stringliteral}{'conversations'}])\ +\ img\_tokens)}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ length\_list}
+\DoxyCodeLine{00682\ }
+
+\end{DoxyCode}
+\Hypertarget{classtrain_1_1_lazy_supervised_dataset_a3bb492f3ab4b98f6f08f3b93dd6295e5}\index{train.LazySupervisedDataset@{train.LazySupervisedDataset}!modality\_lengths@{modality\_lengths}}
+\index{modality\_lengths@{modality\_lengths}!train.LazySupervisedDataset@{train.LazySupervisedDataset}}
+\doxysubsubsection{\texorpdfstring{modality\_lengths()}{modality\_lengths()}}
+{\footnotesize\ttfamily \label{classtrain_1_1_lazy_supervised_dataset_a3bb492f3ab4b98f6f08f3b93dd6295e5} 
+train.\+Lazy\+Supervised\+Dataset.\+modality\+\_\+lengths (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00684}{684}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00684\ \ \ \ \ \textcolor{keyword}{def\ }modality\_lengths(self):}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ length\_list\ =\ []}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ sample\ \textcolor{keywordflow}{in}\ self.list\_data\_dict:}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_len\ =\ sum(len(conv[\textcolor{stringliteral}{'value'}].split())\ \textcolor{keywordflow}{for}\ conv\ \textcolor{keywordflow}{in}\ sample[\textcolor{stringliteral}{'conversations'}])}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_len\ =\ cur\_len\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'image'}\ \textcolor{keywordflow}{in}\ sample\ \textcolor{keywordflow}{else}\ -\/cur\_len}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \ \ \ \ length\_list.append(cur\_len)}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ length\_list}
+\DoxyCodeLine{00691\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classtrain_1_1_lazy_supervised_dataset_a2438505d27dec5e5c179f31bc47a9bdc}\index{train.LazySupervisedDataset@{train.LazySupervisedDataset}!data\_args@{data\_args}}
+\index{data\_args@{data\_args}!train.LazySupervisedDataset@{train.LazySupervisedDataset}}
+\doxysubsubsection{\texorpdfstring{data\_args}{data\_args}}
+{\footnotesize\ttfamily \label{classtrain_1_1_lazy_supervised_dataset_a2438505d27dec5e5c179f31bc47a9bdc} 
+train.\+Lazy\+Supervised\+Dataset.\+data\+\_\+args = data\+\_\+args}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00670}{670}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+\Hypertarget{classtrain_1_1_lazy_supervised_dataset_a9c1760e0d7c47684eab48c41af498611}\index{train.LazySupervisedDataset@{train.LazySupervisedDataset}!list\_data\_dict@{list\_data\_dict}}
+\index{list\_data\_dict@{list\_data\_dict}!train.LazySupervisedDataset@{train.LazySupervisedDataset}}
+\doxysubsubsection{\texorpdfstring{list\_data\_dict}{list\_data\_dict}}
+{\footnotesize\ttfamily \label{classtrain_1_1_lazy_supervised_dataset_a9c1760e0d7c47684eab48c41af498611} 
+train.\+Lazy\+Supervised\+Dataset.\+list\+\_\+data\+\_\+dict = list\+\_\+data\+\_\+dict}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00669}{669}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+\Hypertarget{classtrain_1_1_lazy_supervised_dataset_ab54db5493930c7b03bf46f82632388b7}\index{train.LazySupervisedDataset@{train.LazySupervisedDataset}!tokenizer@{tokenizer}}
+\index{tokenizer@{tokenizer}!train.LazySupervisedDataset@{train.LazySupervisedDataset}}
+\doxysubsubsection{\texorpdfstring{tokenizer}{tokenizer}}
+{\footnotesize\ttfamily \label{classtrain_1_1_lazy_supervised_dataset_ab54db5493930c7b03bf46f82632388b7} 
+train.\+Lazy\+Supervised\+Dataset.\+tokenizer = tokenizer}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00668}{668}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+llava/train/\mbox{\hyperlink{train_8py}{train.\+py}}\end{DoxyCompactItemize}

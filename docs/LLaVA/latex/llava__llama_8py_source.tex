@@ -1,0 +1,167 @@
+\doxysection{llava\+\_\+llama.\+py}
+\hypertarget{llava__llama_8py_source}{}\label{llava__llama_8py_source}\index{language\_model/llava\_llama.py@{language\_model/llava\_llama.py}}
+\mbox{\hyperlink{llava__llama_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00001}\mbox{\hyperlink{namespacellava__llama}{00001}}\ \textcolor{comment}{\#\ \ \ \ Copyright\ 2023\ Haotian\ Liu}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00003}00003\ \textcolor{comment}{\#\ \ \ \ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00004}00004\ \textcolor{comment}{\#\ \ \ \ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00005}00005\ \textcolor{comment}{\#\ \ \ \ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00009}00009\ \textcolor{comment}{\#\ \ \ \ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00010}00010\ \textcolor{comment}{\#\ \ \ \ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00011}00011\ \textcolor{comment}{\#\ \ \ \ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00012}00012\ \textcolor{comment}{\#\ \ \ \ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00013}00013\ \textcolor{comment}{\#\ \ \ \ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00024}00024\ \textcolor{keyword}{from}\ typing\ \textcolor{keyword}{import}\ List,\ Optional,\ Tuple,\ Union}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00026}00026\ \textcolor{keyword}{import}\ torch}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00027}00027\ \textcolor{keyword}{import}\ torch.nn\ \textcolor{keyword}{as}\ nn}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00028}00028\ \textcolor{keyword}{from}\ transformers\ \textcolor{keyword}{import}\ AutoConfig,\ AutoModelForCausalLM,\ LlamaConfig,\ LlamaModel,\ LlamaForCausalLM}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00029}00029\ \textcolor{keyword}{from}\ transformers.modeling\_outputs\ \textcolor{keyword}{import}\ CausalLMOutputWithPast}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00030}00030\ \textcolor{keyword}{from}\ transformers.generation.utils\ \textcolor{keyword}{import}\ GenerateOutput}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00031}00031\ \textcolor{keyword}{from}\ ..llava\_arch\ \textcolor{keyword}{import}\ LlavaMetaModel,\ LlavaMetaForCausalLM}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00038}\mbox{\hyperlink{classllava__llama_1_1_llava_config}{00038}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classllava__llama_1_1_llava_config}{LlavaConfig}}(LlamaConfig):}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00039}\mbox{\hyperlink{classllava__llama_1_1_llava_config_addf7f95d3d4feff37b9d264a90ccbb42}{00039}}\ \ \ \ \ model\_type\ =\ \textcolor{stringliteral}{"{}llava\_llama"{}}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00046}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_model}{00046}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classllava__llama_1_1_llava_llama_model}{LlavaLlamaModel}}(LlavaMetaModel,\ LlamaModel):}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00047}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_model_ae0b47c22e722b22067bf9d69075b047b}{00047}}\ \ \ \ \ config\_class\ =\ LlavaConfig}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00049}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_model_a915dca61f64e7b93fc4bcbae4326329d}{00049}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava__llama_1_1_llava_llama_model_a915dca61f64e7b93fc4bcbae4326329d}{\_\_init\_\_}}(self,\ config:\ LlamaConfig):}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ super(LlavaLlamaModel,\ self).\mbox{\hyperlink{classllava__llama_1_1_llava_llama_model_a915dca61f64e7b93fc4bcbae4326329d}{\_\_init\_\_}}(config)}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00057}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m}{00057}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m}{LlavaLlamaForCausalLM}}(LlamaForCausalLM,\ LlavaMetaForCausalLM):}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00058}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a5194779b4bddbbcd120b2e7b5273d6db}{00058}}\ \ \ \ \ config\_class\ =\ LlavaConfig}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00060}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a7c6851e43aeb03586de6f6c6c9af7a93}{00060}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a7c6851e43aeb03586de6f6c6c9af7a93}{\_\_init\_\_}}(self,\ config):}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ super(LlamaForCausalLM,\ self).\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a7c6851e43aeb03586de6f6c6c9af7a93}{\_\_init\_\_}}(config)}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00062}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a5a8752f2f58a4a3a806a69eb2ffaf118}{00062}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a5a8752f2f58a4a3a806a69eb2ffaf118}{model}}\ =\ \mbox{\hyperlink{classllava__llama_1_1_llava_llama_model}{LlavaLlamaModel}}(config)}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00063}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a401f8203732fb6a2270425993ddc7caa}{00063}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a401f8203732fb6a2270425993ddc7caa}{pretraining\_tp}}\ =\ config.pretraining\_tp}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00064}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a83d0e6aa1cdf2893381d825300078370}{00064}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a83d0e6aa1cdf2893381d825300078370}{vocab\_size}}\ =\ config.vocab\_size}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00065}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_ae9922983d9c91d3f186e759de4d400c1}{00065}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_ae9922983d9c91d3f186e759de4d400c1}{lm\_head}}\ =\ nn.Linear(config.hidden\_size,\ config.vocab\_size,\ bias=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Initialize\ weights\ and\ apply\ final\ processing}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ self.post\_init()}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00070}00070\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00075}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_acb62d2eeebdce0deacfd0f86a86b4413}{00075}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_acb62d2eeebdce0deacfd0f86a86b4413}{get\_model}}(self):}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a5a8752f2f58a4a3a806a69eb2ffaf118}{model}}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00078}00078\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00109}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a09af443070a2e3de38aa757937fcfd8a}{00109}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a09af443070a2e3de38aa757937fcfd8a}{forward}}(}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ self,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ input\_ids:\ torch.LongTensor\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ attention\_mask:\ Optional[torch.Tensor]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ position\_ids:\ Optional[torch.LongTensor]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ past\_key\_values:\ Optional[List[torch.FloatTensor]]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ inputs\_embeds:\ Optional[torch.FloatTensor]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ labels:\ Optional[torch.LongTensor]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ use\_cache:\ Optional[bool]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ output\_attentions:\ Optional[bool]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ output\_hidden\_states:\ Optional[bool]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ images:\ Optional[torch.FloatTensor]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ image\_sizes:\ Optional[List[List[int]]]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ return\_dict:\ Optional[bool]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00123}00123\ \ \ \ \ )\ -\/>\ Union[Tuple,\ CausalLMOutputWithPast]:}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ inputs\_embeds\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ past\_key\_values,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs\_embeds,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ labels}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ )\ =\ self.prepare\_inputs\_labels\_for\_multimodal(}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ past\_key\_values,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ labels,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ images,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_sizes}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ super().\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a09af443070a2e3de38aa757937fcfd8a}{forward}}(}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids=input\_ids,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask=attention\_mask,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids=position\_ids,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ past\_key\_values=past\_key\_values,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ inputs\_embeds=inputs\_embeds,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ labels=labels,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ use\_cache=use\_cache,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ output\_attentions=output\_attentions,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ output\_hidden\_states=output\_hidden\_states,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ return\_dict=return\_dict}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00156}00156\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00177}00177\ \ \ \ \ \textcolor{preprocessor}{@torch.no\_grad()}}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00178}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_af7b777324d57e9dac2f8b5eb65428e60}{00178}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_af7b777324d57e9dac2f8b5eb65428e60}{generate}}(}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ self,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ inputs:\ Optional[torch.Tensor]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ images:\ Optional[torch.Tensor]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00182}00182\ \ \ \ \ \ \ \ \ image\_sizes:\ Optional[torch.Tensor]\ =\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ **kwargs,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00184}00184\ \ \ \ \ )\ -\/>\ Union[GenerateOutput,\ torch.LongTensor]:}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ position\_ids\ =\ kwargs.pop(\textcolor{stringliteral}{"{}position\_ids"{}},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ attention\_mask\ =\ kwargs.pop(\textcolor{stringliteral}{"{}attention\_mask"{}},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}inputs\_embeds"{}}\ \textcolor{keywordflow}{in}\ kwargs:}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ NotImplementedError(\textcolor{stringliteral}{"{}\`{}inputs\_embeds`\ is\ not\ supported"{}})}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ images\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs\_embeds,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ )\ =\ self.prepare\_inputs\_labels\_for\_multimodal(}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ images,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_sizes=image\_sizes}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ inputs\_embeds\ =\ self.\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_acb62d2eeebdce0deacfd0f86a86b4413}{get\_model}}().embed\_tokens(inputs)}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00210}00210\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ super().\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_af7b777324d57e9dac2f8b5eb65428e60}{generate}}(}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids=position\_ids,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask=attention\_mask,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ inputs\_embeds=inputs\_embeds,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ **kwargs}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00215}00215\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00217}00217\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00240}\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a0f5cfb63f7c65b6a7b4a60c8399edbbb}{00240}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a0f5cfb63f7c65b6a7b4a60c8399edbbb}{prepare\_inputs\_for\_generation}}(self,\ input\_ids,\ past\_key\_values=None,}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs\_embeds=None,\ **kwargs):}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00242}00242\ \ \ \ \ \ \ \ \ images\ =\ kwargs.pop(\textcolor{stringliteral}{"{}images"{}},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ image\_sizes\ =\ kwargs.pop(\textcolor{stringliteral}{"{}image\_sizes"{}},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ inputs\ =\ super().\mbox{\hyperlink{classllava__llama_1_1_llava_llama_for_causal_l_m_a0f5cfb63f7c65b6a7b4a60c8399edbbb}{prepare\_inputs\_for\_generation}}(}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ input\_ids,\ past\_key\_values=past\_key\_values,\ inputs\_embeds=inputs\_embeds,\ **kwargs}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00246}00246\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ images\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ inputs[\textcolor{stringliteral}{'images'}]\ =\ images}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00249}00249\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ image\_sizes\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ inputs[\textcolor{stringliteral}{'image\_sizes'}]\ =\ image\_sizes}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00251}00251\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inputs}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00253}00253\ AutoConfig.register(\textcolor{stringliteral}{"{}llava\_llama"{}},\ LlavaConfig)}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00254}00254\ AutoModelForCausalLM.register(LlavaConfig,\ LlavaLlamaForCausalLM)}
+\DoxyCodeLine{\Hypertarget{llava__llama_8py_source_l00255}00255\ }
+
+\end{DoxyCode}

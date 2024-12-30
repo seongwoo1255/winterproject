@@ -1,0 +1,42 @@
+\doxysection{llava\+\_\+arch.\+py File Reference}
+\hypertarget{llava__arch_8py}{}\label{llava__arch_8py}\index{llava\_arch.py@{llava\_arch.py}}
+
+
+LLa\+VA 모델의 아키텍처를 정의하는 Python 파일  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classllava_1_1model_1_1llava__arch_1_1_llava_meta_model}{llava.\+model.\+llava\+\_\+arch.\+Llava\+Meta\+Model}}
+\begin{DoxyCompactList}\small\item\em LLa\+VA 모델의 메타클래스 \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m}{llava.\+model.\+llava\+\_\+arch.\+Llava\+Meta\+For\+Causal\+LM}}
+\begin{DoxyCompactList}\small\item\em LLa\+VA 모델의 추상 클래스 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacellava}{llava}}
+\item 
+namespace \mbox{\hyperlink{namespacellava_1_1model}{llava.\+model}}
+\item 
+namespace \mbox{\hyperlink{namespacellava_1_1model_1_1llava__arch}{llava.\+model.\+llava\+\_\+arch}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacellava_1_1model_1_1llava__arch_a78b104a785c78d9a11febf6ffc1f8615}{llava.\+model.\+llava\+\_\+arch.\+unpad\+\_\+image}} (tensor, original\+\_\+size)
+\begin{DoxyCompactList}\small\item\em 이미지 텐서(패딩 처리된 이미지)를 원래 크기로 복원하는 함수 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+LLa\+VA 모델의 아키텍처를 정의하는 Python 파일 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+이 파일은 LLa\+VA 모델의 다양한 모듈과 메서드를 정의하여 멀티 모달 입력을 처리하는 기능을 제공합니다.
+
+LLa\+VA 모델의 멀티모달 입력 처리를 담당하는 핵심 모듈입니다. 그림에서 나타난 Vision Encoder, Projection W, Language Model 간의 데이터 흐름을 구현합니다. 이 모듈은 입력 이미지를 Vision Encoder로 처리한 뒤, Projection W를 통해 멀티모달 특징으로 변환하고, 이를 Language Model로 전달하여 최종 출력을 생성합니다. 
+
+Definition in file \mbox{\hyperlink{llava__arch_8py_source}{llava\+\_\+arch.\+py}}.
+

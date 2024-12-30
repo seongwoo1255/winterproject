@@ -1,0 +1,468 @@
+\doxysection{llava.\+model.\+llava\+\_\+arch.\+Llava\+Meta\+For\+Causal\+LM Class Reference}
+\hypertarget{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m}{}\label{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m}\index{llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}}
+
+
+LLa\+VA 모델의 추상 클래스  
+
+
+
+
+Inheritance diagram for llava.\+model.\+llava\+\_\+arch.\+Llava\+Meta\+For\+Causal\+LM\+:
+% FIG 0
+
+
+Collaboration diagram for llava.\+model.\+llava\+\_\+arch.\+Llava\+Meta\+For\+Causal\+LM\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_a63a2680e7cef4f40b17446aa6d4f0855}{get\+\_\+model}} (self)
+\begin{DoxyCompactList}\small\item\em 모델을 반환하는 추상 메서드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_a44dc1290b35b25f8d213b88f7f4abc2a}{get\+\_\+vision\+\_\+tower}} (self)
+\begin{DoxyCompactList}\small\item\em 비전 타워를 반환하는 메서드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_aee984abd82f234b6d7c9d37eb643ceb3}{encode\+\_\+images}} (self, images)
+\begin{DoxyCompactList}\small\item\em 이미지를 인코딩하여 특징 벡터로 변환 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_a34dac38c46ba9a66cc02de107a400c76}{prepare\+\_\+inputs\+\_\+labels\+\_\+for\+\_\+multimodal}} (self, input\+\_\+ids, position\+\_\+ids, attention\+\_\+mask, past\+\_\+key\+\_\+values, labels, images, image\+\_\+sizes=None)
+\begin{DoxyCompactList}\small\item\em 멀티모달 입력과 레이블을 준비하는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_acae9e9560fa74ae7ba2788d261abc13c}{initialize\+\_\+vision\+\_\+tokenizer}} (self, model\+\_\+args, tokenizer)
+\begin{DoxyCompactList}\small\item\em 비전 토크나이저를 초기화하는 메서드 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_a64f3ed33345e5078777ce464de4ea71b}{config}} = cur\+\_\+new\+\_\+embed.\+shape\mbox{[}0\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+LLa\+VA 모델의 추상 클래스 
+
+멀티모달 입력 데이터를 처리하고 텍스트 모델과 비전 타워를 연결하기 위한 기본 기능을 제공합니다. 이 클래스는 추상 클래스(\+ABC)로, 구체적인 구현은 상속받는 클래스에서 정의해야 합니다. \begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+
+\begin{DoxyItemize}
+\item 비전 타워를 사용하여 이미지 특징을 추출한다.
+\item 멀티모달 입력(텍스트와 이미지)을 처리하여 모델 학습에 적합한 형태로 변환한다.
+\item 즉, Vision Encoder 출력(Zᵥ)부터 멀티모달 데이터 준비까지의 역할을 담당한다.
+\item 특히, 이미지와 텍스트 데이터를 통합하여 언어 모델 입력으로 준비하는 중간 과정을 처리한다. 
+\end{DoxyItemize}
+
+Definition at line \mbox{\hyperlink{llava__arch_8py_source_l00187}{187}} of file \mbox{\hyperlink{llava__arch_8py_source}{llava\+\_\+arch.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_aee984abd82f234b6d7c9d37eb643ceb3}\index{llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}!encode\_images@{encode\_images}}
+\index{encode\_images@{encode\_images}!llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}}
+\doxysubsubsection{\texorpdfstring{encode\_images()}{encode\_images()}}
+{\footnotesize\ttfamily \label{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_aee984abd82f234b6d7c9d37eb643ceb3} 
+llava.\+model.\+llava\+\_\+arch.\+Llava\+Meta\+For\+Causal\+LM.\+encode\+\_\+images (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{images}{}\end{DoxyParamCaption})}
+
+
+
+이미지를 인코딩하여 특징 벡터로 변환 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em images} & 입력 이미지 텐서 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+이미지 특징 벡터 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{llava__arch_8py_source_l00213}{213}} of file \mbox{\hyperlink{llava__arch_8py_source}{llava\+\_\+arch.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keyword}{def\ }encode\_images(self,\ images):}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ image\_features\ =\ self.get\_model().get\_vision\_tower()(images)}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ image\_features\ =\ self.get\_model().mm\_projector(image\_features)}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ image\_features}
+\DoxyCodeLine{00217\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\Hypertarget{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_a63a2680e7cef4f40b17446aa6d4f0855}\index{llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}!get\_model@{get\_model}}
+\index{get\_model@{get\_model}!llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}}
+\doxysubsubsection{\texorpdfstring{get\_model()}{get\_model()}}
+{\footnotesize\ttfamily \label{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_a63a2680e7cef4f40b17446aa6d4f0855} 
+llava.\+model.\+llava\+\_\+arch.\+Llava\+Meta\+For\+Causal\+LM.\+get\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+모델을 반환하는 추상 메서드 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+이 메서드는 상속받는 클래스에서 구현해야 하며, 모델 객체를 반환합니다. 
+
+Reimplemented in \mbox{\hyperlink{classllava__mpt_1_1_llava_mpt_for_causal_l_m_a1bcc44c4cedd38c0bd542416d32c42af}{llava\+\_\+mpt.\+Llava\+Mpt\+For\+Causal\+LM}}.
+
+
+
+Definition at line \mbox{\hyperlink{llava__arch_8py_source_l00196}{196}} of file \mbox{\hyperlink{llava__arch_8py_source}{llava\+\_\+arch.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{def\ }get\_model(self):}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00198\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 4
+\Hypertarget{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_a44dc1290b35b25f8d213b88f7f4abc2a}\index{llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}!get\_vision\_tower@{get\_vision\_tower}}
+\index{get\_vision\_tower@{get\_vision\_tower}!llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}}
+\doxysubsubsection{\texorpdfstring{get\_vision\_tower()}{get\_vision\_tower()}}
+{\footnotesize\ttfamily \label{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_a44dc1290b35b25f8d213b88f7f4abc2a} 
+llava.\+model.\+llava\+\_\+arch.\+Llava\+Meta\+For\+Causal\+LM.\+get\+\_\+vision\+\_\+tower (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+비전 타워를 반환하는 메서드 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+\begin{DoxyReturn}{Returns}
+비전 타워 객체 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{llava__arch_8py_source_l00204}{204}} of file \mbox{\hyperlink{llava__arch_8py_source}{llava\+\_\+arch.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{def\ }get\_vision\_tower(self):}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.get\_model().get\_vision\_tower()}
+\DoxyCodeLine{00206\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 5
+Here is the caller graph for this function\+:
+% FIG 6
+\Hypertarget{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_acae9e9560fa74ae7ba2788d261abc13c}\index{llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}!initialize\_vision\_tokenizer@{initialize\_vision\_tokenizer}}
+\index{initialize\_vision\_tokenizer@{initialize\_vision\_tokenizer}!llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}}
+\doxysubsubsection{\texorpdfstring{initialize\_vision\_tokenizer()}{initialize\_vision\_tokenizer()}}
+{\footnotesize\ttfamily \label{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_acae9e9560fa74ae7ba2788d261abc13c} 
+llava.\+model.\+llava\+\_\+arch.\+Llava\+Meta\+For\+Causal\+LM.\+initialize\+\_\+vision\+\_\+tokenizer (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{model\+\_\+args}{, }\item[{}]{tokenizer}{}\end{DoxyParamCaption})}
+
+
+
+비전 토크나이저를 초기화하는 메서드 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em model\+\_\+args} & 모델 설정 정보 \\
+\hline
+{\em tokenizer} & 토크나이저 객체 \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{llava__arch_8py_source_l00420}{420}} of file \mbox{\hyperlink{llava__arch_8py_source}{llava\+\_\+arch.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keyword}{def\ }initialize\_vision\_tokenizer(self,\ model\_args,\ tokenizer):}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_args.mm\_use\_im\_patch\_token:}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer.add\_tokens([DEFAULT\_IMAGE\_PATCH\_TOKEN],\ special\_tokens=\textcolor{keyword}{True})}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ self.resize\_token\_embeddings(len(tokenizer))}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_args.mm\_use\_im\_start\_end:}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ num\_new\_tokens\ =\ tokenizer.add\_tokens([DEFAULT\_IM\_START\_TOKEN,\ DEFAULT\_IM\_END\_TOKEN],\ special\_tokens=\textcolor{keyword}{True})}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ self.resize\_token\_embeddings(len(tokenizer))}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ num\_new\_tokens\ >\ 0:}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_embeddings\ =\ self.get\_input\_embeddings().weight.data}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_embeddings\ =\ self.get\_output\_embeddings().weight.data}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_embeddings\_avg\ =\ input\_embeddings[:-\/num\_new\_tokens].mean(}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dim=0,\ keepdim=\textcolor{keyword}{True})}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_embeddings\_avg\ =\ output\_embeddings[:-\/num\_new\_tokens].mean(}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dim=0,\ keepdim=\textcolor{keyword}{True})}
+\DoxyCodeLine{00437\ }
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_embeddings[-\/num\_new\_tokens:]\ =\ input\_embeddings\_avg}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_embeddings[-\/num\_new\_tokens:]\ =\ output\_embeddings\_avg}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_args.tune\_mm\_mlp\_adapter:}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ self.get\_input\_embeddings().parameters():}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.requires\_grad\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ self.get\_output\_embeddings().parameters():}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.requires\_grad\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_args.pretrain\_mm\_mlp\_adapter:}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mm\_projector\_weights\ =\ torch.load(model\_args.pretrain\_mm\_mlp\_adapter,\ map\_location=\textcolor{stringliteral}{'cpu'})}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ embed\_tokens\_weight\ =\ mm\_projector\_weights[\textcolor{stringliteral}{'model.embed\_tokens.weight'}]}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ num\_new\_tokens\ ==\ 2}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ input\_embeddings.shape\ ==\ embed\_tokens\_weight.shape:}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_embeddings[-\/num\_new\_tokens:]\ =\ embed\_tokens\_weight[-\/num\_new\_tokens:]}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ embed\_tokens\_weight.shape[0]\ ==\ num\_new\_tokens:}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_embeddings[-\/num\_new\_tokens:]\ =\ embed\_tokens\_weight}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Unexpected\ embed\_tokens\_weight\ shape.\ Pretrained:\ \{embed\_tokens\_weight.shape\}.\ Current:\ \{input\_embeddings.shape\}.\ Numer\ of\ new\ tokens:\ \{num\_new\_tokens\}."{}})}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ model\_args.mm\_use\_im\_patch\_token:}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_args.tune\_mm\_mlp\_adapter:}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ self.get\_input\_embeddings().parameters():}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.requires\_grad\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ self.get\_output\_embeddings().parameters():}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.requires\_grad\ =\ \textcolor{keyword}{False}}
+
+\end{DoxyCode}
+\Hypertarget{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_a34dac38c46ba9a66cc02de107a400c76}\index{llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}!prepare\_inputs\_labels\_for\_multimodal@{prepare\_inputs\_labels\_for\_multimodal}}
+\index{prepare\_inputs\_labels\_for\_multimodal@{prepare\_inputs\_labels\_for\_multimodal}!llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}}
+\doxysubsubsection{\texorpdfstring{prepare\_inputs\_labels\_for\_multimodal()}{prepare\_inputs\_labels\_for\_multimodal()}}
+{\footnotesize\ttfamily \label{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_a34dac38c46ba9a66cc02de107a400c76} 
+llava.\+model.\+llava\+\_\+arch.\+Llava\+Meta\+For\+Causal\+LM.\+prepare\+\_\+inputs\+\_\+labels\+\_\+for\+\_\+multimodal (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{input\+\_\+ids}{, }\item[{}]{position\+\_\+ids}{, }\item[{}]{attention\+\_\+mask}{, }\item[{}]{past\+\_\+key\+\_\+values}{, }\item[{}]{labels}{, }\item[{}]{images}{, }\item[{}]{image\+\_\+sizes}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+멀티모달 입력과 레이블을 준비하는 함수 
+
+\begin{DoxyAuthor}{Author}
+이지희(2021113406)
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+ids} & 텍스트 입력 토큰 ID \\
+\hline
+{\em position\+\_\+ids} & 위치 정보 ID \\
+\hline
+{\em attention\+\_\+mask} & 어텐션 마스크 \\
+\hline
+{\em past\+\_\+key\+\_\+values} & 이전 키/값 캐시 (디코더) \\
+\hline
+{\em labels} & 텍스트 레이블 \\
+\hline
+{\em images} & 입력 이미지 텐서 \\
+\hline
+{\em image\+\_\+sizes} & 이미지 크기 정보 (선택 사항) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(position\+\_\+ids, attention\+\_\+mask, past\+\_\+key\+\_\+values, 새로운 입력 임베딩, 새로운 레이블) 튜플 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{llava__arch_8py_source_l00230}{230}} of file \mbox{\hyperlink{llava__arch_8py_source}{llava\+\_\+arch.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00233\ \ \ \ \ ):}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ vision\_tower\ =\ self.get\_vision\_tower()}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ vision\_tower\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ images\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ input\_ids.shape[1]\ ==\ 1:}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ input\_ids,\ position\_ids,\ attention\_mask,\ past\_key\_values,\ \textcolor{keywordtype}{None},\ labels}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 이미지가\ 여러\ 개일\ 경우\ 처리}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ type(images)\ \textcolor{keywordflow}{is}\ list\ \textcolor{keywordflow}{or}\ images.ndim\ ==\ 5:}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ type(images)\ \textcolor{keywordflow}{is}\ list:}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ images\ =\ [x.unsqueeze(0)\ \textcolor{keywordflow}{if}\ x.ndim\ ==\ 3\ \textcolor{keywordflow}{else}\ x\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ images]}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ concat\_images\ =\ torch.cat([image\ \textcolor{keywordflow}{for}\ image\ \textcolor{keywordflow}{in}\ images],\ dim=0)}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ image\_features\ =\ self.encode\_images(concat\_images)}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ split\_sizes\ =\ [image.shape[0]\ \textcolor{keywordflow}{for}\ image\ \textcolor{keywordflow}{in}\ images]}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ image\_features\ =\ torch.split(image\_features,\ split\_sizes,\ dim=0)}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 멀티모달\ 패치\ 병합\ 타입\ 처리}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ mm\_patch\_merge\_type\ =\ getattr(self.config,\ \textcolor{stringliteral}{'mm\_patch\_merge\_type'},\ \textcolor{stringliteral}{'flat'})}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ image\_aspect\_ratio\ =\ getattr(self.config,\ \textcolor{stringliteral}{'image\_aspect\_ratio'},\ \textcolor{stringliteral}{'square'})}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ mm\_patch\_merge\_type\ ==\ \textcolor{stringliteral}{'flat'}:}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_features\ =\ [x.flatten(0,\ 1)\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ image\_features]}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ mm\_patch\_merge\_type.startswith(\textcolor{stringliteral}{'spatial'}):}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_image\_features\ =\ []}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ image\_idx,\ image\_feature\ \textcolor{keywordflow}{in}\ enumerate(image\_features):}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ image\_feature.shape[0]\ >\ 1:}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ base\_image\_feature\ =\ image\_feature[0]}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ image\_feature[1:]}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ height\ =\ width\ =\ self.get\_vision\_tower().num\_patches\_per\_side}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ height\ *\ width\ ==\ base\_image\_feature.shape[0]}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ image\_aspect\_ratio\ ==\ \textcolor{stringliteral}{'anyres'}:}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_patch\_width,\ num\_patch\_height\ =\ get\_anyres\_image\_grid\_shape(image\_sizes[image\_idx],\ self.config.image\_grid\_pinpoints,\ self.get\_vision\_tower().config.image\_size)}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ image\_feature.view(num\_patch\_height,\ num\_patch\_width,\ height,\ width,\ -\/1)}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ NotImplementedError}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'unpad'}\ \textcolor{keywordflow}{in}\ mm\_patch\_merge\_type:}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ image\_feature.permute(4,\ 0,\ 2,\ 1,\ 3).contiguous()}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ image\_feature.flatten(1,\ 2).flatten(2,\ 3)}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ unpad\_image(image\_feature,\ image\_sizes[image\_idx])}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ torch.cat((}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature,}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.model.image\_newline[:,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}].expand(*image\_feature.shape[:-\/1],\ 1).to(image\_feature.device)}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ),\ dim=-\/1)}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ image\_feature.flatten(1,\ 2).transpose(0,\ 1)}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ image\_feature.permute(0,\ 2,\ 1,\ 3,\ 4).contiguous()}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ image\_feature.flatten(0,\ 3)}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ torch.cat((base\_image\_feature,\ image\_feature),\ dim=0)}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ image\_feature[0]}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'unpad'}\ \textcolor{keywordflow}{in}\ mm\_patch\_merge\_type:}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature\ =\ torch.cat((}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_feature,}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.model.image\_newline[\textcolor{keywordtype}{None}].to(image\_feature.device)}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ),\ dim=0)}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_image\_features.append(image\_feature)}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_features\ =\ new\_image\_features}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Unexpected\ mm\_patch\_merge\_type:\ \{self.config.mm\_patch\_merge\_type\}"{}})}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ image\_features\ =\ self.encode\_images(images)}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ TODO:\ image\ start\ /\ end\ is\ not\ implemented\ here\ to\ support\ pretraining.}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ getattr(self.config,\ \textcolor{stringliteral}{'tune\_mm\_mlp\_adapter'},\ \textcolor{keyword}{False})\ \textcolor{keywordflow}{and}\ getattr(self.config,\ \textcolor{stringliteral}{'mm\_use\_im\_start\_end'},\ \textcolor{keyword}{False}):}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ NotImplementedError}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Let's\ just\ add\ dummy\ tensors\ if\ they\ do\ not\ exist,}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ it\ is\ a\ headache\ to\ deal\ with\ None\ all\ the\ time.}}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ But\ it\ is\ not\ ideal,\ and\ if\ you\ have\ a\ better\ idea,}}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ please\ open\ an\ issue\ /\ submit\ a\ PR,\ thanks.}}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \_labels\ =\ labels}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \_position\_ids\ =\ position\_ids}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \_attention\_mask\ =\ attention\_mask}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attention\_mask\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask\ =\ torch.ones\_like(input\_ids,\ dtype=torch.bool)}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask\ =\ attention\_mask.bool()}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ position\_ids\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids\ =\ torch.arange(0,\ input\_ids.shape[1],\ dtype=torch.long,\ device=input\_ids.device)}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ labels\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ labels\ =\ torch.full\_like(input\_ids,\ IGNORE\_INDEX)}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ remove\ the\ padding\ using\ attention\_mask\ -\/-\/\ FIXME}}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \_input\_ids\ =\ input\_ids}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ input\_ids\ =\ [cur\_input\_ids[cur\_attention\_mask]\ \textcolor{keywordflow}{for}\ cur\_input\_ids,\ cur\_attention\_mask\ \textcolor{keywordflow}{in}\ zip(input\_ids,\ attention\_mask)]}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ labels\ =\ [cur\_labels[cur\_attention\_mask]\ \textcolor{keywordflow}{for}\ cur\_labels,\ cur\_attention\_mask\ \textcolor{keywordflow}{in}\ zip(labels,\ attention\_mask)]}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 입력\ 데이터에\ 이미지\ 특징\ 추가}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ new\_input\_embeds\ =\ []}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ new\_labels\ =\ []}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ cur\_image\_idx\ =\ 0}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ batch\_idx,\ cur\_input\_ids\ \textcolor{keywordflow}{in}\ enumerate(input\_ids):}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ num\_images\ =\ (cur\_input\_ids\ ==\ IMAGE\_TOKEN\_INDEX).sum()}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ num\_images\ ==\ 0:}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_image\_features\ =\ image\_features[cur\_image\_idx]}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_input\_embeds\_1\ =\ self.get\_model().embed\_tokens(cur\_input\_ids)}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_input\_embeds\ =\ torch.cat([cur\_input\_embeds\_1,\ cur\_image\_features[0:0]],\ dim=0)}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_input\_embeds.append(cur\_input\_embeds)}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_labels.append(labels[batch\_idx])}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_image\_idx\ +=\ 1}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ image\_token\_indices\ =\ [-\/1]\ +\ torch.where(cur\_input\_ids\ ==\ IMAGE\_TOKEN\_INDEX)[0].tolist()\ +\ [cur\_input\_ids.shape[0]]}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_input\_ids\_noim\ =\ []}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_labels\ =\ labels[batch\_idx]}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_labels\_noim\ =\ []}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(image\_token\_indices)\ -\/\ 1):}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_input\_ids\_noim.append(cur\_input\_ids[image\_token\_indices[i]+1:image\_token\_indices[i+1]])}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_labels\_noim.append(cur\_labels[image\_token\_indices[i]+1:image\_token\_indices[i+1]])}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ split\_sizes\ =\ [x.shape[0]\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ cur\_labels\_noim]}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_input\_embeds\ =\ self.get\_model().embed\_tokens(torch.cat(cur\_input\_ids\_noim))}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_input\_embeds\_no\_im\ =\ torch.split(cur\_input\_embeds,\ split\_sizes,\ dim=0)}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_new\_input\_embeds\ =\ []}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_new\_labels\ =\ []}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(num\_images\ +\ 1):}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_new\_input\_embeds.append(cur\_input\_embeds\_no\_im[i])}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_new\_labels.append(cur\_labels\_noim[i])}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ i\ <\ num\_images:}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_image\_features\ =\ image\_features[cur\_image\_idx]}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_image\_idx\ +=\ 1}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_new\_input\_embeds.append(cur\_image\_features)}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_new\_labels.append(torch.full((cur\_image\_features.shape[0],),\ IGNORE\_INDEX,\ device=cur\_labels.device,\ dtype=cur\_labels.dtype))}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_new\_input\_embeds\ =\ [x.to(self.device)\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ cur\_new\_input\_embeds]}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_new\_input\_embeds\ =\ torch.cat(cur\_new\_input\_embeds)}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_new\_labels\ =\ torch.cat(cur\_new\_labels)}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ new\_input\_embeds.append(cur\_new\_input\_embeds)}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ new\_labels.append(cur\_new\_labels)}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Truncate\ sequences\ to\ max\ length\ as\ image\ embeddings\ can\ make\ the\ sequence\ longer}}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ tokenizer\_model\_max\_length\ =\ getattr(self.config,\ \textcolor{stringliteral}{'tokenizer\_model\_max\_length'},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ tokenizer\_model\_max\_length\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ new\_input\_embeds\ =\ [x[:tokenizer\_model\_max\_length]\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ new\_input\_embeds]}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ new\_labels\ =\ [x[:tokenizer\_model\_max\_length]\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ new\_labels]}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Combine\ them}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ max\_len\ =\ max(x.shape[0]\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ new\_input\_embeds)}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ batch\_size\ =\ len(new\_input\_embeds)}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ new\_input\_embeds\_padded\ =\ []}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ new\_labels\_padded\ =\ torch.full((batch\_size,\ max\_len),\ IGNORE\_INDEX,\ dtype=new\_labels[0].dtype,\ device=new\_labels[0].device)}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ attention\_mask\ =\ torch.zeros((batch\_size,\ max\_len),\ dtype=attention\_mask.dtype,\ device=attention\_mask.device)}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ position\_ids\ =\ torch.zeros((batch\_size,\ max\_len),\ dtype=position\_ids.dtype,\ device=position\_ids.device)}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ (cur\_new\_embed,\ cur\_new\_labels)\ \textcolor{keywordflow}{in}\ enumerate(zip(new\_input\_embeds,\ new\_labels)):}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_len\ =\ cur\_new\_embed.shape[0]}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ getattr(self.config,\ \textcolor{stringliteral}{'tokenizer\_padding\_side'},\ \textcolor{stringliteral}{'right'})\ ==\ \textcolor{stringliteral}{"{}left"{}}:}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_input\_embeds\_padded.append(torch.cat((}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ torch.zeros((max\_len\ -\/\ cur\_len,\ cur\_new\_embed.shape[1]),\ dtype=cur\_new\_embed.dtype,\ device=cur\_new\_embed.device),}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_new\_embed}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ),\ dim=0))}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cur\_len\ >\ 0:}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_labels\_padded[i,\ -\/cur\_len:]\ =\ cur\_new\_labels}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask[i,\ -\/cur\_len:]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids[i,\ -\/cur\_len:]\ =\ torch.arange(0,\ cur\_len,\ dtype=position\_ids.dtype,\ device=position\_ids.device)}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_input\_embeds\_padded.append(torch.cat((}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cur\_new\_embed,}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ torch.zeros((max\_len\ -\/\ cur\_len,\ cur\_new\_embed.shape[1]),\ dtype=cur\_new\_embed.dtype,\ device=cur\_new\_embed.device)}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ),\ dim=0))}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cur\_len\ >\ 0:}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_labels\_padded[i,\ :cur\_len]\ =\ cur\_new\_labels}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask[i,\ :cur\_len]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids[i,\ :cur\_len]\ =\ torch.arange(0,\ cur\_len,\ dtype=position\_ids.dtype,\ device=position\_ids.device)}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ new\_input\_embeds\ =\ torch.stack(new\_input\_embeds\_padded,\ dim=0)}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \_labels\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ new\_labels\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ new\_labels\ =\ new\_labels\_padded}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \_attention\_mask\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ attention\_mask\ =\ attention\_mask.to(dtype=\_attention\_mask.dtype)}
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \_position\_ids\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ position\_ids\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 결과\ 데이터\ 반환}}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{None},\ position\_ids,\ attention\_mask,\ past\_key\_values,\ new\_input\_embeds,\ new\_labels}
+\DoxyCodeLine{00413\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 7
+Here is the caller graph for this function\+:
+% FIG 8
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_a64f3ed33345e5078777ce464de4ea71b}\index{llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}!config@{config}}
+\index{config@{config}!llava.model.llava\_arch.LlavaMetaForCausalLM@{llava.model.llava\_arch.LlavaMetaForCausalLM}}
+\doxysubsubsection{\texorpdfstring{config}{config}}
+{\footnotesize\ttfamily \label{classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m_a64f3ed33345e5078777ce464de4ea71b} 
+llava.\+model.\+llava\+\_\+arch.\+Llava\+Meta\+For\+Causal\+LM.\+config = cur\+\_\+new\+\_\+embed.\+shape\mbox{[}0\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{llava__arch_8py_source_l00292}{292}} of file \mbox{\hyperlink{llava__arch_8py_source}{llava\+\_\+arch.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{llava__arch_8py}{llava\+\_\+arch.\+py}}\end{DoxyCompactItemize}

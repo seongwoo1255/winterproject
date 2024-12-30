@@ -1,0 +1,53 @@
+\doxysection{convert\+\_\+vizwiz\+\_\+for\+\_\+submission.\+py}
+\hypertarget{convert__vizwiz__for__submission_8py_source}{}\label{convert__vizwiz__for__submission_8py_source}\index{scripts/convert\_vizwiz\_for\_submission.py@{scripts/convert\_vizwiz\_for\_submission.py}}
+\mbox{\hyperlink{convert__vizwiz__for__submission_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00001}\mbox{\hyperlink{namespaceconvert__vizwiz__for__submission}{00001}}\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00002}00002\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00003}00003\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00005}00005\ \textcolor{keyword}{from}\ llava.eval.m4c\_evaluator\ \textcolor{keyword}{import}\ EvalAIAnswerProcessor}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00008}\mbox{\hyperlink{namespaceconvert__vizwiz__for__submission_a949baa0f8093baea327ac376a518bf54}{00008}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceconvert__vizwiz__for__submission_a949baa0f8093baea327ac376a518bf54}{parse\_args}}():}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00009}00009\ \ \ \ \ parser\ =\ argparse.ArgumentParser()}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00010}00010\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/-\/annotation-\/file'},\ type=str,\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00011}00011\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/-\/result-\/file'},\ type=str,\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00012}00012\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/-\/result-\/upload-\/file'},\ type=str,\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00013}00013\ \ \ \ \ \textcolor{keywordflow}{return}\ parser.parse\_args()}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00016}00016\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00018}\mbox{\hyperlink{namespaceconvert__vizwiz__for__submission_a96e7354f523e738ac0080d5aef9fbe87}{00018}}\ \ \ \ \ args\ =\ \mbox{\hyperlink{namespaceconvert__vizwiz__for__submission_a949baa0f8093baea327ac376a518bf54}{parse\_args}}()}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00020}\mbox{\hyperlink{namespaceconvert__vizwiz__for__submission_ab5d7e9369f0d87cdcd86f8ecfbb76d34}{00020}}\ \ \ \ \ os.makedirs(os.path.dirname(args.result\_upload\_file),\ exist\_ok=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00022}\mbox{\hyperlink{namespaceconvert__vizwiz__for__submission_af87a539282201fb4e0c7d44831e0b75c}{00022}}\ \ \ \ \ results\ =\ []}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00023}\mbox{\hyperlink{namespaceconvert__vizwiz__for__submission_a1141e025d8d8fc6890c740449c0d11b9}{00023}}\ \ \ \ \ error\_line\ =\ 0}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00024}00024\ \ \ \ \ \textcolor{keywordflow}{for}\ line\_idx,\ line\ \textcolor{keywordflow}{in}\ enumerate(open(args.result\_file)):}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ results.append(json.loads(line))}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}:}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ error\_line\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00029}00029\ \ \ \ \ results\ =\ \{x[\textcolor{stringliteral}{'question\_id'}]:\ x[\textcolor{stringliteral}{'text'}]\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ results\}}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00030}\mbox{\hyperlink{namespaceconvert__vizwiz__for__submission_a881b02f07d04634210967596dc950fc5}{00030}}\ \ \ \ \ test\_split\ =\ [json.loads(line)\ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ open(args.annotation\_file)]}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00031}\mbox{\hyperlink{namespaceconvert__vizwiz__for__submission_a00bc98bd0ca9258f9e52594543fd7257}{00031}}\ \ \ \ \ split\_ids\ =\ set([x[\textcolor{stringliteral}{'question\_id'}]\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ test\_split])}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00033}00033\ \ \ \ \ print(f\textcolor{stringliteral}{'total\ results:\ \{len(results)\},\ total\ split:\ \{len(test\_split)\},\ error\_line:\ \{error\_line\}'})}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00035}\mbox{\hyperlink{namespaceconvert__vizwiz__for__submission_a9b75fb1a21d2db2a71c3a706fa6602e5}{00035}}\ \ \ \ \ all\_answers\ =\ []}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00037}\mbox{\hyperlink{namespaceconvert__vizwiz__for__submission_a674481711b189948b4fbc287271500d9}{00037}}\ \ \ \ \ answer\_processor\ =\ EvalAIAnswerProcessor()}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00039}00039\ \ \ \ \ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ test\_split:}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ x[\textcolor{stringliteral}{'question\_id'}]\ \textcolor{keywordflow}{in}\ results}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ all\_answers.append(\{}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'image'}:\ x[\textcolor{stringliteral}{'image'}],}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'answer'}:\ \mbox{\hyperlink{namespaceconvert__vizwiz__for__submission_a674481711b189948b4fbc287271500d9}{answer\_processor}}(results[x[\textcolor{stringliteral}{'question\_id'}]])}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00046}00046\ \ \ \ \ \textcolor{keyword}{with}\ open(args.result\_upload\_file,\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{convert__vizwiz__for__submission_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ json.dump(all\_answers,\ f)}
+
+\end{DoxyCode}

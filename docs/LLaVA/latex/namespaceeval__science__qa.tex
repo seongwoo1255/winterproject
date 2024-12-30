@@ -1,0 +1,375 @@
+\doxysection{eval\+\_\+science\+\_\+qa Namespace Reference}
+\hypertarget{namespaceeval__science__qa}{}\label{namespaceeval__science__qa}\index{eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a338f040d97805ab7d17760cbed0c877c}{get\+\_\+args}} ()
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a18f9d9e163ec1f01332ed0481b634883}{convert\+\_\+caps}} (\mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_ad595084a870f1872e06b1b81e553d56e}{get\+\_\+pred\+\_\+idx}} (prediction, choices, options)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a98606b88fa74df5cc8cbdf148532eed1}{args}} = \mbox{\hyperlink{namespaceeval__science__qa_a338f040d97805ab7d17760cbed0c877c}{get\+\_\+args}}()
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_aa6d19df3b263d5d12c6dd5076f382dc9}{base\+\_\+dir}} = args.\+base\+\_\+dir
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_af6b62d0625f35421a91c5008ee7c258e}{split\+\_\+indices}} = json.\+load(open(os.\+path.\+join(\mbox{\hyperlink{namespaceeval__science__qa_aa6d19df3b263d5d12c6dd5076f382dc9}{base\+\_\+dir}}, "{}pid\+\_\+splits.\+json"{})))\mbox{[}args.\+split\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_aed3634b320b248a2040aeb7536f40174}{problems}} = json.\+load(open(os.\+path.\+join(\mbox{\hyperlink{namespaceeval__science__qa_aa6d19df3b263d5d12c6dd5076f382dc9}{base\+\_\+dir}}, "{}problems.\+json"{})))
+\item 
+list \mbox{\hyperlink{namespaceeval__science__qa_ab686ebb9cb66d916a6bba8e180e18248}{predictions}} = \mbox{[}json.\+loads(line) for line in open(args.\+result\+\_\+file)\mbox{]}
+\item 
+dict \mbox{\hyperlink{namespaceeval__science__qa_aa0328d2fe84c654dba7c9e50109295e9}{split\+\_\+problems}} = \{idx\+: \mbox{\hyperlink{namespaceeval__science__qa_aed3634b320b248a2040aeb7536f40174}{problems}}\mbox{[}idx\mbox{]} for idx in \mbox{\hyperlink{namespaceeval__science__qa_af6b62d0625f35421a91c5008ee7c258e}{split\+\_\+indices}}\}
+\item 
+dict \mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}} = \{\textquotesingle{}\mbox{\hyperlink{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811}{correct}}\textquotesingle{}\+: \mbox{[}$\,$\mbox{]}, \textquotesingle{}incorrect\textquotesingle{}\+: \mbox{[}$\,$\mbox{]}\}
+\item 
+dict \mbox{\hyperlink{namespaceeval__science__qa_affa5cc0c383b188cb083990cbb2172f8}{sqa\+\_\+results}} = \{\}
+\item 
+dict \mbox{\hyperlink{namespaceeval__science__qa_a1281b2085d0d414c918126dfe4806466}{pred}} = \{\textquotesingle{}text\textquotesingle{}\+: \textquotesingle{}FAILED\textquotesingle{}, \textquotesingle{}prompt\textquotesingle{}\+: \textquotesingle{}Unknown\textquotesingle{}\}
+\item 
+str \mbox{\hyperlink{namespaceeval__science__qa_a9c8c299e5e79d3d82809778750123b9e}{pred\+\_\+text}} = \textquotesingle{}FAILED\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespaceeval__science__qa_a8cc4b4c3dd1e8eb61f098ae68bea954e}{answer}} = \mbox{\hyperlink{namespaceeval__science__qa_a9c8c299e5e79d3d82809778750123b9e}{pred\+\_\+text}}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a2ed4f6e7aa7f866672cab13bfa148366}{pattern}} = re.\+compile(r\textquotesingle{}The \mbox{\hyperlink{namespaceeval__science__qa_a8cc4b4c3dd1e8eb61f098ae68bea954e}{answer}} is (\mbox{[}A-\/Z\mbox{]}).\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a668b66a8f11caf3a8d69c6a201b739cf}{res}} = pattern.\+findall(\mbox{\hyperlink{namespaceeval__science__qa_a9c8c299e5e79d3d82809778750123b9e}{pred\+\_\+text}})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_adf9c1ad133dd1c7206b29dc4fbeb988d}{pred\+\_\+idx}} = \mbox{\hyperlink{namespaceeval__science__qa_ad595084a870f1872e06b1b81e553d56e}{get\+\_\+pred\+\_\+idx}}(\mbox{\hyperlink{namespaceeval__science__qa_a8cc4b4c3dd1e8eb61f098ae68bea954e}{answer}}, prob\mbox{[}\textquotesingle{}choices\textquotesingle{}\mbox{]}, args.\+options)
+\item 
+dict \mbox{\hyperlink{namespaceeval__science__qa_a3e1663e78375d7b17c8ae47598334470}{analysis}}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811}{correct}} = len(\mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}correct\textquotesingle{}\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a5b5ba9b229edcfaa4b33f77b64950e90}{total}} = len(\mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}\mbox{\hyperlink{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811}{correct}}\textquotesingle{}\mbox{]}) + len(\mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}incorrect\textquotesingle{}\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a85a84518d967b565d957717855aff3ad}{multimodal\+\_\+correct}} = len(\mbox{[}x for x in \mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}\mbox{\hyperlink{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811}{correct}}\textquotesingle{}\mbox{]} if x\mbox{[}\textquotesingle{}is\+\_\+multimodal\textquotesingle{}\mbox{]}\mbox{]})
+\begin{DoxyCompactList}\small\item\em IMG \#\#\#\#\#\#. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a7bb59d4da31b98c0c6c67365221b58d6}{multimodal\+\_\+incorrect}} = len(\mbox{[}x for x in \mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}incorrect\textquotesingle{}\mbox{]} if x\mbox{[}\textquotesingle{}is\+\_\+multimodal\textquotesingle{}\mbox{]}\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_a8e2e10abbc802e76b3b49430ec73aeca}{multimodal\+\_\+total}} = \mbox{\hyperlink{namespaceeval__science__qa_a85a84518d967b565d957717855aff3ad}{multimodal\+\_\+correct}} + \mbox{\hyperlink{namespaceeval__science__qa_a7bb59d4da31b98c0c6c67365221b58d6}{multimodal\+\_\+incorrect}}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_af735416e59b405b1155de5e40e093efb}{f}}
+\item 
+\mbox{\hyperlink{namespaceeval__science__qa_aa4dd2f3e737d9c05fadc05e15069a753}{indent}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceeval__science__qa_a18f9d9e163ec1f01332ed0481b634883}\index{eval\_science\_qa@{eval\_science\_qa}!convert\_caps@{convert\_caps}}
+\index{convert\_caps@{convert\_caps}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{convert\_caps()}{convert\_caps()}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a18f9d9e163ec1f01332ed0481b634883} 
+eval\+\_\+science\+\_\+qa.\+convert\+\_\+caps (\begin{DoxyParamCaption}\item[{}]{results}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00019}{19}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00019\ \textcolor{keyword}{def\ }convert\_caps(results):}
+\DoxyCodeLine{00020\ \ \ \ \ fakecaps\ =\ []}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{for}\ result\ \textcolor{keywordflow}{in}\ results:}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ image\_id\ =\ result[\textcolor{stringliteral}{'question\_id'}]}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ caption\ =\ result[\textcolor{stringliteral}{'text'}]}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ fakecaps.append(\{\textcolor{stringliteral}{"{}image\_id"{}}:\ int(image\_id),\ \textcolor{stringliteral}{"{}caption"{}}:\ caption\})}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{return}\ fakecaps}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+
+\end{DoxyCode}
+\Hypertarget{namespaceeval__science__qa_a338f040d97805ab7d17760cbed0c877c}\index{eval\_science\_qa@{eval\_science\_qa}!get\_args@{get\_args}}
+\index{get\_args@{get\_args}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{get\_args()}{get\_args()}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a338f040d97805ab7d17760cbed0c877c} 
+eval\+\_\+science\+\_\+qa.\+get\+\_\+args (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00008}{8}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00008\ \textcolor{keyword}{def\ }get\_args():}
+\DoxyCodeLine{00009\ \ \ \ \ parser\ =\ argparse.ArgumentParser()}
+\DoxyCodeLine{00010\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/-\/base-\/dir'},\ type=str)}
+\DoxyCodeLine{00011\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/-\/result-\/file'},\ type=str)}
+\DoxyCodeLine{00012\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/-\/output-\/file'},\ type=str)}
+\DoxyCodeLine{00013\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/-\/output-\/result'},\ type=str)}
+\DoxyCodeLine{00014\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/-\/split'},\ type=str,\ default=\textcolor{stringliteral}{'test'})}
+\DoxyCodeLine{00015\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/-\/options'},\ type=list,\ default=[\textcolor{stringliteral}{"{}A"{}},\ \textcolor{stringliteral}{"{}B"{}},\ \textcolor{stringliteral}{"{}C"{}},\ \textcolor{stringliteral}{"{}D"{}},\ \textcolor{stringliteral}{"{}E"{}}])}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordflow}{return}\ parser.parse\_args()}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+
+\end{DoxyCode}
+\Hypertarget{namespaceeval__science__qa_ad595084a870f1872e06b1b81e553d56e}\index{eval\_science\_qa@{eval\_science\_qa}!get\_pred\_idx@{get\_pred\_idx}}
+\index{get\_pred\_idx@{get\_pred\_idx}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{get\_pred\_idx()}{get\_pred\_idx()}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_ad595084a870f1872e06b1b81e553d56e} 
+eval\+\_\+science\+\_\+qa.\+get\+\_\+pred\+\_\+idx (\begin{DoxyParamCaption}\item[{}]{prediction}{, }\item[{}]{choices}{, }\item[{}]{options}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get the index (e.g. 2) from the prediction (e.g. 'C')
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00028}{28}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00028\ \textcolor{keyword}{def\ }get\_pred\_idx(prediction,\ choices,\ options):}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00030\ \textcolor{stringliteral}{\ \ \ \ Get\ the\ index\ (e.g.\ 2)\ from\ the\ prediction\ (e.g.\ 'C')}}
+\DoxyCodeLine{00031\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{if}\ prediction\ \textcolor{keywordflow}{in}\ options[:len(choices)]:}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ options.index(prediction)}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ random.choice(range(len(choices)))}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceeval__science__qa_a3e1663e78375d7b17c8ae47598334470}\index{eval\_science\_qa@{eval\_science\_qa}!analysis@{analysis}}
+\index{analysis@{analysis}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{analysis}{analysis}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a3e1663e78375d7b17c8ae47598334470} 
+dict eval\+\_\+science\+\_\+qa.\+analysis}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'question\_id'}:\ prob\_id,}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'parsed\_ans'}:\ answer,}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'ground\_truth'}:\ args.options[prob[\textcolor{stringliteral}{'answer'}]],}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'question'}:\ pred[\textcolor{stringliteral}{'prompt'}],}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'pred'}:\ pred\_text,}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'is\_multimodal'}:\ \textcolor{stringliteral}{'<image>'}\ \textcolor{keywordflow}{in}\ pred[\textcolor{stringliteral}{'prompt'}],}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00079}{79}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_a8cc4b4c3dd1e8eb61f098ae68bea954e}\index{eval\_science\_qa@{eval\_science\_qa}!answer@{answer}}
+\index{answer@{answer}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{answer}{answer}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a8cc4b4c3dd1e8eb61f098ae68bea954e} 
+str eval\+\_\+science\+\_\+qa.\+answer = \mbox{\hyperlink{namespaceeval__science__qa_a9c8c299e5e79d3d82809778750123b9e}{pred\+\_\+text}}}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00066}{66}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_a98606b88fa74df5cc8cbdf148532eed1}\index{eval\_science\_qa@{eval\_science\_qa}!args@{args}}
+\index{args@{args}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a98606b88fa74df5cc8cbdf148532eed1} 
+eval\+\_\+science\+\_\+qa.\+args = \mbox{\hyperlink{namespaceeval__science__qa_a338f040d97805ab7d17760cbed0c877c}{get\+\_\+args}}()}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00040}{40}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_aa6d19df3b263d5d12c6dd5076f382dc9}\index{eval\_science\_qa@{eval\_science\_qa}!base\_dir@{base\_dir}}
+\index{base\_dir@{base\_dir}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{base\_dir}{base\_dir}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_aa6d19df3b263d5d12c6dd5076f382dc9} 
+eval\+\_\+science\+\_\+qa.\+base\+\_\+dir = args.\+base\+\_\+dir}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00042}{42}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811}\index{eval\_science\_qa@{eval\_science\_qa}!correct@{correct}}
+\index{correct@{correct}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{correct}{correct}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811} 
+eval\+\_\+science\+\_\+qa.\+correct = len(\mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}correct\textquotesingle{}\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00096}{96}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_af735416e59b405b1155de5e40e093efb}\index{eval\_science\_qa@{eval\_science\_qa}!f@{f}}
+\index{f@{f}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{f}{f}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_af735416e59b405b1155de5e40e093efb} 
+eval\+\_\+science\+\_\+qa.\+f}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00112}{112}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_aa4dd2f3e737d9c05fadc05e15069a753}\index{eval\_science\_qa@{eval\_science\_qa}!indent@{indent}}
+\index{indent@{indent}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{indent}{indent}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_aa4dd2f3e737d9c05fadc05e15069a753} 
+eval\+\_\+science\+\_\+qa.\+indent}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00112}{112}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_a85a84518d967b565d957717855aff3ad}\index{eval\_science\_qa@{eval\_science\_qa}!multimodal\_correct@{multimodal\_correct}}
+\index{multimodal\_correct@{multimodal\_correct}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{multimodal\_correct}{multimodal\_correct}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a85a84518d967b565d957717855aff3ad} 
+eval\+\_\+science\+\_\+qa.\+multimodal\+\_\+correct = len(\mbox{[}x for x in \mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}\mbox{\hyperlink{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811}{correct}}\textquotesingle{}\mbox{]} if x\mbox{[}\textquotesingle{}is\+\_\+multimodal\textquotesingle{}\mbox{]}\mbox{]})}
+
+
+
+IMG \#\#\#\#\#\#. 
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00100}{100}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_a7bb59d4da31b98c0c6c67365221b58d6}\index{eval\_science\_qa@{eval\_science\_qa}!multimodal\_incorrect@{multimodal\_incorrect}}
+\index{multimodal\_incorrect@{multimodal\_incorrect}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{multimodal\_incorrect}{multimodal\_incorrect}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a7bb59d4da31b98c0c6c67365221b58d6} 
+eval\+\_\+science\+\_\+qa.\+multimodal\+\_\+incorrect = len(\mbox{[}x for x in \mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}incorrect\textquotesingle{}\mbox{]} if x\mbox{[}\textquotesingle{}is\+\_\+multimodal\textquotesingle{}\mbox{]}\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00101}{101}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_a8e2e10abbc802e76b3b49430ec73aeca}\index{eval\_science\_qa@{eval\_science\_qa}!multimodal\_total@{multimodal\_total}}
+\index{multimodal\_total@{multimodal\_total}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{multimodal\_total}{multimodal\_total}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a8e2e10abbc802e76b3b49430ec73aeca} 
+eval\+\_\+science\+\_\+qa.\+multimodal\+\_\+total = \mbox{\hyperlink{namespaceeval__science__qa_a85a84518d967b565d957717855aff3ad}{multimodal\+\_\+correct}} + \mbox{\hyperlink{namespaceeval__science__qa_a7bb59d4da31b98c0c6c67365221b58d6}{multimodal\+\_\+incorrect}}}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00102}{102}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_a2ed4f6e7aa7f866672cab13bfa148366}\index{eval\_science\_qa@{eval\_science\_qa}!pattern@{pattern}}
+\index{pattern@{pattern}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{pattern}{pattern}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a2ed4f6e7aa7f866672cab13bfa148366} 
+eval\+\_\+science\+\_\+qa.\+pattern = re.\+compile(r\textquotesingle{}The \mbox{\hyperlink{namespaceeval__science__qa_a8cc4b4c3dd1e8eb61f098ae68bea954e}{answer}} is (\mbox{[}A-\/Z\mbox{]}).\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00070}{70}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_a1281b2085d0d414c918126dfe4806466}\index{eval\_science\_qa@{eval\_science\_qa}!pred@{pred}}
+\index{pred@{pred}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{pred}{pred}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a1281b2085d0d414c918126dfe4806466} 
+list eval\+\_\+science\+\_\+qa.\+pred = \{\textquotesingle{}text\textquotesingle{}\+: \textquotesingle{}FAILED\textquotesingle{}, \textquotesingle{}prompt\textquotesingle{}\+: \textquotesingle{}Unknown\textquotesingle{}\}}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00059}{59}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_adf9c1ad133dd1c7206b29dc4fbeb988d}\index{eval\_science\_qa@{eval\_science\_qa}!pred\_idx@{pred\_idx}}
+\index{pred\_idx@{pred\_idx}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{pred\_idx}{pred\_idx}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_adf9c1ad133dd1c7206b29dc4fbeb988d} 
+eval\+\_\+science\+\_\+qa.\+pred\+\_\+idx = \mbox{\hyperlink{namespaceeval__science__qa_ad595084a870f1872e06b1b81e553d56e}{get\+\_\+pred\+\_\+idx}}(\mbox{\hyperlink{namespaceeval__science__qa_a8cc4b4c3dd1e8eb61f098ae68bea954e}{answer}}, prob\mbox{[}\textquotesingle{}choices\textquotesingle{}\mbox{]}, args.\+options)}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00077}{77}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_a9c8c299e5e79d3d82809778750123b9e}\index{eval\_science\_qa@{eval\_science\_qa}!pred\_text@{pred\_text}}
+\index{pred\_text@{pred\_text}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{pred\_text}{pred\_text}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a9c8c299e5e79d3d82809778750123b9e} 
+dict eval\+\_\+science\+\_\+qa.\+pred\+\_\+text = \textquotesingle{}FAILED\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00060}{60}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_ab686ebb9cb66d916a6bba8e180e18248}\index{eval\_science\_qa@{eval\_science\_qa}!predictions@{predictions}}
+\index{predictions@{predictions}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{predictions}{predictions}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_ab686ebb9cb66d916a6bba8e180e18248} 
+dict eval\+\_\+science\+\_\+qa.\+predictions = \mbox{[}json.\+loads(line) for line in open(args.\+result\+\_\+file)\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00045}{45}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_aed3634b320b248a2040aeb7536f40174}\index{eval\_science\_qa@{eval\_science\_qa}!problems@{problems}}
+\index{problems@{problems}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{problems}{problems}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_aed3634b320b248a2040aeb7536f40174} 
+eval\+\_\+science\+\_\+qa.\+problems = json.\+load(open(os.\+path.\+join(\mbox{\hyperlink{namespaceeval__science__qa_aa6d19df3b263d5d12c6dd5076f382dc9}{base\+\_\+dir}}, "{}problems.\+json"{})))}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00044}{44}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_a668b66a8f11caf3a8d69c6a201b739cf}\index{eval\_science\_qa@{eval\_science\_qa}!res@{res}}
+\index{res@{res}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{res}{res}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a668b66a8f11caf3a8d69c6a201b739cf} 
+eval\+\_\+science\+\_\+qa.\+res = pattern.\+findall(\mbox{\hyperlink{namespaceeval__science__qa_a9c8c299e5e79d3d82809778750123b9e}{pred\+\_\+text}})}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00071}{71}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}\index{eval\_science\_qa@{eval\_science\_qa}!results@{results}}
+\index{results@{results}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{results}{results}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1} 
+eval\+\_\+science\+\_\+qa.\+results = \{\textquotesingle{}\mbox{\hyperlink{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811}{correct}}\textquotesingle{}\+: \mbox{[}$\,$\mbox{]}, \textquotesingle{}incorrect\textquotesingle{}\+: \mbox{[}$\,$\mbox{]}\}}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00049}{49}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_af6b62d0625f35421a91c5008ee7c258e}\index{eval\_science\_qa@{eval\_science\_qa}!split\_indices@{split\_indices}}
+\index{split\_indices@{split\_indices}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{split\_indices}{split\_indices}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_af6b62d0625f35421a91c5008ee7c258e} 
+eval\+\_\+science\+\_\+qa.\+split\+\_\+indices = json.\+load(open(os.\+path.\+join(\mbox{\hyperlink{namespaceeval__science__qa_aa6d19df3b263d5d12c6dd5076f382dc9}{base\+\_\+dir}}, "{}pid\+\_\+splits.\+json"{})))\mbox{[}args.\+split\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00043}{43}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_aa0328d2fe84c654dba7c9e50109295e9}\index{eval\_science\_qa@{eval\_science\_qa}!split\_problems@{split\_problems}}
+\index{split\_problems@{split\_problems}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{split\_problems}{split\_problems}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_aa0328d2fe84c654dba7c9e50109295e9} 
+dict eval\+\_\+science\+\_\+qa.\+split\+\_\+problems = \{idx\+: \mbox{\hyperlink{namespaceeval__science__qa_aed3634b320b248a2040aeb7536f40174}{problems}}\mbox{[}idx\mbox{]} for idx in \mbox{\hyperlink{namespaceeval__science__qa_af6b62d0625f35421a91c5008ee7c258e}{split\+\_\+indices}}\}}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00047}{47}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_affa5cc0c383b188cb083990cbb2172f8}\index{eval\_science\_qa@{eval\_science\_qa}!sqa\_results@{sqa\_results}}
+\index{sqa\_results@{sqa\_results}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{sqa\_results}{sqa\_results}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_affa5cc0c383b188cb083990cbb2172f8} 
+eval\+\_\+science\+\_\+qa.\+sqa\+\_\+results = \{\}}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00050}{50}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+
+\Hypertarget{namespaceeval__science__qa_a5b5ba9b229edcfaa4b33f77b64950e90}\index{eval\_science\_qa@{eval\_science\_qa}!total@{total}}
+\index{total@{total}!eval\_science\_qa@{eval\_science\_qa}}
+\doxysubsubsection{\texorpdfstring{total}{total}}
+{\footnotesize\ttfamily \label{namespaceeval__science__qa_a5b5ba9b229edcfaa4b33f77b64950e90} 
+eval\+\_\+science\+\_\+qa.\+total = len(\mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}\mbox{\hyperlink{namespaceeval__science__qa_af983ad080b7c972d6bd0d619c38a1811}{correct}}\textquotesingle{}\mbox{]}) + len(\mbox{\hyperlink{namespaceeval__science__qa_af6912d3bb0b74f630b39d587f02348a1}{results}}\mbox{[}\textquotesingle{}incorrect\textquotesingle{}\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{eval__science__qa_8py_source_l00097}{97}} of file \mbox{\hyperlink{eval__science__qa_8py_source}{eval\+\_\+science\+\_\+qa.\+py}}.
+

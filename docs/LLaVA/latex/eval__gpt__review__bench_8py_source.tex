@@ -1,0 +1,127 @@
+\doxysection{eval\+\_\+gpt\+\_\+review\+\_\+bench.\+py}
+\hypertarget{eval__gpt__review__bench_8py_source}{}\label{eval__gpt__review__bench_8py_source}\index{llava/eval/eval\_gpt\_review\_bench.py@{llava/eval/eval\_gpt\_review\_bench.py}}
+\mbox{\hyperlink{eval__gpt__review__bench_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00001}\mbox{\hyperlink{namespaceeval__gpt__review__bench}{00001}}\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00002}00002\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00003}00003\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00005}00005\ \textcolor{keyword}{import}\ openai}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00006}00006\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00008}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a84e73f80487d91a9a2e76aaa8e3f803f}{00008}}\ NUM\_SECONDS\_TO\_SLEEP\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00011}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a087a2008308d6470a79415e29c4b6a91}{00011}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceeval__gpt__review__bench_a087a2008308d6470a79415e29c4b6a91}{get\_eval}}(content:\ str,\ max\_tokens:\ int):}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00012}00012\ \ \ \ \ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ response\ =\ openai.ChatCompletion.create(}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model=\textcolor{stringliteral}{'gpt-\/4-\/0314'},}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ messages=[\{}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}:\ \textcolor{stringliteral}{'system'},}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'content'}:\ \textcolor{stringliteral}{'You\ are\ a\ helpful\ and\ precise\ assistant\ for\ checking\ the\ quality\ of\ the\ answer.'}}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}:\ \textcolor{stringliteral}{'user'},}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'content'}:\ content,}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}],}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temperature=0.2,\ \ \textcolor{comment}{\#\ TODO:\ figure\ out\ which\ temperature\ is\ best\ for\ evaluation}}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_tokens=max\_tokens,}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ openai.error.RateLimitError:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ print(e)}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00031}00031\ \ \ \ \ \ \ \ \ time.sleep(NUM\_SECONDS\_TO\_SLEEP)}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{return}\ response[\textcolor{stringliteral}{'choices'}][0][\textcolor{stringliteral}{'message'}][\textcolor{stringliteral}{'content'}]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00036}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a78430c68f31f811ee785cd1d9e445a1a}{00036}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceeval__gpt__review__bench_a78430c68f31f811ee785cd1d9e445a1a}{parse\_score}}(review):}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ score\_pair\ =\ review.split(\textcolor{stringliteral}{'\(\backslash\)n'})[0]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ score\_pair\ =\ score\_pair.replace(\textcolor{stringliteral}{','},\ \textcolor{stringliteral}{'\ '})}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ sp\ =\ score\_pair.split(\textcolor{stringliteral}{'\ '})}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(sp)\ ==\ 2:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [float(sp[0]),\ float(sp[1])]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'error'},\ review)}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [-\/1,\ -\/1]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00046}00046\ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ print(e)}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'error'},\ review)}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [-\/1,\ -\/1]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00052}00052\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00053}\mbox{\hyperlink{namespaceeval__gpt__review__bench_aefb231a817be982abce95fb06af433e4}{00053}}\ \ \ \ \ parser\ =\ argparse.ArgumentParser(description=\textcolor{stringliteral}{'ChatGPT-\/based\ QA\ evaluation.'})}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00054}00054\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/q'},\ \textcolor{stringliteral}{'-\/-\/question'})}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00055}00055\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/c'},\ \textcolor{stringliteral}{'-\/-\/context'})}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00056}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a2bee2247e4872dfb5f8f2d501b089c59}{00056}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/a'},\ \textcolor{stringliteral}{'-\/-\/answer-\/list'},\ nargs=\textcolor{stringliteral}{'+'},\ default=[])}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00057}00057\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/r'},\ \textcolor{stringliteral}{'-\/-\/rule'})}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00058}00058\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/o'},\ \textcolor{stringliteral}{'-\/-\/output'})}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00059}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a602d8b3b2ee099170ba80dce1be15712}{00059}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/-\/max-\/tokens'},\ type=int,\ default=1024,\ help=\textcolor{stringliteral}{'maximum\ number\ of\ tokens\ produced\ in\ the\ output'})}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00060}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a490f7ae88be92f5fd242877dbb865c25}{00060}}\ \ \ \ \ args\ =\ parser.parse\_args()}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00062}\mbox{\hyperlink{namespaceeval__gpt__review__bench_af5b52a996ece495e41811beadcca5a38}{00062}}\ \ \ \ \ f\_q\ =\ open(os.path.expanduser(args.question))}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00063}\mbox{\hyperlink{namespaceeval__gpt__review__bench_add0cc8ad2260a973673497f6e3d556a9}{00063}}\ \ \ \ \ f\_ans1\ =\ open(os.path.expanduser(args.answer\_list[0]))}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00064}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a2f67589ec6f9984d8177d82906536989}{00064}}\ \ \ \ \ f\_ans2\ =\ open(os.path.expanduser(args.answer\_list[1]))}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00065}\mbox{\hyperlink{namespaceeval__gpt__review__bench_ab57f13df1359626f5990a9912f7e0776}{00065}}\ \ \ \ \ rule\_dict\ =\ json.load(open(os.path.expanduser(args.rule),\ \textcolor{stringliteral}{'r'}))}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00067}00067\ \ \ \ \ \textcolor{keywordflow}{if}\ os.path.isfile(os.path.expanduser(args.output)):}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00068}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a72b3a012f1412d0f8384fd1ad818d1ea}{00068}}\ \ \ \ \ \ \ \ \ cur\_reviews\ =\ [json.loads(line)\ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ open(os.path.expanduser(args.output))]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ cur\_reviews\ =\ []}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00072}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a092e10a13e6c24a5907eddc37c4cd356}{00072}}\ \ \ \ \ review\_file\ =\ open(f\textcolor{stringliteral}{'\{args.output\}'},\ \textcolor{stringliteral}{'a'})}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00074}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a31dbe04bf6f84333e14231c8a6073e4a}{00074}}\ \ \ \ \ context\_list\ =\ [json.loads(line)\ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ open(os.path.expanduser(args.context))]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00075}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a3cffbcc9206b392f0fd2e2b6b75af050}{00075}}\ \ \ \ \ image\_to\_context\ =\ \{context[\textcolor{stringliteral}{'image'}]:\ context\ \textcolor{keywordflow}{for}\ context\ \textcolor{keywordflow}{in}\ context\_list\}}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00077}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a4f302404d2ddaa4ddcd2996619d1c809}{00077}}\ \ \ \ \ handles\ =\ []}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00078}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a80dc8936aa00a04b8922f9c912e01a18}{00078}}\ \ \ \ \ idx\ =\ 0}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00079}00079\ \ \ \ \ \textcolor{keywordflow}{for}\ ques\_js,\ ans1\_js,\ ans2\_js\ \textcolor{keywordflow}{in}\ zip(f\_q,\ f\_ans1,\ f\_ans2):}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00080}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a4fa46f3987141bac4338148147164d49}{00080}}\ \ \ \ \ \ \ \ \ ques\ =\ json.loads(ques\_js)}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00081}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a598eeced57be61e400561c889b8b2baf}{00081}}\ \ \ \ \ \ \ \ \ ans1\ =\ json.loads(ans1\_js)}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00082}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a6f8f156c7105650129a92196f04da072}{00082}}\ \ \ \ \ \ \ \ \ ans2\ =\ json.loads(ans2\_js)}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00084}\mbox{\hyperlink{namespaceeval__gpt__review__bench_af1cdcccb6ce0b5291cbb9a7019afc409}{00084}}\ \ \ \ \ \ \ \ \ inst\ =\ image\_to\_context[ques[\textcolor{stringliteral}{'image'}]]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(inst[\textcolor{stringliteral}{'caption'}],\ list):}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00087}\mbox{\hyperlink{namespaceeval__gpt__review__bench_aae5907a476a0fa82dc9e75bff4202c09}{00087}}\ \ \ \ \ \ \ \ \ \ \ \ \ cap\_str\ =\ \textcolor{stringliteral}{'\(\backslash\)n'}.join(inst[\textcolor{stringliteral}{'caption'}])}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ cap\_str\ =\ inst[\textcolor{stringliteral}{'caption'}]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00091}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a139fb4708e447d57adce9b49f91b2f9b}{00091}}\ \ \ \ \ \ \ \ \ category\ =\ \textcolor{stringliteral}{'llava\_bench\_'}\ +\ json.loads(ques\_js)[\textcolor{stringliteral}{'category'}]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ category\ \textcolor{keywordflow}{in}\ rule\_dict:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00093}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a05d5e71b037d1ce6fc2dbf3654409121}{00093}}\ \ \ \ \ \ \ \ \ \ \ \ \ rule\ =\ rule\_dict[category]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ \textcolor{keyword}{False},\ f\textcolor{stringliteral}{"{}Visual\ QA\ category\ not\ found\ in\ rule\ file:\ \{category\}."{}}}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00096}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a79b75947f590ab1b19a8cf01a20340b3}{00096}}\ \ \ \ \ \ \ \ \ prompt\ =\ rule[\textcolor{stringliteral}{'prompt'}]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00097}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a82841e18a9bfe0b459155f402d021cc7}{00097}}\ \ \ \ \ \ \ \ \ role\ =\ rule[\textcolor{stringliteral}{'role'}]}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00098}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a5d45767da22a865725233874ff946e4f}{00098}}\ \ \ \ \ \ \ \ \ content\ =\ (f\textcolor{stringliteral}{'[Context]\(\backslash\)n\{cap\_str\}\(\backslash\)n\(\backslash\)n'}}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{'[Question]\(\backslash\)n\{ques["{}text"{}]\}\(\backslash\)n\(\backslash\)n'}}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{'[\{role\}\ 1]\(\backslash\)n\{ans1["{}text"{}]\}\(\backslash\)n\(\backslash\)n[End\ of\ \{role\}\ 1]\(\backslash\)n\(\backslash\)n'}}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{'[\{role\}\ 2]\(\backslash\)n\{ans2["{}text"{}]\}\(\backslash\)n\(\backslash\)n[End\ of\ \{role\}\ 2]\(\backslash\)n\(\backslash\)n'}}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{'[System]\(\backslash\)n\{prompt\}\(\backslash\)n\(\backslash\)n'})}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00103}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a3e1796e589c6b60844c6c23e34aa76ca}{00103}}\ \ \ \ \ \ \ \ \ cur\_js\ =\ \{}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ idx+1,}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'question\_id'}:\ ques[\textcolor{stringliteral}{'question\_id'}],}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'answer1\_id'}:\ ans1.get(\textcolor{stringliteral}{'answer\_id'},\ ans1[\textcolor{stringliteral}{'question\_id'}]),}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'answer2\_id'}:\ ans2.get(\textcolor{stringliteral}{'answer\_id'},\ ans2[\textcolor{stringliteral}{'answer\_id'}]),}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'category'}:\ category}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ idx\ >=\ len(cur\_reviews):}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00111}\mbox{\hyperlink{namespaceeval__gpt__review__bench_adec863a0315aac4ca5b4081146b297cc}{00111}}\ \ \ \ \ \ \ \ \ \ \ \ \ review\ =\ \mbox{\hyperlink{namespaceeval__gpt__review__bench_a087a2008308d6470a79415e29c4b6a91}{get\_eval}}(content,\ args.max\_tokens)}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00112}\mbox{\hyperlink{namespaceeval__gpt__review__bench_a726c9acec76704cca0125be0784badf7}{00112}}\ \ \ \ \ \ \ \ \ \ \ \ \ scores\ =\ \mbox{\hyperlink{namespaceeval__gpt__review__bench_a78430c68f31f811ee785cd1d9e445a1a}{parse\_score}}(review)}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_js[\textcolor{stringliteral}{'content'}]\ =\ review}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_js[\textcolor{stringliteral}{'tuple'}]\ =\ scores}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ review\_file.write(json.dumps(cur\_js)\ +\ \textcolor{stringliteral}{'\(\backslash\)n'})}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ review\_file.flush()}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{'Skipping\ \{idx\}\ as\ we\ already\ have\ it.'})}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ idx\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ print(idx)}
+\DoxyCodeLine{\Hypertarget{eval__gpt__review__bench_8py_source_l00121}00121\ \ \ \ \ review\_file.close()}
+
+\end{DoxyCode}

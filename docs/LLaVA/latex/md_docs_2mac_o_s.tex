@@ -1,0 +1,33 @@
+\chapter{Run LLa\+VA on mac\+OS}
+\hypertarget{md_docs_2mac_o_s}{}\label{md_docs_2mac_o_s}\index{Run LLaVA on macOS@{Run LLaVA on macOS}}
+\label{md_docs_2mac_o_s_autotoc_md42}%
+\Hypertarget{md_docs_2mac_o_s_autotoc_md42}%
+
+
+{\itshape NOTE\+: LLa\+VA on mac\+OS is not fully supported. Currently we only support 16-\/bit inference. More functionalities on mac\+OS is to be added soon, stay tuned.}\hypertarget{md_docs_2mac_o_s_autotoc_md43}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md_docs_2mac_o_s_autotoc_md43}
+
+\begin{DoxyEnumerate}
+\item Clone this repository and navigate to LLa\+VA folder 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ clone\ https://github.com/haotian-\/liu/LLaVA.git}
+\DoxyCodeLine{cd\ LLaVA}
+
+\end{DoxyCode}
+
+\item Install Package 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{conda\ create\ -\/n\ llava\ python=3.10\ -\/y}
+\DoxyCodeLine{conda\ activate\ llava}
+\DoxyCodeLine{python\ -\/mpip\ install\ -\/-\/upgrade\ pip\ \ \#\ enable\ PEP\ 660\ support}
+\DoxyCodeLine{pip\ install\ -\/e\ .}
+\DoxyCodeLine{pip\ install\ torch==2.1.0\ torchvision==0.16.0}
+\DoxyCodeLine{pip\ uninstall\ bitsandbytes}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}\hypertarget{md_docs_2mac_o_s_autotoc_md44}{}\doxysection{\texorpdfstring{Run demo}{Run demo}}\label{md_docs_2mac_o_s_autotoc_md44}
+Specify {\ttfamily -\/-\/device mps} when launching model worker or CLI.
+
+See instructions \href{https://github.com/haotian-liu/LLaVA\#demo}{\texttt{ here}}.
+
+Note that quantization (4-\/bit, 8-\/bit) is {\itshape NOT} supported on mac\+OS. Stay tuned for the 4-\/bit support on mac\+OS! 

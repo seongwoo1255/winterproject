@@ -1,0 +1,1150 @@
+\doxysection{train Namespace Reference}
+\hypertarget{namespacetrain}{}\label{namespacetrain}\index{train@{train}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtrain_1_1_data_arguments}{Data\+Arguments}}
+\item 
+class \mbox{\hyperlink{classtrain_1_1_data_collator_for_supervised_dataset}{Data\+Collator\+For\+Supervised\+Dataset}}
+\item 
+class \mbox{\hyperlink{classtrain_1_1_lazy_supervised_dataset}{Lazy\+Supervised\+Dataset}}
+\item 
+class \mbox{\hyperlink{classtrain_1_1_model_arguments}{Model\+Arguments}}
+\item 
+class \mbox{\hyperlink{classtrain_1_1_training_arguments}{Training\+Arguments}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetrain_ab4ca52f537ae7bdf5e313b89259ad3e0}{rank0\+\_\+print}} (\texorpdfstring{$\ast$}{*}args)
+\item 
+\mbox{\hyperlink{namespacetrain_aaa44f55be5d3e3460280ecd73df4435d}{maybe\+\_\+zero\+\_\+3}} (param, ignore\+\_\+status=False, name=None)
+\item 
+\mbox{\hyperlink{namespacetrain_a3f805a74c3a81eacf149cfd8fb130999}{get\+\_\+peft\+\_\+state\+\_\+maybe\+\_\+zero\+\_\+3}} (named\+\_\+params, bias)
+\item 
+\mbox{\hyperlink{namespacetrain_aea177d675c91da1b000f7fccd876b10d}{get\+\_\+peft\+\_\+state\+\_\+non\+\_\+lora\+\_\+maybe\+\_\+zero\+\_\+3}} (named\+\_\+params, require\+\_\+grad\+\_\+only=True)
+\item 
+\mbox{\hyperlink{namespacetrain_a2ee3e9377a5d21ccd34097c7c2b2778e}{get\+\_\+mm\+\_\+adapter\+\_\+state\+\_\+maybe\+\_\+zero\+\_\+3}} (named\+\_\+params, keys\+\_\+to\+\_\+match)
+\item 
+\mbox{\hyperlink{namespacetrain_acd490f7fb2f0b7e8e4574c71cd06d3b0}{find\+\_\+all\+\_\+linear\+\_\+names}} (model)
+\item 
+\mbox{\hyperlink{namespacetrain_a8c2eb90decf9507949b166558bce8a4c}{safe\+\_\+save\+\_\+model\+\_\+for\+\_\+hf\+\_\+trainer}} (transformers.\+Trainer trainer, str output\+\_\+dir)
+\item 
+\mbox{\hyperlink{namespacetrain_aaf881ec3138e9966fa8a0a3ce4b4d84f}{smart\+\_\+tokenizer\+\_\+and\+\_\+embedding\+\_\+resize}} (Dict special\+\_\+tokens\+\_\+dict, transformers.\+Pre\+Trained\+Tokenizer tokenizer, transformers.\+Pre\+Trained\+Model model)
+\item 
+Dict \mbox{\hyperlink{namespacetrain_a76b757a33bb0c20560ad29dc7b26de72}{\+\_\+tokenize\+\_\+fn}} (Sequence\mbox{[}str\mbox{]} strings, transformers.\+Pre\+Trained\+Tokenizer tokenizer)
+\item 
+\mbox{\hyperlink{namespacetrain_aa32d44763b937f67e25676c5a1400583}{\+\_\+mask\+\_\+targets}} (target, tokenized\+\_\+lens, speakers)
+\item 
+\mbox{\hyperlink{namespacetrain_aa937d3eb47cd0946b112638f96a06753}{\+\_\+add\+\_\+speaker\+\_\+and\+\_\+signal}} (header, source, get\+\_\+conversation=True)
+\item 
+Dict \mbox{\hyperlink{namespacetrain_aec672610ab14ba6f4de0517f687ca476}{preprocess\+\_\+multimodal}} (Sequence\mbox{[}str\mbox{]} sources, \mbox{\hyperlink{classtrain_1_1_data_arguments}{Data\+Arguments}} data\+\_\+args)
+\item 
+Dict \mbox{\hyperlink{namespacetrain_a9204678b2509ba26d97bc024c214e70a}{preprocess\+\_\+llama\+\_\+2}} (sources, transformers.\+Pre\+Trained\+Tokenizer tokenizer, bool has\+\_\+image=False)
+\item 
+Dict \mbox{\hyperlink{namespacetrain_a76c54dcd10f64c547b1d462b17d5ad3b}{preprocess\+\_\+v1}} (sources, transformers.\+Pre\+Trained\+Tokenizer tokenizer, bool has\+\_\+image=False)
+\item 
+Dict \mbox{\hyperlink{namespacetrain_ac65d1ce0aaedab85871d5d954ef8f9ea}{preprocess\+\_\+mpt}} (sources, transformers.\+Pre\+Trained\+Tokenizer tokenizer, bool has\+\_\+image=False)
+\item 
+Dict \mbox{\hyperlink{namespacetrain_a36cb09fa513042f9258bed6ef2fc4ee5}{preprocess\+\_\+plain}} (Sequence\mbox{[}str\mbox{]} sources, transformers.\+Pre\+Trained\+Tokenizer tokenizer)
+\item 
+Dict \mbox{\hyperlink{namespacetrain_a6e906e31ad5c33c28b1e6303d645dba8}{preprocess}} (Sequence\mbox{[}str\mbox{]} sources, transformers.\+Pre\+Trained\+Tokenizer tokenizer, bool has\+\_\+image=False)
+\item 
+Dict \mbox{\hyperlink{namespacetrain_a8eefda75f1b51a9007452fe854a2b53a}{make\+\_\+supervised\+\_\+data\+\_\+module}} (transformers.\+Pre\+Trained\+Tokenizer tokenizer, data\+\_\+args)
+\item 
+\mbox{\hyperlink{namespacetrain_a36fcc73822cb60d71319731bb4c50be7}{train}} (attn\+\_\+implementation=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetrain_a815fb585b73e1cb930a5540b39c9723f}{local\+\_\+rank}} = None
+\item 
+\mbox{\hyperlink{namespacetrain_a4a833c78c5f0d0722f6488c6a842ea1c}{IS\+\_\+\+TOKENIZER\+\_\+\+GREATER\+\_\+\+THAN\+\_\+0\+\_\+14}} = version.\+parse(\textquotesingle{}0.\+14\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacetrain_aa937d3eb47cd0946b112638f96a06753}\index{train@{train}!\_add\_speaker\_and\_signal@{\_add\_speaker\_and\_signal}}
+\index{\_add\_speaker\_and\_signal@{\_add\_speaker\_and\_signal}!train@{train}}
+\doxysubsubsection{\texorpdfstring{\_add\_speaker\_and\_signal()}{\_add\_speaker\_and\_signal()}}
+{\footnotesize\ttfamily \label{namespacetrain_aa937d3eb47cd0946b112638f96a06753} 
+train.\+\_\+add\+\_\+speaker\+\_\+and\+\_\+signal (\begin{DoxyParamCaption}\item[{}]{header}{, }\item[{}]{source}{, }\item[{}]{get\+\_\+conversation}{ = {\ttfamily True}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Add speaker and start/end signal on each round.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00287}{287}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00287\ \textcolor{keyword}{def\ }\_add\_speaker\_and\_signal(header,\ source,\ get\_conversation=True):}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Add\ speaker\ and\ start/end\ signal\ on\ each\ round."{}"{}"{}}}
+\DoxyCodeLine{00289\ \ \ \ \ BEGIN\_SIGNAL\ =\ \textcolor{stringliteral}{"{}\#\#\#\ "{}}}
+\DoxyCodeLine{00290\ \ \ \ \ END\_SIGNAL\ =\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{00291\ \ \ \ \ conversation\ =\ header}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordflow}{for}\ sentence\ \textcolor{keywordflow}{in}\ source:}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ from\_str\ =\ sentence[\textcolor{stringliteral}{"{}from"{}}]}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ from\_str.lower()\ ==\ \textcolor{stringliteral}{"{}human"{}}:}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ from\_str\ =\ conversation\_lib.default\_conversation.roles[0]}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ from\_str.lower()\ ==\ \textcolor{stringliteral}{"{}gpt"{}}:}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ from\_str\ =\ conversation\_lib.default\_conversation.roles[1]}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ from\_str\ =\ \textcolor{stringliteral}{'unknown'}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ sentence[\textcolor{stringliteral}{"{}value"{}}]\ =\ (BEGIN\_SIGNAL\ +\ from\_str\ +\ \textcolor{stringliteral}{"{}:\ "{}}\ +}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sentence[\textcolor{stringliteral}{"{}value"{}}]\ +\ END\_SIGNAL)}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ get\_conversation:}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ conversation\ +=\ sentence[\textcolor{stringliteral}{"{}value"{}}]}
+\DoxyCodeLine{00304\ \ \ \ \ conversation\ +=\ BEGIN\_SIGNAL}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keywordflow}{return}\ conversation}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 0
+\Hypertarget{namespacetrain_aa32d44763b937f67e25676c5a1400583}\index{train@{train}!\_mask\_targets@{\_mask\_targets}}
+\index{\_mask\_targets@{\_mask\_targets}!train@{train}}
+\doxysubsubsection{\texorpdfstring{\_mask\_targets()}{\_mask\_targets()}}
+{\footnotesize\ttfamily \label{namespacetrain_aa32d44763b937f67e25676c5a1400583} 
+train.\+\_\+mask\+\_\+targets (\begin{DoxyParamCaption}\item[{}]{target}{, }\item[{}]{tokenized\+\_\+lens}{, }\item[{}]{speakers}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00276}{276}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00276\ \textcolor{keyword}{def\ }\_mask\_targets(target,\ tokenized\_lens,\ speakers):}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{comment}{\#\ cur\_idx\ =\ 0}}
+\DoxyCodeLine{00278\ \ \ \ \ cur\_idx\ =\ tokenized\_lens[0]}
+\DoxyCodeLine{00279\ \ \ \ \ tokenized\_lens\ =\ tokenized\_lens[1:]}
+\DoxyCodeLine{00280\ \ \ \ \ target[:cur\_idx]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keywordflow}{for}\ tokenized\_len,\ speaker\ \textcolor{keywordflow}{in}\ zip(tokenized\_lens,\ speakers):}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ speaker\ ==\ \textcolor{stringliteral}{"{}human"{}}:}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ target[cur\_idx+2:cur\_idx\ +\ tokenized\_len]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ cur\_idx\ +=\ tokenized\_len}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 1
+\Hypertarget{namespacetrain_a76b757a33bb0c20560ad29dc7b26de72}\index{train@{train}!\_tokenize\_fn@{\_tokenize\_fn}}
+\index{\_tokenize\_fn@{\_tokenize\_fn}!train@{train}}
+\doxysubsubsection{\texorpdfstring{\_tokenize\_fn()}{\_tokenize\_fn()}}
+{\footnotesize\ttfamily \label{namespacetrain_a76b757a33bb0c20560ad29dc7b26de72} 
+ Dict train.\+\_\+tokenize\+\_\+fn (\begin{DoxyParamCaption}\item[{Sequence\mbox{[}str\mbox{]}}]{strings}{, }\item[{transformers.\+Pre\+Trained\+Tokenizer}]{tokenizer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Tokenize a list of strings.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00249}{249}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer:\ transformers.PreTrainedTokenizer)\ -\/>\ Dict:}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Tokenize\ a\ list\ of\ strings."{}"{}"{}}}
+\DoxyCodeLine{00252\ \ \ \ \ tokenized\_list\ =\ [}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ tokenizer(}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ text,}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ return\_tensors=\textcolor{stringliteral}{"{}pt"{}},}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ padding=\textcolor{stringliteral}{"{}longest"{}},}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ max\_length=tokenizer.model\_max\_length,}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ truncation=\textcolor{keyword}{True},}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ )\ \textcolor{keywordflow}{for}\ text\ \textcolor{keywordflow}{in}\ strings}
+\DoxyCodeLine{00260\ \ \ \ \ ]}
+\DoxyCodeLine{00261\ \ \ \ \ input\_ids\ =\ labels\ =\ [}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ tokenized.input\_ids[0]\ \textcolor{keywordflow}{for}\ tokenized\ \textcolor{keywordflow}{in}\ tokenized\_list}
+\DoxyCodeLine{00263\ \ \ \ \ ]}
+\DoxyCodeLine{00264\ \ \ \ \ input\_ids\_lens\ =\ labels\_lens\ =\ [}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ tokenized.input\_ids.ne(tokenizer.pad\_token\_id).sum().item()}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tokenized\ \textcolor{keywordflow}{in}\ tokenized\_list}
+\DoxyCodeLine{00267\ \ \ \ \ ]}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordflow}{return}\ dict(}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ input\_ids=input\_ids,}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ labels=labels,}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ input\_ids\_lens=input\_ids\_lens,}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ labels\_lens=labels\_lens,}
+\DoxyCodeLine{00273\ \ \ \ \ )}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 2
+\Hypertarget{namespacetrain_acd490f7fb2f0b7e8e4574c71cd06d3b0}\index{train@{train}!find\_all\_linear\_names@{find\_all\_linear\_names}}
+\index{find\_all\_linear\_names@{find\_all\_linear\_names}!train@{train}}
+\doxysubsubsection{\texorpdfstring{find\_all\_linear\_names()}{find\_all\_linear\_names()}}
+{\footnotesize\ttfamily \label{namespacetrain_acd490f7fb2f0b7e8e4574c71cd06d3b0} 
+train.\+find\+\_\+all\+\_\+linear\+\_\+names (\begin{DoxyParamCaption}\item[{}]{model}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00169}{169}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00169\ \textcolor{keyword}{def\ }find\_all\_linear\_names(model):}
+\DoxyCodeLine{00170\ \ \ \ \ cls\ =\ torch.nn.Linear}
+\DoxyCodeLine{00171\ \ \ \ \ lora\_module\_names\ =\ set()}
+\DoxyCodeLine{00172\ \ \ \ \ multimodal\_keywords\ =\ [\textcolor{stringliteral}{'mm\_projector'},\ \textcolor{stringliteral}{'vision\_tower'},\ \textcolor{stringliteral}{'vision\_resampler'}]}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordflow}{for}\ name,\ module\ \textcolor{keywordflow}{in}\ model.named\_modules():}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ any(mm\_keyword\ \textcolor{keywordflow}{in}\ name\ \textcolor{keywordflow}{for}\ mm\_keyword\ \textcolor{keywordflow}{in}\ multimodal\_keywords):}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(module,\ cls):}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ names\ =\ name.split(\textcolor{stringliteral}{'.'})}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ lora\_module\_names.add(names[0]\ \textcolor{keywordflow}{if}\ len(names)\ ==\ 1\ \textcolor{keywordflow}{else}\ names[-\/1])}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'lm\_head'}\ \textcolor{keywordflow}{in}\ lora\_module\_names:\ \textcolor{comment}{\#\ needed\ for\ 16-\/bit}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ lora\_module\_names.remove(\textcolor{stringliteral}{'lm\_head'})}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordflow}{return}\ list(lora\_module\_names)}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 3
+\Hypertarget{namespacetrain_a2ee3e9377a5d21ccd34097c7c2b2778e}\index{train@{train}!get\_mm\_adapter\_state\_maybe\_zero\_3@{get\_mm\_adapter\_state\_maybe\_zero\_3}}
+\index{get\_mm\_adapter\_state\_maybe\_zero\_3@{get\_mm\_adapter\_state\_maybe\_zero\_3}!train@{train}}
+\doxysubsubsection{\texorpdfstring{get\_mm\_adapter\_state\_maybe\_zero\_3()}{get\_mm\_adapter\_state\_maybe\_zero\_3()}}
+{\footnotesize\ttfamily \label{namespacetrain_a2ee3e9377a5d21ccd34097c7c2b2778e} 
+train.\+get\+\_\+mm\+\_\+adapter\+\_\+state\+\_\+maybe\+\_\+zero\+\_\+3 (\begin{DoxyParamCaption}\item[{}]{named\+\_\+params}{, }\item[{}]{keys\+\_\+to\+\_\+match}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00163}{163}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00163\ \textcolor{keyword}{def\ }get\_mm\_adapter\_state\_maybe\_zero\_3(named\_params,\ keys\_to\_match):}
+\DoxyCodeLine{00164\ \ \ \ \ to\_return\ =\ \{k:\ t\ \textcolor{keywordflow}{for}\ k,\ t\ \textcolor{keywordflow}{in}\ named\_params\ \textcolor{keywordflow}{if}\ any(key\_match\ \textcolor{keywordflow}{in}\ k\ \textcolor{keywordflow}{for}\ key\_match\ \textcolor{keywordflow}{in}\ keys\_to\_match)\}}
+\DoxyCodeLine{00165\ \ \ \ \ to\_return\ =\ \{k:\ maybe\_zero\_3(v,\ ignore\_status=\textcolor{keyword}{True}).cpu()\ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ to\_return.items()\}}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{return}\ to\_return}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\Hypertarget{namespacetrain_a3f805a74c3a81eacf149cfd8fb130999}\index{train@{train}!get\_peft\_state\_maybe\_zero\_3@{get\_peft\_state\_maybe\_zero\_3}}
+\index{get\_peft\_state\_maybe\_zero\_3@{get\_peft\_state\_maybe\_zero\_3}!train@{train}}
+\doxysubsubsection{\texorpdfstring{get\_peft\_state\_maybe\_zero\_3()}{get\_peft\_state\_maybe\_zero\_3()}}
+{\footnotesize\ttfamily \label{namespacetrain_a3f805a74c3a81eacf149cfd8fb130999} 
+train.\+get\+\_\+peft\+\_\+state\+\_\+maybe\+\_\+zero\+\_\+3 (\begin{DoxyParamCaption}\item[{}]{named\+\_\+params}{, }\item[{}]{bias}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00130}{130}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00130\ \textcolor{keyword}{def\ }get\_peft\_state\_maybe\_zero\_3(named\_params,\ bias):}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{if}\ bias\ ==\ \textcolor{stringliteral}{"{}none"{}}:}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ to\_return\ =\ \{k:\ t\ \textcolor{keywordflow}{for}\ k,\ t\ \textcolor{keywordflow}{in}\ named\_params\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}lora\_"{}}\ \textcolor{keywordflow}{in}\ k\}}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{elif}\ bias\ ==\ \textcolor{stringliteral}{"{}all"{}}:}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ to\_return\ =\ \{k:\ t\ \textcolor{keywordflow}{for}\ k,\ t\ \textcolor{keywordflow}{in}\ named\_params\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}lora\_"{}}\ \textcolor{keywordflow}{in}\ k\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{"{}bias"{}}\ \textcolor{keywordflow}{in}\ k\}}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{elif}\ bias\ ==\ \textcolor{stringliteral}{"{}lora\_only"{}}:}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ to\_return\ =\ \{\}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ maybe\_lora\_bias\ =\ \{\}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ lora\_bias\_names\ =\ set()}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ k,\ t\ \textcolor{keywordflow}{in}\ named\_params:}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}lora\_"{}}\ \textcolor{keywordflow}{in}\ k:}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ to\_return[k]\ =\ t}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bias\_name\ =\ k.split(\textcolor{stringliteral}{"{}lora\_"{}})[0]\ +\ \textcolor{stringliteral}{"{}bias"{}}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lora\_bias\_names.add(bias\_name)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{stringliteral}{"{}bias"{}}\ \textcolor{keywordflow}{in}\ k:}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maybe\_lora\_bias[k]\ =\ t}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ k,\ t\ \textcolor{keywordflow}{in}\ maybe\_lora\_bias:}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ bias\_name\ \textcolor{keywordflow}{in}\ lora\_bias\_names:}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ to\_return[bias\_name]\ =\ t}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ NotImplementedError}
+\DoxyCodeLine{00151\ \ \ \ \ to\_return\ =\ \{k:\ maybe\_zero\_3(v,\ ignore\_status=\textcolor{keyword}{True})\ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ to\_return.items()\}}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{return}\ to\_return}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 6
+Here is the caller graph for this function\+:
+% FIG 7
+\Hypertarget{namespacetrain_aea177d675c91da1b000f7fccd876b10d}\index{train@{train}!get\_peft\_state\_non\_lora\_maybe\_zero\_3@{get\_peft\_state\_non\_lora\_maybe\_zero\_3}}
+\index{get\_peft\_state\_non\_lora\_maybe\_zero\_3@{get\_peft\_state\_non\_lora\_maybe\_zero\_3}!train@{train}}
+\doxysubsubsection{\texorpdfstring{get\_peft\_state\_non\_lora\_maybe\_zero\_3()}{get\_peft\_state\_non\_lora\_maybe\_zero\_3()}}
+{\footnotesize\ttfamily \label{namespacetrain_aea177d675c91da1b000f7fccd876b10d} 
+train.\+get\+\_\+peft\+\_\+state\+\_\+non\+\_\+lora\+\_\+maybe\+\_\+zero\+\_\+3 (\begin{DoxyParamCaption}\item[{}]{named\+\_\+params}{, }\item[{}]{require\+\_\+grad\+\_\+only}{ = {\ttfamily True}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00155}{155}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00155\ \textcolor{keyword}{def\ }get\_peft\_state\_non\_lora\_maybe\_zero\_3(named\_params,\ require\_grad\_only=True):}
+\DoxyCodeLine{00156\ \ \ \ \ to\_return\ =\ \{k:\ t\ \textcolor{keywordflow}{for}\ k,\ t\ \textcolor{keywordflow}{in}\ named\_params\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}lora\_"{}}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ k\}}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{if}\ require\_grad\_only:}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ to\_return\ =\ \{k:\ t\ \textcolor{keywordflow}{for}\ k,\ t\ \textcolor{keywordflow}{in}\ to\_return.items()\ \textcolor{keywordflow}{if}\ t.requires\_grad\}}
+\DoxyCodeLine{00159\ \ \ \ \ to\_return\ =\ \{k:\ maybe\_zero\_3(v,\ ignore\_status=\textcolor{keyword}{True}).cpu()\ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ to\_return.items()\}}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{return}\ to\_return}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 8
+Here is the caller graph for this function\+:
+% FIG 9
+\Hypertarget{namespacetrain_a8eefda75f1b51a9007452fe854a2b53a}\index{train@{train}!make\_supervised\_data\_module@{make\_supervised\_data\_module}}
+\index{make\_supervised\_data\_module@{make\_supervised\_data\_module}!train@{train}}
+\doxysubsubsection{\texorpdfstring{make\_supervised\_data\_module()}{make\_supervised\_data\_module()}}
+{\footnotesize\ttfamily \label{namespacetrain_a8eefda75f1b51a9007452fe854a2b53a} 
+ Dict train.\+make\+\_\+supervised\+\_\+data\+\_\+module (\begin{DoxyParamCaption}\item[{transformers.\+Pre\+Trained\+Tokenizer}]{tokenizer}{, }\item[{}]{data\+\_\+args}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Make dataset and collator for supervised fine-tuning.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00776}{776}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\_args)\ -\/>\ Dict:}
+\DoxyCodeLine{00778\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Make\ dataset\ and\ collator\ for\ supervised\ fine-\/tuning."{}"{}"{}}}
+\DoxyCodeLine{00779\ \ \ \ \ train\_dataset\ =\ LazySupervisedDataset(tokenizer=tokenizer,}
+\DoxyCodeLine{00780\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\_path=data\_args.data\_path,}
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\_args=data\_args)}
+\DoxyCodeLine{00782\ \ \ \ \ data\_collator\ =\ DataCollatorForSupervisedDataset(tokenizer=tokenizer)}
+\DoxyCodeLine{00783\ \ \ \ \ \textcolor{keywordflow}{return}\ dict(train\_dataset=train\_dataset,}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dataset=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\_collator=data\_collator)}
+\DoxyCodeLine{00786\ }
+\DoxyCodeLine{00787\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 10
+\Hypertarget{namespacetrain_aaa44f55be5d3e3460280ecd73df4435d}\index{train@{train}!maybe\_zero\_3@{maybe\_zero\_3}}
+\index{maybe\_zero\_3@{maybe\_zero\_3}!train@{train}}
+\doxysubsubsection{\texorpdfstring{maybe\_zero\_3()}{maybe\_zero\_3()}}
+{\footnotesize\ttfamily \label{namespacetrain_aaa44f55be5d3e3460280ecd73df4435d} 
+train.\+maybe\+\_\+zero\+\_\+3 (\begin{DoxyParamCaption}\item[{}]{param}{, }\item[{}]{ignore\+\_\+status}{ = {\ttfamily False}, }\item[{}]{name}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00115}{115}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00115\ \textcolor{keyword}{def\ }maybe\_zero\_3(param,\ ignore\_status=False,\ name=None):}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{from}\ deepspeed\ \textcolor{keyword}{import}\ zero}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{from}\ deepspeed.runtime.zero.partition\_parameters\ \textcolor{keyword}{import}\ ZeroParamStatus}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(param,\ \textcolor{stringliteral}{"{}ds\_id"{}}):}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ param.ds\_status\ ==\ ZeroParamStatus.NOT\_AVAILABLE:}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ ignore\_status:}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ logging.warning(f\textcolor{stringliteral}{"{}\{name\}:\ param.ds\_status\ !=\ ZeroParamStatus.NOT\_AVAILABLE:\ \{param.ds\_status\}"{}})}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ zero.GatheredParameters([param]):}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ param\ =\ param.data.detach().cpu().clone()}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ param\ =\ param.detach().cpu().clone()}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{return}\ param}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{comment}{\#\ Borrowed\ from\ peft.utils.get\_peft\_model\_state\_dict}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 11
+\Hypertarget{namespacetrain_a6e906e31ad5c33c28b1e6303d645dba8}\index{train@{train}!preprocess@{preprocess}}
+\index{preprocess@{preprocess}!train@{train}}
+\doxysubsubsection{\texorpdfstring{preprocess()}{preprocess()}}
+{\footnotesize\ttfamily \label{namespacetrain_a6e906e31ad5c33c28b1e6303d645dba8} 
+ Dict train.\+preprocess (\begin{DoxyParamCaption}\item[{Sequence\mbox{[}str\mbox{]}}]{sources}{, }\item[{transformers.\+Pre\+Trained\+Tokenizer}]{tokenizer}{, }\item[{bool }]{has\+\_\+image}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Given a list of sources, each is a conversation list. This transform:
+1. Add signal '### ' at the beginning each sentence, with end signal '\n';
+2. Concatenate conversations together;
+3. Tokenize the concatenated conversation;
+4. Make a deepcopy as the target. Mask human words with IGNORE_INDEX.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00610}{610}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00614\ )\ -\/>\ Dict:}
+\DoxyCodeLine{00615\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00616\ \textcolor{stringliteral}{\ \ \ \ Given\ a\ list\ of\ sources,\ each\ is\ a\ conversation\ list.\ This\ transform:}}
+\DoxyCodeLine{00617\ \textcolor{stringliteral}{\ \ \ \ 1.\ Add\ signal\ '\#\#\#\ '\ at\ the\ beginning\ each\ sentence,\ with\ end\ signal\ '\(\backslash\)n';}}
+\DoxyCodeLine{00618\ \textcolor{stringliteral}{\ \ \ \ 2.\ Concatenate\ conversations\ together;}}
+\DoxyCodeLine{00619\ \textcolor{stringliteral}{\ \ \ \ 3.\ Tokenize\ the\ concatenated\ conversation;}}
+\DoxyCodeLine{00620\ \textcolor{stringliteral}{\ \ \ \ 4.\ Make\ a\ deepcopy\ as\ the\ target.\ Mask\ human\ words\ with\ IGNORE\_INDEX.}}
+\DoxyCodeLine{00621\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00622\ \ \ \ \ \textcolor{keywordflow}{if}\ conversation\_lib.default\_conversation.sep\_style\ ==\ conversation\_lib.SeparatorStyle.PLAIN:}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ preprocess\_plain(sources,\ tokenizer)}
+\DoxyCodeLine{00624\ \ \ \ \ \textcolor{keywordflow}{if}\ conversation\_lib.default\_conversation.sep\_style\ ==\ conversation\_lib.SeparatorStyle.LLAMA\_2:}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ preprocess\_llama\_2(sources,\ tokenizer,\ has\_image=has\_image)}
+\DoxyCodeLine{00626\ \ \ \ \ \textcolor{keywordflow}{if}\ conversation\_lib.default\_conversation.version.startswith(\textcolor{stringliteral}{"{}v1"{}}):}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ preprocess\_v1(sources,\ tokenizer,\ has\_image=has\_image)}
+\DoxyCodeLine{00628\ \ \ \ \ \textcolor{keywordflow}{if}\ conversation\_lib.default\_conversation.version\ ==\ \textcolor{stringliteral}{"{}mpt"{}}:}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ preprocess\_mpt(sources,\ tokenizer,\ has\_image=has\_image)}
+\DoxyCodeLine{00630\ \ \ \ \ \textcolor{comment}{\#\ add\ end\ signal\ and\ concatenate\ together}}
+\DoxyCodeLine{00631\ \ \ \ \ conversations\ =\ []}
+\DoxyCodeLine{00632\ \ \ \ \ \textcolor{keywordflow}{for}\ source\ \textcolor{keywordflow}{in}\ sources:}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ header\ =\ f\textcolor{stringliteral}{"{}\{conversation\_lib.default\_conversation.system\}\(\backslash\)n\(\backslash\)n"{}}}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ conversation\ =\ \_add\_speaker\_and\_signal(header,\ source)}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ conversations.append(conversation)}
+\DoxyCodeLine{00636\ \ \ \ \ \textcolor{comment}{\#\ tokenize\ conversations}}
+\DoxyCodeLine{00637\ \ \ \ \ \textcolor{keyword}{def\ }get\_tokenize\_len(prompts):}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [len(tokenizer\_image\_token(prompt,\ tokenizer))\ \textcolor{keywordflow}{for}\ prompt\ \textcolor{keywordflow}{in}\ prompts]}
+\DoxyCodeLine{00639\ }
+\DoxyCodeLine{00640\ \ \ \ \ \textcolor{keywordflow}{if}\ has\_image:}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ input\_ids\ =\ [tokenizer\_image\_token(prompt,\ tokenizer,\ return\_tensors=\textcolor{stringliteral}{'pt'})\ \textcolor{keywordflow}{for}\ prompt\ \textcolor{keywordflow}{in}\ conversations]}
+\DoxyCodeLine{00642\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ conversations\_tokenized\ =\ \_tokenize\_fn(conversations,\ tokenizer)}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ input\_ids\ =\ conversations\_tokenized[\textcolor{stringliteral}{"{}input\_ids"{}}]}
+\DoxyCodeLine{00645\ }
+\DoxyCodeLine{00646\ \ \ \ \ targets\ =\ copy.deepcopy(input\_ids)}
+\DoxyCodeLine{00647\ \ \ \ \ \textcolor{keywordflow}{for}\ target,\ source\ \textcolor{keywordflow}{in}\ zip(targets,\ sources):}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ has\_image:}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \ \ \ \ tokenized\_lens\ =\ get\_tokenize\_len([header]\ +\ [s[\textcolor{stringliteral}{"{}value"{}}]\ \textcolor{keywordflow}{for}\ s\ \textcolor{keywordflow}{in}\ source])}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \ \ \ \ tokenized\_lens\ =\ \_tokenize\_fn([header]\ +\ [s[\textcolor{stringliteral}{"{}value"{}}]\ \textcolor{keywordflow}{for}\ s\ \textcolor{keywordflow}{in}\ source],\ tokenizer)[\textcolor{stringliteral}{"{}input\_ids\_lens"{}}]}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \ \ speakers\ =\ [sentence[\textcolor{stringliteral}{"{}from"{}}]\ \textcolor{keywordflow}{for}\ sentence\ \textcolor{keywordflow}{in}\ source]}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \_mask\_targets(target,\ tokenized\_lens,\ speakers)}
+\DoxyCodeLine{00654\ }
+\DoxyCodeLine{00655\ \ \ \ \ \textcolor{keywordflow}{return}\ dict(input\_ids=input\_ids,\ labels=targets)}
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00657\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 12
+Here is the caller graph for this function\+:
+% FIG 13
+\Hypertarget{namespacetrain_a9204678b2509ba26d97bc024c214e70a}\index{train@{train}!preprocess\_llama\_2@{preprocess\_llama\_2}}
+\index{preprocess\_llama\_2@{preprocess\_llama\_2}!train@{train}}
+\doxysubsubsection{\texorpdfstring{preprocess\_llama\_2()}{preprocess\_llama\_2()}}
+{\footnotesize\ttfamily \label{namespacetrain_a9204678b2509ba26d97bc024c214e70a} 
+ Dict train.\+preprocess\+\_\+llama\+\_\+2 (\begin{DoxyParamCaption}\item[{}]{sources}{, }\item[{transformers.\+Pre\+Trained\+Tokenizer}]{tokenizer}{, }\item[{bool }]{has\+\_\+image}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00332}{332}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00336\ )\ -\/>\ Dict:}
+\DoxyCodeLine{00337\ \ \ \ \ conv\ =\ conversation\_lib.default\_conversation.copy()}
+\DoxyCodeLine{00338\ \ \ \ \ roles\ =\ \{\textcolor{stringliteral}{"{}human"{}}:\ conv.roles[0],\ \textcolor{stringliteral}{"{}gpt"{}}:\ conv.roles[1]\}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{comment}{\#\ Apply\ prompt\ templates}}
+\DoxyCodeLine{00341\ \ \ \ \ conversations\ =\ []}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ source\ \textcolor{keywordflow}{in}\ enumerate(sources):}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ roles[source[0][\textcolor{stringliteral}{"{}from"{}}]]\ !=\ conv.roles[0]:}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Skip\ the\ first\ one\ if\ it\ is\ not\ from\ human}}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ source\ =\ source[1:]}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ conv.messages\ =\ []}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ j,\ sentence\ \textcolor{keywordflow}{in}\ enumerate(source):}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ role\ =\ roles[sentence[\textcolor{stringliteral}{"{}from"{}}]]}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ role\ ==\ conv.roles[j\ \%\ 2],\ f\textcolor{stringliteral}{"{}\{i\}"{}}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ conv.append\_message(role,\ sentence[\textcolor{stringliteral}{"{}value"{}}])}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ conversations.append(conv.get\_prompt())}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{comment}{\#\ Tokenize\ conversations}}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keywordflow}{if}\ has\_image:}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ input\_ids\ =\ torch.stack([tokenizer\_image\_token(prompt,\ tokenizer,\ return\_tensors=\textcolor{stringliteral}{'pt'})\ \textcolor{keywordflow}{for}\ prompt\ \textcolor{keywordflow}{in}\ conversations],\ dim=0)}
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ input\_ids\ =\ tokenizer(}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ conversations,}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ return\_tensors=\textcolor{stringliteral}{"{}pt"{}},}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ padding=\textcolor{stringliteral}{"{}longest"{}},}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ max\_length=tokenizer.model\_max\_length,}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ truncation=\textcolor{keyword}{True},}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ ).input\_ids}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ targets\ =\ input\_ids.clone()}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keyword}{assert}\ conv.sep\_style\ ==\ conversation\_lib.SeparatorStyle.LLAMA\_2}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{comment}{\#\ Mask\ targets}}
+\DoxyCodeLine{00372\ \ \ \ \ sep\ =\ \textcolor{stringliteral}{"{}[/INST]\ "{}}}
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordflow}{for}\ conversation,\ target\ \textcolor{keywordflow}{in}\ zip(conversations,\ targets):}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ total\_len\ =\ int(target.ne(tokenizer.pad\_token\_id).sum())}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ rounds\ =\ conversation.split(conv.sep2)}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ cur\_len\ =\ 1}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ target[:cur\_len]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ rou\ \textcolor{keywordflow}{in}\ enumerate(rounds):}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ rou\ ==\ \textcolor{stringliteral}{"{}"{}}:}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ parts\ =\ rou.split(sep)}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(parts)\ !=\ 2:}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ parts[0]\ +=\ sep}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ has\_image:}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ round\_len\ =\ len(tokenizer\_image\_token(rou,\ tokenizer))}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ instruction\_len\ =\ len(tokenizer\_image\_token(parts[0],\ tokenizer))\ -\/\ 2}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ round\_len\ =\ len(tokenizer(rou).input\_ids)}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ instruction\_len\ =\ len(tokenizer(parts[0]).input\_ids)\ -\/\ 2}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ target[cur\_len\ :\ cur\_len\ +\ instruction\_len]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_len\ +=\ round\_len}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ target[cur\_len:]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cur\_len\ <\ tokenizer.model\_max\_length:}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cur\_len\ !=\ total\_len:}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target[:]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}WARNING:\ tokenization\ mismatch:\ \{cur\_len\}\ vs.\ \{total\_len\}."{}}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}\ (ignored)"{}}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ \ \ \ \ \textcolor{keywordflow}{return}\ dict(}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ input\_ids=input\_ids,}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ labels=targets,}
+\DoxyCodeLine{00411\ \ \ \ \ )}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 14
+\Hypertarget{namespacetrain_ac65d1ce0aaedab85871d5d954ef8f9ea}\index{train@{train}!preprocess\_mpt@{preprocess\_mpt}}
+\index{preprocess\_mpt@{preprocess\_mpt}!train@{train}}
+\doxysubsubsection{\texorpdfstring{preprocess\_mpt()}{preprocess\_mpt()}}
+{\footnotesize\ttfamily \label{namespacetrain_ac65d1ce0aaedab85871d5d954ef8f9ea} 
+ Dict train.\+preprocess\+\_\+mpt (\begin{DoxyParamCaption}\item[{}]{sources}{, }\item[{transformers.\+Pre\+Trained\+Tokenizer}]{tokenizer}{, }\item[{bool }]{has\+\_\+image}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00500}{500}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00504\ )\ -\/>\ Dict:}
+\DoxyCodeLine{00505\ \ \ \ \ conv\ =\ conversation\_lib.default\_conversation.copy()}
+\DoxyCodeLine{00506\ \ \ \ \ roles\ =\ \{\textcolor{stringliteral}{"{}human"{}}:\ conv.roles[0],\ \textcolor{stringliteral}{"{}gpt"{}}:\ conv.roles[1]\}}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{comment}{\#\ Apply\ prompt\ templates}}
+\DoxyCodeLine{00509\ \ \ \ \ conversations\ =\ []}
+\DoxyCodeLine{00510\ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ source\ \textcolor{keywordflow}{in}\ enumerate(sources):}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ roles[source[0][\textcolor{stringliteral}{"{}from"{}}]]\ !=\ conv.roles[0]:}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Skip\ the\ first\ one\ if\ it\ is\ not\ from\ human}}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ source\ =\ source[1:]}
+\DoxyCodeLine{00514\ }
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ conv.messages\ =\ []}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ j,\ sentence\ \textcolor{keywordflow}{in}\ enumerate(source):}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ role\ =\ roles[sentence[\textcolor{stringliteral}{"{}from"{}}]]}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ role\ ==\ conv.roles[j\ \%\ 2],\ f\textcolor{stringliteral}{"{}\{i\}"{}}}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ conv.append\_message(role,\ sentence[\textcolor{stringliteral}{"{}value"{}}])}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ conversations.append(conv.get\_prompt())}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \ \ \ \ \textcolor{comment}{\#\ Tokenize\ conversations}}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \ \ \ \ \textcolor{keywordflow}{if}\ has\_image:}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ input\_ids\ =\ torch.stack([tokenizer\_image\_token(prompt,\ tokenizer,\ return\_tensors=\textcolor{stringliteral}{'pt'})\ \textcolor{keywordflow}{for}\ prompt\ \textcolor{keywordflow}{in}\ conversations],\ dim=0)}
+\DoxyCodeLine{00526\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ input\_ids\ =\ tokenizer(}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ conversations,}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ return\_tensors=\textcolor{stringliteral}{"{}pt"{}},}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ padding=\textcolor{stringliteral}{"{}longest"{}},}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ max\_length=tokenizer.model\_max\_length,}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ truncation=\textcolor{keyword}{True},}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ ).input\_ids}
+\DoxyCodeLine{00534\ }
+\DoxyCodeLine{00535\ \ \ \ \ targets\ =\ input\_ids.clone()}
+\DoxyCodeLine{00536\ \ \ \ \ \textcolor{keyword}{assert}\ conv.sep\_style\ ==\ conversation\_lib.SeparatorStyle.MPT}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \ \ \ \ \textcolor{comment}{\#\ Mask\ targets}}
+\DoxyCodeLine{00539\ \ \ \ \ sep\ =\ conv.sep\ +\ conv.roles[1]}
+\DoxyCodeLine{00540\ \ \ \ \ \textcolor{keywordflow}{for}\ conversation,\ target\ \textcolor{keywordflow}{in}\ zip(conversations,\ targets):}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ total\_len\ =\ int(target.ne(tokenizer.pad\_token\_id).sum())}
+\DoxyCodeLine{00542\ }
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ rounds\ =\ conversation.split(conv.sep)}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ re\_rounds\ =\ [conv.sep.join(rounds[:3])]\ \textcolor{comment}{\#\ system\ +\ user\ +\ gpt}}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ conv\_idx\ \textcolor{keywordflow}{in}\ range(3,\ len(rounds),\ 2):}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ \ re\_rounds.append(conv.sep.join(rounds[conv\_idx:conv\_idx+2]))\ \ \ \ \textcolor{comment}{\#\ user\ +\ gpt}}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ cur\_len\ =\ 0}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ target[:cur\_len]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ rou\ \textcolor{keywordflow}{in}\ enumerate(re\_rounds):}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ rou\ ==\ \textcolor{stringliteral}{"{}"{}}:}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \ \ \ \ parts\ =\ rou.split(sep)}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(parts)\ !=\ 2:}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \ \ \ \ parts[0]\ +=\ sep}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ has\_image:}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ round\_len\ =\ len(tokenizer\_image\_token(rou,\ tokenizer))}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ instruction\_len\ =\ len(tokenizer\_image\_token(parts[0],\ tokenizer))\ -\/\ 1}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ round\_len\ =\ len(tokenizer(rou).input\_ids)}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ instruction\_len\ =\ len(tokenizer(parts[0]).input\_ids)\ -\/\ 1}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ i\ !=\ 0\ \textcolor{keywordflow}{and}\ getattr(tokenizer,\ \textcolor{stringliteral}{'legacy'},\ \textcolor{keyword}{False})\ \textcolor{keywordflow}{and}\ IS\_TOKENIZER\_GREATER\_THAN\_0\_14:}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ round\_len\ +=\ 1}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ instruction\_len\ +=\ 1}
+\DoxyCodeLine{00568\ }
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ target[cur\_len\ :\ cur\_len\ +\ instruction\_len]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_len\ +=\ round\_len}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ target[cur\_len:]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cur\_len\ <\ tokenizer.model\_max\_length:}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cur\_len\ !=\ total\_len:}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target[:]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}WARNING:\ tokenization\ mismatch:\ \{cur\_len\}\ vs.\ \{total\_len\}."{}}}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}\ (ignored)"{}}}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00581\ }
+\DoxyCodeLine{00582\ \ \ \ \ \textcolor{keywordflow}{return}\ dict(}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ input\_ids=input\_ids,}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ labels=targets,}
+\DoxyCodeLine{00585\ \ \ \ \ )}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 15
+\Hypertarget{namespacetrain_aec672610ab14ba6f4de0517f687ca476}\index{train@{train}!preprocess\_multimodal@{preprocess\_multimodal}}
+\index{preprocess\_multimodal@{preprocess\_multimodal}!train@{train}}
+\doxysubsubsection{\texorpdfstring{preprocess\_multimodal()}{preprocess\_multimodal()}}
+{\footnotesize\ttfamily \label{namespacetrain_aec672610ab14ba6f4de0517f687ca476} 
+ Dict train.\+preprocess\+\_\+multimodal (\begin{DoxyParamCaption}\item[{Sequence\mbox{[}str\mbox{]}}]{sources}{, }\item[{\mbox{\hyperlink{classtrain_1_1_data_arguments}{Data\+Arguments}} }]{data\+\_\+args}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00308}{308}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00311\ )\ -\/>\ Dict:}
+\DoxyCodeLine{00312\ \ \ \ \ is\_multimodal\ =\ data\_args.is\_multimodal}
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ is\_multimodal:}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sources}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordflow}{for}\ source\ \textcolor{keywordflow}{in}\ sources:}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ sentence\ \textcolor{keywordflow}{in}\ source:}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ DEFAULT\_IMAGE\_TOKEN\ \textcolor{keywordflow}{in}\ sentence[\textcolor{stringliteral}{'value'}]:}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sentence[\textcolor{stringliteral}{'value'}]\ =\ sentence[\textcolor{stringliteral}{'value'}].replace(DEFAULT\_IMAGE\_TOKEN,\ \textcolor{stringliteral}{''}).strip()}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sentence[\textcolor{stringliteral}{'value'}]\ =\ DEFAULT\_IMAGE\_TOKEN\ +\ \textcolor{stringliteral}{'\(\backslash\)n'}\ +\ sentence[\textcolor{stringliteral}{'value'}]}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sentence[\textcolor{stringliteral}{'value'}]\ =\ sentence[\textcolor{stringliteral}{'value'}].strip()}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}mmtag"{}}\ \textcolor{keywordflow}{in}\ conversation\_lib.default\_conversation.version:}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sentence[\textcolor{stringliteral}{'value'}]\ =\ sentence[\textcolor{stringliteral}{'value'}].replace(DEFAULT\_IMAGE\_TOKEN,\ \textcolor{stringliteral}{'<Image>'}\ +\ DEFAULT\_IMAGE\_TOKEN\ +\ \textcolor{stringliteral}{'</Image>'})}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ replace\_token\ =\ DEFAULT\_IMAGE\_TOKEN}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ data\_args.mm\_use\_im\_start\_end:}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ replace\_token\ =\ DEFAULT\_IM\_START\_TOKEN\ +\ replace\_token\ +\ DEFAULT\_IM\_END\_TOKEN}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ sentence[\textcolor{stringliteral}{"{}value"{}}]\ =\ sentence[\textcolor{stringliteral}{"{}value"{}}].replace(DEFAULT\_IMAGE\_TOKEN,\ replace\_token)}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keywordflow}{return}\ sources}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 16
+\Hypertarget{namespacetrain_a36cb09fa513042f9258bed6ef2fc4ee5}\index{train@{train}!preprocess\_plain@{preprocess\_plain}}
+\index{preprocess\_plain@{preprocess\_plain}!train@{train}}
+\doxysubsubsection{\texorpdfstring{preprocess\_plain()}{preprocess\_plain()}}
+{\footnotesize\ttfamily \label{namespacetrain_a36cb09fa513042f9258bed6ef2fc4ee5} 
+ Dict train.\+preprocess\+\_\+plain (\begin{DoxyParamCaption}\item[{Sequence\mbox{[}str\mbox{]}}]{sources}{, }\item[{transformers.\+Pre\+Trained\+Tokenizer}]{tokenizer}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00588}{588}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00591\ )\ -\/>\ Dict:}
+\DoxyCodeLine{00592\ \ \ \ \ \textcolor{comment}{\#\ add\ end\ signal\ and\ concatenate\ together}}
+\DoxyCodeLine{00593\ \ \ \ \ conversations\ =\ []}
+\DoxyCodeLine{00594\ \ \ \ \ \textcolor{keywordflow}{for}\ source\ \textcolor{keywordflow}{in}\ sources:}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ len(source)\ ==\ 2}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ DEFAULT\_IMAGE\_TOKEN\ \textcolor{keywordflow}{in}\ source[0][\textcolor{stringliteral}{'value'}]}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ source[0][\textcolor{stringliteral}{'value'}]\ =\ DEFAULT\_IMAGE\_TOKEN}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ conversation\ =\ source[0][\textcolor{stringliteral}{'value'}]\ +\ source[1][\textcolor{stringliteral}{'value'}]\ +\ conversation\_lib.default\_conversation.sep}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ conversations.append(conversation)}
+\DoxyCodeLine{00600\ \ \ \ \ \textcolor{comment}{\#\ tokenize\ conversations}}
+\DoxyCodeLine{00601\ \ \ \ \ input\_ids\ =\ [tokenizer\_image\_token(prompt,\ tokenizer,\ return\_tensors=\textcolor{stringliteral}{'pt'})\ \textcolor{keywordflow}{for}\ prompt\ \textcolor{keywordflow}{in}\ conversations]}
+\DoxyCodeLine{00602\ \ \ \ \ targets\ =\ copy.deepcopy(input\_ids)}
+\DoxyCodeLine{00603\ \ \ \ \ \textcolor{keywordflow}{for}\ target,\ source\ \textcolor{keywordflow}{in}\ zip(targets,\ sources):}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ tokenized\_len\ =\ len(tokenizer\_image\_token(source[0][\textcolor{stringliteral}{'value'}],\ tokenizer))}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ target[:tokenized\_len]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ \ \ \ \ \textcolor{keywordflow}{return}\ dict(input\_ids=input\_ids,\ labels=targets)}
+\DoxyCodeLine{00608\ }
+\DoxyCodeLine{00609\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 17
+\Hypertarget{namespacetrain_a76c54dcd10f64c547b1d462b17d5ad3b}\index{train@{train}!preprocess\_v1@{preprocess\_v1}}
+\index{preprocess\_v1@{preprocess\_v1}!train@{train}}
+\doxysubsubsection{\texorpdfstring{preprocess\_v1()}{preprocess\_v1()}}
+{\footnotesize\ttfamily \label{namespacetrain_a76c54dcd10f64c547b1d462b17d5ad3b} 
+ Dict train.\+preprocess\+\_\+v1 (\begin{DoxyParamCaption}\item[{}]{sources}{, }\item[{transformers.\+Pre\+Trained\+Tokenizer}]{tokenizer}{, }\item[{bool }]{has\+\_\+image}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00414}{414}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00418\ )\ -\/>\ Dict:}
+\DoxyCodeLine{00419\ \ \ \ \ conv\ =\ conversation\_lib.default\_conversation.copy()}
+\DoxyCodeLine{00420\ \ \ \ \ roles\ =\ \{\textcolor{stringliteral}{"{}human"{}}:\ conv.roles[0],\ \textcolor{stringliteral}{"{}gpt"{}}:\ conv.roles[1]\}}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \ \ \ \ \textcolor{comment}{\#\ Apply\ prompt\ templates}}
+\DoxyCodeLine{00423\ \ \ \ \ conversations\ =\ []}
+\DoxyCodeLine{00424\ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ source\ \textcolor{keywordflow}{in}\ enumerate(sources):}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ roles[source[0][\textcolor{stringliteral}{"{}from"{}}]]\ !=\ conv.roles[0]:}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Skip\ the\ first\ one\ if\ it\ is\ not\ from\ human}}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ source\ =\ source[1:]}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ conv.messages\ =\ []}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ j,\ sentence\ \textcolor{keywordflow}{in}\ enumerate(source):}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ role\ =\ roles[sentence[\textcolor{stringliteral}{"{}from"{}}]]}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ role\ ==\ conv.roles[j\ \%\ 2],\ f\textcolor{stringliteral}{"{}\{i\}"{}}}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ conv.append\_message(role,\ sentence[\textcolor{stringliteral}{"{}value"{}}])}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ conversations.append(conv.get\_prompt())}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \ \ \ \ \textcolor{comment}{\#\ Tokenize\ conversations}}
+\DoxyCodeLine{00437\ }
+\DoxyCodeLine{00438\ \ \ \ \ \textcolor{keywordflow}{if}\ has\_image:}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ input\_ids\ =\ torch.stack([tokenizer\_image\_token(prompt,\ tokenizer,\ return\_tensors=\textcolor{stringliteral}{'pt'})\ \textcolor{keywordflow}{for}\ prompt\ \textcolor{keywordflow}{in}\ conversations],\ dim=0)}
+\DoxyCodeLine{00440\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ input\_ids\ =\ tokenizer(}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ conversations,}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ return\_tensors=\textcolor{stringliteral}{"{}pt"{}},}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ padding=\textcolor{stringliteral}{"{}longest"{}},}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ max\_length=tokenizer.model\_max\_length,}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ truncation=\textcolor{keyword}{True},}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ ).input\_ids}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \ \ \ \ targets\ =\ input\_ids.clone()}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ \ \ \textcolor{keyword}{assert}\ conv.sep\_style\ ==\ conversation\_lib.SeparatorStyle.TWO}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \ \ \ \ \textcolor{comment}{\#\ Mask\ targets}}
+\DoxyCodeLine{00454\ \ \ \ \ sep\ =\ conv.sep\ +\ conv.roles[1]\ +\ \textcolor{stringliteral}{"{}:\ "{}}}
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{keywordflow}{for}\ conversation,\ target\ \textcolor{keywordflow}{in}\ zip(conversations,\ targets):}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ total\_len\ =\ int(target.ne(tokenizer.pad\_token\_id).sum())}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ rounds\ =\ conversation.split(conv.sep2)}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ cur\_len\ =\ 1}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ target[:cur\_len]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ rou\ \textcolor{keywordflow}{in}\ enumerate(rounds):}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ rou\ ==\ \textcolor{stringliteral}{"{}"{}}:}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ parts\ =\ rou.split(sep)}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(parts)\ !=\ 2:}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ parts[0]\ +=\ sep}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ has\_image:}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ round\_len\ =\ len(tokenizer\_image\_token(rou,\ tokenizer))}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ instruction\_len\ =\ len(tokenizer\_image\_token(parts[0],\ tokenizer))\ -\/\ 2}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ round\_len\ =\ len(tokenizer(rou).input\_ids)}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ instruction\_len\ =\ len(tokenizer(parts[0]).input\_ids)\ -\/\ 2}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ i\ !=\ 0\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ tokenizer.legacy\ \textcolor{keywordflow}{and}\ IS\_TOKENIZER\_GREATER\_THAN\_0\_14:}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ round\_len\ -\/=\ 1}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ instruction\_len\ -\/=\ 1}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ target[cur\_len\ :\ cur\_len\ +\ instruction\_len]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_len\ +=\ round\_len}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ target[cur\_len:]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cur\_len\ <\ tokenizer.model\_max\_length:}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ cur\_len\ !=\ total\_len:}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target[:]\ =\ IGNORE\_INDEX}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}WARNING:\ tokenization\ mismatch:\ \{cur\_len\}\ vs.\ \{total\_len\}."{}}}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}\ (ignored)"{}}}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00494\ \ \ \ \ \textcolor{keywordflow}{return}\ dict(}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ input\_ids=input\_ids,}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ labels=targets,}
+\DoxyCodeLine{00497\ \ \ \ \ )}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 18
+\Hypertarget{namespacetrain_ab4ca52f537ae7bdf5e313b89259ad3e0}\index{train@{train}!rank0\_print@{rank0\_print}}
+\index{rank0\_print@{rank0\_print}!train@{train}}
+\doxysubsubsection{\texorpdfstring{rank0\_print()}{rank0\_print()}}
+{\footnotesize\ttfamily \label{namespacetrain_ab4ca52f537ae7bdf5e313b89259ad3e0} 
+train.\+rank0\+\_\+print (\begin{DoxyParamCaption}\item[{\texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00044}{44}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00044\ \textcolor{keyword}{def\ }rank0\_print(*args):}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{if}\ local\_rank\ ==\ 0:}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ print(*args)}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 19
+\Hypertarget{namespacetrain_a8c2eb90decf9507949b166558bce8a4c}\index{train@{train}!safe\_save\_model\_for\_hf\_trainer@{safe\_save\_model\_for\_hf\_trainer}}
+\index{safe\_save\_model\_for\_hf\_trainer@{safe\_save\_model\_for\_hf\_trainer}!train@{train}}
+\doxysubsubsection{\texorpdfstring{safe\_save\_model\_for\_hf\_trainer()}{safe\_save\_model\_for\_hf\_trainer()}}
+{\footnotesize\ttfamily \label{namespacetrain_a8c2eb90decf9507949b166558bce8a4c} 
+train.\+safe\+\_\+save\+\_\+model\+\_\+for\+\_\+hf\+\_\+trainer (\begin{DoxyParamCaption}\item[{transformers.\+Trainer}]{trainer}{, }\item[{str}]{output\+\_\+dir}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Collects the state dict and dump to disk.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00185}{185}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_dir:\ str):}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Collects\ the\ state\ dict\ and\ dump\ to\ disk."{}"{}"{}}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{if}\ getattr(trainer.args,\ \textcolor{stringliteral}{"{}tune\_mm\_mlp\_adapter"{}},\ \textcolor{keyword}{False}):}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Only\ save\ Adapter}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ keys\_to\_match\ =\ [\textcolor{stringliteral}{'mm\_projector'}]}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ getattr(trainer.args,\ \textcolor{stringliteral}{"{}use\_im\_start\_end"{}},\ \textcolor{keyword}{False}):}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ keys\_to\_match.extend([\textcolor{stringliteral}{'embed\_tokens'},\ \textcolor{stringliteral}{'embed\_in'}])}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ weight\_to\_save\ =\ get\_mm\_adapter\_state\_maybe\_zero\_3(trainer.model.named\_parameters(),\ keys\_to\_match)}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ trainer.model.config.save\_pretrained(output\_dir)}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ current\_folder\ =\ output\_dir.split(\textcolor{stringliteral}{'/'})[-\/1]}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ parent\_folder\ =\ os.path.dirname(output\_dir)}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ trainer.args.local\_rank\ ==\ 0\ \textcolor{keywordflow}{or}\ trainer.args.local\_rank\ ==\ -\/1:}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ current\_folder.startswith(\textcolor{stringliteral}{'checkpoint-\/'}):}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mm\_projector\_folder\ =\ os.path.join(parent\_folder,\ \textcolor{stringliteral}{"{}mm\_projector"{}})}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ os.makedirs(mm\_projector\_folder,\ exist\_ok=\textcolor{keyword}{True})}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ torch.save(weight\_to\_save,\ os.path.join(mm\_projector\_folder,\ f\textcolor{stringliteral}{'\{current\_folder\}.bin'}))}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ torch.save(weight\_to\_save,\ os.path.join(output\_dir,\ f\textcolor{stringliteral}{'mm\_projector.bin'}))}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordflow}{if}\ trainer.deepspeed:}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ torch.cuda.synchronize()}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ trainer.save\_model(output\_dir)}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ state\_dict\ =\ trainer.model.state\_dict()}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordflow}{if}\ trainer.args.should\_save:}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ cpu\_state\_dict\ =\ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ key:\ value.cpu()}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key,\ value\ \textcolor{keywordflow}{in}\ state\_dict.items()}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ del\ state\_dict}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ trainer.\_save(output\_dir,\ state\_dict=cpu\_state\_dict)\ \ \textcolor{comment}{\#\ noqa}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 20
+Here is the caller graph for this function\+:
+% FIG 21
+\Hypertarget{namespacetrain_aaf881ec3138e9966fa8a0a3ce4b4d84f}\index{train@{train}!smart\_tokenizer\_and\_embedding\_resize@{smart\_tokenizer\_and\_embedding\_resize}}
+\index{smart\_tokenizer\_and\_embedding\_resize@{smart\_tokenizer\_and\_embedding\_resize}!train@{train}}
+\doxysubsubsection{\texorpdfstring{smart\_tokenizer\_and\_embedding\_resize()}{smart\_tokenizer\_and\_embedding\_resize()}}
+{\footnotesize\ttfamily \label{namespacetrain_aaf881ec3138e9966fa8a0a3ce4b4d84f} 
+train.\+smart\+\_\+tokenizer\+\_\+and\+\_\+embedding\+\_\+resize (\begin{DoxyParamCaption}\item[{Dict}]{special\+\_\+tokens\+\_\+dict}{, }\item[{transformers.\+Pre\+Trained\+Tokenizer}]{tokenizer}{, }\item[{transformers.\+Pre\+Trained\+Model}]{model}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Resize tokenizer and embedding.
+
+Note: This is the unoptimized version that may make your embedding size not be divisible by 64.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00224}{224}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00228\ ):}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Resize\ tokenizer\ and\ embedding.}}
+\DoxyCodeLine{00230\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00231\ \textcolor{stringliteral}{\ \ \ \ Note:\ This\ is\ the\ unoptimized\ version\ that\ may\ make\ your\ embedding\ size\ not\ be\ divisible\ by\ 64.}}
+\DoxyCodeLine{00232\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00233\ \ \ \ \ num\_new\_tokens\ =\ tokenizer.add\_special\_tokens(special\_tokens\_dict)}
+\DoxyCodeLine{00234\ \ \ \ \ model.resize\_token\_embeddings(len(tokenizer))}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_new\_tokens\ >\ 0:}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ input\_embeddings\ =\ model.get\_input\_embeddings().weight.data}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ output\_embeddings\ =\ model.get\_output\_embeddings().weight.data}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ input\_embeddings\_avg\ =\ input\_embeddings[:-\/num\_new\_tokens].mean(}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ dim=0,\ keepdim=\textcolor{keyword}{True})}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ output\_embeddings\_avg\ =\ output\_embeddings[:-\/num\_new\_tokens].mean(}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ dim=0,\ keepdim=\textcolor{keyword}{True})}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ input\_embeddings[-\/num\_new\_tokens:]\ =\ input\_embeddings\_avg}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ output\_embeddings[-\/num\_new\_tokens:]\ =\ output\_embeddings\_avg}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 22
+\Hypertarget{namespacetrain_a36fcc73822cb60d71319731bb4c50be7}\index{train@{train}!train@{train}}
+\index{train@{train}!train@{train}}
+\doxysubsubsection{\texorpdfstring{train()}{train()}}
+{\footnotesize\ttfamily \label{namespacetrain_a36fcc73822cb60d71319731bb4c50be7} 
+train.\+train (\begin{DoxyParamCaption}\item[{}]{attn\+\_\+implementation}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00788}{788}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00788\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacetrain}{train}}(attn\_implementation=None):}
+\DoxyCodeLine{00789\ \ \ \ \ \textcolor{keyword}{global}\ local\_rank}
+\DoxyCodeLine{00790\ }
+\DoxyCodeLine{00791\ \ \ \ \ parser\ =\ transformers.HfArgumentParser(}
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ (ModelArguments,\ DataArguments,\ TrainingArguments))}
+\DoxyCodeLine{00793\ \ \ \ \ model\_args,\ data\_args,\ training\_args\ =\ parser.parse\_args\_into\_dataclasses()}
+\DoxyCodeLine{00794\ \ \ \ \ local\_rank\ =\ training\_args.local\_rank}
+\DoxyCodeLine{00795\ \ \ \ \ compute\_dtype\ =\ (torch.float16\ \textcolor{keywordflow}{if}\ training\_args.fp16\ \textcolor{keywordflow}{else}\ (torch.bfloat16\ \textcolor{keywordflow}{if}\ training\_args.bf16\ \textcolor{keywordflow}{else}\ torch.float32))}
+\DoxyCodeLine{00796\ }
+\DoxyCodeLine{00797\ \ \ \ \ bnb\_model\_from\_pretrained\_args\ =\ \{\}}
+\DoxyCodeLine{00798\ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.bits\ \textcolor{keywordflow}{in}\ [4,\ 8]:}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \textcolor{keyword}{from}\ transformers\ \textcolor{keyword}{import}\ BitsAndBytesConfig}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ bnb\_model\_from\_pretrained\_args.update(dict(}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \ \ \ \ device\_map=\{\textcolor{stringliteral}{"{}"{}}:\ training\_args.device\},}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \ \ \ \ load\_in\_4bit=training\_args.bits\ ==\ 4,}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \ \ \ \ load\_in\_8bit=training\_args.bits\ ==\ 8,}
+\DoxyCodeLine{00804\ \ \ \ \ \ \ \ \ \ \ \ \ quantization\_config=BitsAndBytesConfig(}
+\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ load\_in\_4bit=training\_args.bits\ ==\ 4,}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ load\_in\_8bit=training\_args.bits\ ==\ 8,}
+\DoxyCodeLine{00807\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ llm\_int8\_skip\_modules=[\textcolor{stringliteral}{"{}mm\_projector"{}}],}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ llm\_int8\_threshold=6.0,}
+\DoxyCodeLine{00809\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ llm\_int8\_has\_fp16\_weight=\textcolor{keyword}{False},}
+\DoxyCodeLine{00810\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bnb\_4bit\_compute\_dtype=compute\_dtype,}
+\DoxyCodeLine{00811\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bnb\_4bit\_use\_double\_quant=training\_args.double\_quant,}
+\DoxyCodeLine{00812\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bnb\_4bit\_quant\_type=training\_args.quant\_type\ \textcolor{comment}{\#\ \{'fp4',\ 'nf4'\}}}
+\DoxyCodeLine{00813\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ \ \ ))}
+\DoxyCodeLine{00815\ }
+\DoxyCodeLine{00816\ \ \ \ \ \textcolor{keywordflow}{if}\ model\_args.vision\_tower\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'mpt'}\ \textcolor{keywordflow}{in}\ model\_args.model\_name\_or\_path:}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \ \ \ \ config\ =\ transformers.AutoConfig.from\_pretrained(model\_args.model\_name\_or\_path,\ trust\_remote\_code=\textcolor{keyword}{True})}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \ \ \ \ config.attn\_config[\textcolor{stringliteral}{'attn\_impl'}]\ =\ training\_args.mpt\_attn\_impl}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ LlavaMptForCausalLM.from\_pretrained(}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\_args.model\_name\_or\_path,}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ config=config,}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cache\_dir=training\_args.cache\_dir,}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **bnb\_model\_from\_pretrained\_args}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ \ \ \ \ model\ =\ LlavaLlamaForCausalLM.from\_pretrained(}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\_args.model\_name\_or\_path,}
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cache\_dir=training\_args.cache\_dir,}
+\DoxyCodeLine{00830\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attn\_implementation=attn\_implementation,}
+\DoxyCodeLine{00831\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ torch\_dtype=(torch.bfloat16\ \textcolor{keywordflow}{if}\ training\_args.bf16\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}),}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **bnb\_model\_from\_pretrained\_args}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00834\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ model\ =\ transformers.LlamaForCausalLM.from\_pretrained(}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \ \ \ \ model\_args.model\_name\_or\_path,}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \ \ \ \ cache\_dir=training\_args.cache\_dir,}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_implementation=attn\_implementation,}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \ \ \ \ torch\_dtype=(torch.bfloat16\ \textcolor{keywordflow}{if}\ training\_args.bf16\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}),}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \ \ \ \ **bnb\_model\_from\_pretrained\_args}
+\DoxyCodeLine{00841\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00842\ \ \ \ \ model.config.use\_cache\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00843\ }
+\DoxyCodeLine{00844\ \ \ \ \ \textcolor{keywordflow}{if}\ model\_args.freeze\_backbone:}
+\DoxyCodeLine{00845\ \ \ \ \ \ \ \ \ model.model.requires\_grad\_(\textcolor{keyword}{False})}
+\DoxyCodeLine{00846\ }
+\DoxyCodeLine{00847\ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.bits\ \textcolor{keywordflow}{in}\ [4,\ 8]:}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \textcolor{keyword}{from}\ peft\ \textcolor{keyword}{import}\ prepare\_model\_for\_kbit\_training}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ model.config.torch\_dtype=(torch.float32\ \textcolor{keywordflow}{if}\ training\_args.fp16\ \textcolor{keywordflow}{else}\ (torch.bfloat16\ \textcolor{keywordflow}{if}\ training\_args.bf16\ \textcolor{keywordflow}{else}\ torch.float32))}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ model\ =\ prepare\_model\_for\_kbit\_training(model,\ use\_gradient\_checkpointing=training\_args.gradient\_checkpointing)}
+\DoxyCodeLine{00851\ }
+\DoxyCodeLine{00852\ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.gradient\_checkpointing:}
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(model,\ \textcolor{stringliteral}{"{}enable\_input\_require\_grads"{}}):}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ \ \ \ \ model.enable\_input\_require\_grads()}
+\DoxyCodeLine{00855\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{def\ }make\_inputs\_require\_grad(module,\ input,\ output):}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output.requires\_grad\_(\textcolor{keyword}{True})}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ \ \ \ \ model.get\_input\_embeddings().register\_forward\_hook(make\_inputs\_require\_grad)}
+\DoxyCodeLine{00859\ }
+\DoxyCodeLine{00860\ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.lora\_enable:}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \textcolor{keyword}{from}\ peft\ \textcolor{keyword}{import}\ LoraConfig,\ get\_peft\_model}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ \ \ lora\_config\ =\ LoraConfig(}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \ \ \ \ r=training\_args.lora\_r,}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \ \ \ \ lora\_alpha=training\_args.lora\_alpha,}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ \ \ \ \ target\_modules=find\_all\_linear\_names(model),}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \ \ \ \ \ \ lora\_dropout=training\_args.lora\_dropout,}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ \ \ \ \ \ \ bias=training\_args.lora\_bias,}
+\DoxyCodeLine{00868\ \ \ \ \ \ \ \ \ \ \ \ \ task\_type=\textcolor{stringliteral}{"{}CAUSAL\_LM"{}},}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.bits\ ==\ 16:}
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.bf16:}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model.to(torch.bfloat16)}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.fp16:}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model.to(torch.float16)}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ rank0\_print(\textcolor{stringliteral}{"{}Adding\ LoRA\ adapters..."{}})}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ model\ =\ get\_peft\_model(model,\ lora\_config)}
+\DoxyCodeLine{00877\ }
+\DoxyCodeLine{00878\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'mpt'}\ \textcolor{keywordflow}{in}\ model\_args.model\_name\_or\_path:}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ tokenizer\ =\ transformers.AutoTokenizer.from\_pretrained(}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \ \ \ \ model\_args.model\_name\_or\_path,}
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \ \ \ \ cache\_dir=training\_args.cache\_dir,}
+\DoxyCodeLine{00882\ \ \ \ \ \ \ \ \ \ \ \ \ model\_max\_length=training\_args.model\_max\_length,}
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \ \ \ \ padding\_side=\textcolor{stringliteral}{"{}right"{}}}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00885\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00886\ \ \ \ \ \ \ \ \ tokenizer\ =\ transformers.AutoTokenizer.from\_pretrained(}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ \ \ \ \ model\_args.model\_name\_or\_path,}
+\DoxyCodeLine{00888\ \ \ \ \ \ \ \ \ \ \ \ \ cache\_dir=training\_args.cache\_dir,}
+\DoxyCodeLine{00889\ \ \ \ \ \ \ \ \ \ \ \ \ model\_max\_length=training\_args.model\_max\_length,}
+\DoxyCodeLine{00890\ \ \ \ \ \ \ \ \ \ \ \ \ padding\_side=\textcolor{stringliteral}{"{}right"{}},}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ \ \ \ \ \ \ use\_fast=\textcolor{keyword}{False},}
+\DoxyCodeLine{00892\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00893\ }
+\DoxyCodeLine{00894\ \ \ \ \ \textcolor{keywordflow}{if}\ model\_args.version\ ==\ \textcolor{stringliteral}{"{}v0"{}}:}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ tokenizer.pad\_token\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ \ \ \ \ smart\_tokenizer\_and\_embedding\_resize(}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ special\_tokens\_dict=dict(pad\_token=\textcolor{stringliteral}{"{}[PAD]"{}}),}
+\DoxyCodeLine{00898\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer=tokenizer,}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model=model,}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00901\ \ \ \ \ \textcolor{keywordflow}{elif}\ model\_args.version\ ==\ \textcolor{stringliteral}{"{}v0.5"{}}:}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ tokenizer.pad\_token\ =\ tokenizer.unk\_token}
+\DoxyCodeLine{00903\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ tokenizer.pad\_token\ =\ tokenizer.unk\_token}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_args.version\ \textcolor{keywordflow}{in}\ conversation\_lib.conv\_templates:}
+\DoxyCodeLine{00906\ \ \ \ \ \ \ \ \ \ \ \ \ conversation\_lib.default\_conversation\ =\ conversation\_lib.conv\_templates[model\_args.version]}
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00908\ \ \ \ \ \ \ \ \ \ \ \ \ conversation\_lib.default\_conversation\ =\ conversation\_lib.conv\_templates[\textcolor{stringliteral}{"{}vicuna\_v1"{}}]}
+\DoxyCodeLine{00909\ }
+\DoxyCodeLine{00910\ \ \ \ \ \textcolor{keywordflow}{if}\ model\_args.vision\_tower\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00911\ \ \ \ \ \ \ \ \ model.get\_model().initialize\_vision\_modules(}
+\DoxyCodeLine{00912\ \ \ \ \ \ \ \ \ \ \ \ \ model\_args=model\_args,}
+\DoxyCodeLine{00913\ \ \ \ \ \ \ \ \ \ \ \ \ fsdp=training\_args.fsdp}
+\DoxyCodeLine{00914\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00915\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00916\ \ \ \ \ \ \ \ \ vision\_tower\ =\ model.get\_vision\_tower()}
+\DoxyCodeLine{00917\ \ \ \ \ \ \ \ \ vision\_tower.to(dtype=torch.bfloat16\ \textcolor{keywordflow}{if}\ training\_args.bf16\ \textcolor{keywordflow}{else}\ torch.float16,\ device=training\_args.device)}
+\DoxyCodeLine{00918\ }
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ data\_args.image\_processor\ =\ vision\_tower.image\_processor}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ data\_args.is\_multimodal\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00921\ }
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ model.config.image\_aspect\_ratio\ =\ data\_args.image\_aspect\_ratio}
+\DoxyCodeLine{00923\ \ \ \ \ \ \ \ \ model.config.tokenizer\_padding\_side\ =\ tokenizer.padding\_side}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ model.config.tokenizer\_model\_max\_length\ =\ tokenizer.model\_max\_length}
+\DoxyCodeLine{00925\ }
+\DoxyCodeLine{00926\ \ \ \ \ \ \ \ \ model.config.tune\_mm\_mlp\_adapter\ =\ training\_args.tune\_mm\_mlp\_adapter\ =\ model\_args.tune\_mm\_mlp\_adapter}
+\DoxyCodeLine{00927\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_args.tune\_mm\_mlp\_adapter:}
+\DoxyCodeLine{00928\ \ \ \ \ \ \ \ \ \ \ \ \ model.requires\_grad\_(\textcolor{keyword}{False})}
+\DoxyCodeLine{00929\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ model.get\_model().mm\_projector.parameters():}
+\DoxyCodeLine{00930\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.requires\_grad\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00931\ }
+\DoxyCodeLine{00932\ \ \ \ \ \ \ \ \ model.config.freeze\_mm\_mlp\_adapter\ =\ training\_args.freeze\_mm\_mlp\_adapter}
+\DoxyCodeLine{00933\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.freeze\_mm\_mlp\_adapter:}
+\DoxyCodeLine{00934\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ model.get\_model().mm\_projector.parameters():}
+\DoxyCodeLine{00935\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.requires\_grad\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00936\ }
+\DoxyCodeLine{00937\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.bits\ \textcolor{keywordflow}{in}\ [4,\ 8]:}
+\DoxyCodeLine{00938\ \ \ \ \ \ \ \ \ \ \ \ \ model.get\_model().mm\_projector.to(dtype=compute\_dtype,\ device=training\_args.device)}
+\DoxyCodeLine{00939\ }
+\DoxyCodeLine{00940\ \ \ \ \ \ \ \ \ model.config.mm\_use\_im\_start\_end\ =\ data\_args.mm\_use\_im\_start\_end\ =\ model\_args.mm\_use\_im\_start\_end}
+\DoxyCodeLine{00941\ \ \ \ \ \ \ \ \ model.config.mm\_projector\_lr\ =\ training\_args.mm\_projector\_lr}
+\DoxyCodeLine{00942\ \ \ \ \ \ \ \ \ training\_args.use\_im\_start\_end\ =\ model\_args.mm\_use\_im\_start\_end}
+\DoxyCodeLine{00943\ \ \ \ \ \ \ \ \ model.config.mm\_use\_im\_patch\_token\ =\ model\_args.mm\_use\_im\_patch\_token}
+\DoxyCodeLine{00944\ \ \ \ \ \ \ \ \ model.initialize\_vision\_tokenizer(model\_args,\ tokenizer=tokenizer)}
+\DoxyCodeLine{00945\ }
+\DoxyCodeLine{00946\ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.bits\ \textcolor{keywordflow}{in}\ [4,\ 8]:}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ \textcolor{keyword}{from}\ peft.tuners.lora\ \textcolor{keyword}{import}\ LoraLayer}
+\DoxyCodeLine{00948\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ name,\ module\ \textcolor{keywordflow}{in}\ model.named\_modules():}
+\DoxyCodeLine{00949\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(module,\ LoraLayer):}
+\DoxyCodeLine{00950\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.bf16:}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ module\ =\ module.to(torch.bfloat16)}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'norm'}\ \textcolor{keywordflow}{in}\ name:}
+\DoxyCodeLine{00953\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ module\ =\ module.to(torch.float32)}
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'lm\_head'}\ \textcolor{keywordflow}{in}\ name\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'embed\_tokens'}\ \textcolor{keywordflow}{in}\ name:}
+\DoxyCodeLine{00955\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ hasattr(module,\ \textcolor{stringliteral}{'weight'}):}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.bf16\ \textcolor{keywordflow}{and}\ module.weight.dtype\ ==\ torch.float32:}
+\DoxyCodeLine{00957\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ module\ =\ module.to(torch.bfloat16)}
+\DoxyCodeLine{00958\ }
+\DoxyCodeLine{00959\ \ \ \ \ data\_module\ =\ make\_supervised\_data\_module(tokenizer=tokenizer,}
+\DoxyCodeLine{00960\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\_args=data\_args)}
+\DoxyCodeLine{00961\ \ \ \ \ trainer\ =\ LLaVATrainer(model=model,}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenizer=tokenizer,}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ args=training\_args,}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **data\_module)}
+\DoxyCodeLine{00965\ }
+\DoxyCodeLine{00966\ \ \ \ \ \textcolor{keywordflow}{if}\ list(pathlib.Path(training\_args.output\_dir).glob(\textcolor{stringliteral}{"{}checkpoint-\/*"{}})):}
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ trainer.train(resume\_from\_checkpoint=\textcolor{keyword}{True})}
+\DoxyCodeLine{00968\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00969\ \ \ \ \ \ \ \ \ trainer.train()}
+\DoxyCodeLine{00970\ \ \ \ \ trainer.save\_state()}
+\DoxyCodeLine{00971\ }
+\DoxyCodeLine{00972\ \ \ \ \ model.config.use\_cache\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00973\ }
+\DoxyCodeLine{00974\ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.lora\_enable:}
+\DoxyCodeLine{00975\ \ \ \ \ \ \ \ \ state\_dict\ =\ get\_peft\_state\_maybe\_zero\_3(}
+\DoxyCodeLine{00976\ \ \ \ \ \ \ \ \ \ \ \ \ model.named\_parameters(),\ training\_args.lora\_bias}
+\DoxyCodeLine{00977\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00978\ \ \ \ \ \ \ \ \ non\_lora\_state\_dict\ =\ get\_peft\_state\_non\_lora\_maybe\_zero\_3(}
+\DoxyCodeLine{00979\ \ \ \ \ \ \ \ \ \ \ \ \ model.named\_parameters()}
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00981\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ training\_args.local\_rank\ ==\ 0\ \textcolor{keywordflow}{or}\ training\_args.local\_rank\ ==\ -\/1:}
+\DoxyCodeLine{00982\ \ \ \ \ \ \ \ \ \ \ \ \ model.config.save\_pretrained(training\_args.output\_dir)}
+\DoxyCodeLine{00983\ \ \ \ \ \ \ \ \ \ \ \ \ model.save\_pretrained(training\_args.output\_dir,\ state\_dict=state\_dict)}
+\DoxyCodeLine{00984\ \ \ \ \ \ \ \ \ \ \ \ \ torch.save(non\_lora\_state\_dict,\ os.path.join(training\_args.output\_dir,\ \textcolor{stringliteral}{'non\_lora\_trainables.bin'}))}
+\DoxyCodeLine{00985\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ safe\_save\_model\_for\_hf\_trainer(trainer=trainer,}
+\DoxyCodeLine{00987\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_dir=training\_args.output\_dir)}
+\DoxyCodeLine{00988\ }
+\DoxyCodeLine{00989\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 23
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacetrain_a4a833c78c5f0d0722f6488c6a842ea1c}\index{train@{train}!IS\_TOKENIZER\_GREATER\_THAN\_0\_14@{IS\_TOKENIZER\_GREATER\_THAN\_0\_14}}
+\index{IS\_TOKENIZER\_GREATER\_THAN\_0\_14@{IS\_TOKENIZER\_GREATER\_THAN\_0\_14}!train@{train}}
+\doxysubsubsection{\texorpdfstring{IS\_TOKENIZER\_GREATER\_THAN\_0\_14}{IS\_TOKENIZER\_GREATER\_THAN\_0\_14}}
+{\footnotesize\ttfamily \label{namespacetrain_a4a833c78c5f0d0722f6488c6a842ea1c} 
+train.\+IS\+\_\+\+TOKENIZER\+\_\+\+GREATER\+\_\+\+THAN\+\_\+0\+\_\+14 = version.\+parse(\textquotesingle{}0.\+14\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00050}{50}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+
+\Hypertarget{namespacetrain_a815fb585b73e1cb930a5540b39c9723f}\index{train@{train}!local\_rank@{local\_rank}}
+\index{local\_rank@{local\_rank}!train@{train}}
+\doxysubsubsection{\texorpdfstring{local\_rank}{local\_rank}}
+{\footnotesize\ttfamily \label{namespacetrain_a815fb585b73e1cb930a5540b39c9723f} 
+train.\+local\+\_\+rank = None}
+
+
+
+Definition at line \mbox{\hyperlink{train_8py_source_l00041}{41}} of file \mbox{\hyperlink{train_8py_source}{train.\+py}}.
+

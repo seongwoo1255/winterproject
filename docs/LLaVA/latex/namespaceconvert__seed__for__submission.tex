@@ -1,0 +1,191 @@
+\doxysection{convert\+\_\+seed\+\_\+for\+\_\+submission Namespace Reference}
+\hypertarget{namespaceconvert__seed__for__submission}{}\label{namespaceconvert__seed__for__submission}\index{convert\_seed\_for\_submission@{convert\_seed\_for\_submission}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_a8c1f79fa1f7413c2bb874d6fe3946c67}{get\+\_\+args}} ()
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_a74e0b3a9ff4244319fce97dc114b4e94}{eval\+\_\+single}} (\mbox{\hyperlink{namespaceconvert__seed__for__submission_a1298c759bd6c4a49a08405a1ee5e2748}{result\+\_\+file}}, \mbox{\hyperlink{namespaceconvert__seed__for__submission_a8e491fb79e0e23d39fb8983e3de4d98d}{eval\+\_\+only\+\_\+type}}=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_a79cee289b24af44351d18021ae10425a}{args}} = \mbox{\hyperlink{namespaceconvert__seed__for__submission_a8c1f79fa1f7413c2bb874d6fe3946c67}{get\+\_\+args}}()
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_adba6f300aeafa133ef87bf2f02448954}{data}} = json.\+load(open(args.\+annotation\+\_\+file))
+\item 
+dict \mbox{\hyperlink{namespaceconvert__seed__for__submission_a0c9e5a70cc21c846c75d04e16f94cd92}{ques\+\_\+type\+\_\+id\+\_\+to\+\_\+name}} = \{id\+:n for n,id in \mbox{\hyperlink{namespaceconvert__seed__for__submission_adba6f300aeafa133ef87bf2f02448954}{data}}\mbox{[}\textquotesingle{}question\+\_\+type\textquotesingle{}\mbox{]}.items()\}
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_adf54001b7213b277619faa21c28654d3}{results}} = \mbox{\hyperlink{namespaceconvert__seed__for__submission_a74e0b3a9ff4244319fce97dc114b4e94}{eval\+\_\+single}}(args.\+result\+\_\+file)
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_a1298c759bd6c4a49a08405a1ee5e2748}{result\+\_\+file}}
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_a8e491fb79e0e23d39fb8983e3de4d98d}{eval\+\_\+only\+\_\+type}}
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_aab94ac698d419cded175a73e013d6d82}{qid}} = question\mbox{[}\textquotesingle{}question\+\_\+id\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceconvert__seed__for__submission_a40af681d0ef8dca49a137eb7d08e18b8}{result}} = \mbox{\hyperlink{namespaceconvert__seed__for__submission_adf54001b7213b277619faa21c28654d3}{results}}\mbox{[}\mbox{\hyperlink{namespaceconvert__seed__for__submission_aab94ac698d419cded175a73e013d6d82}{qid}}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceconvert__seed__for__submission_a74e0b3a9ff4244319fce97dc114b4e94}\index{convert\_seed\_for\_submission@{convert\_seed\_for\_submission}!eval\_single@{eval\_single}}
+\index{eval\_single@{eval\_single}!convert\_seed\_for\_submission@{convert\_seed\_for\_submission}}
+\doxysubsubsection{\texorpdfstring{eval\_single()}{eval\_single()}}
+{\footnotesize\ttfamily \label{namespaceconvert__seed__for__submission_a74e0b3a9ff4244319fce97dc114b4e94} 
+convert\+\_\+seed\+\_\+for\+\_\+submission.\+eval\+\_\+single (\begin{DoxyParamCaption}\item[{}]{result\+\_\+file}{, }\item[{}]{eval\+\_\+only\+\_\+type}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{convert__seed__for__submission_8py_source_l00014}{14}} of file \mbox{\hyperlink{convert__seed__for__submission_8py_source}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00014\ \textcolor{keyword}{def\ }eval\_single(result\_file,\ eval\_only\_type=None):}
+\DoxyCodeLine{00015\ \ \ \ \ results\ =\ \{\}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ open(result\_file):}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ row\ =\ json.loads(line)}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ results[row[\textcolor{stringliteral}{'question\_id'}]]\ =\ row}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ type\_counts\ =\ \{\}}
+\DoxyCodeLine{00021\ \ \ \ \ correct\_counts\ =\ \{\}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{for}\ question\_data\ \textcolor{keywordflow}{in}\ data[\textcolor{stringliteral}{'questions'}]:}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ eval\_only\_type\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ question\_data[\textcolor{stringliteral}{'data\_type'}]\ !=\ eval\_only\_type:\ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ data\_type\ =\ question\_data[\textcolor{stringliteral}{'question\_type\_id'}]}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ type\_counts[data\_type]\ =\ type\_counts.get(data\_type,\ 0)\ +\ 1}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ question\_id\ =\ int(question\_data[\textcolor{stringliteral}{'question\_id'}])}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}:}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ question\_id\ =\ question\_data[\textcolor{stringliteral}{'question\_id'}]}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ question\_id\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ results:}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ correct\_counts[data\_type]\ =\ correct\_counts.get(data\_type,\ 0)}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ row\ =\ results[question\_id]}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ row[\textcolor{stringliteral}{'text'}]\ ==\ question\_data[\textcolor{stringliteral}{'answer'}]:}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ correct\_counts[data\_type]\ =\ correct\_counts.get(data\_type,\ 0)\ +\ 1}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ total\_count\ =\ 0}
+\DoxyCodeLine{00038\ \ \ \ \ total\_correct\ =\ 0}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{for}\ data\_type\ \textcolor{keywordflow}{in}\ sorted(type\_counts.keys()):}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ accuracy\ =\ correct\_counts[data\_type]\ /\ type\_counts[data\_type]\ *\ 100}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ eval\_only\_type\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}\{ques\_type\_id\_to\_name[data\_type]\}:\ \{accuracy:.2f\}\%"{}})}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ total\_count\ +=\ type\_counts[data\_type]}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ total\_correct\ +=\ correct\_counts[data\_type]}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ total\_accuracy\ =\ total\_correct\ /\ total\_count\ *\ 100}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{if}\ eval\_only\_type\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Total\ accuracy:\ \{total\_accuracy:.2f\}\%"{}})}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}\{eval\_only\_type\}\ accuracy:\ \{total\_accuracy:.2f\}\%"{}})}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{return}\ results}
+\DoxyCodeLine{00054\ }
+
+\end{DoxyCode}
+\Hypertarget{namespaceconvert__seed__for__submission_a8c1f79fa1f7413c2bb874d6fe3946c67}\index{convert\_seed\_for\_submission@{convert\_seed\_for\_submission}!get\_args@{get\_args}}
+\index{get\_args@{get\_args}!convert\_seed\_for\_submission@{convert\_seed\_for\_submission}}
+\doxysubsubsection{\texorpdfstring{get\_args()}{get\_args()}}
+{\footnotesize\ttfamily \label{namespaceconvert__seed__for__submission_a8c1f79fa1f7413c2bb874d6fe3946c67} 
+convert\+\_\+seed\+\_\+for\+\_\+submission.\+get\+\_\+args (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{convert__seed__for__submission_8py_source_l00006}{6}} of file \mbox{\hyperlink{convert__seed__for__submission_8py_source}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00006\ \textcolor{keyword}{def\ }get\_args():}
+\DoxyCodeLine{00007\ \ \ \ \ parser\ =\ argparse.ArgumentParser()}
+\DoxyCodeLine{00008\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/annotation-\/file"{}},\ type=str)}
+\DoxyCodeLine{00009\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/result-\/file"{}},\ type=str)}
+\DoxyCodeLine{00010\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/result-\/upload-\/file"{}},\ type=str)}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordflow}{return}\ parser.parse\_args()}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceconvert__seed__for__submission_a79cee289b24af44351d18021ae10425a}\index{convert\_seed\_for\_submission@{convert\_seed\_for\_submission}!args@{args}}
+\index{args@{args}!convert\_seed\_for\_submission@{convert\_seed\_for\_submission}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily \label{namespaceconvert__seed__for__submission_a79cee289b24af44351d18021ae10425a} 
+convert\+\_\+seed\+\_\+for\+\_\+submission.\+args = \mbox{\hyperlink{namespaceconvert__seed__for__submission_a8c1f79fa1f7413c2bb874d6fe3946c67}{get\+\_\+args}}()}
+
+
+
+Definition at line \mbox{\hyperlink{convert__seed__for__submission_8py_source_l00056}{56}} of file \mbox{\hyperlink{convert__seed__for__submission_8py_source}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+py}}.
+
+\Hypertarget{namespaceconvert__seed__for__submission_adba6f300aeafa133ef87bf2f02448954}\index{convert\_seed\_for\_submission@{convert\_seed\_for\_submission}!data@{data}}
+\index{data@{data}!convert\_seed\_for\_submission@{convert\_seed\_for\_submission}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily \label{namespaceconvert__seed__for__submission_adba6f300aeafa133ef87bf2f02448954} 
+convert\+\_\+seed\+\_\+for\+\_\+submission.\+data = json.\+load(open(args.\+annotation\+\_\+file))}
+
+
+
+Definition at line \mbox{\hyperlink{convert__seed__for__submission_8py_source_l00057}{57}} of file \mbox{\hyperlink{convert__seed__for__submission_8py_source}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+py}}.
+
+\Hypertarget{namespaceconvert__seed__for__submission_a8e491fb79e0e23d39fb8983e3de4d98d}\index{convert\_seed\_for\_submission@{convert\_seed\_for\_submission}!eval\_only\_type@{eval\_only\_type}}
+\index{eval\_only\_type@{eval\_only\_type}!convert\_seed\_for\_submission@{convert\_seed\_for\_submission}}
+\doxysubsubsection{\texorpdfstring{eval\_only\_type}{eval\_only\_type}}
+{\footnotesize\ttfamily \label{namespaceconvert__seed__for__submission_a8e491fb79e0e23d39fb8983e3de4d98d} 
+convert\+\_\+seed\+\_\+for\+\_\+submission.\+eval\+\_\+only\+\_\+type}
+
+
+
+Definition at line \mbox{\hyperlink{convert__seed__for__submission_8py_source_l00061}{61}} of file \mbox{\hyperlink{convert__seed__for__submission_8py_source}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+py}}.
+
+\Hypertarget{namespaceconvert__seed__for__submission_aab94ac698d419cded175a73e013d6d82}\index{convert\_seed\_for\_submission@{convert\_seed\_for\_submission}!qid@{qid}}
+\index{qid@{qid}!convert\_seed\_for\_submission@{convert\_seed\_for\_submission}}
+\doxysubsubsection{\texorpdfstring{qid}{qid}}
+{\footnotesize\ttfamily \label{namespaceconvert__seed__for__submission_aab94ac698d419cded175a73e013d6d82} 
+convert\+\_\+seed\+\_\+for\+\_\+submission.\+qid = question\mbox{[}\textquotesingle{}question\+\_\+id\textquotesingle{}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{convert__seed__for__submission_8py_source_l00066}{66}} of file \mbox{\hyperlink{convert__seed__for__submission_8py_source}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+py}}.
+
+\Hypertarget{namespaceconvert__seed__for__submission_a0c9e5a70cc21c846c75d04e16f94cd92}\index{convert\_seed\_for\_submission@{convert\_seed\_for\_submission}!ques\_type\_id\_to\_name@{ques\_type\_id\_to\_name}}
+\index{ques\_type\_id\_to\_name@{ques\_type\_id\_to\_name}!convert\_seed\_for\_submission@{convert\_seed\_for\_submission}}
+\doxysubsubsection{\texorpdfstring{ques\_type\_id\_to\_name}{ques\_type\_id\_to\_name}}
+{\footnotesize\ttfamily \label{namespaceconvert__seed__for__submission_a0c9e5a70cc21c846c75d04e16f94cd92} 
+dict convert\+\_\+seed\+\_\+for\+\_\+submission.\+ques\+\_\+type\+\_\+id\+\_\+to\+\_\+name = \{id\+:n for n,id in \mbox{\hyperlink{namespaceconvert__seed__for__submission_adba6f300aeafa133ef87bf2f02448954}{data}}\mbox{[}\textquotesingle{}question\+\_\+type\textquotesingle{}\mbox{]}.items()\}}
+
+
+
+Definition at line \mbox{\hyperlink{convert__seed__for__submission_8py_source_l00058}{58}} of file \mbox{\hyperlink{convert__seed__for__submission_8py_source}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+py}}.
+
+\Hypertarget{namespaceconvert__seed__for__submission_a40af681d0ef8dca49a137eb7d08e18b8}\index{convert\_seed\_for\_submission@{convert\_seed\_for\_submission}!result@{result}}
+\index{result@{result}!convert\_seed\_for\_submission@{convert\_seed\_for\_submission}}
+\doxysubsubsection{\texorpdfstring{result}{result}}
+{\footnotesize\ttfamily \label{namespaceconvert__seed__for__submission_a40af681d0ef8dca49a137eb7d08e18b8} 
+convert\+\_\+seed\+\_\+for\+\_\+submission.\+result = \mbox{\hyperlink{namespaceconvert__seed__for__submission_adf54001b7213b277619faa21c28654d3}{results}}\mbox{[}\mbox{\hyperlink{namespaceconvert__seed__for__submission_aab94ac698d419cded175a73e013d6d82}{qid}}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{convert__seed__for__submission_8py_source_l00068}{68}} of file \mbox{\hyperlink{convert__seed__for__submission_8py_source}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+py}}.
+
+\Hypertarget{namespaceconvert__seed__for__submission_a1298c759bd6c4a49a08405a1ee5e2748}\index{convert\_seed\_for\_submission@{convert\_seed\_for\_submission}!result\_file@{result\_file}}
+\index{result\_file@{result\_file}!convert\_seed\_for\_submission@{convert\_seed\_for\_submission}}
+\doxysubsubsection{\texorpdfstring{result\_file}{result\_file}}
+{\footnotesize\ttfamily \label{namespaceconvert__seed__for__submission_a1298c759bd6c4a49a08405a1ee5e2748} 
+convert\+\_\+seed\+\_\+for\+\_\+submission.\+result\+\_\+file}
+
+
+
+Definition at line \mbox{\hyperlink{convert__seed__for__submission_8py_source_l00061}{61}} of file \mbox{\hyperlink{convert__seed__for__submission_8py_source}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+py}}.
+
+\Hypertarget{namespaceconvert__seed__for__submission_adf54001b7213b277619faa21c28654d3}\index{convert\_seed\_for\_submission@{convert\_seed\_for\_submission}!results@{results}}
+\index{results@{results}!convert\_seed\_for\_submission@{convert\_seed\_for\_submission}}
+\doxysubsubsection{\texorpdfstring{results}{results}}
+{\footnotesize\ttfamily \label{namespaceconvert__seed__for__submission_adf54001b7213b277619faa21c28654d3} 
+convert\+\_\+seed\+\_\+for\+\_\+submission.\+results = \mbox{\hyperlink{namespaceconvert__seed__for__submission_a74e0b3a9ff4244319fce97dc114b4e94}{eval\+\_\+single}}(args.\+result\+\_\+file)}
+
+
+
+Definition at line \mbox{\hyperlink{convert__seed__for__submission_8py_source_l00060}{60}} of file \mbox{\hyperlink{convert__seed__for__submission_8py_source}{convert\+\_\+seed\+\_\+for\+\_\+submission.\+py}}.
+

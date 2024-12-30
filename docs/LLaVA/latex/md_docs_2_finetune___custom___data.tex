@@ -1,0 +1,36 @@
+\chapter{Finetune LLa\+VA on Custom Datasets}
+\hypertarget{md_docs_2_finetune___custom___data}{}\label{md_docs_2_finetune___custom___data}\index{Finetune LLaVA on Custom Datasets@{Finetune LLaVA on Custom Datasets}}
+\label{md_docs_2_finetune___custom___data_autotoc_md24}%
+\Hypertarget{md_docs_2_finetune___custom___data_autotoc_md24}%
+\hypertarget{md_docs_2_finetune___custom___data_autotoc_md25}{}\doxysection{\texorpdfstring{Dataset Format}{Dataset Format}}\label{md_docs_2_finetune___custom___data_autotoc_md25}
+Convert your data to a JSON file of a List of all samples. Sample metadata should contain {\ttfamily id} (a unique identifier), {\ttfamily image} (the path to the image), and {\ttfamily conversations} (the conversation data between human and AI).
+
+A sample JSON for finetuning LLa\+VA for generating tag-\/style captions for Stable Diffusion\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ "{}id"{}:\ "{}997bb945-\/628d-\/4724-\/b370-\/b84de974a19f"{},}
+\DoxyCodeLine{\ \ \ \ "{}image"{}:\ "{}part-\/000001/997bb945-\/628d-\/4724-\/b370-\/b84de974a19f.jpg"{},}
+\DoxyCodeLine{\ \ \ \ "{}conversations"{}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}from"{}:\ "{}human"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}value"{}:\ "{}<image>\(\backslash\)nWrite\ a\ prompt\ for\ Stable\ Diffusion\ to\ generate\ this\ image."{}}
+\DoxyCodeLine{\ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}from"{}:\ "{}gpt"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}value"{}:\ "{}a\ beautiful\ painting\ of\ chernobyl\ by\ nekro,\ pascal\ blanche,\ john\ harris,\ greg\ rutkowski,\ sin\ jong\ hun,\ moebius,\ simon\ stalenhag.\ in\ style\ of\ cg\ art.\ ray\ tracing.\ cel\ shading.\ hyper\ detailed.\ realistic.\ ue\ 5.\ maya.\ octane\ render.\ "{}}
+\DoxyCodeLine{\ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ ]}
+\DoxyCodeLine{\ \ \},}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{]}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2_finetune___custom___data_autotoc_md26}{}\doxysection{\texorpdfstring{Command}{Command}}\label{md_docs_2_finetune___custom___data_autotoc_md26}
+If you have a limited task-\/specific data, we recommend finetuning from LLa\+VA checkpoints with Lo\+RA following this \href{https://github.com/haotian-liu/LLaVA/blob/main/scripts/v1_5/finetune_task_lora.sh}{\texttt{ script}}.
+
+If the amount of the task-\/specific data is sufficient, you can also finetune from LLa\+VA checkpoints with full-\/model finetuning following this \href{https://github.com/haotian-liu/LLaVA/blob/main/scripts/v1_5/finetune_task.sh}{\texttt{ script}}.
+
+You may need to adjust the hyperparameters to fit each specific dataset and your hardware constraint. 

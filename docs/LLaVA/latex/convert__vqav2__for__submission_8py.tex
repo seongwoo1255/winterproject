@@ -1,0 +1,35 @@
+\doxysection{scripts/convert\+\_\+vqav2\+\_\+for\+\_\+submission.py File Reference}
+\hypertarget{convert__vqav2__for__submission_8py}{}\label{convert__vqav2__for__submission_8py}\index{scripts/convert\_vqav2\_for\_submission.py@{scripts/convert\_vqav2\_for\_submission.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceconvert__vqav2__for__submission}{convert\+\_\+vqav2\+\_\+for\+\_\+submission}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceconvert__vqav2__for__submission_a328b44b7e1a6fac5dc2c8b71f11aae75}{convert\+\_\+vqav2\+\_\+for\+\_\+submission.\+parse\+\_\+args}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceconvert__vqav2__for__submission_a8fd30f70cc834ea31673a35b4cc2ac53}{convert\+\_\+vqav2\+\_\+for\+\_\+submission.\+args}} = \mbox{\hyperlink{namespaceconvert__vqav2__for__submission_a328b44b7e1a6fac5dc2c8b71f11aae75}{parse\+\_\+args}}()
+\item 
+\mbox{\hyperlink{namespaceconvert__vqav2__for__submission_a510978fc36959e6d3e9ecfd47ab4ec42}{convert\+\_\+vqav2\+\_\+for\+\_\+submission.\+src}} = os.\+path.\+join(args.\+dir, \textquotesingle{}answers\textquotesingle{}, args.\+split, args.\+ckpt, \textquotesingle{}merge.\+jsonl\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespaceconvert__vqav2__for__submission_abc0be1d1f2629caf880bca332d161fef}{convert\+\_\+vqav2\+\_\+for\+\_\+submission.\+test\+\_\+split}} = os.\+path.\+join(args.\+dir, \textquotesingle{}llava\+\_\+vqav2\+\_\+mscoco\+\_\+test2015.\+jsonl\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespaceconvert__vqav2__for__submission_a37866f4f391767efb1fa238f41e0bf55}{convert\+\_\+vqav2\+\_\+for\+\_\+submission.\+dst}} = os.\+path.\+join(args.\+dir, \textquotesingle{}answers\+\_\+upload\textquotesingle{}, args.\+split, f\textquotesingle{}\{args.\+ckpt\}.json\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespaceconvert__vqav2__for__submission_aff212422997f15ff676b9ee89702c674}{convert\+\_\+vqav2\+\_\+for\+\_\+submission.\+exist\+\_\+ok}}
+\item 
+list \mbox{\hyperlink{namespaceconvert__vqav2__for__submission_a3d8b3ff9c8325f5eaf3ecc1910a18b05}{convert\+\_\+vqav2\+\_\+for\+\_\+submission.\+results}} = \mbox{[}$\,$\mbox{]}
+\item 
+int \mbox{\hyperlink{namespaceconvert__vqav2__for__submission_a33301141e319b8f126a5df831861a9a8}{convert\+\_\+vqav2\+\_\+for\+\_\+submission.\+error\+\_\+line}} = 0
+\item 
+\mbox{\hyperlink{namespaceconvert__vqav2__for__submission_aa06747ad82ab2d980b96d9327431dad4}{convert\+\_\+vqav2\+\_\+for\+\_\+submission.\+split\+\_\+ids}} = set(\mbox{[}x\mbox{[}\textquotesingle{}question\+\_\+id\textquotesingle{}\mbox{]} for x in \mbox{\hyperlink{namespaceconvert__vqav2__for__submission_abc0be1d1f2629caf880bca332d161fef}{test\+\_\+split}}\mbox{]})
+\item 
+list \mbox{\hyperlink{namespaceconvert__vqav2__for__submission_a59501dd5d0932b3ae651d0b0222077d5}{convert\+\_\+vqav2\+\_\+for\+\_\+submission.\+all\+\_\+answers}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceconvert__vqav2__for__submission_aaee9415ac157b309bc291d3730a66379}{convert\+\_\+vqav2\+\_\+for\+\_\+submission.\+answer\+\_\+processor}} = Eval\+AIAnswer\+Processor()
+\end{DoxyCompactItemize}

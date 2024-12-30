@@ -1,0 +1,98 @@
+\doxysection{merge\+\_\+lora\+\_\+weights Namespace Reference}
+\hypertarget{namespacemerge__lora__weights}{}\label{namespacemerge__lora__weights}\index{merge\_lora\_weights@{merge\_lora\_weights}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacemerge__lora__weights_a0e99d9f148615c0618bd5cd97c39e11e}{merge\+\_\+lora}} (\mbox{\hyperlink{namespacemerge__lora__weights_a53fb149ebf69df195953b4b0ae11bf6a}{args}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacemerge__lora__weights_a2c642e6da3078c39785551db97d38536}{parser}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespacemerge__lora__weights_af35f0db8aebfacc61a331b86da1246be}{type}}
+\item 
+\mbox{\hyperlink{namespacemerge__lora__weights_aa310e890a6de5371108241be2fc3f5f0}{str}}
+\item 
+\mbox{\hyperlink{namespacemerge__lora__weights_af50ef95ce50ea1dfeb22535714279070}{required}}
+\item 
+\mbox{\hyperlink{namespacemerge__lora__weights_a53fb149ebf69df195953b4b0ae11bf6a}{args}} = parser.\+parse\+\_\+args()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacemerge__lora__weights_a0e99d9f148615c0618bd5cd97c39e11e}\index{merge\_lora\_weights@{merge\_lora\_weights}!merge\_lora@{merge\_lora}}
+\index{merge\_lora@{merge\_lora}!merge\_lora\_weights@{merge\_lora\_weights}}
+\doxysubsubsection{\texorpdfstring{merge\_lora()}{merge\_lora()}}
+{\footnotesize\ttfamily \label{namespacemerge__lora__weights_a0e99d9f148615c0618bd5cd97c39e11e} 
+merge\+\_\+lora\+\_\+weights.\+merge\+\_\+lora (\begin{DoxyParamCaption}\item[{}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{merge__lora__weights_8py_source_l00006}{6}} of file \mbox{\hyperlink{merge__lora__weights_8py_source}{merge\+\_\+lora\+\_\+weights.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00006\ \textcolor{keyword}{def\ }merge\_lora(args):}
+\DoxyCodeLine{00007\ \ \ \ \ model\_name\ =\ get\_model\_name\_from\_path(args.model\_path)}
+\DoxyCodeLine{00008\ \ \ \ \ tokenizer,\ model,\ image\_processor,\ context\_len\ =\ load\_pretrained\_model(args.model\_path,\ args.model\_base,\ model\_name,\ device\_map=\textcolor{stringliteral}{'cpu'})}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ model.save\_pretrained(args.save\_model\_path)}
+\DoxyCodeLine{00011\ \ \ \ \ tokenizer.save\_pretrained(args.save\_model\_path)}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacemerge__lora__weights_a53fb149ebf69df195953b4b0ae11bf6a}\index{merge\_lora\_weights@{merge\_lora\_weights}!args@{args}}
+\index{args@{args}!merge\_lora\_weights@{merge\_lora\_weights}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily \label{namespacemerge__lora__weights_a53fb149ebf69df195953b4b0ae11bf6a} 
+merge\+\_\+lora\+\_\+weights.\+args = parser.\+parse\+\_\+args()}
+
+
+
+Definition at line \mbox{\hyperlink{merge__lora__weights_8py_source_l00020}{20}} of file \mbox{\hyperlink{merge__lora__weights_8py_source}{merge\+\_\+lora\+\_\+weights.\+py}}.
+
+\Hypertarget{namespacemerge__lora__weights_a2c642e6da3078c39785551db97d38536}\index{merge\_lora\_weights@{merge\_lora\_weights}!parser@{parser}}
+\index{parser@{parser}!merge\_lora\_weights@{merge\_lora\_weights}}
+\doxysubsubsection{\texorpdfstring{parser}{parser}}
+{\footnotesize\ttfamily \label{namespacemerge__lora__weights_a2c642e6da3078c39785551db97d38536} 
+merge\+\_\+lora\+\_\+weights.\+parser = argparse.\+Argument\+Parser()}
+
+
+
+Definition at line \mbox{\hyperlink{merge__lora__weights_8py_source_l00015}{15}} of file \mbox{\hyperlink{merge__lora__weights_8py_source}{merge\+\_\+lora\+\_\+weights.\+py}}.
+
+\Hypertarget{namespacemerge__lora__weights_af50ef95ce50ea1dfeb22535714279070}\index{merge\_lora\_weights@{merge\_lora\_weights}!required@{required}}
+\index{required@{required}!merge\_lora\_weights@{merge\_lora\_weights}}
+\doxysubsubsection{\texorpdfstring{required}{required}}
+{\footnotesize\ttfamily \label{namespacemerge__lora__weights_af50ef95ce50ea1dfeb22535714279070} 
+merge\+\_\+lora\+\_\+weights.\+required}
+
+
+
+Definition at line \mbox{\hyperlink{merge__lora__weights_8py_source_l00016}{16}} of file \mbox{\hyperlink{merge__lora__weights_8py_source}{merge\+\_\+lora\+\_\+weights.\+py}}.
+
+\Hypertarget{namespacemerge__lora__weights_aa310e890a6de5371108241be2fc3f5f0}\index{merge\_lora\_weights@{merge\_lora\_weights}!str@{str}}
+\index{str@{str}!merge\_lora\_weights@{merge\_lora\_weights}}
+\doxysubsubsection{\texorpdfstring{str}{str}}
+{\footnotesize\ttfamily \label{namespacemerge__lora__weights_aa310e890a6de5371108241be2fc3f5f0} 
+merge\+\_\+lora\+\_\+weights.\+str}
+
+
+
+Definition at line \mbox{\hyperlink{merge__lora__weights_8py_source_l00016}{16}} of file \mbox{\hyperlink{merge__lora__weights_8py_source}{merge\+\_\+lora\+\_\+weights.\+py}}.
+
+\Hypertarget{namespacemerge__lora__weights_af35f0db8aebfacc61a331b86da1246be}\index{merge\_lora\_weights@{merge\_lora\_weights}!type@{type}}
+\index{type@{type}!merge\_lora\_weights@{merge\_lora\_weights}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \label{namespacemerge__lora__weights_af35f0db8aebfacc61a331b86da1246be} 
+merge\+\_\+lora\+\_\+weights.\+type}
+
+
+
+Definition at line \mbox{\hyperlink{merge__lora__weights_8py_source_l00016}{16}} of file \mbox{\hyperlink{merge__lora__weights_8py_source}{merge\+\_\+lora\+\_\+weights.\+py}}.
+

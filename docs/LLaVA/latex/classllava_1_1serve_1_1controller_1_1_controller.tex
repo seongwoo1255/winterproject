@@ -1,0 +1,445 @@
+\doxysection{llava.\+serve.\+controller.\+Controller Class Reference}
+\hypertarget{classllava_1_1serve_1_1controller_1_1_controller}{}\label{classllava_1_1serve_1_1controller_1_1_controller}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_aa4d4375f31155bc421054b6e08a64b6b}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{namespacellava_1_1serve_1_1controller_a7828dd2b8f63c7bc9c4dcc20f8d25ca0}{str}} \mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_a3d8eb3a9d07f3958e8dc9cfc92625550}{dispatch\+\_\+method}})
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_a6471c382642def00c412d82bdc473ac3}{register\+\_\+worker}} (self, \mbox{\hyperlink{namespacellava_1_1serve_1_1controller_a7828dd2b8f63c7bc9c4dcc20f8d25ca0}{str}} worker\+\_\+name, bool check\+\_\+heart\+\_\+beat, dict worker\+\_\+status)
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_af02dbb01db45557de6b6318fe5302616}{get\+\_\+worker\+\_\+status}} (self, \mbox{\hyperlink{namespacellava_1_1serve_1_1controller_a7828dd2b8f63c7bc9c4dcc20f8d25ca0}{str}} worker\+\_\+name)
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_a4eb8b9a3300f8270fb1071422680e88f}{remove\+\_\+worker}} (self, \mbox{\hyperlink{namespacellava_1_1serve_1_1controller_a7828dd2b8f63c7bc9c4dcc20f8d25ca0}{str}} worker\+\_\+name)
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_ad1b23f504a4c41c721abe029f539ba07}{refresh\+\_\+all\+\_\+workers}} (self)
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_a95cb39c88d0bf749d7bcb7518d81ef41}{list\+\_\+models}} (self)
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_aa622ce0c111890f7fdbe460bda6b9955}{get\+\_\+worker\+\_\+address}} (self, \mbox{\hyperlink{namespacellava_1_1serve_1_1controller_a7828dd2b8f63c7bc9c4dcc20f8d25ca0}{str}} model\+\_\+name)
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_a88711f395ef6640bf30e7ea5339d5515}{receive\+\_\+heart\+\_\+beat}} (self, \mbox{\hyperlink{namespacellava_1_1serve_1_1controller_a7828dd2b8f63c7bc9c4dcc20f8d25ca0}{str}} worker\+\_\+name, \mbox{\hyperlink{namespacellava_1_1serve_1_1controller_ac2a4602a2b31141946e71588586436c7}{int}} queue\+\_\+length)
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_aca6579cb53fdc1fef2b0814d2e98bfb6}{remove\+\_\+stable\+\_\+workers\+\_\+by\+\_\+expiration}} (self)
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_a634ce73e2d633f9a19bd291e1cb209b0}{worker\+\_\+api\+\_\+generate\+\_\+stream}} (self, params)
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_affd4f032db3ed64e6da06699bb4447de}{worker\+\_\+api\+\_\+get\+\_\+status}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_aee05cb42d96aeb0f24e6333454a1f666}{worker\+\_\+info}} = \{\}
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_a3d8eb3a9d07f3958e8dc9cfc92625550}{dispatch\+\_\+method}} = \mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_dispatch_method_a84fb7ab3c70b8944f1685e996894ee2a}{Dispatch\+Method.\+from\+\_\+str}}(dispatch\+\_\+method)
+\item 
+\mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_controller_a68af796eb61cad11060b27e922b6ca36}{heart\+\_\+beat\+\_\+thread}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00057}{57}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_aa4d4375f31155bc421054b6e08a64b6b}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_aa4d4375f31155bc421054b6e08a64b6b} 
+llava.\+serve.\+controller.\+Controller.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{namespacellava_1_1serve_1_1controller_a7828dd2b8f63c7bc9c4dcc20f8d25ca0}{str}}}]{dispatch\+\_\+method}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00058}{58}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ dispatch\_method:\ str):}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Dict[str\ -\/>\ WorkerInfo]}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ self.worker\_info\ =\ \{\}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ self.dispatch\_method\ =\ DispatchMethod.from\_str(dispatch\_method)}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ self.heart\_beat\_thread\ =\ threading.Thread(}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ target=heart\_beat\_controller,\ args=(self,),\ daemon=\textcolor{keyword}{True})}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ self.heart\_beat\_thread.start()}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ logger.info(\textcolor{stringliteral}{"{}Init\ controller"{}})}
+\DoxyCodeLine{00068\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_aa622ce0c111890f7fdbe460bda6b9955}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!get\_worker\_address@{get\_worker\_address}}
+\index{get\_worker\_address@{get\_worker\_address}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{get\_worker\_address()}{get\_worker\_address()}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_aa622ce0c111890f7fdbe460bda6b9955} 
+llava.\+serve.\+controller.\+Controller.\+get\+\_\+worker\+\_\+address (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{namespacellava_1_1serve_1_1controller_a7828dd2b8f63c7bc9c4dcc20f8d25ca0}{str}}}]{model\+\_\+name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00120}{120}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{def\ }get\_worker\_address(self,\ model\_name:\ str):}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.dispatch\_method\ ==\ DispatchMethod.LOTTERY:}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ worker\_names\ =\ []}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ worker\_speeds\ =\ []}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ w\_name,\ w\_info\ \textcolor{keywordflow}{in}\ self.worker\_info.items():}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_name\ \textcolor{keywordflow}{in}\ w\_info.model\_names:}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker\_names.append(w\_name)}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker\_speeds.append(w\_info.speed)}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ worker\_speeds\ =\ np.array(worker\_speeds,\ dtype=np.float32)}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ norm\ =\ np.sum(worker\_speeds)}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ norm\ <\ 1e-\/4:}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ worker\_speeds\ =\ worker\_speeds\ /\ norm}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{True}:\ \ \textcolor{comment}{\#\ Directly\ return\ address}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pt\ =\ np.random.choice(np.arange(len(worker\_names)),}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p=worker\_speeds)}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker\_name\ =\ worker\_names[pt]}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ worker\_name}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Check\ status\ before\ returning}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pt\ =\ np.random.choice(np.arange(len(worker\_names)),}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p=worker\_speeds)}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker\_name\ =\ worker\_names[pt]}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.get\_worker\_status(worker\_name):}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.remove\_worker(worker\_name)}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker\_speeds[pt]\ =\ 0}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ norm\ =\ np.sum(worker\_speeds)}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ norm\ <\ 1e-\/4:}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker\_speeds\ =\ worker\_speeds\ /\ norm}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ worker\_name}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.dispatch\_method\ ==\ DispatchMethod.SHORTEST\_QUEUE:}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ worker\_names\ =\ []}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ worker\_qlen\ =\ []}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ w\_name,\ w\_info\ \textcolor{keywordflow}{in}\ self.worker\_info.items():}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_name\ \textcolor{keywordflow}{in}\ w\_info.model\_names:}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker\_names.append(w\_name)}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker\_qlen.append(w\_info.queue\_length\ /\ w\_info.speed)}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(worker\_names)\ ==\ 0:}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ min\_index\ =\ np.argmin(worker\_qlen)}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ w\_name\ =\ worker\_names[min\_index]}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ self.worker\_info[w\_name].queue\_length\ +=\ 1}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}names:\ \{worker\_names\},\ queue\_lens:\ \{worker\_qlen\},\ ret:\ \{w\_name\}"{}})}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ w\_name}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{"{}Invalid\ dispatch\ method:\ \{self.dispatch\_method\}"{}})}
+\DoxyCodeLine{00172\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 0
+Here is the caller graph for this function\+:
+% FIG 1
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_af02dbb01db45557de6b6318fe5302616}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!get\_worker\_status@{get\_worker\_status}}
+\index{get\_worker\_status@{get\_worker\_status}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{get\_worker\_status()}{get\_worker\_status()}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_af02dbb01db45557de6b6318fe5302616} 
+llava.\+serve.\+controller.\+Controller.\+get\+\_\+worker\+\_\+status (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{namespacellava_1_1serve_1_1controller_a7828dd2b8f63c7bc9c4dcc20f8d25ca0}{str}}}]{worker\+\_\+name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00088}{88}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{def\ }get\_worker\_status(self,\ worker\_name:\ str):}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ r\ =\ requests.post(worker\_name\ +\ \textcolor{stringliteral}{"{}/worker\_get\_status"{}},\ timeout=5)}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ requests.exceptions.RequestException\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ logger.error(f\textcolor{stringliteral}{"{}Get\ status\ fails:\ \{worker\_name\},\ \{e\}"{}})}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ r.status\_code\ !=\ 200:}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ logger.error(f\textcolor{stringliteral}{"{}Get\ status\ fails:\ \{worker\_name\},\ \{r\}"{}})}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r.json()}
+\DoxyCodeLine{00100\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 2
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_a95cb39c88d0bf749d7bcb7518d81ef41}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!list\_models@{list\_models}}
+\index{list\_models@{list\_models}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{list\_models()}{list\_models()}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_a95cb39c88d0bf749d7bcb7518d81ef41} 
+llava.\+serve.\+controller.\+Controller.\+list\+\_\+models (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00112}{112}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{def\ }list\_models(self):}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ model\_names\ =\ set()}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ w\_name,\ w\_info\ \textcolor{keywordflow}{in}\ self.worker\_info.items():}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ model\_names.update(w\_info.model\_names)}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ list(model\_names)}
+\DoxyCodeLine{00119\ }
+
+\end{DoxyCode}
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_a88711f395ef6640bf30e7ea5339d5515}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!receive\_heart\_beat@{receive\_heart\_beat}}
+\index{receive\_heart\_beat@{receive\_heart\_beat}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{receive\_heart\_beat()}{receive\_heart\_beat()}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_a88711f395ef6640bf30e7ea5339d5515} 
+llava.\+serve.\+controller.\+Controller.\+receive\+\_\+heart\+\_\+beat (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{namespacellava_1_1serve_1_1controller_a7828dd2b8f63c7bc9c4dcc20f8d25ca0}{str}}}]{worker\+\_\+name}{, }\item[{\mbox{\hyperlink{namespacellava_1_1serve_1_1controller_ac2a4602a2b31141946e71588586436c7}{int}}}]{queue\+\_\+length}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00173}{173}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{def\ }receive\_heart\_beat(self,\ worker\_name:\ str,\ queue\_length:\ int):}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ worker\_name\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ self.worker\_info:}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}Receive\ unknown\ heart\ beat.\ \{worker\_name\}"{}})}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ self.worker\_info[worker\_name].queue\_length\ =\ queue\_length}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ self.worker\_info[worker\_name].last\_heart\_beat\ =\ time.time()}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}Receive\ heart\ beat.\ \{worker\_name\}"{}})}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00182\ }
+
+\end{DoxyCode}
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_ad1b23f504a4c41c721abe029f539ba07}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!refresh\_all\_workers@{refresh\_all\_workers}}
+\index{refresh\_all\_workers@{refresh\_all\_workers}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{refresh\_all\_workers()}{refresh\_all\_workers()}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_ad1b23f504a4c41c721abe029f539ba07} 
+llava.\+serve.\+controller.\+Controller.\+refresh\+\_\+all\+\_\+workers (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00104}{104}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{def\ }refresh\_all\_workers(self):}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ old\_info\ =\ dict(self.worker\_info)}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ self.worker\_info\ =\ \{\}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ w\_name,\ w\_info\ \textcolor{keywordflow}{in}\ old\_info.items():}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ self.register\_worker(w\_name,\ w\_info.check\_heart\_beat,\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}Remove\ stale\ worker:\ \{w\_name\}"{}})}
+\DoxyCodeLine{00111\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 3
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_a6471c382642def00c412d82bdc473ac3}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!register\_worker@{register\_worker}}
+\index{register\_worker@{register\_worker}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{register\_worker()}{register\_worker()}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_a6471c382642def00c412d82bdc473ac3} 
+llava.\+serve.\+controller.\+Controller.\+register\+\_\+worker (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{namespacellava_1_1serve_1_1controller_a7828dd2b8f63c7bc9c4dcc20f8d25ca0}{str}}}]{worker\+\_\+name}{, }\item[{bool}]{check\+\_\+heart\+\_\+beat}{, }\item[{dict}]{worker\+\_\+status}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00069}{69}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker\_status:\ dict):}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ worker\_name\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ self.worker\_info:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}Register\ a\ new\ worker:\ \{worker\_name\}"{}})}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}Register\ an\ existing\ worker:\ \{worker\_name\}"{}})}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ worker\_status:}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ worker\_status\ =\ self.get\_worker\_status(worker\_name)}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ worker\_status:}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ self.worker\_info[worker\_name]\ =\ WorkerInfo(}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ worker\_status[\textcolor{stringliteral}{"{}model\_names"{}}],\ worker\_status[\textcolor{stringliteral}{"{}speed"{}}],\ worker\_status[\textcolor{stringliteral}{"{}queue\_length"{}}],}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ check\_heart\_beat,\ time.time())}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}Register\ done:\ \{worker\_name\},\ \{worker\_status\}"{}})}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00087\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_aca6579cb53fdc1fef2b0814d2e98bfb6}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!remove\_stable\_workers\_by\_expiration@{remove\_stable\_workers\_by\_expiration}}
+\index{remove\_stable\_workers\_by\_expiration@{remove\_stable\_workers\_by\_expiration}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{remove\_stable\_workers\_by\_expiration()}{remove\_stable\_workers\_by\_expiration()}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_aca6579cb53fdc1fef2b0814d2e98bfb6} 
+llava.\+serve.\+controller.\+Controller.\+remove\+\_\+stable\+\_\+workers\+\_\+by\+\_\+expiration (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00183}{183}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keyword}{def\ }remove\_stable\_workers\_by\_expiration(self):}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ expire\ =\ time.time()\ -\/\ CONTROLLER\_HEART\_BEAT\_EXPIRATION}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ to\_delete\ =\ []}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ worker\_name,\ w\_info\ \textcolor{keywordflow}{in}\ self.worker\_info.items():}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ w\_info.check\_heart\_beat\ \textcolor{keywordflow}{and}\ w\_info.last\_heart\_beat\ <\ expire:}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ to\_delete.append(worker\_name)}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ worker\_name\ \textcolor{keywordflow}{in}\ to\_delete:}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ self.remove\_worker(worker\_name)}
+\DoxyCodeLine{00192\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 6
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_a4eb8b9a3300f8270fb1071422680e88f}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!remove\_worker@{remove\_worker}}
+\index{remove\_worker@{remove\_worker}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{remove\_worker()}{remove\_worker()}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_a4eb8b9a3300f8270fb1071422680e88f} 
+llava.\+serve.\+controller.\+Controller.\+remove\+\_\+worker (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{namespacellava_1_1serve_1_1controller_a7828dd2b8f63c7bc9c4dcc20f8d25ca0}{str}}}]{worker\+\_\+name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00101}{101}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{def\ }remove\_worker(self,\ worker\_name:\ str):}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ del\ self.worker\_info[worker\_name]}
+\DoxyCodeLine{00103\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 7
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_a634ce73e2d633f9a19bd291e1cb209b0}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!worker\_api\_generate\_stream@{worker\_api\_generate\_stream}}
+\index{worker\_api\_generate\_stream@{worker\_api\_generate\_stream}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{worker\_api\_generate\_stream()}{worker\_api\_generate\_stream()}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_a634ce73e2d633f9a19bd291e1cb209b0} 
+llava.\+serve.\+controller.\+Controller.\+worker\+\_\+api\+\_\+generate\+\_\+stream (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{params}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00193}{193}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{def\ }worker\_api\_generate\_stream(self,\ params):}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ worker\_addr\ =\ self.get\_worker\_address(params[\textcolor{stringliteral}{"{}model"{}}])}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ worker\_addr:}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}no\ worker:\ \{params['model']\}"{}})}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}text"{}}:\ server\_error\_msg,}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}error\_code"{}}:\ 2,}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ json.dumps(ret).encode()\ +\ b\textcolor{stringliteral}{"{}\(\backslash\)0"{}}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ response\ =\ requests.post(worker\_addr\ +\ \textcolor{stringliteral}{"{}/worker\_generate\_stream"{}},}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ json=params,\ stream=\textcolor{keyword}{True},\ timeout=5)}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ chunk\ \textcolor{keywordflow}{in}\ response.iter\_lines(decode\_unicode=\textcolor{keyword}{False},\ delimiter=b\textcolor{stringliteral}{"{}\(\backslash\)0"{}}):}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ chunk:}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ chunk\ +\ b\textcolor{stringliteral}{"{}\(\backslash\)0"{}}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ requests.exceptions.RequestException\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}worker\ timeout:\ \{worker\_addr\}"{}})}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}text"{}}:\ server\_error\_msg,}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}error\_code"{}}:\ 3,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ json.dumps(ret).encode()\ +\ b\textcolor{stringliteral}{"{}\(\backslash\)0"{}}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 8
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_affd4f032db3ed64e6da06699bb4447de}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!worker\_api\_get\_status@{worker\_api\_get\_status}}
+\index{worker\_api\_get\_status@{worker\_api\_get\_status}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{worker\_api\_get\_status()}{worker\_api\_get\_status()}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_affd4f032db3ed64e6da06699bb4447de} 
+llava.\+serve.\+controller.\+Controller.\+worker\+\_\+api\+\_\+get\+\_\+status (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00220}{220}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keyword}{def\ }worker\_api\_get\_status(self):}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ model\_names\ =\ set()}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ speed\ =\ 0}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ queue\_length\ =\ 0}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ w\_name\ \textcolor{keywordflow}{in}\ self.worker\_info:}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ worker\_status\ =\ self.get\_worker\_status(w\_name)}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ worker\_status\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\_names.update(worker\_status[\textcolor{stringliteral}{"{}model\_names"{}}])}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ speed\ +=\ worker\_status[\textcolor{stringliteral}{"{}speed"{}}]}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ queue\_length\ +=\ worker\_status[\textcolor{stringliteral}{"{}queue\_length"{}}]}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}model\_names"{}}:\ list(model\_names),}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}speed"{}}:\ speed,}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}queue\_length"{}}:\ queue\_length,}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 9
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_a3d8eb3a9d07f3958e8dc9cfc92625550}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!dispatch\_method@{dispatch\_method}}
+\index{dispatch\_method@{dispatch\_method}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{dispatch\_method}{dispatch\_method}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_a3d8eb3a9d07f3958e8dc9cfc92625550} 
+llava.\+serve.\+controller.\+Controller.\+dispatch\+\_\+method = \mbox{\hyperlink{classllava_1_1serve_1_1controller_1_1_dispatch_method_a84fb7ab3c70b8944f1685e996894ee2a}{Dispatch\+Method.\+from\+\_\+str}}(dispatch\+\_\+method)}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00061}{61}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_a68af796eb61cad11060b27e922b6ca36}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!heart\_beat\_thread@{heart\_beat\_thread}}
+\index{heart\_beat\_thread@{heart\_beat\_thread}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{heart\_beat\_thread}{heart\_beat\_thread}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_a68af796eb61cad11060b27e922b6ca36} 
+llava.\+serve.\+controller.\+Controller.\+heart\+\_\+beat\+\_\+thread}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ threading.Thread(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ target=heart\_beat\_controller,\ args=(self,),\ daemon=\textcolor{keyword}{True})}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00063}{63}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+\Hypertarget{classllava_1_1serve_1_1controller_1_1_controller_aee05cb42d96aeb0f24e6333454a1f666}\index{llava.serve.controller.Controller@{llava.serve.controller.Controller}!worker\_info@{worker\_info}}
+\index{worker\_info@{worker\_info}!llava.serve.controller.Controller@{llava.serve.controller.Controller}}
+\doxysubsubsection{\texorpdfstring{worker\_info}{worker\_info}}
+{\footnotesize\ttfamily \label{classllava_1_1serve_1_1controller_1_1_controller_aee05cb42d96aeb0f24e6333454a1f666} 
+dict llava.\+serve.\+controller.\+Controller.\+worker\+\_\+info = \{\}}
+
+
+
+Definition at line \mbox{\hyperlink{controller_8py_source_l00060}{60}} of file \mbox{\hyperlink{controller_8py_source}{controller.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+llava/serve/\mbox{\hyperlink{controller_8py}{controller.\+py}}\end{DoxyCompactItemize}

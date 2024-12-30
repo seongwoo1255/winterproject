@@ -1,0 +1,31 @@
+\doxysection{llava/eval/summarize\+\_\+gpt\+\_\+review.py File Reference}
+\hypertarget{summarize__gpt__review_8py}{}\label{summarize__gpt__review_8py}\index{llava/eval/summarize\_gpt\_review.py@{llava/eval/summarize\_gpt\_review.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacesummarize__gpt__review}{summarize\+\_\+gpt\+\_\+review}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_ae0bf18adb9db1cf56a182482f12b51b0}{summarize\+\_\+gpt\+\_\+review.\+parse\+\_\+args}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_afc5f782bd850f1ecba9b27537624a6bf}{summarize\+\_\+gpt\+\_\+review.\+args}} = \mbox{\hyperlink{namespacesummarize__gpt__review_ae0bf18adb9db1cf56a182482f12b51b0}{parse\+\_\+args}}()
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_aee9b0911ea17d6a3af3ce112cb03c672}{summarize\+\_\+gpt\+\_\+review.\+ignore}}
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_aeb0e2795fdfffd8f2d70eca75ce9e638}{summarize\+\_\+gpt\+\_\+review.\+review\+\_\+files}} = args.\+files
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_a1021328fdd8e129dd3693a83ba5deb00}{summarize\+\_\+gpt\+\_\+review.\+config}} = os.\+path.\+basename(review\+\_\+file).replace(\textquotesingle{}gpt4\+\_\+text\+\_\+\textquotesingle{}, \textquotesingle{}\textquotesingle{}).replace(\textquotesingle{}.jsonl\textquotesingle{}, \textquotesingle{}\textquotesingle{})
+\item 
+str \mbox{\hyperlink{namespacesummarize__gpt__review_a59807aeac8fa5743ade8df06b9abc299}{summarize\+\_\+gpt\+\_\+review.\+version}} = \textquotesingle{}0613\textquotesingle{}
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_a7c979175c2b75a61f9f998965772b1b5}{summarize\+\_\+gpt\+\_\+review.\+scores}} = defaultdict(list)
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_aeba610686e6f065d92c55edabe4b0658}{summarize\+\_\+gpt\+\_\+review.\+review}} = json.\+loads(review\+\_\+str)
+\item 
+\mbox{\hyperlink{namespacesummarize__gpt__review_a9c6ef9a68a37492f3045fc268f252b67}{summarize\+\_\+gpt\+\_\+review.\+stats}} = np.\+asarray(v).mean(0).tolist()
+\end{DoxyCompactItemize}

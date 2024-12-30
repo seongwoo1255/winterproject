@@ -1,0 +1,80 @@
+\doxysection{qa\+\_\+baseline\+\_\+gpt35.\+py}
+\hypertarget{qa__baseline__gpt35_8py_source}{}\label{qa__baseline__gpt35_8py_source}\index{llava/eval/qa\_baseline\_gpt35.py@{llava/eval/qa\_baseline\_gpt35.py}}
+\mbox{\hyperlink{qa__baseline__gpt35_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00001}\mbox{\hyperlink{namespaceqa__baseline__gpt35}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}Generate\ answers\ with\ GPT-\/3.5"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00002}00002\ \textcolor{comment}{\#\ Note:\ you\ need\ to\ be\ using\ OpenAI\ Python\ v0.27.0\ for\ the\ code\ below\ to\ work}}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00003}00003\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00004}00004\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00005}00005\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00006}00006\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00007}00007\ \textcolor{keyword}{import}\ concurrent.futures}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00009}00009\ \textcolor{keyword}{import}\ openai}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00010}00010\ \textcolor{keyword}{import}\ tqdm}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00011}00011\ \textcolor{keyword}{import}\ shortuuid}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00013}\mbox{\hyperlink{namespaceqa__baseline__gpt35_a54cc19c2324523b80522a65df6fdfa00}{00013}}\ MODEL\ =\ \textcolor{stringliteral}{'gpt-\/3.5-\/turbo'}}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00014}\mbox{\hyperlink{namespaceqa__baseline__gpt35_a59dc87c707351e9adf915a0f6944efd2}{00014}}\ MODEL\_ID\ =\ \textcolor{stringliteral}{'gpt-\/3.5-\/turbo:20230327'}}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00016}\mbox{\hyperlink{namespaceqa__baseline__gpt35_a512f7f5bc1f7199f780bdf800d199ed3}{00016}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceqa__baseline__gpt35_a512f7f5bc1f7199f780bdf800d199ed3}{get\_answer}}(question\_id:\ int,\ question:\ str,\ max\_tokens:\ int):}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00017}00017\ \ \ \ \ ans\ =\ \{}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'answer\_id'}:\ shortuuid.uuid(),}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'question\_id'}:\ question\_id,}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'model\_id'}:\ MODEL\_ID,}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00021}00021\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(3):}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ response\ =\ openai.ChatCompletion.create(}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model=MODEL,}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ messages=[\{}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}:\ \textcolor{stringliteral}{'system'},}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'content'}:\ \textcolor{stringliteral}{'You\ are\ a\ helpful\ assistant.'}}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}:\ \textcolor{stringliteral}{'user'},}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'content'}:\ question,}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}],}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_tokens=max\_tokens,}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ ans[\textcolor{stringliteral}{'text'}]\ =\ response[\textcolor{stringliteral}{'choices'}][0][\textcolor{stringliteral}{'message'}][\textcolor{stringliteral}{'content'}]}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ans}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{'[ERROR]'},\ e)}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ ans[\textcolor{stringliteral}{'text'}]\ =\ \textcolor{stringliteral}{'\#ERROR\#'}}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ time.sleep(1)}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00041}00041\ \ \ \ \ \textcolor{keywordflow}{return}\ ans}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00044}00044\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00045}\mbox{\hyperlink{namespaceqa__baseline__gpt35_ab5b8b2282790b5e2d59e8340fcf43cbd}{00045}}\ \ \ \ \ parser\ =\ argparse.ArgumentParser(description=\textcolor{stringliteral}{'ChatGPT\ answer\ generation.'})}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00046}00046\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/q'},\ \textcolor{stringliteral}{'-\/-\/question'})}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00047}00047\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/o'},\ \textcolor{stringliteral}{'-\/-\/output'})}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00048}\mbox{\hyperlink{namespaceqa__baseline__gpt35_ab3a561b24dc4683d34354b3314d7ead5}{00048}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{'-\/-\/max-\/tokens'},\ type=int,\ default=1024,\ help=\textcolor{stringliteral}{'maximum\ number\ of\ tokens\ produced\ in\ the\ output'})}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00049}\mbox{\hyperlink{namespaceqa__baseline__gpt35_a437167292db6b049d0fc6fde71558674}{00049}}\ \ \ \ \ args\ =\ parser.parse\_args()}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00051}\mbox{\hyperlink{namespaceqa__baseline__gpt35_ac6df1642525ef63633e57720d9a8c987}{00051}}\ \ \ \ \ questions\_dict\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00052}00052\ \ \ \ \ \textcolor{keyword}{with}\ open(os.path.expanduser(args.question))\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ f:}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ line:}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00056}\mbox{\hyperlink{namespaceqa__baseline__gpt35_af997e4c78e93bd9079418f1aa9b8a408}{00056}}\ \ \ \ \ \ \ \ \ \ \ \ \ q\ =\ json.loads(line)}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ questions\_dict[q[\textcolor{stringliteral}{'question\_id'}]]\ =\ q[\textcolor{stringliteral}{'text'}]}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00059}\mbox{\hyperlink{namespaceqa__baseline__gpt35_af53cc01343f62afaad31e1b0ed57c8f4}{00059}}\ \ \ \ \ answers\ =\ []}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00061}\mbox{\hyperlink{namespaceqa__baseline__gpt35_a9e6f9119c9b48f54c00430ad2bfe1665}{00061}}\ \ \ \ \ \textcolor{keyword}{with}\ concurrent.futures.ThreadPoolExecutor(max\_workers=32)\ \textcolor{keyword}{as}\ executor:}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00062}\mbox{\hyperlink{namespaceqa__baseline__gpt35_ab703276bcca6cc0c7ea71d665fe240b6}{00062}}\ \ \ \ \ \ \ \ \ futures\ =\ []}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ qid,\ question\ \textcolor{keywordflow}{in}\ questions\_dict.items():}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00064}\mbox{\hyperlink{namespaceqa__baseline__gpt35_a505fa4cb3118121ed72828e680ef9c71}{00064}}\ \ \ \ \ \ \ \ \ \ \ \ \ future\ =\ executor.submit(get\_answer,\ qid,\ question,\ args.max\_tokens)}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ futures.append(future)}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00067}\mbox{\hyperlink{namespaceqa__baseline__gpt35_af60d8217361c77e98630d87fc2942a51}{00067}}\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ future\ \textcolor{keywordflow}{in}\ tqdm.tqdm(concurrent.futures.as\_completed(futures),\ total=len(futures)):}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ answers.append(future.result())}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00070}\mbox{\hyperlink{namespaceqa__baseline__gpt35_ab5b8a4fe205c2085d8bef3964d0d9e9f}{00070}}\ \ \ \ \ answers.sort(key=\textcolor{keyword}{lambda}\ x:\ x[\textcolor{stringliteral}{'question\_id'}])}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00072}00072\ \ \ \ \ \textcolor{keyword}{with}\ open(os.path.expanduser(args.output),\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00073}\mbox{\hyperlink{namespaceqa__baseline__gpt35_ac18e71dd030f3a1e2c8c8f83f2a8ece2}{00073}}\ \ \ \ \ \ \ \ \ table\ =\ [json.dumps(ans)\ \textcolor{keywordflow}{for}\ ans\ \textcolor{keywordflow}{in}\ answers]}
+\DoxyCodeLine{\Hypertarget{qa__baseline__gpt35_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ f.write(\textcolor{stringliteral}{'\(\backslash\)n'}.join(table))}
+
+\end{DoxyCode}

@@ -1,0 +1,250 @@
+\doxysection{sglang\+\_\+worker.\+py}
+\hypertarget{sglang__worker_8py_source}{}\label{sglang__worker_8py_source}\index{llava/serve/sglang\_worker.py@{llava/serve/sglang\_worker.py}}
+\mbox{\hyperlink{sglang__worker_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00001}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00002}00002\ \textcolor{stringliteral}{A\ model\ worker\ executes\ the\ model.}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00003}00003\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00004}00004\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00005}00005\ \textcolor{keyword}{import}\ asyncio}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00006}00006\ \textcolor{keyword}{from}\ concurrent.futures\ \textcolor{keyword}{import}\ ThreadPoolExecutor}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00007}00007\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00008}00008\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00009}00009\ \textcolor{keyword}{import}\ threading}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00010}00010\ \textcolor{keyword}{import}\ uuid}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00012}00012\ \textcolor{keyword}{from}\ fastapi\ \textcolor{keyword}{import}\ FastAPI,\ Request,\ BackgroundTasks}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00013}00013\ \textcolor{keyword}{from}\ fastapi.responses\ \textcolor{keyword}{import}\ StreamingResponse}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00014}00014\ \textcolor{keyword}{import}\ requests}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00015}00015\ \textcolor{keyword}{import}\ re}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00016}00016\ \textcolor{keyword}{import}\ uvicorn}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00017}00017\ \textcolor{keyword}{from}\ functools\ \textcolor{keyword}{import}\ partial}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1constants}{llava.constants}}\ \textcolor{keyword}{import}\ WORKER\_HEART\_BEAT\_INTERVAL}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00020}00020\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1utils}{llava.utils}}\ \textcolor{keyword}{import}\ (build\_logger,\ server\_error\_msg,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00021}00021\ \ \ \ \ pretty\_print\_semaphore)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00022}00022\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1mm__utils}{llava.mm\_utils}}\ \textcolor{keyword}{import}\ process\_images,\ load\_image\_from\_base64,\ tokenizer\_image\_token,\ expand2square}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00023}00023\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1constants}{llava.constants}}\ \textcolor{keyword}{import}\ DEFAULT\_IMAGE\_TOKEN}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00025}00025\ \textcolor{keyword}{import}\ sglang\ \textcolor{keyword}{as}\ sgl}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00026}00026\ \textcolor{keyword}{from}\ sglang.backend.runtime\_endpoint\ \textcolor{keyword}{import}\ RuntimeEndpoint}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00029}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_aea4c05ce91aba079994236a1d97f46c6}{00029}}\ GB\ =\ 1\ <<\ 30}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00031}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a2b0f08a42fd4e9c1a4398636606afc0b}{00031}}\ worker\_id\ =\ \mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a006a1e20da180b43fa889b1bfd3b50eb}{str}}(uuid.uuid4())[:6]}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00032}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_aa968e0c82053c4d4aad659e8cdc8662f}{00032}}\ logger\ =\ build\_logger(\textcolor{stringliteral}{"{}model\_worker"{}},\ f\textcolor{stringliteral}{"{}model\_worker\_\{worker\_id\}.log"{}})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00033}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a8335c4a237ebd5758d1e1059dab8f886}{00033}}\ global\_counter\ =\ 0}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00035}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a9298f62e6a5df4acc1e12af3f58d8a47}{00035}}\ model\_semaphore\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00038}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a2a8cb0b4e4650435b03cc6449e69279a}{00038}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a2a8cb0b4e4650435b03cc6449e69279a}{heart\_beat\_worker}}(controller):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00039}00039\ \ \ \ \ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ time.sleep(WORKER\_HEART\_BEAT\_INTERVAL)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ controller.send\_heart\_beat()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00044}00044\ \textcolor{preprocessor}{@sgl.function}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00045}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a6e2b27fff066e4c773b86300b506739a}{00045}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a6e2b27fff066e4c773b86300b506739a}{pipeline}}(s,\ prompt,\ max\_tokens):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00046}00046\ \ \ \ \ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ prompt:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a3bbac648c3eca3496616310843ec6ce7}{type}}(p)\ \textcolor{keywordflow}{is}\ str:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ s\ +=\ p}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ s\ +=\ sgl.image(p)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00051}00051\ \ \ \ \ s\ +=\ sgl.gen(\textcolor{stringliteral}{"{}response"{}},\ max\_tokens=max\_tokens)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00054}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker}{00054}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker}{ModelWorker}}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00055}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_ae16edc11e91b44bdb7d6e47cbbb8fd1c}{00055}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_ae16edc11e91b44bdb7d6e47cbbb8fd1c}{\_\_init\_\_}}(self,\ controller\_addr,\ worker\_addr,\ sgl\_endpoint,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker\_id,\ no\_register,\ model\_name):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00057}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_ab1836c406554a5d89e348679717653b4}{00057}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_ab1836c406554a5d89e348679717653b4}{controller\_addr}}\ =\ controller\_addr}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00058}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_adf893cb46c1508e21e7289b706c25d7f}{00058}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_adf893cb46c1508e21e7289b706c25d7f}{worker\_addr}}\ =\ worker\_addr}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00059}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_aeb246e2817561adc88517ce1c3f90ba5}{00059}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_aeb246e2817561adc88517ce1c3f90ba5}{worker\_id}}\ =\ worker\_id}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Select\ backend}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ backend\ =\ RuntimeEndpoint(sgl\_endpoint)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ sgl.set\_default\_backend(backend)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ model\_path\ =\ backend.model\_info[\textcolor{stringliteral}{"{}model\_path"{}}]}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_path.endswith(\textcolor{stringliteral}{"{}/"{}}):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ model\_path\ =\ model\_path[:-\/1]}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_name\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ model\_paths\ =\ model\_path.split(\textcolor{stringliteral}{"{}/"{}})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_paths[-\/1].startswith(\textcolor{stringliteral}{'checkpoint-\/'}):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00071}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a8fc5d8673312c317ae103979cdf9f314}{00071}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a8fc5d8673312c317ae103979cdf9f314}{model\_name}}\ =\ model\_paths[-\/2]\ +\ \textcolor{stringliteral}{"{}\_"{}}\ +\ model\_paths[-\/1]}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a8fc5d8673312c317ae103979cdf9f314}{model\_name}}\ =\ model\_paths[-\/1]}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a8fc5d8673312c317ae103979cdf9f314}{model\_name}}\ =\ model\_name}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}Loading\ the\ SGLANG\ model\ \{self.model\_name\}\ on\ worker\ \{worker\_id\}\ ..."{}})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ no\_register:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a4d28a879c8a59361d4f9ea1b198931f7}{register\_to\_controller}}()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00081}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_ab55f71cd1a703543f06c98744495fd63}{00081}}\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_ab55f71cd1a703543f06c98744495fd63}{heart\_beat\_thread}}\ =\ threading.Thread(}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target=heart\_beat\_worker,\ args=(self,),\ daemon=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_ab55f71cd1a703543f06c98744495fd63}{heart\_beat\_thread}}.start()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00085}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a4d28a879c8a59361d4f9ea1b198931f7}{00085}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a4d28a879c8a59361d4f9ea1b198931f7}{register\_to\_controller}}(self):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ logger.info(\textcolor{stringliteral}{"{}Register\ to\ controller"{}})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ url\ =\ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_ab1836c406554a5d89e348679717653b4}{controller\_addr}}\ +\ \textcolor{stringliteral}{"{}/register\_worker"{}}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ data\ =\ \{}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}worker\_name"{}}:\ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_adf893cb46c1508e21e7289b706c25d7f}{worker\_addr}},}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}check\_heart\_beat"{}}:\ \textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}worker\_status"{}}:\ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a342e888cb2785863ef671216cae4b375}{get\_status}}()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ r\ =\ requests.post(url,\ json=data)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keyword}{assert}\ r.status\_code\ ==\ 200}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00097}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a6915ed825ca90fb2ceea9fbe041dcc95}{00097}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a6915ed825ca90fb2ceea9fbe041dcc95}{send\_heart\_beat}}(self):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}Send\ heart\ beat.\ Models:\ \{[self.model\_name]\}.\ "{}}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}Semaphore:\ \{pretty\_print\_semaphore(model\_semaphore)\}.\ "{}}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}global\_counter:\ \{global\_counter\}"{}})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ url\ =\ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_ab1836c406554a5d89e348679717653b4}{controller\_addr}}\ +\ \textcolor{stringliteral}{"{}/receive\_heart\_beat"{}}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ requests.post(url,\ json=\{}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}worker\_name"{}}:\ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_adf893cb46c1508e21e7289b706c25d7f}{worker\_addr}},}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}queue\_length"{}}:\ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a97b9071f2d49fddb2d1222245789a790}{get\_queue\_length}}()\},\ timeout=5)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exist\ =\ ret.json()[\textcolor{stringliteral}{"{}exist"{}}]}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ requests.exceptions.RequestException\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ logger.error(f\textcolor{stringliteral}{"{}heart\ beat\ error:\ \{e\}"{}})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ time.sleep(5)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ exist:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a4d28a879c8a59361d4f9ea1b198931f7}{register\_to\_controller}}()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00118}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a97b9071f2d49fddb2d1222245789a790}{00118}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a97b9071f2d49fddb2d1222245789a790}{get\_queue\_length}}(self):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ model\_semaphore\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ args.limit\_model\_concurrency\ -\/\ model\_semaphore.\_value\ +\ (len(}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ model\_semaphore.\_waiters)\ \textcolor{keywordflow}{if}\ model\_semaphore.\_waiters\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ 0)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00125}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a342e888cb2785863ef671216cae4b375}{00125}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a342e888cb2785863ef671216cae4b375}{get\_status}}(self):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}model\_names"{}}:\ [self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a8fc5d8673312c317ae103979cdf9f314}{model\_name}}],}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}speed"{}}:\ 1,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}queue\_length"{}}:\ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a97b9071f2d49fddb2d1222245789a790}{get\_queue\_length}}(),}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00132}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a133401e0ef2a42bb85636b44004933a9}{00132}}\ \ \ \ \ \textcolor{keyword}{async\ def\ }\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a133401e0ef2a42bb85636b44004933a9}{generate\_stream}}(self,\ params):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ ori\_prompt\ =\ prompt\ =\ params[\textcolor{stringliteral}{"{}prompt"{}}]}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ images\ =\ params.get(\textcolor{stringliteral}{"{}images"{}},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ images\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ len(images)\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(images)\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(images)\ !=\ prompt.count(DEFAULT\_IMAGE\_TOKEN):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Number\ of\ images\ does\ not\ match\ number\ of\ <image>\ tokens\ in\ prompt"{}})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ images\ =\ [load\_image\_from\_base64(image)\ \textcolor{keywordflow}{for}\ image\ \textcolor{keywordflow}{in}\ images]}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ FIXME:\ for\ image-\/start/end\ token}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ replace\_token\ =\ DEFAULT\_IMAGE\_TOKEN}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ if\ getattr(self.model.config,\ 'mm\_use\_im\_start\_end',\ False):}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ \ \ \ \ replace\_token\ =\ DEFAULT\_IM\_START\_TOKEN\ +\ replace\_token\ +\ DEFAULT\_IM\_END\_TOKEN}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ prompt\ =\ prompt.replace(DEFAULT\_IMAGE\_TOKEN,\ replace\_token)}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prompt\ =\ prompt.replace(\textcolor{stringliteral}{'\ '}\ +\ DEFAULT\_IMAGE\_TOKEN\ +\ \textcolor{stringliteral}{'\(\backslash\)n'},\ DEFAULT\_IMAGE\_TOKEN)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prompt\_split\ =\ prompt.split(DEFAULT\_IMAGE\_TOKEN)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prompt\ =\ []}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(prompt\_split)):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prompt.append(prompt\_split[i])}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ i\ <\ len(images):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prompt.append(images[i])}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ prompt\ =\ [prompt]}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ temperature\ =\ float(params.get(\textcolor{stringliteral}{"{}temperature"{}},\ 1.0))}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ top\_p\ =\ float(params.get(\textcolor{stringliteral}{"{}top\_p"{}},\ 1.0))}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ max\_context\_length\ =\ getattr(model.config,\ 'max\_position\_embeddings',\ 2048)}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ max\_new\_tokens\ =\ min(\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a851a452d708f25257ca22bc7ab7bc408}{int}}(params.get(\textcolor{stringliteral}{"{}max\_new\_tokens"{}},\ 256)),\ 1024)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ stop\_str\ =\ params.get(\textcolor{stringliteral}{"{}stop"{}},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ stop\_str\ =\ [stop\_str]\ \textcolor{keywordflow}{if}\ stop\_str\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ print(\{\textcolor{stringliteral}{'prompt'}:\ prompt,\ \textcolor{stringliteral}{'max\_new\_tokens'}:\ max\_new\_tokens,\ \textcolor{stringliteral}{'temperature'}:\ temperature,\ \textcolor{stringliteral}{'top\_p'}:\ top\_p\})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ state\ =\ pipeline.run(prompt,\ max\_new\_tokens,\ temperature=temperature,\ top\_p=top\_p,\ stream=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ generated\_text\ =\ ori\_prompt}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \textcolor{keyword}{async}\ \textcolor{keywordflow}{for}\ text\_outputs\ \textcolor{keywordflow}{in}\ state.text\_async\_iter(var\_name=\textcolor{stringliteral}{"{}response"{}}):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ generated\_text\ +=\ text\_outputs}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ json.dumps(\{\textcolor{stringliteral}{"{}text"{}}:\ generated\_text,\ \textcolor{stringliteral}{"{}error\_code"{}}:\ 0\}).encode()\ +\ b\textcolor{stringliteral}{"{}\(\backslash\)0"{}}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00172}\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a0d7af55ab0db361e16e94e2c70f1fcf6}{00172}}\ \ \ \ \ \textcolor{keyword}{async\ def\ }\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a0d7af55ab0db361e16e94e2c70f1fcf6}{generate\_stream\_gate}}(self,\ params):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{async}\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker_a133401e0ef2a42bb85636b44004933a9}{generate\_stream}}(params):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ x}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ ValueError\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Caught\ ValueError:"{}},\ e)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ \{}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}text"{}}:\ server\_error\_msg,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}error\_code"{}}:\ 1,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ json.dumps(ret).encode()\ +\ b\textcolor{stringliteral}{"{}\(\backslash\)0"{}}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Caught\ Unknown\ Error"{}},\ e)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ \{}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}text"{}}:\ server\_error\_msg,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}error\_code"{}}:\ 1,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{yield}\ json.dumps(ret).encode()\ +\ b\textcolor{stringliteral}{"{}\(\backslash\)0"{}}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00192}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a8b8327edf3d74abc9f7474bf3a431eba}{00192}}\ app\ =\ FastAPI()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00195}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_ab1d6b637f1ab5472a634427619ebb0b6}{00195}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_ab1d6b637f1ab5472a634427619ebb0b6}{release\_model\_semaphore}}(fn=None):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00196}00196\ \ \ \ \ model\_semaphore.release()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00197}00197\ \ \ \ \ \textcolor{keywordflow}{if}\ fn\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ fn()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00201}00201\ \textcolor{preprocessor}{@app.post("{}/worker\_generate\_stream"{})}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00202}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a01aa47ac33944cd8b7f2198f3a780a9d}{00202}}\ \textcolor{keyword}{async\ def\ }\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a01aa47ac33944cd8b7f2198f3a780a9d}{generate\_stream}}(request:\ Request):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00203}00203\ \ \ \ \ \textcolor{keyword}{global}\ model\_semaphore,\ global\_counter}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00204}00204\ \ \ \ \ global\_counter\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00205}00205\ \ \ \ \ params\ =\ await\ request.json()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{if}\ model\_semaphore\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ model\_semaphore\ =\ asyncio.Semaphore(args.limit\_model\_concurrency)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00209}00209\ \ \ \ \ await\ model\_semaphore.acquire()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00210}00210\ \ \ \ \ worker.send\_heart\_beat()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00211}00211\ \ \ \ \ generator\ =\ worker.generate\_stream\_gate(params)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00212}00212\ \ \ \ \ background\_tasks\ =\ BackgroundTasks()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00213}00213\ \ \ \ \ background\_tasks.add\_task(partial(release\_model\_semaphore,\ fn=worker.send\_heart\_beat))}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00214}00214\ \ \ \ \ \textcolor{keywordflow}{return}\ StreamingResponse(generator,\ background=background\_tasks)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00217}00217\ \textcolor{preprocessor}{@app.post("{}/worker\_get\_status"{})}}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00218}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a10016831c5bda4af1071a9f868a40e70}{00218}}\ \textcolor{keyword}{async\ def\ }\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a10016831c5bda4af1071a9f868a40e70}{get\_status}}(request:\ Request):}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00219}00219\ \ \ \ \ \textcolor{keywordflow}{return}\ worker.get\_status()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00222}00222\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00223}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_aa3e3f950b8a86cf0acf30777d9c83a50}{00223}}\ \ \ \ \ parser\ =\ argparse.ArgumentParser()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00224}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a2a2042d753d90aa3ffd52fc9b43a7cb1}{00224}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/host"{}},\ type=str,\ default=\textcolor{stringliteral}{"{}localhost"{}})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00225}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a851a452d708f25257ca22bc7ab7bc408}{00225}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/port"{}},\ type=int,\ default=21002)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00226}00226\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/worker-\/address"{}},\ type=str,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ default=\textcolor{stringliteral}{"{}http://localhost:21002"{}})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00228}00228\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/controller-\/address"{}},\ type=str,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ default=\textcolor{stringliteral}{"{}http://localhost:21001"{}})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00230}00230\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/model-\/name"{}},\ type=str)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00231}00231\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/sgl-\/endpoint"{}},\ type=str)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00232}00232\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/limit-\/model-\/concurrency"{}},\ type=int,\ default=5)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00233}00233\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/stream-\/interval"{}},\ type=int,\ default=1)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00234}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a78fd062d24435e4c381655af0aa616a3}{00234}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/no-\/register"{}},\ action=\textcolor{stringliteral}{"{}store\_true"{}})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00235}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_af4777bfa8a8e6b8a301b74e598345269}{00235}}\ \ \ \ \ args\ =\ parser.parse\_args()}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00236}00236\ \ \ \ \ logger.info(f\textcolor{stringliteral}{"{}args:\ \{args\}"{}})}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00238}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_acef790765b811f030119800717dde124}{00238}}\ \ \ \ \ worker\ =\ \mbox{\hyperlink{classllava_1_1serve_1_1sglang__worker_1_1_model_worker}{ModelWorker}}(args.controller\_address,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ args.worker\_address,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ args.sgl\_endpoint,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker\_id,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ args.no\_register,}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ args.model\_name)}
+\DoxyCodeLine{\Hypertarget{sglang__worker_8py_source_l00244}\mbox{\hyperlink{namespacellava_1_1serve_1_1sglang__worker_a6c70be0c426cb0cef23ff27c04dc78a3}{00244}}\ \ \ \ \ uvicorn.run(app,\ host=args.host,\ port=args.port,\ log\_level=\textcolor{stringliteral}{"{}info"{}})}
+
+\end{DoxyCode}

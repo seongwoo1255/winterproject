@@ -1,0 +1,81 @@
+\doxysection{llava/eval/eval\+\_\+gpt\+\_\+review\+\_\+visual.py File Reference}
+\hypertarget{eval__gpt__review__visual_8py}{}\label{eval__gpt__review__visual_8py}\index{llava/eval/eval\_gpt\_review\_visual.py@{llava/eval/eval\_gpt\_review\_visual.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceeval__gpt__review__visual}{eval\+\_\+gpt\+\_\+review\+\_\+visual}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_ab8fca8d906c27c524de7f6c7e8be529a}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+get\+\_\+eval}} (str \mbox{\hyperlink{namespaceeval__gpt__review__visual_aa106222f407bbf4e20e92e986e9b18af}{content}}, \mbox{\hyperlink{namespaceeval__gpt__review__visual_a2b8bd30f31d1fc4b111245f733399f1d}{int}} max\+\_\+tokens)
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_aa26710d5b28fec815af1fe0636cb422f}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+parse\+\_\+score}} (\mbox{\hyperlink{namespaceeval__gpt__review__visual_ae3e88fff2b72a4f29276b5ca115ec771}{review}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{namespaceeval__gpt__review__visual_aeeb51fff8272a63b9cfa010edf919b35}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+NUM\+\_\+\+SECONDS\+\_\+\+TO\+\_\+\+SLEEP}} = 0.\+5
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_a4117551609cb8fb2ef9e011257d181df}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+parser}} = argparse.\+Argument\+Parser(description=\textquotesingle{}Chat\+GPT-\/based QA evaluation.\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_ac991fc3b8f7f46563d1784c271bb55db}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+nargs}}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_aaff2386ef2dd8dad37ac53799fb65230}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+default}}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_a9c4020a8467df45d3fe307fa26ccd3f5}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+type}}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_a2b8bd30f31d1fc4b111245f733399f1d}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+int}}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_aaf2a71d480a2edb9d7c87a6b658248d1}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+help}}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_aa3cb418c41ffe38942b45f50187c77f4}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+args}} = parser.\+parse\+\_\+args()
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_a80571197f2224f7bc184f1cce671fdda}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+f\+\_\+q}} = open(os.\+path.\+expanduser(args.\+question))
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_aa434d45e0725b6fa4d2a34b7c8a89fa0}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+f\+\_\+ans1}} = open(os.\+path.\+expanduser(args.\+answer\+\_\+list\mbox{[}0\mbox{]}))
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_a8c5ba6b58cd64039d995fcdf9ed75d79}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+f\+\_\+ans2}} = open(os.\+path.\+expanduser(args.\+answer\+\_\+list\mbox{[}1\mbox{]}))
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_a3bb0c54a4edd8f1eab02050d4e2d4d81}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+rule\+\_\+dict}} = json.\+load(open(os.\+path.\+expanduser(args.\+rule), \textquotesingle{}r\textquotesingle{}))
+\item 
+list \mbox{\hyperlink{namespaceeval__gpt__review__visual_a6ad876a9766cc81adbb141aedefbb551}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+cur\+\_\+reviews}} = \mbox{[}json.\+loads(line) for line in open(os.\+path.\+expanduser(args.\+output))\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_af683362fdfc8feffb8f952518bc6b0ae}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+review\+\_\+file}} = open(f\textquotesingle{}\{args.\+output\}\textquotesingle{}, \textquotesingle{}a\textquotesingle{})
+\item 
+list \mbox{\hyperlink{namespaceeval__gpt__review__visual_a5c034949f93194201bd7ec28b93524a6}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+context\+\_\+list}} = \mbox{[}json.\+loads(line) for line in open(os.\+path.\+expanduser(args.\+context))\mbox{]}
+\item 
+dict \mbox{\hyperlink{namespaceeval__gpt__review__visual_a64848b3bb9008abf8450dd3616ede6bc}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+image\+\_\+to\+\_\+context}} = \{context\mbox{[}\textquotesingle{}image\textquotesingle{}\mbox{]}\+: context for context in \mbox{\hyperlink{namespaceeval__gpt__review__visual_a5c034949f93194201bd7ec28b93524a6}{context\+\_\+list}}\}
+\item 
+list \mbox{\hyperlink{namespaceeval__gpt__review__visual_a160a37ef0a2e93986225160be6f0d56b}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+handles}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_a2b8bd30f31d1fc4b111245f733399f1d}{int}} \mbox{\hyperlink{namespaceeval__gpt__review__visual_a9d783e22a94d54651c24bd84bb5e0d83}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+idx}} = 0
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_aa53558ff321418275accc5c41637bf0a}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+ques}} = json.\+loads(ques\+\_\+js)
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_ac2ac4499ccf88ae81eb70b363afd4ed8}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+ans1}} = json.\+loads(ans1\+\_\+js)
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_ab40bf913654aa4a03a6b4a8e4d29adb1}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+ans2}} = json.\+loads(ans2\+\_\+js)
+\item 
+dict \mbox{\hyperlink{namespaceeval__gpt__review__visual_a98520af69d84ecb472685591417032f5}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+inst}} = \mbox{\hyperlink{namespaceeval__gpt__review__visual_a64848b3bb9008abf8450dd3616ede6bc}{image\+\_\+to\+\_\+context}}\mbox{[}\mbox{\hyperlink{namespaceeval__gpt__review__visual_aa53558ff321418275accc5c41637bf0a}{ques}}\mbox{[}\textquotesingle{}image\textquotesingle{}\mbox{]}\mbox{]}
+\item 
+str \mbox{\hyperlink{namespaceeval__gpt__review__visual_aa512bd61a0419264a67c444712218e7a}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+cap\+\_\+str}} = \textquotesingle{}\textbackslash{}n\textquotesingle{}.join(\mbox{\hyperlink{namespaceeval__gpt__review__visual_a98520af69d84ecb472685591417032f5}{inst}}\mbox{[}\textquotesingle{}captions\textquotesingle{}\mbox{]})
+\item 
+str \mbox{\hyperlink{namespaceeval__gpt__review__visual_a41983d7d30bb6bd25e3635e5ea382543}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+box\+\_\+str}} = \textquotesingle{}\textbackslash{}n\textquotesingle{}.join(\mbox{[}f\textquotesingle{}\{instance\mbox{[}"{}category"{}\mbox{]}\}\+: \{instance\mbox{[}"{}bbox"{}\mbox{]}\}\textquotesingle{} for instance in \mbox{\hyperlink{namespaceeval__gpt__review__visual_a98520af69d84ecb472685591417032f5}{inst}}\mbox{[}\textquotesingle{}instances\textquotesingle{}\mbox{]}\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_ac66384cf54f6f3e4108b05deb0da0aae}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+category}} = json.\+loads(ques\+\_\+js)\mbox{[}\textquotesingle{}category\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_a5ef0ad4172bd589f0bc5c278316d92ba}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+rule}} = \mbox{\hyperlink{namespaceeval__gpt__review__visual_a3bb0c54a4edd8f1eab02050d4e2d4d81}{rule\+\_\+dict}}\mbox{[}\mbox{\hyperlink{namespaceeval__gpt__review__visual_ac66384cf54f6f3e4108b05deb0da0aae}{category}}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_a4daebdb78ce28c75ac4aca06b57eef54}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+prompt}} = \mbox{\hyperlink{namespaceeval__gpt__review__visual_a5ef0ad4172bd589f0bc5c278316d92ba}{rule}}\mbox{[}\textquotesingle{}prompt\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_a910f96e42d811da73ba5d5f0d03becf3}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+role}} = \mbox{\hyperlink{namespaceeval__gpt__review__visual_a5ef0ad4172bd589f0bc5c278316d92ba}{rule}}\mbox{[}\textquotesingle{}role\textquotesingle{}\mbox{]}
+\item 
+tuple \mbox{\hyperlink{namespaceeval__gpt__review__visual_aa106222f407bbf4e20e92e986e9b18af}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+content}}
+\item 
+dict \mbox{\hyperlink{namespaceeval__gpt__review__visual_a29ddfebbaee9588ba92055e528dc8af2}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+cur\+\_\+js}}
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_ae3e88fff2b72a4f29276b5ca115ec771}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+review}} = \mbox{\hyperlink{namespaceeval__gpt__review__visual_ab8fca8d906c27c524de7f6c7e8be529a}{get\+\_\+eval}}(\mbox{\hyperlink{namespaceeval__gpt__review__visual_aa106222f407bbf4e20e92e986e9b18af}{content}}, args.\+max\+\_\+tokens)
+\item 
+\mbox{\hyperlink{namespaceeval__gpt__review__visual_a82a5bb4999be95ad740c92ce7570132a}{eval\+\_\+gpt\+\_\+review\+\_\+visual.\+scores}} = \mbox{\hyperlink{namespaceeval__gpt__review__visual_aa26710d5b28fec815af1fe0636cb422f}{parse\+\_\+score}}(\mbox{\hyperlink{namespaceeval__gpt__review__visual_ae3e88fff2b72a4f29276b5ca115ec771}{review}})
+\end{DoxyCompactItemize}

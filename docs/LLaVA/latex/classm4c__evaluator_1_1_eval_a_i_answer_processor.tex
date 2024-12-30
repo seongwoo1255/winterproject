@@ -1,0 +1,281 @@
+\doxysection{m4c\+\_\+evaluator.\+Eval\+AIAnswer\+Processor Class Reference}
+\hypertarget{classm4c__evaluator_1_1_eval_a_i_answer_processor}{}\label{classm4c__evaluator_1_1_eval_a_i_answer_processor}\index{m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor_a7a1d6e39ace6782cf9dad9b4d390891d}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+\mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor_a43818c653391d0bdb8eb1bc84fb979a2}{word\+\_\+tokenize}} (self, word)
+\item 
+\mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor_ae4577903ff2cc705260212fb9df0b079}{process\+\_\+punctuation}} (self, in\+\_\+text)
+\item 
+\mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor_aea94ae10a9fa80966168f3777668f3a3}{process\+\_\+digit\+\_\+article}} (self, in\+\_\+text)
+\item 
+\mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor_a3b890205d4e7ca9e4d190cfc633bdfec}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self, item)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor_aee5228c73afab65f1688a3c1be334797}{CONTRACTIONS}}
+\item 
+dict \mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor_a2f05b017477ae56196c1385ddf40f169}{NUMBER\+\_\+\+MAP}}
+\item 
+list \mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor_a0c43f23716c7a932c2b73f354c634768}{ARTICLES}} = \mbox{[}"{}a"{}, "{}an"{}, "{}the"{}\mbox{]}
+\item 
+\mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor_a7f2a32c771bd8ac113586ec097e954b4}{PERIOD\+\_\+\+STRIP}} = re.\+compile(r"{}(?!$<$=\textbackslash{}d)(\textbackslash{}.)(?!\textbackslash{}d)"{})
+\item 
+\mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor_a4cfd5c8ea57ef5adea821f2ed2ac0f84}{COMMA\+\_\+\+STRIP}} = re.\+compile(r"{}(?$<$=\textbackslash{}d)(\textbackslash{},)+(?=\textbackslash{}d)"{})
+\item 
+list \mbox{\hyperlink{classm4c__evaluator_1_1_eval_a_i_answer_processor_a4b9e9f8a00832eaef1edada4b274aec1}{PUNCTUATIONS}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Processes an answer similar to Eval AI
+    copied from
+    https://github.com/facebookresearch/mmf/blob/c46b3b3391275b4181567db80943473a89ab98ab/pythia/tasks/processors.py#L897
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00007}{7}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classm4c__evaluator_1_1_eval_a_i_answer_processor_a7a1d6e39ace6782cf9dad9b4d390891d}\index{m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_eval_a_i_answer_processor_a7a1d6e39ace6782cf9dad9b4d390891d} 
+m4c\+\_\+evaluator.\+Eval\+AIAnswer\+Processor.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00178}{178}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ *args,\ **kwargs):}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00180\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classm4c__evaluator_1_1_eval_a_i_answer_processor_a3b890205d4e7ca9e4d190cfc633bdfec}\index{m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}!\_\_call\_\_@{\_\_call\_\_}}
+\index{\_\_call\_\_@{\_\_call\_\_}!m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}}
+\doxysubsubsection{\texorpdfstring{\_\_call\_\_()}{\_\_call\_\_()}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_eval_a_i_answer_processor_a3b890205d4e7ca9e4d190cfc633bdfec} 
+m4c\+\_\+evaluator.\+Eval\+AIAnswer\+Processor.\+\_\+\+\_\+call\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{item}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00213}{213}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keyword}{def\ }\_\_call\_\_(self,\ item):}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ item\ =\ self.word\_tokenize(item)}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ item\ =\ item.replace(\textcolor{stringliteral}{"{}\(\backslash\)n"{}},\ \textcolor{stringliteral}{"{}\ "{}}).replace(\textcolor{stringliteral}{"{}\(\backslash\)t"{}},\ \textcolor{stringliteral}{"{}\ "{}}).strip()}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ item\ =\ self.process\_punctuation(item)}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ item\ =\ self.process\_digit\_article(item)}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ item}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 0
+\Hypertarget{classm4c__evaluator_1_1_eval_a_i_answer_processor_aea94ae10a9fa80966168f3777668f3a3}\index{m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}!process\_digit\_article@{process\_digit\_article}}
+\index{process\_digit\_article@{process\_digit\_article}!m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}}
+\doxysubsubsection{\texorpdfstring{process\_digit\_article()}{process\_digit\_article()}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_eval_a_i_answer_processor_aea94ae10a9fa80966168f3777668f3a3} 
+m4c\+\_\+evaluator.\+Eval\+AIAnswer\+Processor.\+process\+\_\+digit\+\_\+article (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{in\+\_\+text}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00198}{198}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{def\ }process\_digit\_article(self,\ in\_text):}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ out\_text\ =\ []}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ temp\_text\ =\ in\_text.lower().split()}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ word\ \textcolor{keywordflow}{in}\ temp\_text:}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ word\ =\ self.NUMBER\_MAP.setdefault(word,\ word)}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ word\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ self.ARTICLES:}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ out\_text.append(word)}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ word\_id,\ word\ \textcolor{keywordflow}{in}\ enumerate(out\_text):}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ word\ \textcolor{keywordflow}{in}\ self.CONTRACTIONS:}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ out\_text[word\_id]\ =\ self.CONTRACTIONS[word]}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ out\_text\ =\ \textcolor{stringliteral}{"{}\ "{}}.join(out\_text)}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out\_text}
+\DoxyCodeLine{00212\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 1
+\Hypertarget{classm4c__evaluator_1_1_eval_a_i_answer_processor_ae4577903ff2cc705260212fb9df0b079}\index{m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}!process\_punctuation@{process\_punctuation}}
+\index{process\_punctuation@{process\_punctuation}!m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}}
+\doxysubsubsection{\texorpdfstring{process\_punctuation()}{process\_punctuation()}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_eval_a_i_answer_processor_ae4577903ff2cc705260212fb9df0b079} 
+m4c\+\_\+evaluator.\+Eval\+AIAnswer\+Processor.\+process\+\_\+punctuation (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{in\+\_\+text}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00186}{186}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keyword}{def\ }process\_punctuation(self,\ in\_text):}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ out\_text\ =\ in\_text}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ self.PUNCTUATIONS:}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (p\ +\ \textcolor{stringliteral}{"{}\ "{}}\ \textcolor{keywordflow}{in}\ in\_text\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{"{}\ "{}}\ +\ p\ \textcolor{keywordflow}{in}\ in\_text)\ \textcolor{keywordflow}{or}\ (}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ re.search(self.COMMA\_STRIP,\ in\_text)\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ ):}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ out\_text\ =\ out\_text.replace(p,\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ out\_text\ =\ out\_text.replace(p,\ \textcolor{stringliteral}{"{}\ "{}})}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ out\_text\ =\ self.PERIOD\_STRIP.sub(\textcolor{stringliteral}{"{}"{}},\ out\_text,\ re.UNICODE)}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out\_text}
+\DoxyCodeLine{00197\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 2
+\Hypertarget{classm4c__evaluator_1_1_eval_a_i_answer_processor_a43818c653391d0bdb8eb1bc84fb979a2}\index{m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}!word\_tokenize@{word\_tokenize}}
+\index{word\_tokenize@{word\_tokenize}!m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}}
+\doxysubsubsection{\texorpdfstring{word\_tokenize()}{word\_tokenize()}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_eval_a_i_answer_processor_a43818c653391d0bdb8eb1bc84fb979a2} 
+m4c\+\_\+evaluator.\+Eval\+AIAnswer\+Processor.\+word\+\_\+tokenize (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{word}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00181}{181}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{def\ }word\_tokenize(self,\ word):}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ word\ =\ word.lower()}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ word\ =\ word.replace(\textcolor{stringliteral}{"{},"{}},\ \textcolor{stringliteral}{"{}"{}}).replace(\textcolor{stringliteral}{"{}?"{}},\ \textcolor{stringliteral}{"{}"{}}).replace(\textcolor{stringliteral}{"{}'s"{}},\ \textcolor{stringliteral}{"{}\ 's"{}})}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ word.strip()}
+\DoxyCodeLine{00185\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classm4c__evaluator_1_1_eval_a_i_answer_processor_a0c43f23716c7a932c2b73f354c634768}\index{m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}!ARTICLES@{ARTICLES}}
+\index{ARTICLES@{ARTICLES}!m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}}
+\doxysubsubsection{\texorpdfstring{ARTICLES}{ARTICLES}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_eval_a_i_answer_processor_a0c43f23716c7a932c2b73f354c634768} 
+list m4c\+\_\+evaluator.\+Eval\+AIAnswer\+Processor.\+ARTICLES = \mbox{[}"{}a"{}, "{}an"{}, "{}the"{}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00151}{151}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+\Hypertarget{classm4c__evaluator_1_1_eval_a_i_answer_processor_a4cfd5c8ea57ef5adea821f2ed2ac0f84}\index{m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}!COMMA\_STRIP@{COMMA\_STRIP}}
+\index{COMMA\_STRIP@{COMMA\_STRIP}!m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}}
+\doxysubsubsection{\texorpdfstring{COMMA\_STRIP}{COMMA\_STRIP}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_eval_a_i_answer_processor_a4cfd5c8ea57ef5adea821f2ed2ac0f84} 
+m4c\+\_\+evaluator.\+Eval\+AIAnswer\+Processor.\+COMMA\+\_\+\+STRIP = re.\+compile(r"{}(?$<$=\textbackslash{}d)(\textbackslash{},)+(?=\textbackslash{}d)"{})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00153}{153}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+\Hypertarget{classm4c__evaluator_1_1_eval_a_i_answer_processor_aee5228c73afab65f1688a3c1be334797}\index{m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}!CONTRACTIONS@{CONTRACTIONS}}
+\index{CONTRACTIONS@{CONTRACTIONS}!m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}}
+\doxysubsubsection{\texorpdfstring{CONTRACTIONS}{CONTRACTIONS}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_eval_a_i_answer_processor_aee5228c73afab65f1688a3c1be334797} 
+dict m4c\+\_\+evaluator.\+Eval\+AIAnswer\+Processor.\+CONTRACTIONS\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00014}{14}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+\Hypertarget{classm4c__evaluator_1_1_eval_a_i_answer_processor_a2f05b017477ae56196c1385ddf40f169}\index{m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}!NUMBER\_MAP@{NUMBER\_MAP}}
+\index{NUMBER\_MAP@{NUMBER\_MAP}!m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}}
+\doxysubsubsection{\texorpdfstring{NUMBER\_MAP}{NUMBER\_MAP}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_eval_a_i_answer_processor_a2f05b017477ae56196c1385ddf40f169} 
+dict m4c\+\_\+evaluator.\+Eval\+AIAnswer\+Processor.\+NUMBER\+\_\+\+MAP\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}none"{}}:\ \textcolor{stringliteral}{"{}0"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}zero"{}}:\ \textcolor{stringliteral}{"{}0"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}one"{}}:\ \textcolor{stringliteral}{"{}1"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}two"{}}:\ \textcolor{stringliteral}{"{}2"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}three"{}}:\ \textcolor{stringliteral}{"{}3"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}four"{}}:\ \textcolor{stringliteral}{"{}4"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}five"{}}:\ \textcolor{stringliteral}{"{}5"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}six"{}}:\ \textcolor{stringliteral}{"{}6"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}seven"{}}:\ \textcolor{stringliteral}{"{}7"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}eight"{}}:\ \textcolor{stringliteral}{"{}8"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}nine"{}}:\ \textcolor{stringliteral}{"{}9"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ten"{}}:\ \textcolor{stringliteral}{"{}10"{}},}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00137}{137}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+\Hypertarget{classm4c__evaluator_1_1_eval_a_i_answer_processor_a7f2a32c771bd8ac113586ec097e954b4}\index{m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}!PERIOD\_STRIP@{PERIOD\_STRIP}}
+\index{PERIOD\_STRIP@{PERIOD\_STRIP}!m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}}
+\doxysubsubsection{\texorpdfstring{PERIOD\_STRIP}{PERIOD\_STRIP}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_eval_a_i_answer_processor_a7f2a32c771bd8ac113586ec097e954b4} 
+m4c\+\_\+evaluator.\+Eval\+AIAnswer\+Processor.\+PERIOD\+\_\+\+STRIP = re.\+compile(r"{}(?!$<$=\textbackslash{}d)(\textbackslash{}.)(?!\textbackslash{}d)"{})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00152}{152}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+\Hypertarget{classm4c__evaluator_1_1_eval_a_i_answer_processor_a4b9e9f8a00832eaef1edada4b274aec1}\index{m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}!PUNCTUATIONS@{PUNCTUATIONS}}
+\index{PUNCTUATIONS@{PUNCTUATIONS}!m4c\_evaluator.EvalAIAnswerProcessor@{m4c\_evaluator.EvalAIAnswerProcessor}}
+\doxysubsubsection{\texorpdfstring{PUNCTUATIONS}{PUNCTUATIONS}}
+{\footnotesize\ttfamily \label{classm4c__evaluator_1_1_eval_a_i_answer_processor_a4b9e9f8a00832eaef1edada4b274aec1} 
+list m4c\+\_\+evaluator.\+Eval\+AIAnswer\+Processor.\+PUNCTUATIONS\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{};"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{r"{}/"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}["{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}]"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'"{}'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\{"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\}"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}("{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{})"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}="{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}+"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\_"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}-\/"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}>"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}<"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}@"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\`{}"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{},"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}?"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}!"{}},}
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{m4c__evaluator_8py_source_l00154}{154}} of file \mbox{\hyperlink{m4c__evaluator_8py_source}{m4c\+\_\+evaluator.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+llava/eval/\mbox{\hyperlink{m4c__evaluator_8py}{m4c\+\_\+evaluator.\+py}}\end{DoxyCompactItemize}

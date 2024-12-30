@@ -1,0 +1,69 @@
+\doxysection{Qformer.\+Bert\+Only\+MLMHead Class Reference}
+\hypertarget{class_qformer_1_1_bert_only_m_l_m_head}{}\label{class_qformer_1_1_bert_only_m_l_m_head}\index{Qformer.BertOnlyMLMHead@{Qformer.BertOnlyMLMHead}}
+Inheritance diagram for Qformer.\+Bert\+Only\+MLMHead\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_qformer_1_1_bert_only_m_l_m_head}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_only_m_l_m_head_ade799ecd5281e15376c3d4492c1d412f}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, config)
+\begin{DoxyCompactList}\small\item\em BERT 모델의 MLM(\+Masked Language Modeling)용 예측 헤드. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_qformer_1_1_bert_only_m_l_m_head_afca5d173729ccd36cf122ddbb34ccc32}{forward}} (self, sequence\+\_\+output)
+\begin{DoxyCompactList}\small\item\em 순전파 함수. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_qformer_1_1_bert_only_m_l_m_head_a19de8be605e3f07998c8bd628f574297}\label{class_qformer_1_1_bert_only_m_l_m_head_a19de8be605e3f07998c8bd628f574297} 
+{\bfseries predictions} = \mbox{\hyperlink{class_qformer_1_1_bert_l_m_prediction_head}{Bert\+LMPrediction\+Head}}(config)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_qformer_1_1_bert_only_m_l_m_head_ade799ecd5281e15376c3d4492c1d412f}\index{Qformer.BertOnlyMLMHead@{Qformer.BertOnlyMLMHead}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Qformer.BertOnlyMLMHead@{Qformer.BertOnlyMLMHead}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_only_m_l_m_head_ade799ecd5281e15376c3d4492c1d412f} 
+Qformer.\+Bert\+Only\+MLMHead.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{config}{}\end{DoxyParamCaption})}
+
+
+
+BERT 모델의 MLM(\+Masked Language Modeling)용 예측 헤드. 
+
+Bert\+LMPrediction\+Head를 호출하여 입력 시퀀스의 토큰 예측 점수를 생성합니다.
+
+
+\begin{DoxyParams}{Parameters}
+{\em config} & BERT 구성 객체. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_qformer_1_1_bert_only_m_l_m_head_afca5d173729ccd36cf122ddbb34ccc32}\index{Qformer.BertOnlyMLMHead@{Qformer.BertOnlyMLMHead}!forward@{forward}}
+\index{forward@{forward}!Qformer.BertOnlyMLMHead@{Qformer.BertOnlyMLMHead}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily \label{class_qformer_1_1_bert_only_m_l_m_head_afca5d173729ccd36cf122ddbb34ccc32} 
+Qformer.\+Bert\+Only\+MLMHead.\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{sequence\+\_\+output}{}\end{DoxyParamCaption})}
+
+
+
+순전파 함수. 
+
+입력 시퀀스의 각 토큰에 대해 예측 점수를 생성합니다.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sequence\+\_\+output} & 입력 시퀀스 출력 (torch.\+Tensor). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+예측 점수 (torch.\+Tensor). 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Qformer.\+py\end{DoxyCompactItemize}

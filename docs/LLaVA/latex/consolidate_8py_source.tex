@@ -1,0 +1,35 @@
+\doxysection{consolidate.\+py}
+\hypertarget{consolidate_8py_source}{}\label{consolidate_8py_source}\mbox{\hyperlink{consolidate_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00001}\mbox{\hyperlink{namespacellava_1_1model_1_1consolidate}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00002}00002\ \textcolor{stringliteral}{Usage:}}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00003}00003\ \textcolor{stringliteral}{python3\ -\/m\ llava.model.consolidate\ -\/-\/src\ \string~/model\_weights/llava-\/7b\ -\/-\/dst\ \string~/model\_weights/llava-\/7b\_consolidate}}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00004}00004\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00012}00012\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00014}00014\ \textcolor{keyword}{import}\ torch}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00015}00015\ \textcolor{keyword}{from}\ transformers\ \textcolor{keyword}{import}\ AutoTokenizer,\ AutoModelForCausalLM}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00016}00016\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1model}{llava.model}}\ \textcolor{keyword}{import}\ *}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00017}00017\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacellava_1_1model_1_1utils}{llava.model.utils}}\ \textcolor{keyword}{import}\ auto\_upgrade}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00026}\mbox{\hyperlink{namespacellava_1_1model_1_1consolidate_a41e430987e6332d0227ad3a820bec366}{00026}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacellava_1_1model_1_1consolidate_a41e430987e6332d0227ad3a820bec366}{consolidate\_ckpt}}(src\_path,\ dst\_path):}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00027}00027\ \ \ \ \ print(\textcolor{stringliteral}{"{}Loading\ model"{}})}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00028}00028\ \ \ \ \ auto\_upgrade(src\_path)}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00029}00029\ \ \ \ \ src\_model\ =\ AutoModelForCausalLM.from\_pretrained(src\_path,\ torch\_dtype=torch.float16,\ low\_cpu\_mem\_usage=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00030}00030\ \ \ \ \ src\_tokenizer\ =\ AutoTokenizer.from\_pretrained(src\_path,\ use\_fast=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00031}00031\ \ \ \ \ src\_model.save\_pretrained(dst\_path)}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00032}00032\ \ \ \ \ src\_tokenizer.save\_pretrained(dst\_path)}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00035}00035\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00036}\mbox{\hyperlink{namespacellava_1_1model_1_1consolidate_a4e35ba5eb7f0fac63f312aebb924863d}{00036}}\ \ \ \ \ parser\ =\ argparse.ArgumentParser()}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00037}\mbox{\hyperlink{namespacellava_1_1model_1_1consolidate_ac80e02fc219a0df07fee74c354479b13}{00037}}\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/src"{}},\ type=str,\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00038}00038\ \ \ \ \ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/dst"{}},\ type=str,\ required=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00040}\mbox{\hyperlink{namespacellava_1_1model_1_1consolidate_a705c821c26a1284a2f61c34f547fd6d5}{00040}}\ \ \ \ \ args\ =\ parser.parse\_args()}
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{consolidate_8py_source_l00042}00042\ \ \ \ \ \mbox{\hyperlink{namespacellava_1_1model_1_1consolidate_a41e430987e6332d0227ad3a820bec366}{consolidate\_ckpt}}(args.src,\ args.dst)}
+
+\end{DoxyCode}

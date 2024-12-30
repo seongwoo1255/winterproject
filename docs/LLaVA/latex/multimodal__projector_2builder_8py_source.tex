@@ -1,0 +1,64 @@
+\doxysection{builder.\+py}
+\hypertarget{multimodal__projector_2builder_8py_source}{}\label{multimodal__projector_2builder_8py_source}\index{multimodal\_projector/builder.py@{multimodal\_projector/builder.py}}
+\mbox{\hyperlink{multimodal__projector_2builder_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00008}00008\ \textcolor{keyword}{import}\ torch}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00009}00009\ \textcolor{keyword}{import}\ torch.nn\ \textcolor{keyword}{as}\ nn}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00010}00010\ \textcolor{keyword}{import}\ re}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00017}\mbox{\hyperlink{classbuilder_1_1_identity_map}{00017}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbuilder_1_1_identity_map}{IdentityMap}}(nn.Module):}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00018}00018\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00022}\mbox{\hyperlink{classbuilder_1_1_identity_map_a72315aad08ff55fc46224e540a4d28bf}{00022}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classbuilder_1_1_identity_map_a72315aad08ff55fc46224e540a4d28bf}{\_\_init\_\_}}(self):}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00023}00023\ \ \ \ \ \ \ \ \ super().\mbox{\hyperlink{classbuilder_1_1_identity_map_a72315aad08ff55fc46224e540a4d28bf}{\_\_init\_\_}}()}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00025}00025\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00031}\mbox{\hyperlink{classbuilder_1_1_identity_map_a9f0d5c279c6dadbb2d3bdf22a014206e}{00031}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classbuilder_1_1_identity_map_a9f0d5c279c6dadbb2d3bdf22a014206e}{forward}}(self,\ x,\ *args,\ **kwargs):}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00034}00034\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00040}00040\ \ \ \ \ \textcolor{preprocessor}{@property}}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00041}\mbox{\hyperlink{classbuilder_1_1_identity_map_ad13afe04e253a23786f9130c50305e16}{00041}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classbuilder_1_1_identity_map_ad13afe04e253a23786f9130c50305e16}{config}}(self):}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{stringliteral}{"{}mm\_projector\_type"{}}:\ \textcolor{stringliteral}{'identity'}\}}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00052}\mbox{\hyperlink{classbuilder_1_1_simple_res_block}{00052}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbuilder_1_1_simple_res_block}{SimpleResBlock}}(nn.Module):}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00053}00053\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00060}\mbox{\hyperlink{classbuilder_1_1_simple_res_block_a29b93be4a42205189dab72f60058e102}{00060}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classbuilder_1_1_simple_res_block_a29b93be4a42205189dab72f60058e102}{\_\_init\_\_}}(self,\ channels):}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ super().\mbox{\hyperlink{classbuilder_1_1_simple_res_block_a29b93be4a42205189dab72f60058e102}{\_\_init\_\_}}()}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00062}\mbox{\hyperlink{classbuilder_1_1_simple_res_block_a506c3f1cef77d616de87060c80538822}{00062}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classbuilder_1_1_simple_res_block_a506c3f1cef77d616de87060c80538822}{pre\_norm}}\ =\ nn.LayerNorm(channels)}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00064}\mbox{\hyperlink{classbuilder_1_1_simple_res_block_a1ccc45c258539a01d19cf676ce3798a1}{00064}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classbuilder_1_1_simple_res_block_a1ccc45c258539a01d19cf676ce3798a1}{proj}}\ =\ nn.Sequential(}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ nn.Linear(channels,\ channels),}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ nn.GELU(),}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ nn.Linear(channels,\ channels)}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00070}00070\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00078}\mbox{\hyperlink{classbuilder_1_1_simple_res_block_a90eeeaae0dee305963055a9a70e54480}{00078}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classbuilder_1_1_simple_res_block_a90eeeaae0dee305963055a9a70e54480}{forward}}(self,\ x):}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ x\ =\ self.\mbox{\hyperlink{classbuilder_1_1_simple_res_block_a506c3f1cef77d616de87060c80538822}{pre\_norm}}(x)}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x\ +\ self.\mbox{\hyperlink{classbuilder_1_1_simple_res_block_a1ccc45c258539a01d19cf676ce3798a1}{proj}}(x)}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00091}\mbox{\hyperlink{namespacebuilder_adcfdd3933ca7ea49ea0c1f8320e1f8ab}{00091}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacebuilder_adcfdd3933ca7ea49ea0c1f8320e1f8ab}{build\_vision\_projector}}(config,\ delay\_load=False,\ **kwargs):}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00092}00092\ \ \ \ \ projector\_type\ =\ getattr(config,\ \textcolor{stringliteral}{'mm\_projector\_type'},\ \textcolor{stringliteral}{'linear'})}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00094}00094\ \ \ \ \ \textcolor{keywordflow}{if}\ projector\_type\ ==\ \textcolor{stringliteral}{'linear'}:}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nn.Linear(config.mm\_hidden\_size,\ config.hidden\_size)}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00097}00097\ \ \ \ \ mlp\_gelu\_match\ =\ re.match(\textcolor{stringliteral}{r'\string^mlp(\(\backslash\)d+)x\_gelu\$'},\ projector\_type)}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00098}00098\ \ \ \ \ \textcolor{keywordflow}{if}\ mlp\_gelu\_match:}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ mlp\_depth\ =\ int(mlp\_gelu\_match.group(1))}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ modules\ =\ [nn.Linear(config.mm\_hidden\_size,\ config.hidden\_size)]}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(1,\ mlp\_depth):}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ modules.append(nn.GELU())}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ modules.append(nn.Linear(config.hidden\_size,\ config.hidden\_size))}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nn.Sequential(*modules)}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00106}00106\ \ \ \ \ \textcolor{keywordflow}{if}\ projector\_type\ ==\ \textcolor{stringliteral}{'identity'}:}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classbuilder_1_1_identity_map}{IdentityMap}}()}
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{multimodal__projector_2builder_8py_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(f\textcolor{stringliteral}{'Unknown\ projector\ type:\ \{projector\_type\}'})}
+
+\end{DoxyCode}

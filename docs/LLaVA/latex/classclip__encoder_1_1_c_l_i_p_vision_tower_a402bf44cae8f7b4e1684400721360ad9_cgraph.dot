@@ -1,0 +1,11 @@
+digraph "clip_encoder.CLIPVisionTower.num_patches_per_side"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="clip_encoder.CLIPVisionTower.num\l_patches_per_side",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="한 변의 패치 개수"];
+  Node1 -> Node2 [id="edge2_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="clip_encoder.CLIPVisionTower.config",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classclip__encoder_1_1_c_l_i_p_vision_tower.html#a401fce0c87d7c7afbb159f20fe143a99",tooltip="Vision Tower의 설정"];
+}

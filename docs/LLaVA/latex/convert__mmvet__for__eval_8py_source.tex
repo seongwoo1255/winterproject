@@ -1,0 +1,24 @@
+\doxysection{convert\+\_\+mmvet\+\_\+for\+\_\+eval.\+py}
+\hypertarget{convert__mmvet__for__eval_8py_source}{}\label{convert__mmvet__for__eval_8py_source}\index{scripts/convert\_mmvet\_for\_eval.py@{scripts/convert\_mmvet\_for\_eval.py}}
+\mbox{\hyperlink{convert__mmvet__for__eval_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00001}\mbox{\hyperlink{namespaceconvert__mmvet__for__eval}{00001}}\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00002}00002\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00003}00003\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00005}\mbox{\hyperlink{namespaceconvert__mmvet__for__eval_af22f5c6748fcca7da9e79f1e047f8108}{00005}}\ parser\ =\ argparse.ArgumentParser()}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00006}\mbox{\hyperlink{namespaceconvert__mmvet__for__eval_a680fab0552440a593cd5727bac4a8c7d}{00006}}\ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/src"{}},\ type=str)}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00007}00007\ parser.add\_argument(\textcolor{stringliteral}{"{}-\/-\/dst"{}},\ type=str)}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00008}\mbox{\hyperlink{namespaceconvert__mmvet__for__eval_aab5f7bec676a7fb0edff85438ccc2755}{00008}}\ args\ =\ parser.parse\_args()}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00010}\mbox{\hyperlink{namespaceconvert__mmvet__for__eval_acd8f4e34d77ff9d05ccaca691dc07b0b}{00010}}\ cur\_result\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00012}00012\ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ open(args.src):}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00013}\mbox{\hyperlink{namespaceconvert__mmvet__for__eval_a45acfae77ac03296c9b9f0ffc1c8b3c8}{00013}}\ \ \ \ \ data\ =\ json.loads(line)}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00014}\mbox{\hyperlink{namespaceconvert__mmvet__for__eval_ade0d7aa5a11ee5a333183ca14a50af45}{00014}}\ \ \ \ \ qid\ =\ data[\textcolor{stringliteral}{'question\_id'}]}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00015}00015\ \ \ \ \ cur\_result[f\textcolor{stringliteral}{'v1\_\{qid\}'}]\ =\ data[\textcolor{stringliteral}{'text'}]}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00017}00017\ \textcolor{keyword}{with}\ open(args.dst,\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{convert__mmvet__for__eval_8py_source_l00018}\mbox{\hyperlink{namespaceconvert__mmvet__for__eval_a174383fb214528067fe19a7ad22f6c16}{00018}}\ \ \ \ \ json.dump(cur\_result,\ f,\ indent=2)}
+
+\end{DoxyCode}

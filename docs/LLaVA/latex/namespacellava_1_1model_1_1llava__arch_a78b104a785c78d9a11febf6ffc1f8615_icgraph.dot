@@ -1,0 +1,26 @@
+digraph "llava.model.llava_arch.unpad_image"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="llava.model.llava_arch.unpad\l_image",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="이미지 텐서(패딩 처리된 이미지)를 원래 크기로 복원하는 함수"];
+  Node1 -> Node2 [id="edge12_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="llava.model.llava_arch.Llava\lMetaForCausalLM.prepare\l_inputs_labels_for_multimodal",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classllava_1_1model_1_1llava__arch_1_1_llava_meta_for_causal_l_m.html#a34dac38c46ba9a66cc02de107a400c76",tooltip="멀티모달 입력과 레이블을 준비하는 함수"];
+  Node2 -> Node3 [id="edge13_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="llava_llama.LlavaLlamaFor\lCausalLM.forward",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classllava__llama_1_1_llava_llama_for_causal_l_m.html#a09af443070a2e3de38aa757937fcfd8a",tooltip="멀티모달 Causal Language Model의 forward 패스를 정의합니다."];
+  Node3 -> Node3 [id="edge14_Node000003_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 -> Node4 [id="edge15_Node000002_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="llava_mistral.LlavaMistral\lForCausalLM.forward",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classllava__mistral_1_1_llava_mistral_for_causal_l_m.html#af35931178a4b4a302888714e5f79c881",tooltip="Causal Language Model의 forward 패스를 정의"];
+  Node4 -> Node4 [id="edge16_Node000004_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 -> Node5 [id="edge17_Node000002_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="llava_mpt.LlavaMptForCausal\lLM.forward",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classllava__mpt_1_1_llava_mpt_for_causal_l_m.html#acbbd3b14bba2a12a0d9ca11c83cf071d",tooltip="Causal Language Model의 forward 패스를 정의"];
+  Node5 -> Node5 [id="edge18_Node000005_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 -> Node6 [id="edge19_Node000002_Node000006",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="llava_llama.LlavaLlamaFor\lCausalLM.generate",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classllava__llama_1_1_llava_llama_for_causal_l_m.html#af7b777324d57e9dac2f8b5eb65428e60",tooltip="멀티모달 입력 데이터를 기반으로 텍스트를 생성하는 메서드입니다."];
+  Node6 -> Node6 [id="edge20_Node000006_Node000006",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 -> Node7 [id="edge21_Node000002_Node000007",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="llava_mistral.LlavaMistral\lForCausalLM.generate",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classllava__mistral_1_1_llava_mistral_for_causal_l_m.html#ae2fab1f247f61c3d9b05896396acd0ae",tooltip="입력을 기반으로 텍스트를 생성하는 메서드"];
+  Node7 -> Node7 [id="edge22_Node000007_Node000007",dir="back",color="steelblue1",style="solid",tooltip=" "];
+}

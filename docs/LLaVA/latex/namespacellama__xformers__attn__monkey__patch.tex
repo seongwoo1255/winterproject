@@ -1,0 +1,148 @@
+\doxysection{llama\+\_\+xformers\+\_\+attn\+\_\+monkey\+\_\+patch Namespace Reference}
+\hypertarget{namespacellama__xformers__attn__monkey__patch}{}\label{namespacellama__xformers__attn__monkey__patch}\index{llama\_xformers\_attn\_monkey\_patch@{llama\_xformers\_attn\_monkey\_patch}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacellama__xformers__attn__monkey__patch_a72c90a68df785b460595c2686c81fb3e}{replace\+\_\+llama\+\_\+attn\+\_\+with\+\_\+xformers\+\_\+attn}} ()
+\item 
+Tuple\mbox{[}torch.\+Tensor, Optional\mbox{[}torch.\+Tensor\mbox{]}, Optional\mbox{[}Tuple\mbox{[}torch.\+Tensor\mbox{]}\mbox{]}\mbox{]} \mbox{\hyperlink{namespacellama__xformers__attn__monkey__patch_ada32148ddb6fe04e1f43893c3f7c9480}{xformers\+\_\+forward}} (self, torch.\+Tensor hidden\+\_\+states, Optional\mbox{[}torch.\+Tensor\mbox{]} attention\+\_\+mask=None, Optional\mbox{[}torch.\+Long\+Tensor\mbox{]} position\+\_\+ids=None, Optional\mbox{[}Tuple\mbox{[}torch.\+Tensor\mbox{]}\mbox{]} past\+\_\+key\+\_\+value=None, bool output\+\_\+attentions=False, bool use\+\_\+cache=False)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Directly copied the code from https://raw.githubusercontent.com/oobabooga/text-generation-webui/main/modules/llama_attn_hijack.py and made some adjustments
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacellama__xformers__attn__monkey__patch_a72c90a68df785b460595c2686c81fb3e}\index{llama\_xformers\_attn\_monkey\_patch@{llama\_xformers\_attn\_monkey\_patch}!replace\_llama\_attn\_with\_xformers\_attn@{replace\_llama\_attn\_with\_xformers\_attn}}
+\index{replace\_llama\_attn\_with\_xformers\_attn@{replace\_llama\_attn\_with\_xformers\_attn}!llama\_xformers\_attn\_monkey\_patch@{llama\_xformers\_attn\_monkey\_patch}}
+\doxysubsubsection{\texorpdfstring{replace\_llama\_attn\_with\_xformers\_attn()}{replace\_llama\_attn\_with\_xformers\_attn()}}
+{\footnotesize\ttfamily \label{namespacellama__xformers__attn__monkey__patch_a72c90a68df785b460595c2686c81fb3e} 
+llama\+\_\+xformers\+\_\+attn\+\_\+monkey\+\_\+patch.\+replace\+\_\+llama\+\_\+attn\+\_\+with\+\_\+xformers\+\_\+attn (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{llama__xformers__attn__monkey__patch_8py_source_l00019}{19}} of file \mbox{\hyperlink{llama__xformers__attn__monkey__patch_8py_source}{llama\+\_\+xformers\+\_\+attn\+\_\+monkey\+\_\+patch.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00019\ \textcolor{keyword}{def\ }replace\_llama\_attn\_with\_xformers\_attn():}
+\DoxyCodeLine{00020\ \ \ \ \ transformers.models.llama.modeling\_llama.LlamaAttention.forward\ =\ xformers\_forward}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacellama__xformers__attn__monkey__patch_ada32148ddb6fe04e1f43893c3f7c9480}\index{llama\_xformers\_attn\_monkey\_patch@{llama\_xformers\_attn\_monkey\_patch}!xformers\_forward@{xformers\_forward}}
+\index{xformers\_forward@{xformers\_forward}!llama\_xformers\_attn\_monkey\_patch@{llama\_xformers\_attn\_monkey\_patch}}
+\doxysubsubsection{\texorpdfstring{xformers\_forward()}{xformers\_forward()}}
+{\footnotesize\ttfamily \label{namespacellama__xformers__attn__monkey__patch_ada32148ddb6fe04e1f43893c3f7c9480} 
+ Tuple\mbox{[}torch.\+Tensor, Optional\mbox{[}torch.\+Tensor\mbox{]}, Optional\mbox{[}Tuple\mbox{[}torch.\+Tensor\mbox{]}\mbox{]}\mbox{]} llama\+\_\+xformers\+\_\+attn\+\_\+monkey\+\_\+patch.\+xformers\+\_\+forward (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{torch.\+Tensor}]{hidden\+\_\+states}{, }\item[{Optional\mbox{[}torch.\+Tensor\mbox{]} }]{attention\+\_\+mask}{ = {\ttfamily None}, }\item[{Optional\mbox{[}torch.\+Long\+Tensor\mbox{]} }]{position\+\_\+ids}{ = {\ttfamily None}, }\item[{Optional\mbox{[}Tuple\mbox{[}torch.\+Tensor\mbox{]}\mbox{]} }]{past\+\_\+key\+\_\+value}{ = {\ttfamily None}, }\item[{bool }]{output\+\_\+attentions}{ = {\ttfamily False}, }\item[{bool }]{use\+\_\+cache}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{llama__xformers__attn__monkey__patch_8py_source_l00023}{23}} of file \mbox{\hyperlink{llama__xformers__attn__monkey__patch_8py_source}{llama\+\_\+xformers\+\_\+attn\+\_\+monkey\+\_\+patch.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00031\ )\ -\/>\ Tuple[torch.Tensor,\ Optional[torch.Tensor],\ Optional[Tuple[torch.Tensor]]]:}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{\#\ pylint:\ disable=duplicate-\/code}}
+\DoxyCodeLine{00033\ \ \ \ \ bsz,\ q\_len,\ \_\ =\ hidden\_states.size()}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ query\_states\ =\ (}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ self.q\_proj(hidden\_states)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ .view(bsz,\ q\_len,\ self.num\_heads,\ self.head\_dim)}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ .transpose(1,\ 2)}
+\DoxyCodeLine{00039\ \ \ \ \ )}
+\DoxyCodeLine{00040\ \ \ \ \ key\_states\ =\ (}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ self.k\_proj(hidden\_states)}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ .view(bsz,\ q\_len,\ self.num\_heads,\ self.head\_dim)}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ .transpose(1,\ 2)}
+\DoxyCodeLine{00044\ \ \ \ \ )}
+\DoxyCodeLine{00045\ \ \ \ \ value\_states\ =\ (}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ self.v\_proj(hidden\_states)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ .view(bsz,\ q\_len,\ self.num\_heads,\ self.head\_dim)}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ .transpose(1,\ 2)}
+\DoxyCodeLine{00049\ \ \ \ \ )}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ kv\_seq\_len\ =\ key\_states.shape[-\/2]}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{if}\ past\_key\_value\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ kv\_seq\_len\ +=\ past\_key\_value[0].shape[-\/2]}
+\DoxyCodeLine{00054\ \ \ \ \ cos,\ sin\ =\ self.rotary\_emb(value\_states,\ seq\_len=kv\_seq\_len)}
+\DoxyCodeLine{00055\ \ \ \ \ (}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ query\_states,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ key\_states,}
+\DoxyCodeLine{00058\ \ \ \ \ )\ =\ transformers.models.llama.modeling\_llama.apply\_rotary\_pos\_emb(}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ query\_states,\ key\_states,\ cos,\ sin,\ position\_ids}
+\DoxyCodeLine{00060\ \ \ \ \ )}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{\#\ [bsz,\ nh,\ t,\ hd]}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{if}\ past\_key\_value\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ reuse\ k,\ v,\ self\_attention}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ key\_states\ =\ torch.cat([past\_key\_value[0],\ key\_states],\ dim=2)}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ value\_states\ =\ torch.cat([past\_key\_value[1],\ value\_states],\ dim=2)}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ past\_key\_value\ =\ (key\_states,\ value\_states)\ \textcolor{keywordflow}{if}\ use\_cache\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{comment}{\#\ We\ only\ apply\ xformers\ optimizations\ if\ we\ don't\ need\ to\ output\ the\ whole\ attention\ matrix}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ output\_attentions:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ query\_states\ =\ query\_states.transpose(1,\ 2)}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ key\_states\ =\ key\_states.transpose(1,\ 2)}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ value\_states\ =\ value\_states.transpose(1,\ 2)}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ This\ is\ a\ nasty\ hack.\ We\ know\ attention\_mask\ in\ transformers\ is\ either\ LowerTriangular\ or\ all\ Zeros.}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ We\ therefore\ check\ if\ one\ element\ in\ the\ upper\ triangular\ portion\ is\ zero.\ If\ it\ is,\ then\ the\ mask\ is\ all\ zeros.}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attention\_mask\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ attention\_mask[0,\ 0,\ 0,\ 1]\ ==\ 0:}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ input\ and\ output\ should\ be\ of\ form\ (bsz,\ q\_len,\ num\_heads,\ head\_dim)}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_output\ =\ xformers.ops.memory\_efficient\_attention(}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_states,\ key\_states,\ value\_states,\ attn\_bias=\textcolor{keywordtype}{None}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ input\ and\ output\ should\ be\ of\ form\ (bsz,\ q\_len,\ num\_heads,\ head\_dim)}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_output\ =\ xformers.ops.memory\_efficient\_attention(}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_states,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ key\_states,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_states,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attn\_bias=xformers.ops.LowerTriangularMask(),}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ attn\_weights\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ attn\_weights\ =\ torch.matmul(}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ query\_states,\ key\_states.transpose(2,\ 3)}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ )\ /\ math.sqrt(self.head\_dim)}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attn\_weights.size()\ !=\ (bsz,\ self.num\_heads,\ q\_len,\ kv\_seq\_len):}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}Attention\ weights\ should\ be\ of\ size\ \{(bsz\ *\ self.num\_heads,\ q\_len,\ kv\_seq\_len)\},\ but\ is"{}}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}\ \{attn\_weights.size()\}"{}}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attention\_mask\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attention\_mask.size()\ !=\ (bsz,\ 1,\ q\_len,\ kv\_seq\_len):}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}Attention\ mask\ should\ be\ of\ size\ \{(bsz,\ 1,\ q\_len,\ kv\_seq\_len)\},\ but\ is\ \{attention\_mask.size()\}"{}}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_weights\ =\ attn\_weights\ +\ attention\_mask}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_weights\ =\ torch.max(}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attn\_weights,\ torch.tensor(torch.finfo(attn\_weights.dtype).min)}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ upcast\ attention\ to\ fp32}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ attn\_weights\ =\ nn.functional.softmax(}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ attn\_weights,\ dim=-\/1,\ dtype=torch.float32}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ ).to(query\_states.dtype)}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ attn\_output\ =\ torch.matmul(attn\_weights,\ value\_states)}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ attn\_output.size()\ !=\ (bsz,\ self.num\_heads,\ q\_len,\ self.head\_dim):}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}\`{}attn\_output`\ should\ be\ of\ size\ \{(bsz,\ self.num\_heads,\ q\_len,\ self.head\_dim)\},\ but\ is"{}}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}\ \{attn\_output.size()\}"{}}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ attn\_output\ =\ attn\_output.transpose(1,\ 2)}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ attn\_output\ =\ attn\_output.reshape(bsz,\ q\_len,\ self.hidden\_size)}
+\DoxyCodeLine{00128\ \ \ \ \ attn\_output\ =\ self.o\_proj(attn\_output)}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ attn\_output,\ attn\_weights,\ past\_key\_value}
+
+\end{DoxyCode}
