@@ -14,7 +14,7 @@ Doxygen을 사용해 문서를 생성하고 GitHub Pages로 배포합니다.
 ---
 
 ## 🔗 관련 링크
-- 프로젝트 코드: [Rag (Facebook)]([https://github.com/salesforce/LAVIS/tree/main/projects/blip2](https://github.com/haotian-liu/LLaVA)](https://github.com/huggingface/transformers/tree/main/src/transformers/models/rag))
+- 프로젝트 코드: [Rag (Facebook)]((https://github.com/haotian-liu/LLaVA)](https://github.com/huggingface/transformers/tree/main/src/transformers/models/rag))
 - 문서 사이트: [여기에 GitHub Pages 링크 추가](https://username.github.io/repository)
 
 ---
