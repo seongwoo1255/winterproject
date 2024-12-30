@@ -14,7 +14,7 @@ Doxygen을 사용해 문서를 생성하고 GitHub Pages로 배포합니다.
 ---
 
 ## 🔗 관련 링크
-- 프로젝트 코드: [(Blip2 (Salesforce)] (https://github.com/salesforce/LAVIS/tree/main/projects/blip2)   
+- 프로젝트 코드: [Blip2 (Salesforce)] (https://github.com/salesforce/LAVIS/tree/main/projects/blip2)   
 - 문서화 코드: [Blip-2 (doxygen)] (https://github.com/seongwoo1255/winterproject/blob/blip-2/docs/Blip-2/html/index.html)
 
 
