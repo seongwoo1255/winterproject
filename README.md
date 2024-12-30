@@ -15,7 +15,7 @@ Doxygen을 사용해 문서를 생성하고 GitHub Pages로 배포합니다.
 
 ## 🔗 관련 링크
 - 프로젝트 코드: [CLIP (Openai)](https://github.com/OpenAI/CLIP)
-- 문서 사이트: [여기에 GitHub Pages 링크 추가](https://username.github.io/repository)
+- [Blip-2 문서 보기](https://seongwoo1255.github.io/winterproject/Blip-2/index.html)
 
 ---
 
